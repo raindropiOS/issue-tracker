@@ -6,6 +6,6 @@ target 'issue-tracker' do
   use_frameworks!
 
   # Pods for issue-tracker
-  pod 'SwiftLint'
+  pod 'SwiftLint' 
 
 end
