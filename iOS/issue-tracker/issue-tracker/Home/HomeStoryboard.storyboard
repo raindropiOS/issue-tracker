@@ -22,10 +22,10 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <items>
-                                    <tabBarItem selectedImage="exclamationmark.octagon" catalog="system" id="3jz-FP-Wut"/>
-                                    <tabBarItem title="Item" id="ZKV-yy-6n2"/>
-                                    <tabBarItem title="Item" id="2VT-jQ-xed"/>
-                                    <tabBarItem systemItem="more" id="Adb-qs-Dy1"/>
+                                    <tabBarItem title="이슈" image="exclamationmark.circle" catalog="system" selectedImage="exclamationmark.octagon" id="3jz-FP-Wut"/>
+                                    <tabBarItem title="레이블" image="tag" catalog="system" id="ZKV-yy-6n2"/>
+                                    <tabBarItem title="마일스톤" image="signpost.right" catalog="system" id="2VT-jQ-xed"/>
+                                    <tabBarItem title="내 계정" image="smiley" catalog="system" id="Adb-qs-Dy1"/>
                                 </items>
                             </tabBar>
                         </subviews>
@@ -42,7 +42,11 @@
         </scene>
     </scenes>
     <resources>
+        <image name="exclamationmark.circle" catalog="system" width="128" height="123"/>
         <image name="exclamationmark.octagon" catalog="system" width="128" height="112"/>
+        <image name="signpost.right" catalog="system" width="128" height="121"/>
+        <image name="smiley" catalog="system" width="128" height="123"/>
+        <image name="tag" catalog="system" width="128" height="118"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
