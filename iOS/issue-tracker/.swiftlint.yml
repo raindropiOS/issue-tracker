@@ -1,7 +1,6 @@
 disabled_rules:
-
+- line_length
 included:
 - issue-tracker
-
 excluded:
 - Pods
