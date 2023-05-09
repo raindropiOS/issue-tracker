@@ -9,9 +9,10 @@ import UIKit
 
 class HomeViewController: UIViewController {
 
+    @IBOutlet var homeTabBar: UITabBar!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
 
 }
