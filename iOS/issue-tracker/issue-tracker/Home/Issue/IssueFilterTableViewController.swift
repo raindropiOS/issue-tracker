@@ -8,7 +8,7 @@
 import UIKit
 
 class IssueFilterTableViewController: UITableViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -17,6 +17,9 @@ class IssueFilterTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        let filterOptionCellNib: UINib = UINib(nibName: "IssueFilterTableViewCell", bundle: nil)
+        tableView.register(filterOptionCellNib, forCellReuseIdentifier: "filterOptionCell")
     }
 
     // MARK: - Table view data source
@@ -35,10 +38,8 @@ class IssueFilterTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-        
-         
-
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "filterOptionCell", for: indexPath) as? IssueFilterTableViewCell else { return UITableViewCell() }
+        cell.configure(withOptionName: "filterOption")
         return cell
     }
 }
