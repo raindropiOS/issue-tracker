@@ -21,7 +21,7 @@ class IssueCollectionView: UICollectionView {
         registerCell()
     }
     private func registerCell() {
-        register(IssueCollectionViewCell.self, forCellWithReuseIdentifier: IssueCollectionViewCell.identifier)
+        register(UINib(nibName: "IssueCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: IssueCollectionViewCell.identifier)
         register(IssueCollectionViewHeaderCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: IssueCollectionViewHeaderCell.identifier)
     }
 }
@@ -62,13 +62,15 @@ extension IssueCollectionView: UICollectionViewDelegateFlowLayout {
         UIEdgeInsets(top: .zero, left: .zero, bottom: .zero, right: .zero)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = self.frame.width
+        let width = collectionView.frame.width
         let height = width / 3
+        print("cell:",width,height)
         return CGSize(width: width, height: height)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         let width = self.frame.width
         let height = width * 148 / 375
+        print("header:",width,height)
         return CGSize(width: width, height: height)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
