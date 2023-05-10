@@ -22,6 +22,7 @@ class IssueCollectionView: UICollectionView {
     }
     private func registerCell() {
         register(IssueCollectionViewCell.self, forCellWithReuseIdentifier: IssueCollectionViewCell.identifier)
+        register(IssueCollectionViewHeaderCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: IssueCollectionViewHeaderCell.identifier)
     }
 }
 
@@ -30,7 +31,7 @@ extension IssueCollectionView: UICollectionViewDelegate {
 
 extension IssueCollectionView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return 15
     }
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -41,6 +42,18 @@ extension IssueCollectionView: UICollectionViewDataSource {
     }
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         cell.backgroundColor = .red
+    }
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        switch kind {
+        case UICollectionView.elementKindSectionHeader:
+            guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: IssueCollectionViewHeaderCell.identifier, for: indexPath) as? IssueCollectionViewHeaderCell else {
+                return UICollectionReusableView()
+            }
+            headerView.backgroundColor = .orange
+            return headerView
+        default:
+            return UICollectionReusableView()
+        }
     }
 }
 
@@ -55,7 +68,7 @@ extension IssueCollectionView: UICollectionViewDelegateFlowLayout {
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         let width = self.frame.width
-        let height = width * 96 / 343
+        let height = width * 148 / 375
         return CGSize(width: width, height: height)
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
