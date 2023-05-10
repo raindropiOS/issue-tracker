@@ -14,10 +14,8 @@ class ViewController: UIViewController {
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
     }
     @objc func buttonTapped() {
-        let homeViewController = HomeViewController()
         let homeViewStoryboard = UIStoryboard(name: "HomeStoryboard", bundle: nil)
-        let VC = homeViewStoryboard.instantiateInitialViewController()!
-        navigationController?.pushViewController(VC, animated: true)
-        
+        let homeViewController = homeViewStoryboard.instantiateInitialViewController()!
+        navigationController?.pushViewController(homeViewController, animated: true)
     }
 }
