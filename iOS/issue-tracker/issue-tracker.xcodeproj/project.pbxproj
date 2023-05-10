@@ -18,6 +18,8 @@
 		E482787C2A09EA3400E91FA3 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E482787B2A09EA3400E91FA3 /* HomeViewController.swift */; };
 		E482787E2A09EA5300E91FA3 /* HomeStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E482787D2A09EA5300E91FA3 /* HomeStoryboard.storyboard */; };
 		E48278812A09ED1E00E91FA3 /* IssueTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48278802A09ED1E00E91FA3 /* IssueTabViewController.swift */; };
+		E48278912A0B771100E91FA3 /* IssueCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48278902A0B771100E91FA3 /* IssueCollectionView.swift */; };
+		E48278932A0B783F00E91FA3 /* IssueCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48278922A0B783F00E91FA3 /* IssueCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		E482787B2A09EA3400E91FA3 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		E482787D2A09EA5300E91FA3 /* HomeStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HomeStoryboard.storyboard; sourceTree = "<group>"; };
 		E48278802A09ED1E00E91FA3 /* IssueTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueTabViewController.swift; sourceTree = "<group>"; };
+		E48278902A0B771100E91FA3 /* IssueCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueCollectionView.swift; sourceTree = "<group>"; };
+		E48278922A0B783F00E91FA3 /* IssueCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +135,8 @@
 			isa = PBXGroup;
 			children = (
 				E48278802A09ED1E00E91FA3 /* IssueTabViewController.swift */,
+				E48278902A0B771100E91FA3 /* IssueCollectionView.swift */,
+				E48278922A0B783F00E91FA3 /* IssueCollectionViewCell.swift */,
 			);
 			path = Issue;
 			sourceTree = "<group>";
@@ -252,9 +258,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E48278912A0B771100E91FA3 /* IssueCollectionView.swift in Sources */,
 				E48278672A09DAC800E91FA3 /* ViewController.swift in Sources */,
 				E48278812A09ED1E00E91FA3 /* IssueTabViewController.swift in Sources */,
 				E48278632A09DAC800E91FA3 /* AppDelegate.swift in Sources */,
+				E48278932A0B783F00E91FA3 /* IssueCollectionViewCell.swift in Sources */,
 				E48278652A09DAC800E91FA3 /* SceneDelegate.swift in Sources */,
 				E482787C2A09EA3400E91FA3 /* HomeViewController.swift in Sources */,
 			);
