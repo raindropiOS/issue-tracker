@@ -36,21 +36,21 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Milestone" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="op5-ox-cAC">
-                        <rect key="frame" x="53" y="70" width="339" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Milestone" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="op5-ox-cAC">
+                        <rect key="frame" x="53" y="68.333333333333329" width="339" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" misplaced="YES" image="signpost.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="q9F-pn-4B5">
-                        <rect key="frame" x="20" y="68.333333333333329" width="28" height="23"/>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" image="signpost.right" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="q9F-pn-4B5">
+                        <rect key="frame" x="20" y="68.333333333333329" width="28" height="21"/>
                         <color key="tintColor" systemColor="labelColor"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="28" id="Bi7-Qv-LqL"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8bP-7t-gsr">
-                        <rect key="frame" x="31" y="98" width="58" height="24"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8bP-7t-gsr">
+                        <rect key="frame" x="31" y="96" width="58" height="26"/>
                         <color key="backgroundColor" systemColor="systemCyanColor"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="58" id="Wmy-j6-Msq"/>
@@ -71,6 +71,7 @@
                 <constraint firstItem="Ne7-SF-c0Q" firstAttribute="leading" secondItem="q9F-pn-4B5" secondAttribute="leading" id="OMj-08-fye"/>
                 <constraint firstAttribute="bottom" secondItem="8bP-7t-gsr" secondAttribute="bottom" constant="9" id="YNF-7k-3ml"/>
                 <constraint firstItem="Ne7-SF-c0Q" firstAttribute="leading" secondItem="bOe-il-Mrh" secondAttribute="leading" id="lcD-5G-B1l"/>
+                <constraint firstItem="ZTg-uK-7eu" firstAttribute="trailing" secondItem="op5-ox-cAC" secondAttribute="trailing" constant="1" id="mAk-a8-83B"/>
                 <constraint firstItem="bOe-il-Mrh" firstAttribute="trailing" secondItem="op5-ox-cAC" secondAttribute="trailing" id="mtD-nf-uGI"/>
                 <constraint firstItem="bOe-il-Mrh" firstAttribute="leading" secondItem="ZTg-uK-7eu" secondAttribute="leading" constant="20" id="oq2-1Z-PME"/>
                 <constraint firstItem="8bP-7t-gsr" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="31" id="owX-Ad-h0K"/>
