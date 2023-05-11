@@ -11,6 +11,7 @@ module.exports = {
   },
   plugins: ['react'],
   rules: {
+    'import/no-extraneous-dependencies': 'off',
     'linebreak-style': 0,
     'import/prefer-default-export': 'off',
     'react/react-in-jsx-scope': 'off',
