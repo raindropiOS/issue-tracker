@@ -25,5 +25,17 @@ class IssueCollectionViewCell: UICollectionViewCell {
     private func setBadge() {
         badge.clipsToBounds = true
         badge.layer.cornerRadius = 15
+        badge.text = "Label"
+        
+        let font = badge.font
+        let text = badge.text ?? ""
+
+        let attributes = [NSAttributedString.Key.font: font]
+        let textSize = (text as NSString).size(withAttributes: attributes)
+        let textWidth = ceil(textSize.width)
+        
+        badge.translatesAutoresizingMaskIntoConstraints = false
+        
+        badge.widthAnchor.constraint(equalToConstant: textWidth*1.7).isActive = true
     }
 }

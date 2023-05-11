@@ -69,7 +69,7 @@ extension IssueCollectionView: UICollectionViewDelegateFlowLayout {
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         let width = self.frame.width
-        let height = width * 148 / 375
+        let height = width / 4.7
         print("header:",width,height)
         return CGSize(width: width, height: height)
     }
