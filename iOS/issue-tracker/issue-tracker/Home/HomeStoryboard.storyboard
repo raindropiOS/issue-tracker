@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -53,6 +54,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="레이블" image="tag" catalog="system" id="iza-MF-cjj"/>
+                    <navigationItem key="navigationItem" id="JAN-jl-pO1"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wIp-9r-1pb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -68,37 +70,69 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bus-B5-wOJ">
                                 <rect key="frame" x="0.0" y="59" width="393" height="710"/>
-
                                 <subviews>
+                                    <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="043-4g-Nc4">
+                                        <rect key="frame" x="0.0" y="-9" width="393" height="44"/>
+                                        <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                        <items>
+                                            <navigationItem id="e36-H7-TrP">
+                                                <barButtonItem key="leftBarButtonItem" style="plain" id="hP7-yc-NZz">
+                                                    <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="top" lineBreakMode="middleTruncation" id="Cuf-1D-390">
+                                                        <rect key="frame" x="16" y="4.6666666666666679" width="54" height="35"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="plain" title="필터"/>
+                                                        <connections>
+                                                            <segue destination="Yfx-Yi-e9y" kind="presentation" id="dQy-Qs-LyE"/>
+                                                        </connections>
+                                                    </button>
+                                                    <color key="tintColor" name="AccentColor"/>
+                                                    <connections>
+                                                        <action selector="btn:" destination="hgp-X0-zP5" id="fdK-sZ-Lyn"/>
+                                                    </connections>
+                                                </barButtonItem>
+                                                <barButtonItem key="rightBarButtonItem" style="plain" id="0VV-ab-vqX">
+                                                    <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="lZF-VX-dp6">
+                                                        <rect key="frame" x="323" y="4.6666666666666679" width="54" height="35"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="plain" title="선택"/>
+                                                    </button>
+                                                    <color key="tintColor" name="AccentColor"/>
+                                                </barButtonItem>
+                                            </navigationItem>
+                                        </items>
+                                    </navigationBar>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="tnt-wc-ugX" customClass="IssueCollectionView" customModule="issue_tracker" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="710"/>
+                                        <rect key="frame" x="0.0" y="35" width="393" height="675"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="sHQ-Wb-be0">
-                                            <size key="itemSize" width="393" height="131"/>
+                                            <size key="itemSize" width="137" height="131"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="hgO-nn-fFK">
-                                                <rect key="frame" x="0.0" y="0.0" width="393" height="131"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="137" height="131"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="T41-MW-06R">
-                                                    <rect key="frame" x="0.0" y="0.0" width="393" height="131"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="137" height="131"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </collectionViewCellContentView>
-                                                <size key="customSize" width="393" height="131"/>
+                                                <size key="customSize" width="137" height="131"/>
                                             </collectionViewCell>
                                         </cells>
                                     </collectionView>
-
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemPurpleColor"/>
                                 <constraints>
-                                    <constraint firstItem="tnt-wc-ugX" firstAttribute="top" secondItem="bus-B5-wOJ" secondAttribute="top" id="I0d-9J-2H6"/>
-                                    <constraint firstAttribute="bottom" secondItem="tnt-wc-ugX" secondAttribute="bottom" id="LtL-MW-tRb"/>
-                                    <constraint firstItem="tnt-wc-ugX" firstAttribute="centerX" secondItem="bus-B5-wOJ" secondAttribute="centerX" id="ZiA-00-pVo"/>
-                                    <constraint firstItem="tnt-wc-ugX" firstAttribute="width" secondItem="bus-B5-wOJ" secondAttribute="width" id="tWN-x2-Qpb"/>
+                                    <constraint firstItem="043-4g-Nc4" firstAttribute="width" secondItem="bus-B5-wOJ" secondAttribute="width" id="BV3-Cr-GYf"/>
+                                    <constraint firstItem="tnt-wc-ugX" firstAttribute="top" secondItem="043-4g-Nc4" secondAttribute="bottom" id="GjI-by-C5M"/>
+                                    <constraint firstItem="043-4g-Nc4" firstAttribute="top" secondItem="bus-B5-wOJ" secondAttribute="top" constant="-9" id="SWt-Bx-Mxt"/>
+                                    <constraint firstItem="tnt-wc-ugX" firstAttribute="trailing" secondItem="043-4g-Nc4" secondAttribute="trailing" id="XLM-Kw-N12"/>
+                                    <constraint firstItem="043-4g-Nc4" firstAttribute="centerX" secondItem="bus-B5-wOJ" secondAttribute="centerX" id="bmS-Wt-CXm"/>
+                                    <constraint firstItem="tnt-wc-ugX" firstAttribute="height" secondItem="bus-B5-wOJ" secondAttribute="height" multiplier="0.950704" id="sK5-6z-C4m"/>
+                                    <constraint firstItem="tnt-wc-ugX" firstAttribute="leading" secondItem="043-4g-Nc4" secondAttribute="leading" id="shQ-Ai-4L0"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -109,6 +143,7 @@
                             <constraint firstItem="bus-B5-wOJ" firstAttribute="top" secondItem="ef0-Tg-bER" secondAttribute="top" id="CiU-eR-vsO"/>
                             <constraint firstItem="ef0-Tg-bER" firstAttribute="bottom" secondItem="bus-B5-wOJ" secondAttribute="bottom" id="a1R-7O-kzt"/>
                             <constraint firstItem="bus-B5-wOJ" firstAttribute="centerX" secondItem="ef0-Tg-bER" secondAttribute="centerX" id="d5f-O1-KBk"/>
+                            <constraint firstItem="ef0-Tg-bER" firstAttribute="bottom" secondItem="tnt-wc-ugX" secondAttribute="bottom" id="ioZ-Il-hpf"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="이슈" image="exclamationmark.circle" catalog="system" id="Tjq-5B-gcQ"/>
@@ -175,11 +210,11 @@
         <image name="signpost.right" catalog="system" width="128" height="121"/>
         <image name="smiley" catalog="system" width="128" height="123"/>
         <image name="tag" catalog="system" width="128" height="118"/>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemPurpleColor">
-            <color red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

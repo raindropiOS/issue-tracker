@@ -14,4 +14,10 @@ class IssueTabViewController: UIViewController {
         super.viewDidLoad()
         backPlane.addSubview(collectionView)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let navigationController = segue.destination as? UINavigationController{
+            let filterTableViewController = navigationController.topViewController as? IssueFilterTableViewController
+        }
+    }
 }
