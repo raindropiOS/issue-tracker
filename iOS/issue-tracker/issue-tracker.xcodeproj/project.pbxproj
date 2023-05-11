@@ -8,7 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		5610FF8ABBD23DCD832DAE04 /* Pods_issue_tracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4A228AF8694FA3F29925403 /* Pods_issue_tracker.framework */; };
+		8F334AAB2A0B7E7C0070DDEA /* IssueFilterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F334AAA2A0B7E7C0070DDEA /* IssueFilterTableViewController.swift */; };
 		8F4456BD2A09E67100EC6B39 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 8F4456BC2A09E67100EC6B39 /* .swiftlint.yml */; };
+		8FBE800B2A0B8D8B00D9DA1A /* IssueFilterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FBE80092A0B8D8B00D9DA1A /* IssueFilterTableViewCell.swift */; };
+		8FBE800C2A0B8D8B00D9DA1A /* IssueFilterTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FBE800A2A0B8D8B00D9DA1A /* IssueFilterTableViewCell.xib */; };
 		E48278632A09DAC800E91FA3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48278622A09DAC800E91FA3 /* AppDelegate.swift */; };
 		E48278652A09DAC800E91FA3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48278642A09DAC800E91FA3 /* SceneDelegate.swift */; };
 		E48278672A09DAC800E91FA3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48278662A09DAC800E91FA3 /* ViewController.swift */; };
@@ -28,7 +31,10 @@
 /* Begin PBXFileReference section */
 		6925B422C61C66FF8FFD96C3 /* Pods-issue-tracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-issue-tracker.debug.xcconfig"; path = "Target Support Files/Pods-issue-tracker/Pods-issue-tracker.debug.xcconfig"; sourceTree = "<group>"; };
 		6FA8EEB52250DFCA5841EF77 /* Pods-issue-tracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-issue-tracker.release.xcconfig"; path = "Target Support Files/Pods-issue-tracker/Pods-issue-tracker.release.xcconfig"; sourceTree = "<group>"; };
+		8F334AAA2A0B7E7C0070DDEA /* IssueFilterTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueFilterTableViewController.swift; sourceTree = "<group>"; };
 		8F4456BC2A09E67100EC6B39 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		8FBE80092A0B8D8B00D9DA1A /* IssueFilterTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueFilterTableViewCell.swift; sourceTree = "<group>"; };
+		8FBE800A2A0B8D8B00D9DA1A /* IssueFilterTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IssueFilterTableViewCell.xib; sourceTree = "<group>"; };
 		C4A228AF8694FA3F29925403 /* Pods_issue_tracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_issue_tracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E482785F2A09DAC800E91FA3 /* issue-tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "issue-tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E48278622A09DAC800E91FA3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -141,11 +147,17 @@
 			isa = PBXGroup;
 			children = (
 				E48278802A09ED1E00E91FA3 /* IssueTabViewController.swift */,
+
+				8F334AAA2A0B7E7C0070DDEA /* IssueFilterTableViewController.swift */,
+				8FBE80092A0B8D8B00D9DA1A /* IssueFilterTableViewCell.swift */,
+				8FBE800A2A0B8D8B00D9DA1A /* IssueFilterTableViewCell.xib */,
+
 				E48278902A0B771100E91FA3 /* IssueCollectionView.swift */,
 				E482789A2A0BAC7700E91FA3 /* IssueCollectionViewCell.swift */,
 				E482789B2A0BAC7700E91FA3 /* IssueCollectionViewCell.xib */,
 				E48278942A0B913800E91FA3 /* IssueCollectionViewHeaderCell.swift */,
 				E48278962A0B989400E91FA3 /* HeaderTitleLabel.swift */,
+
 			);
 			path = Issue;
 			sourceTree = "<group>";
@@ -215,6 +227,7 @@
 				E482786F2A09DAC900E91FA3 /* LaunchScreen.storyboard in Resources */,
 				E482786C2A09DAC900E91FA3 /* Assets.xcassets in Resources */,
 				E482786A2A09DAC800E91FA3 /* Main.storyboard in Resources */,
+				8FBE800C2A0B8D8B00D9DA1A /* IssueFilterTableViewCell.xib in Resources */,
 				E482787E2A09EA5300E91FA3 /* HomeStoryboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -274,6 +287,8 @@
 				E48278812A09ED1E00E91FA3 /* IssueTabViewController.swift in Sources */,
 				E48278972A0B989400E91FA3 /* HeaderTitleLabel.swift in Sources */,
 				E48278632A09DAC800E91FA3 /* AppDelegate.swift in Sources */,
+				8F334AAB2A0B7E7C0070DDEA /* IssueFilterTableViewController.swift in Sources */,
+				8FBE800B2A0B8D8B00D9DA1A /* IssueFilterTableViewCell.swift in Sources */,
 				E48278652A09DAC800E91FA3 /* SceneDelegate.swift in Sources */,
 				E482787C2A09EA3400E91FA3 /* HomeViewController.swift in Sources */,
 				E48278952A0B913800E91FA3 /* IssueCollectionViewHeaderCell.swift in Sources */,
