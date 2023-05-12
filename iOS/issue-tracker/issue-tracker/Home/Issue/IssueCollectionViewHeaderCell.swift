@@ -10,9 +10,12 @@ import UIKit
 class IssueCollectionViewHeaderCell: UICollectionReusableView {
     static let identifier = "Header"
 
+    @IBOutlet var title: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        setTitle()
+    func setTitle() {
+        title.font = UIFont.systemFont(ofSize: safeAreaLayoutGuide.owningView!.frame.height * 10/100, weight: .bold)
     }
     
 }
