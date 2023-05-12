@@ -29,19 +29,13 @@ class IssueFilterTableViewCell: UITableViewCell {
         checkmarkView.image = tintCheckmarkImage
     }
     
-    func setOptionName(with optionName : String) {
+    func setOptionName(with optionName: String) {
         self.filterOptionLabel.text = optionName
     }
     
     func toggleCheckmarkColor() {
-        if isOptionSelected {
-            checkmarkView.image = tintCheckmarkImage
-        } else {
-            checkmarkView.image = grayCheckmarkImage
-        }
-        
-        isOptionSelected = !isOptionSelected
+        self.isOptionSelected.toggle()
+        checkmarkView.image = isOptionSelected ? tintCheckmarkImage : grayCheckmarkImage
     }
-    
 }
 
