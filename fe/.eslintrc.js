@@ -20,5 +20,7 @@ module.exports = {
       { namedComponents: ['arrow-function'] },
     ],
     'no-unused-vars': 'warn',
+    'arrow-body-style': 'off',
+    'react/prop-types': 'off',
   },
 };
