@@ -11,11 +11,20 @@ class IssueCollectionViewHeaderCell: UICollectionReusableView {
     static let identifier = "Header"
 
     @IBOutlet var title: UILabel!
+    
+    @IBOutlet var searchBar: UISearchBar!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         setTitle()
+        setSearchBar()
+    }
+    
     func setTitle() {
-        title.font = UIFont.systemFont(ofSize: safeAreaLayoutGuide.owningView!.frame.height * 10/100, weight: .bold)
+        title.font = UIFont.systemFont(ofSize: safeAreaLayoutGuide.owningView!.frame.height * 30/100, weight: .bold)
+    }
+    
+    func setSearchBar() {
     }
     
 }
