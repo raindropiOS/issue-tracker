@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import FilterBar from './components/FilterBar';
 import GlobalStyles from './components/GlobalStyles';
+import IssueTable from './components/IssueTable';
 
 const App = () => {
   const [issues, setIssues] = useState([]);
@@ -25,6 +26,11 @@ const App = () => {
     <div>
       <GlobalStyles />
       <FilterBar filterOptions={filterOptions} />
+      <IssueTable
+        openedIssueCount={counts.openedIssueCount}
+        closedIssueCount={counts.closedIssueCount}
+        isOpened={filterOptions.isOpened}
+      />
     </div>
   );
 };
