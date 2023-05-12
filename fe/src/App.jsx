@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import GlobalStyles from './components/GlobalStyles';
+import IssueTable from './components/IssueTable';
 
 const App = () => {
   const [issues, setIssues] = useState([]);
@@ -18,6 +20,15 @@ const App = () => {
     // milestone: null,
     // author: null,
   });
-  return <div>hello world</div>;
+  return (
+    <div>
+      <GlobalStyles />
+      <IssueTable
+        openedIssueCount={counts.openedIssueCount}
+        closedIssueCount={counts.closedIssueCount}
+        isOpened={filterOptions.isOpened}
+      />
+    </div>
+  );
 };
 export default App;
