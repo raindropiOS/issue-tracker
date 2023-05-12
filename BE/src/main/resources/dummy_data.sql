@@ -16,9 +16,15 @@ values ('첫 번째 이슈 내용', true, '제목 1', 1234, 'BE STEP1'), ('두 �
 select * from ISSUE;
 
 desc LABEL;
-insert into LABEL(name, description, background_color, text_color, issue_number)
-values ('feature', '기능을 만들었슴둥', '#000000', '#004DE3', 7);
+insert into LABEL(name, description, background_color, text_color)
+values ('feature', '기능을 만들었슴둥', '#000000', '#004DE3'),
+       ('fix', '버그를 고쳤음', '#123456', '#654321');
 select * from LABEL;
+
+desc issue_label_relation;
+insert into issue_label_relation(issue_number, label_name)
+values (1, 'feature'), (1, 'fix'), (2, 'fix');
+select * from issue_label_relation;
 
 desc IMAGE_FOR_USER;
 insert into IMAGE_FOR_USER(url, USER_id)
