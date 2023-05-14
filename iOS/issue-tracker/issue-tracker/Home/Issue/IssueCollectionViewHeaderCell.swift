@@ -21,10 +21,11 @@ class IssueCollectionViewHeaderCell: UICollectionReusableView {
     }
     
     func setTitle() {
-        title.font = UIFont.systemFont(ofSize: safeAreaLayoutGuide.owningView!.frame.height * 30/100, weight: .bold)
+        title.font = UIFont.systemFont(ofSize: safeAreaLayoutGuide.owningView!.frame.height * 0.35, weight: .bold)
     }
     
     func setSearchBar() {
+
     }
     
 }
