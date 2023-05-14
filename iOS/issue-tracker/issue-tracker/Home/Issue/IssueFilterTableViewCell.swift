@@ -34,13 +34,12 @@ class IssueFilterTableViewCell: UITableViewCell {
     }
     
     func toggleCheckmarkColor() {
+        isOptionSelected = !isOptionSelected
         if isOptionSelected {
             checkmarkView.image = tintCheckmarkImage
         } else {
             checkmarkView.image = grayCheckmarkImage
         }
-        
-        isOptionSelected = !isOptionSelected
     }
     
 }
