@@ -75,7 +75,7 @@ public class IssueRepository {
         int issueNumber = rs.getInt("number");
         String issueTitle = rs.getString("title");
         boolean issueState = rs.getBoolean("state");
-        LocalDateTime issueCreatedDate = rs.getTimestamp("created_date").toLocalDateTime();
+        LocalDateTime issueCreatedDate = rs.getObject("created_date", LocalDateTime.class);
         String milestoneName = rs.getString("milestone_name");
         String userNickName = rs.getString("nickname");
         String userImageUrl = rs.getString("imageUrl");
@@ -85,7 +85,7 @@ public class IssueRepository {
 
         SimpleAuthor simpleAuthor = new SimpleAuthor(userNickName, userImageUrl);
         SimpleMilestone simpleMilestone = new SimpleMilestone(milestoneName);
-        SimpleLabel simpleLabel = new SimpleLabel(labelName, labelBackgroundColor, labelTextColor);
+        SimpleLabel simpleLabel = new SimpleLabel(labelName, labelTextColor, labelBackgroundColor);
 
         issue.setNumber(issueNumber);
         issue.setTitle(issueTitle);
