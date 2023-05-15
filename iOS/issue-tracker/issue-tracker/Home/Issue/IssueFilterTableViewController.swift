@@ -8,6 +8,8 @@
 import UIKit
 
 class IssueFilterTableViewController: UITableViewController {
+    private let checkmarkImage = UIImage(systemName: "checkmark")
+    private let grayCheckmarkImage = UIImage(systemName: "checkmark")?.withTintColor(.gray, renderingMode: .alwaysOriginal)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,14 +34,14 @@ class IssueFilterTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "filterOptionCell", for: indexPath) as? IssueFilterTableViewCell else { return UITableViewCell() }
-        cell.setOptionName(with: "filterOption")
+        cell.configureWith(optionName: "Filter option", selectedImage: checkmarkImage, deselectedImage: grayCheckmarkImage)
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if let cell = tableView.cellForRow(at: indexPath) as? IssueFilterTableViewCell {
-            cell.toggleCheckmarkColor()
+            cell.toggleImage()
         }
     }
     
