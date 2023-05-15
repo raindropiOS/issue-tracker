@@ -11,16 +11,19 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="U6b-Vx-4bR" customClass="IssueCollectionViewHeaderCell" customModule="issue_tracker" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="393" height="83"/>
+            <rect key="frame" x="0.0" y="0.0" width="393" height="113"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
-                <searchBar contentMode="redraw" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GM0-g7-soW">
-                    <rect key="frame" x="0.0" y="27" width="393" height="56"/>
+                <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="GM0-g7-soW">
+                    <rect key="frame" x="0.0" y="57" width="393" height="56"/>
                     <textInputTraits key="textInputTraits"/>
                 </searchBar>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="이슈" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q5p-12-QF4">
-                    <rect key="frame" x="16" y="8" width="377" height="33"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이슈" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q5p-12-QF4">
+                    <rect key="frame" x="16" y="0.0" width="377" height="57"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="57" id="Dpf-u5-cql"/>
+                        <constraint firstAttribute="width" constant="377" id="rwh-Af-ICh"/>
+                    </constraints>
                     <fontDescription key="fontDescription" name=".AppleSDGothicNeoI-Regular" family=".Apple SD Gothic NeoI" pointSize="30"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -28,18 +31,20 @@
             </subviews>
             <viewLayoutGuide key="safeArea" id="VXr-Tz-HHm"/>
             <constraints>
-                <constraint firstItem="GM0-g7-soW" firstAttribute="bottom" secondItem="VXr-Tz-HHm" secondAttribute="bottom" constant="24" id="Emu-d3-eCT"/>
-                <constraint firstItem="GM0-g7-soW" firstAttribute="leading" secondItem="VXr-Tz-HHm" secondAttribute="leading" id="Joz-Qh-5tq"/>
-                <constraint firstItem="VXr-Tz-HHm" firstAttribute="trailing" secondItem="GM0-g7-soW" secondAttribute="trailing" id="MPx-uO-ASu"/>
-                <constraint firstItem="GM0-g7-soW" firstAttribute="centerX" secondItem="VXr-Tz-HHm" secondAttribute="centerX" id="ccH-J3-bBj"/>
-                <constraint firstItem="GM0-g7-soW" firstAttribute="width" secondItem="VXr-Tz-HHm" secondAttribute="width" id="dZB-aj-wEc"/>
-                <constraint firstItem="GM0-g7-soW" firstAttribute="bottom" secondItem="VXr-Tz-HHm" secondAttribute="bottom" constant="24" id="nJO-OK-ybY"/>
+                <constraint firstItem="GM0-g7-soW" firstAttribute="top" secondItem="q5p-12-QF4" secondAttribute="bottom" id="6w8-Ji-XbE"/>
+                <constraint firstItem="GM0-g7-soW" firstAttribute="width" secondItem="U6b-Vx-4bR" secondAttribute="width" id="AkB-uZ-Ga7"/>
+                <constraint firstItem="q5p-12-QF4" firstAttribute="leading" secondItem="VXr-Tz-HHm" secondAttribute="leading" constant="16" id="Jnw-ar-FjN"/>
+                <constraint firstItem="VXr-Tz-HHm" firstAttribute="trailing" secondItem="q5p-12-QF4" secondAttribute="trailing" id="M0q-Dx-jKS"/>
+                <constraint firstItem="GM0-g7-soW" firstAttribute="centerX" secondItem="VXr-Tz-HHm" secondAttribute="centerX" id="UVC-Lc-1tI"/>
+                <constraint firstItem="GM0-g7-soW" firstAttribute="width" secondItem="U6b-Vx-4bR" secondAttribute="height" multiplier="393:113" id="fCo-pN-Him"/>
+                <constraint firstItem="q5p-12-QF4" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" id="ka8-7N-vL6"/>
+                <constraint firstAttribute="bottom" secondItem="GM0-g7-soW" secondAttribute="bottom" id="zzo-Os-SiE"/>
             </constraints>
             <connections>
                 <outlet property="searchBar" destination="GM0-g7-soW" id="oz2-S4-or3"/>
                 <outlet property="title" destination="q5p-12-QF4" id="3NF-8L-LT9"/>
             </connections>
-            <point key="canvasLocation" x="48.091603053435115" y="-11.619718309859156"/>
+            <point key="canvasLocation" x="48.091603053435115" y="-1.0563380281690142"/>
         </collectionReusableView>
     </objects>
 </document>
