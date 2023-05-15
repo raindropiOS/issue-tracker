@@ -7,7 +7,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 
@@ -23,15 +22,25 @@ public class IssueRepository {
     public List<FeSimpleIssue> getFeSimpleIssues() {
         StringBuilder sb = new StringBuilder();
         sb.append("select i.number, i.title, i.state, i.created_date, m.name as milestone_name, u.nickname,").append(" \n");
-        sb.append("(select image.url from IMAGE_FOR_USER image where image.USER_id = u.id) as imageUrl, l.name as label_name, l.background_color, l.text_color").append(" \n");
+        sb.append("(select image.url from IMAGE_FOR_USER image where image.USER_id = u.id) as imageUrl").append(" \n");
         sb.append("FROM ISSUE i").append(" \n");
         sb.append("inner join USER u on i.user_id = u.id").append(" \n");
-        sb.append("left join ISSUE_LABEL_RELATION r on i.number = r.issue_number").append(" \n");
-        sb.append("left join LABEL l on r.label_name = l.name").append(" \n");
         sb.append("left join MILESTONE m on i.milestone_name = m.name;");
+
         String sql = sb.toString();
 
         return template.query(sql, feSimpleIssueRowMapper);
+    }
+
+    public List<SimpleLabel> getSimpleLabels() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("SELECT R.issue_number, R.label_name, L.background_color, L.text_color").append(" \n");
+        sb.append("FROM ISSUE_LABEL_RELATION as R").append(" \n");
+        sb.append("INNER JOIN LABEL L on r.label_name = L.name;");
+
+        String sql = sb.toString();
+
+        return template.query(sql, new BeanPropertyRowMapper<>(SimpleLabel.class) );
     }
 
     public Integer getCountOpenedIssueState() {
@@ -75,11 +84,9 @@ public class IssueRepository {
         FeSimpleIssue feSimpleIssue = new BeanPropertyRowMapper<>(FeSimpleIssue.class).mapRow(rs, rowNum);
         SimpleMilestone simpleMilestone = new BeanPropertyRowMapper<>(SimpleMilestone.class).mapRow(rs, rowNum);
         SimpleAuthor simpleAuthor = new BeanPropertyRowMapper<>(SimpleAuthor.class).mapRow(rs, rowNum);
-        SimpleLabel simpleLabel = new BeanPropertyRowMapper<>(SimpleLabel.class).mapRow(rs, rowNum);
 
         feSimpleIssue.setMilestone(simpleMilestone);
         feSimpleIssue.setAuthor(simpleAuthor);
-        feSimpleIssue.addLabel(simpleLabel);
 
         return feSimpleIssue;
     };
