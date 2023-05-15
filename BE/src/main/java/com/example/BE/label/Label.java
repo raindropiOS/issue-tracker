@@ -54,14 +54,4 @@ public class Label {
     public void setTextColor(String textColor) {
         this.textColor = textColor;
     }
-
-    @Override
-    public String toString() {
-        return "Label{" +
-                "name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", backgroundColor='" + backgroundColor + '\'' +
-                ", textColor='" + textColor + '\'' +
-                '}';
-    }
 }

@@ -104,18 +104,4 @@ public class Issue {
     public void add(IssueLabelMap issueLabel) {
         this.labels.add(issueLabel.getLabel());
     }
-
-    @Override
-    public String toString() {
-        return "Issue{" +
-                "number=" + number +
-                ", title='" + title + '\'' +
-                ", contents='" + contents + '\'' +
-                ", state=" + state +
-                ", createdDate=" + createdDate +
-                ", milestone=" + milestone +
-                ", user=" + user +
-                ", labels=" + labels +
-                '}';
-    }
 }

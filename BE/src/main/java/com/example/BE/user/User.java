@@ -54,14 +54,4 @@ public class User {
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
     }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id='" + id + '\'' +
-                ", password='" + password + '\'' +
-                ", nickname='" + nickname + '\'' +
-                ", imgUrl='" + imgUrl + '\'' +
-                '}';
-    }
 }

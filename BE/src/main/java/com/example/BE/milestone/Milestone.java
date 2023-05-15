@@ -50,13 +50,4 @@ public class Milestone {
     public void setDescriptionForLabel(String descriptionForLabel) {
         this.descriptionForLabel = descriptionForLabel;
     }
-
-    @Override
-    public String toString() {
-        return "Milestone{" +
-                "name='" + name + '\'' +
-                ", scheduledCompletionDate=" + scheduledCompletionDate +
-                ", descriptionForLabel='" + descriptionForLabel + '\'' +
-                '}';
-    }
 }

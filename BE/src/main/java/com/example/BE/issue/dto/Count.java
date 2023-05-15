@@ -48,14 +48,4 @@ public class Count {
     public void setMilestoneCount(int milestoneCount) {
         this.milestoneCount = milestoneCount;
     }
-
-    @Override
-    public String toString() {
-        return "Count{" +
-                "openedIssuesCount=" + openedIssuesCount +
-                ", closedIssuesCount=" + closedIssuesCount +
-                ", labelsCount=" + labelsCount +
-                ", milestoneCount=" + milestoneCount +
-                '}';
-    }
 }
