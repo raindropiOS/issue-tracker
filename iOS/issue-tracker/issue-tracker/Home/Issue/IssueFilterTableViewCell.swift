@@ -11,7 +11,7 @@ class IssueFilterTableViewCell: UITableViewCell {
 
     @IBOutlet var filterOptionLabel: UILabel!
     @IBOutlet var checkmarkView: UIImageView!
-    let config = UIImage.SymbolConfiguration(pointSize: 14)
+    private let config = UIImage.SymbolConfiguration(pointSize: 14)
     var isOptionSelected = false
     lazy var tintCheckmarkImage = UIImage(systemName: "checkmark", withConfiguration: config)
     lazy var grayCheckmarkImage = tintCheckmarkImage?.withTintColor(.gray, renderingMode: .alwaysOriginal)
