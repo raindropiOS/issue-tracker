@@ -10,15 +10,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api-fe")
 public class FeIssueController {
 
-    private final IssueService issueService;
+    private final FeIssueService feIssueService;
 
     @Autowired
-    public FeIssueController(IssueService issueService) {
-        this.issueService = issueService;
+    public FeIssueController(FeIssueService feIssueService) {
+        this.feIssueService = feIssueService;
     }
 
     @GetMapping("/issues")
     public FeIssueResponse createFeIssueResponse() {
-        return issueService.makeFeIssueResponse();
+        return feIssueService.makeFeIssueResponse();
     }
 }

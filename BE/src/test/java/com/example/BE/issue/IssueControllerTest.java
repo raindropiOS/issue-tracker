@@ -17,7 +17,7 @@ class IssueControllerTest {
     MockMvc mvc;
 
     @MockBean
-    IssueService issueService;
+    FeIssueService feIssueService;
 
     @Test
     @DisplayName("/api-fe/issues 로 GET 요청 시, FE 용 API 를 반환한다.")

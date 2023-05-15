@@ -7,12 +7,12 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class IssueService {
+public class FeIssueService {
 
     private final IssueRepository issueRepository;
 
     @Autowired
-    public IssueService(IssueRepository issueRepository) {
+    public FeIssueService(IssueRepository issueRepository) {
         this.issueRepository = issueRepository;
     }
 
