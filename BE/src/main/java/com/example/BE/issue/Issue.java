@@ -21,6 +21,16 @@ public class Issue {
     private boolean state;
     private LocalDateTime createdDate;
 
+    private LocalDateTime lastUpdatedDate;
+
+    public LocalDateTime getLastUpdatedDate() {
+        return lastUpdatedDate;
+    }
+
+    public void setLastUpdatedDate(LocalDateTime lastUpdatedDate) {
+        this.lastUpdatedDate = lastUpdatedDate;
+    }
+
     private Milestone milestone;
     private User user;
 
@@ -101,6 +111,7 @@ public class Issue {
                 ", contents='" + contents + '\'' +
                 ", state=" + state +
                 ", createdDate=" + createdDate +
+                ", lastUpdatedDate=" + lastUpdatedDate +
                 ", milestone=" + milestone +
                 ", user=" + user +
                 ", labels=" + labels +
