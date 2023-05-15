@@ -17,15 +17,9 @@ class IssueCollectionViewHeaderCell: UICollectionReusableView {
     override func awakeFromNib() {
         super.awakeFromNib()
         setTitle()
-        setSearchBar()
     }
     
-    func setTitle() {
+    private func setTitle() {
         title.font = UIFont.systemFont(ofSize: safeAreaLayoutGuide.owningView!.frame.height * 0.35, weight: .bold)
     }
-    
-    func setSearchBar() {
-
-    }
-    
 }
