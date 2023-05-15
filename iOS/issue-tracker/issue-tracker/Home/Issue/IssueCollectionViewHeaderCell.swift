@@ -8,7 +8,7 @@
 import UIKit
 
 class IssueCollectionViewHeaderCell: UICollectionReusableView {
-    static let identifier = "Header"
+    static let identifier = "IssueCollectionViewHeaderCell"
 
     @IBOutlet var title: UILabel!
     

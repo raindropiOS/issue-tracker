@@ -8,7 +8,7 @@
 import UIKit
 
 class IssueCollectionViewCell: UICollectionViewCell {
-    static let identifier = "Cell"
+    static let identifier = "IssueCollectionViewCell"
     @IBOutlet var title: UILabel!
     @IBOutlet var contents: UILabel!
     @IBOutlet var milestoneImage: UIImageView!
