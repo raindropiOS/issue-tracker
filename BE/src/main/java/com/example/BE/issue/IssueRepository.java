@@ -1,6 +1,8 @@
 package com.example.BE.issue;
 
+import com.example.BE.issue.dto.Count;
 import com.example.BE.issue.dto.IssueLabelMap;
+import com.example.BE.mapper.CountRowMapper;
 import com.example.BE.mapper.IssueLabelMapRowMapper;
 import com.example.BE.mapper.IssueWithoutLabelsRowMapper;
 import org.springframework.data.jdbc.repository.query.Query;
@@ -26,4 +28,12 @@ public interface IssueRepository extends CrudRepository<Issue, Integer> {
             "where ir.issue_number in (:issueNumbers)",
             rowMapperClass = IssueLabelMapRowMapper.class)
     List<IssueLabelMap> findAllIssueLabelMap(@Param("issueNumbers") Set<Integer> issueNumbers);
+
+    @Query(value = "select " +
+            "(select count(number) from ISSUE where state=true) as openedIssuesCount, " +
+            "(select count(number) from ISSUE where state=false) as closedIssuesCount, " +
+            "(select count(name) from LABEL) as labelsCount, " +
+            "(select count(name) from MILESTONE) as milestoneCount",
+            rowMapperClass = CountRowMapper.class)
+    Count countEntities();
 }

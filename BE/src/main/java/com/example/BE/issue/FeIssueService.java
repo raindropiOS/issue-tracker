@@ -1,10 +1,12 @@
 package com.example.BE.issue;
 
+import com.example.BE.issue.dto.Count;
 import com.example.BE.issue.dto.FeIssueResponse;
 import com.example.BE.issue.dto.IssueLabelMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -21,6 +23,12 @@ public class FeIssueService {
     }
 
     public FeIssueResponse makeFeIssueResponse() {
+        Collection<Issue> issues = mapIssueWithLabels();
+        Count count = calculateCount();
+        return new FeIssueResponse(issues, count);
+    }
+
+    private Collection<Issue> mapIssueWithLabels() {
         List<Issue> issues = issueRepository.findAllIssuesWithoutLabels();
 
         Map<Integer, Issue> issueMap = issues.stream()
@@ -32,6 +40,10 @@ public class FeIssueService {
         List<IssueLabelMap> issueLabelMaps = issueRepository.findAllIssueLabelMap(issueMap.keySet());
         issueLabelMaps.forEach(issueLabel -> issueMap.get(issueLabel.getIssueNumber()).add(issueLabel));
 
-        return new FeIssueResponse(issueMap.values(), null);
+        return issueMap.values();
+    }
+
+    private Count calculateCount() {
+        return issueRepository.countEntities();
     }
 }
