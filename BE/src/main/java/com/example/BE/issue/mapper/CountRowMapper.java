@@ -1,6 +1,6 @@
 package com.example.BE.issue.mapper;
 
-import com.example.BE.issue.Count;
+import com.example.BE.issue.dto.Count;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 

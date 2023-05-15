@@ -1,6 +1,6 @@
 package com.example.BE.issue.mapper;
 
-import com.example.BE.issue.IssueLabelMap;
+import com.example.BE.issue.dto.IssueLabelMap;
 import com.example.BE.label.Label;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;

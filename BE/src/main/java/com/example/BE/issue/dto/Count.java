@@ -1,4 +1,4 @@
-package com.example.BE.issue;
+package com.example.BE.issue.dto;
 
 public class Count {
 
