@@ -16,6 +16,13 @@ public class Label {
     public Label() {
     }
 
+    public Label(String name, String description, String backgroundColor, String textColor) {
+        this.name = name;
+        this.description = description;
+        this.backgroundColor = backgroundColor;
+        this.textColor = textColor;
+    }
+
     public String getName() {
         return name;
     }

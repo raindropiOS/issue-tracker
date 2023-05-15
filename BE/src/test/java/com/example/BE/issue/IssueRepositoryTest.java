@@ -1,5 +1,6 @@
 package com.example.BE.issue;
 
+import com.example.BE.issue.dto.IssueLabelMap;
 import com.example.BE.label.Label;
 import com.example.BE.milestone.Milestone;
 import com.example.BE.user.User;
@@ -60,5 +61,16 @@ class IssueRepositoryTest {
 
         List<Issue> issuesWithoutLabels = issueRepository.findAllIssuesWithoutLabels();
         assertThat(issuesWithoutLabels).usingRecursiveFieldByFieldElementComparator().contains(simpleIssue1, simpleIssue2, simpleIssue3);
+    }
+
+    @Test
+    @DisplayName("IssueRepository 는 Issue의 PK값과 대응되는 Label 객체를 가지는 List<IssueLabelMap> 목록을 반환한다.")
+    void findAllIssueLabelMaps() {
+        IssueLabelMap issueLabelMap1 = new IssueLabelMap(1, new Label("feature", "기능을 만들었슴둥", "#000000", "#004DE3"));
+        IssueLabelMap issueLabelMap2 = new IssueLabelMap(1, new Label("fix", "버그를 고쳤음", "#123456", "#654321"));
+        IssueLabelMap issueLabelMap3 = new IssueLabelMap(2, new Label("fix", "버그를 고쳤음", "#123456", "#654321"));
+
+        List<IssueLabelMap> issueLabelMaps = issueRepository.findAllIssueLabelMap();
+        assertThat(issueLabelMaps).usingRecursiveFieldByFieldElementComparator().contains(issueLabelMap1, issueLabelMap2, issueLabelMap3);
     }
 }
