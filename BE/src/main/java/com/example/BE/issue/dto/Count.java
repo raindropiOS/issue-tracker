@@ -10,6 +10,13 @@ public class Count {
     public Count() {
     }
 
+    public Count(int openedIssuesCount, int closedIssuesCount, int labelsCount, int milestoneCount) {
+        this.openedIssuesCount = openedIssuesCount;
+        this.closedIssuesCount = closedIssuesCount;
+        this.labelsCount = labelsCount;
+        this.milestoneCount = milestoneCount;
+    }
+
     public int getOpenedIssuesCount() {
         return openedIssuesCount;
     }
