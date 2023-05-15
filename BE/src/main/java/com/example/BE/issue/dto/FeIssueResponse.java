@@ -1,4 +1,4 @@
-package com.example.BE.dto.show.issue;
+package com.example.BE.issue.dto;
 
 import com.example.BE.dto.show.issue.detailed.CountForShow;
 import com.example.BE.dto.show.issue.detailed.FeSimpleIssue;
