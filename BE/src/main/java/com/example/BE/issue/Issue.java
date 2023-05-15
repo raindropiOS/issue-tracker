@@ -29,6 +29,17 @@ public class Issue {
     public Issue() {
     }
 
+    public Issue(Integer number, String title, String contents, boolean state, LocalDateTime createdDate, Milestone milestone, User user, List<Label> labels) {
+        this.number = number;
+        this.title = title;
+        this.contents = contents;
+        this.state = state;
+        this.createdDate = createdDate;
+        this.milestone = milestone;
+        this.user = user;
+        this.labels = labels;
+    }
+
     public Integer getNumber() {
         return number;
     }

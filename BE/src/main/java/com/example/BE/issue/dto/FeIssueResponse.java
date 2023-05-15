@@ -1,6 +1,5 @@
 package com.example.BE.issue.dto;
 
-import com.example.BE.issue.Count;
 import com.example.BE.issue.Issue;
 
 import java.util.List;

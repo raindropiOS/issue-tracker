@@ -17,6 +17,16 @@ public class Milestone {
     public Milestone() {
     }
 
+    public Milestone(String name, LocalDateTime scheduledCompletionDate, String descriptionForLabel) {
+        this.name = name;
+        this.scheduledCompletionDate = scheduledCompletionDate;
+        this.descriptionForLabel = descriptionForLabel;
+    }
+
+    public boolean isEmpty() {
+        return name == null;
+    }
+
     public String getName() {
         return name;
     }
