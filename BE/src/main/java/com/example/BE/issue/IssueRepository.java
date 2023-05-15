@@ -14,7 +14,7 @@ public interface IssueRepository extends CrudRepository<Issue, Integer> {
 
     @Query(value = "select i.number, i.title, i.contents, i.state, i.created_date, " +
             "m.name, m.scheduled_completion_date, m.description_for_label, " +
-            "u.id, u.password, u.nickname from ISSUE i " +
+            "u.id, u.password, u.nickname, u.img_url from ISSUE i " +
             "left outer join MILESTONE m on i.milestone_name = m.name " +
             "left outer join USER u on i.user_id = u.id",
             rowMapperClass = IssueWithoutLabelsRowMapper.class)

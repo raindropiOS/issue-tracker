@@ -2,7 +2,7 @@ show databases ;
 use issue_tracker_database;
 
 desc USER;
-insert into USER(id, password, nickname) values ('1234', 'codesquad', 'BE');
+insert into USER(id, password, nickname, img_url) values ('1234', 'codesquad', 'BE', 'https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg');
 select * from USER;
 
 desc MILESTONE;
@@ -21,12 +21,8 @@ values ('feature', '기능을 만들었슴둥', '#000000', '#004DE3'),
        ('fix', '버그를 고쳤음', '#123456', '#654321');
 select * from LABEL;
 
-desc issue_label_relation;
-insert into issue_label_relation(issue_number, label_name)
+desc ISSUE_LABEL_RELATION;
+insert into ISSUE_LABEL_RELATION(issue_number, label_name)
 values (1, 'feature'), (1, 'fix'), (2, 'fix');
-select * from issue_label_relation;
+select * from ISSUE_LABEL_RELATION;
 
-desc IMAGE_FOR_USER;
-insert into IMAGE_FOR_USER(url, USER_id)
-values ('https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg', 1234);
-select * from IMAGE_FOR_USER;

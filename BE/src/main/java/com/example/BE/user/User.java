@@ -11,14 +11,16 @@ public class User {
 
     private String password;
     private String nickname;
+    private String imgUrl;
 
     public User() {
     }
 
-    public User(String id, String password, String nickname) {
+    public User(String id, String password, String nickname, String imgUrl) {
         this.id = id;
         this.password = password;
         this.nickname = nickname;
+        this.imgUrl = imgUrl;
     }
 
     public String getId() {
@@ -45,12 +47,21 @@ public class User {
         this.nickname = nickname;
     }
 
+    public String getImgUrl() {
+        return imgUrl;
+    }
+
+    public void setImgUrl(String imgUrl) {
+        this.imgUrl = imgUrl;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id='" + id + '\'' +
                 ", password='" + password + '\'' +
                 ", nickname='" + nickname + '\'' +
+                ", imgUrl='" + imgUrl + '\'' +
                 '}';
     }
 }

@@ -37,27 +37,27 @@ class IssueRepositoryTest {
                 "제목 1",
                 "첫 번째 이슈 내용",
                 true,
-                LocalDateTime.of(2023, 5, 15, 11, 36, 45),
+                LocalDateTime.of(2023, 5, 15, 19, 37, 47),
                 new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
-                new User("1234", "codesquad", "BE"),
+                new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"),
                 new ArrayList<Label>());
 
         Issue simpleIssue2 = new Issue(2,
                 "제목 2",
                 "두 번째 이슈 내용",
                 false,
-                LocalDateTime.of(2023, 5, 15, 11, 36, 45),
+                LocalDateTime.of(2023, 5, 15, 19, 37, 47),
                 new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
-                new User("1234", "codesquad", "BE"),
+                new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"),
                 new ArrayList<Label>());
 
         Issue simpleIssue3 = new Issue(3,
                 "제목 3",
                 "세 번째 이슈 내용",
                 true,
-                LocalDateTime.of(2023, 5, 15, 11, 36, 45),
+                LocalDateTime.of(2023, 5, 15, 19, 37, 47),
                 new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
-                new User("1234", "codesquad", "BE"),
+                new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"),
                 new ArrayList<Label>());
 
         List<Issue> issuesWithoutLabels = issueRepository.findAllIssuesWithoutLabels();
