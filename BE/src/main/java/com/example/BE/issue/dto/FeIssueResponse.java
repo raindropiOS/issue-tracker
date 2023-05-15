@@ -1,25 +1,33 @@
 package com.example.BE.issue.dto;
 
-import com.example.BE.dto.show.issue.detailed.CountForShow;
-import com.example.BE.dto.show.issue.detailed.FeSimpleIssue;
+import com.example.BE.issue.Count;
+import com.example.BE.issue.Issue;
 
 import java.util.List;
 
 public class FeIssueResponse {
 
-    private List<FeSimpleIssue> issues;
-    private CountForShow counts;
+    private List<Issue> issues;
+    private Count counts;
 
-    public FeIssueResponse(List<FeSimpleIssue> issues, CountForShow counts) {
+    public FeIssueResponse(List<Issue> issues, Count counts) {
         this.issues = issues;
         this.counts = counts;
     }
 
-    public List<FeSimpleIssue> getIssues() {
+    public List<Issue> getIssues() {
         return issues;
     }
 
-    public CountForShow getCounts() {
+    public void setIssues(List<Issue> issues) {
+        this.issues = issues;
+    }
+
+    public Count getCounts() {
         return counts;
+    }
+
+    public void setCounts(Count counts) {
+        this.counts = counts;
     }
 }
