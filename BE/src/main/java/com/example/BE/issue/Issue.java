@@ -1,5 +1,6 @@
 package com.example.BE.issue;
 
+import com.example.BE.issue.dto.IssueLabelMap;
 import com.example.BE.label.Label;
 import com.example.BE.milestone.Milestone;
 import com.example.BE.user.User;
@@ -100,8 +101,8 @@ public class Issue {
         return labels;
     }
 
-    public void addLabel(Label label) {
-        this.labels.add(label);
+    public void add(IssueLabelMap issueLabel) {
+        this.labels.add(issueLabel.getLabel());
     }
 
     @Override

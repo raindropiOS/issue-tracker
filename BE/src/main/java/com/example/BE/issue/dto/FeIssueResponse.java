@@ -2,23 +2,23 @@ package com.example.BE.issue.dto;
 
 import com.example.BE.issue.Issue;
 
-import java.util.List;
+import java.util.Collection;
 
 public class FeIssueResponse {
 
-    private List<Issue> issues;
+    private Collection<Issue> issues;
     private Count counts;
 
-    public FeIssueResponse(List<Issue> issues, Count counts) {
+    public FeIssueResponse(Collection<Issue> issues, Count counts) {
         this.issues = issues;
         this.counts = counts;
     }
 
-    public List<Issue> getIssues() {
+    public Collection<Issue> getIssues() {
         return issues;
     }
 
-    public void setIssues(List<Issue> issues) {
+    public void setIssues(Collection<Issue> issues) {
         this.issues = issues;
     }
 

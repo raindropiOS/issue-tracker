@@ -2,11 +2,12 @@ package com.example.BE.issue;
 
 import com.example.BE.issue.dto.FeIssueResponse;
 import com.example.BE.issue.dto.IssueLabelMap;
-import com.example.BE.label.Label;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -20,26 +21,17 @@ public class FeIssueService {
     }
 
     public FeIssueResponse makeFeIssueResponse() {
-        List<Issue> issues = makeIssuesWithoutLabels();
+        List<Issue> issues = issueRepository.findAllIssuesWithoutLabels();
 
-        Map<Integer, List<Label>> issueWithLabels = issues.stream()
+        Map<Integer, Issue> issueMap = issues.stream()
                 .collect(Collectors.toMap(
                         Issue::getNumber,
-                        Issue::getLabels
+                        Function.identity()
                 ));
 
+        List<IssueLabelMap> issueLabelMaps = issueRepository.findAllIssueLabelMap(issueMap.keySet());
+        issueLabelMaps.forEach(issueLabel -> issueMap.get(issueLabel.getIssueNumber()).add(issueLabel));
 
-        System.out.println(issueWithLabels.keySet());
-
-        return new FeIssueResponse(makeIssuesWithoutLabels(), null);
+        return new FeIssueResponse(issueMap.values(), null);
     }
-
-    private List<Issue> makeIssuesWithoutLabels() {
-        return issueRepository.findAllIssuesWithoutLabels();
-    }
-
-    private List<IssueLabelMap> makeIssueLabelMaps(Set<Integer> issueNumbers) {
-        return issueRepository.findAllIssueLabelMap(issueNumbers);
-    }
-
 }
