@@ -4,11 +4,9 @@ import com.example.BE.dto.show.issue.detailed.FeSimpleIssue;
 import com.example.BE.dto.show.issue.detailed.SimpleAuthor;
 import com.example.BE.dto.show.issue.detailed.SimpleLabel;
 import com.example.BE.dto.show.issue.detailed.SimpleMilestone;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
@@ -18,14 +16,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 
 @Transactional
 @SpringBootTest
-class IssueRepositoryTest {
-
+class IssueServiceTest {
     @Autowired
-    public IssueRepository issueRepository;
+    public IssueService issueService;
 
     @Test
     public void getFeSimpleIssueTest() throws ParseException {
@@ -39,7 +37,9 @@ class IssueRepositoryTest {
                 "제목 1",
                 true,
                 timestamp.toLocalDateTime(),
-                new ArrayList<SimpleLabel>(),
+                new ArrayList<SimpleLabel>(List.of(
+                        new SimpleLabel(1, "feature", "#004DE3", "#000000"),
+                        new SimpleLabel(1, "fix", "#654321", "#123456"))), // 리스트에 저장된 라벨의 위치가 테스트에 영향 줌
                 new SimpleMilestone("BE STEP1"),
                 new SimpleAuthor("BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
 
@@ -47,7 +47,8 @@ class IssueRepositoryTest {
                 "제목 2",
                 false,
                 timestamp.toLocalDateTime(),
-                new ArrayList<SimpleLabel>(),
+                new ArrayList<SimpleLabel>(List.of(
+                        new SimpleLabel(2, "fix", "#654321", "#123456"))),
                 new SimpleMilestone("BE STEP1"),
                 new SimpleAuthor("BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
 
@@ -60,40 +61,10 @@ class IssueRepositoryTest {
                 new SimpleAuthor("BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
 
         // when
-        List<FeSimpleIssue> feSimpleIssues = issueRepository.getFeSimpleIssues();
+        List<FeSimpleIssue> feSimpleIssues = issueService.findAllIssues();
 
         // then
         assertThat(feSimpleIssues).usingRecursiveFieldByFieldElementComparator().contains(feSimpleIssue1, feSimpleIssue2, feSimpleIssue3);
-
-    }
-
-    @Test
-    public void getSimpleLabelTest() throws ParseException {
-
-        // given
-        SimpleLabel simpleLabel1 = new SimpleLabel();
-        simpleLabel1.setIssueNumber(1);
-        simpleLabel1.setLabelName("feature");
-        simpleLabel1.setBackgroundColor("#000000");
-        simpleLabel1.setTextColor("#004DE3");
-
-        SimpleLabel simpleLabel2 = new SimpleLabel();
-        simpleLabel2.setIssueNumber(1);
-        simpleLabel2.setLabelName("fix");
-        simpleLabel2.setBackgroundColor("#123456");
-        simpleLabel2.setTextColor("#654321");
-
-        SimpleLabel simpleLabel3 = new SimpleLabel();
-        simpleLabel3.setIssueNumber(2);
-        simpleLabel3.setLabelName("fix");
-        simpleLabel3.setBackgroundColor("#123456");
-        simpleLabel3.setTextColor("#654321");
-
-        // when
-        List<SimpleLabel> simpleLabels = issueRepository.getSimpleLabels();
-
-        // then
-        assertThat(simpleLabels).usingRecursiveFieldByFieldElementComparator().contains(simpleLabel1, simpleLabel2, simpleLabel3);
 
     }
 
