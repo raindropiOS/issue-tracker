@@ -17,6 +17,7 @@ import javax.sql.DataSource;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -70,7 +71,9 @@ class IssueRepositoryTest {
         IssueLabelMap issueLabelMap2 = new IssueLabelMap(1, new Label("fix", "버그를 고쳤음", "#123456", "#654321"));
         IssueLabelMap issueLabelMap3 = new IssueLabelMap(2, new Label("fix", "버그를 고쳤음", "#123456", "#654321"));
 
-        List<IssueLabelMap> issueLabelMaps = issueRepository.findAllIssueLabelMap();
+        List<IssueLabelMap> issueLabelMaps = issueRepository.findAllIssueLabelMap(Set.of(1, 2));
+
+        System.out.println(issueLabelMaps);
         assertThat(issueLabelMaps).usingRecursiveFieldByFieldElementComparator().contains(issueLabelMap1, issueLabelMap2, issueLabelMap3);
     }
 }

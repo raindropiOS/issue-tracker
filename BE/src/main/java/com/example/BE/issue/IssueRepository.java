@@ -5,8 +5,11 @@ import com.example.BE.mapper.IssueLabelMapRowMapper;
 import com.example.BE.mapper.IssueWithoutLabelsRowMapper;
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
+import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 public interface IssueRepository extends CrudRepository<Issue, Integer> {
 
@@ -20,7 +23,8 @@ public interface IssueRepository extends CrudRepository<Issue, Integer> {
 
     @Query(value = "select ir.issue_number, l.name, l.description, l.background_color, l.text_color " +
             "from ISSUE_LABEL_RELATION ir " +
-            "left outer join LABEL l on ir.label_name = l.name",
+            "left outer join LABEL l on ir.label_name = l.name " +
+            "where ir.issue_number in (:issueNumbers)",
             rowMapperClass = IssueLabelMapRowMapper.class)
-    List<IssueLabelMap> findAllIssueLabelMap();
+    List<IssueLabelMap> findAllIssueLabelMap(@Param("issueNumbers") Set<Integer> issueNumbers);
 }
