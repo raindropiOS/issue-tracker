@@ -49,8 +49,8 @@ const initialState = [
 ];
 
 const App = () => {
+  // TODO: 전체 내용 MainPage로 빼고 App은 라우터 설정
   const [issues, setIssues] = useState(initialState);
-
   const [counts, setCounts] = useState({
     openedIssueCount: 2,
     closedIssueCount: 0,
@@ -88,4 +88,5 @@ const App = () => {
     </div>
   );
 };
+
 export default App;

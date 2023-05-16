@@ -12,7 +12,7 @@ const TableToolBarBox = styled.div`
 
   gap: 33px;
   padding: 24px;
-  width: 1280px;
+
   height: 64px;
   background: #f7f7fc;
   border-radius: 16px 16px 0px 0px;

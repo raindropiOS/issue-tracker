@@ -30,11 +30,7 @@ const IssueTableBox = styled.div`
   display: flex;
   flex-direction: column;
 
-  position: absolute;
-  width: 1280px;
   height: auto;
-  left: 80px;
-  top: 190px;
   border: 1px solid #d9dbe9;
   border-radius: 16px;
 `;

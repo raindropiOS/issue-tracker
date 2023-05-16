@@ -11,5 +11,9 @@ export const PageLayout = ({ children }) => {
 };
 
 const Content = styled.main`
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
   padding: 32px 80px;
 `;
