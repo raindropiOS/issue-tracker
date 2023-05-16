@@ -14,7 +14,6 @@ export default FilterInput;
 
 const FilterInputBox = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
   gap: 8px;
   flex-grow: 1;
