@@ -54,4 +54,10 @@ class IssueFilterTableViewController: UITableViewController {
         default: return "Header \(section)"
         }
     }
+    
+    
+    @IBAction func cancelButtonPressed(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
 }
+

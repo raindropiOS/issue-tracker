@@ -83,7 +83,7 @@
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" title="필터"/>
                                                         <connections>
-                                                            <segue destination="Yfx-Yi-e9y" kind="presentation" id="dQy-Qs-LyE"/>
+                                                            <segue destination="SGj-EO-sgp" kind="presentation" id="dQy-Qs-LyE"/>
                                                         </connections>
                                                     </button>
                                                     <color key="tintColor" name="AccentColor"/>
@@ -178,11 +178,17 @@
                             <outlet property="delegate" destination="Yfx-Yi-e9y" id="Wk6-wU-1pN"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="0gq-2v-RY0"/>
+                    <navigationItem key="navigationItem" id="lBk-bV-fT5">
+                        <barButtonItem key="leftBarButtonItem" title="취소" id="OmE-xX-BjO">
+                            <connections>
+                                <action selector="cancelButtonPressed:" destination="Yfx-Yi-e9y" id="shj-yc-vk3"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XwH-KB-smv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1718" y="-733"/>
+            <point key="canvasLocation" x="2643.5114503816794" y="-733.09859154929586"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="b8P-6g-gzi">
@@ -203,6 +209,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ztD-ve-wvg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-79" y="660"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="ZpZ-wN-nLC">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="SGj-EO-sgp" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="hGN-Vw-O3m">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="56"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Yfx-Yi-e9y" kind="relationship" relationship="rootViewController" id="Kvw-Xu-G6o"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lwR-4N-9WD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1716.7938931297708" y="-733.09859154929586"/>
         </scene>
     </scenes>
     <resources>
