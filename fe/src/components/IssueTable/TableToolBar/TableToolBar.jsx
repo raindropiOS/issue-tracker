@@ -1,8 +1,17 @@
 import styled from 'styled-components';
 
-const TableToolBarContainer = styled.div`
+const TableToolBar = ({ children }) => {
+  return <TableToolBarBox>{children}</TableToolBarBox>;
+};
+
+export default TableToolBar;
+
+const TableToolBarBox = styled.div`
   display: flex;
   align-items: center;
+
+  gap: 33px;
+  padding: 24px;
   width: 1280px;
   height: 64px;
   background: #f7f7fc;
@@ -10,10 +19,3 @@ const TableToolBarContainer = styled.div`
   border: 1px solid #d9dbe9;
   font-size: 16px;
 `;
-
-const TableToolBar = (props) => {
-  const { children } = props;
-  return <TableToolBarContainer>{children}</TableToolBarContainer>;
-};
-
-export default TableToolBar;

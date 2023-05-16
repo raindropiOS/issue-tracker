@@ -5,11 +5,13 @@ const GlobalStyles = createGlobalStyle`
       text-decoration: none;
       color: inherit;
     }
+
     * {
-      box-sizing: border-box;
-      padding: 0;
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
+
     button {
       border: none;
       background: none;
@@ -17,12 +19,15 @@ const GlobalStyles = createGlobalStyle`
       cursor: pointer;
       color: inherit;
     }
+
     input {
       color: inherit;
     }
+
     input:focus {
       outline:none;
     }
+    
     li{
       list-style: none;
     }
