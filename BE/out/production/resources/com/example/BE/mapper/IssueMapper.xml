@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.BE.mapper.IssueMapper">
+
+    <select id="findIssueWithoutLabelsBy" resultMap="issueResult">
+        select i.number, i.title, i.contents, i.state, i.created_date, i.last_updated_date,
+            m.name, m.scheduled_completion_date, m.description_for_label,
+            u.id, u.password, u.nickname, u.img_url,
+            a.user_id
+        from ISSUE i
+        left join MILESTONE m on i.milestone_name = m.name
+        left join USER u on i.user_id = u.id
+        left join ASSIGNS a on a.user_id = u.id and a.issue_number = i.number
+        <where>
+            <if test="state != null">
+                i.state = #{state}
+            </if>
+            <if test="author != null">
+                and u.nickname = #{author}
+            </if>
+            <if test="assignee != null">
+                and a.user_id = #{assingnee}
+            </if>
+            <if test="milestoneName != null">
+                and m.name = #{milestoneName}
+            </if>
+        </where>
+    </select>
+
+    <resultMap id="issueResult" type="Issue">
+        <id property="number" column="number" />
+        <result property="title" column="title" />
+        <result property="contents" column="contents"/>
+        <result property="state" column="state"/>
+        <result property="createdDate" column="created_date"/>
+        <result property="lastUpdatedDate" column="last_updated_date"/>
+        <association property="milestone" resultMap="milestoneResult"/>
+        <association property="user" resultMap="userResult"/>
+    </resultMap>
+
+    <resultMap id="milestoneResult" type="com.example.BE.milestone.Milestone">
+        <id property="name" column="name"/>
+        <result property="scheduledCompletionDate" column="scheduled_completion_date"/>
+        <result property="descriptionForLabel" column="description_for_label"/>
+    </resultMap>
+
+    <resultMap id="userResult" type="com.example.BE.user.User">
+        <id property="id" column="id"/>
+        <result property="password" column="password"/>
+        <result property="nickname" column="nickname"/>
+        <result property="imgUrl" column="img_url"/>
+    </resultMap>
+
+    <select id="findIssueLabelMapBy" resultMap="IssueLabelMapResult">
+        select ir.issue_number, ir.label_name, l.name, l.description, l.background_color, l.text_color
+        from ISSUE_LABEL_RELATION ir
+        left outer join LABEL l on ir.label_name = l.name
+        <where>
+            <if test="labelNames != null">
+                l.name in
+                <foreach item="labelName" collection="labelNames" open="(" close=")" separator=",">
+                    #{labelName}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+    <resultMap id="IssueLabelMapResult" type="com.example.BE.issue.dto.IssueLabelMap">
+        <id property="issueNumber" column="issue_number"/>
+        <id column="label_name"/>
+        <association property="label" resultMap="labelResult"/>
+    </resultMap>
+
+    <resultMap id="labelResult" type="com.example.BE.label.Label">
+        <id property="name" column="name"/>
+        <result property="description" column="description"/>
+        <result property="backgroundColor" column="background_color"/>
+        <result property="textColor" column="text_color"/>
+    </resultMap>
+
+    <select id="countEntities" resultType="com.example.BE.issue.dto.Count">
+        select
+        (select count(number) from ISSUE where state=true) as openedIssuesCount,
+        (select count(number) from ISSUE where state=false) as closedIssuesCount,
+        (select count(name) from LABEL) as labelsCount,
+        (select count(name) from MILESTONE) as milestoneCount
+    </select>
+
+</mapper>

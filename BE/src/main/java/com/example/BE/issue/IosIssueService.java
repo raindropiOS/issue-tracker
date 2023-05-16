@@ -1,7 +1,9 @@
 package com.example.BE.issue;
 
+import com.example.BE.issue.dto.Count;
 import com.example.BE.issue.dto.IosIssueResponse;
 import com.example.BE.issue.dto.IssueLabelMap;
+import com.example.BE.issue.dto.IssueSearchCondition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,20 +20,9 @@ public class IosIssueService {
         this.issueRepository = issueRepository;
     }
 
-    public IosIssueResponse makeIosIssueResponse() {
-        List<Issue> issues = issueRepository.findAllIssuesWithoutLabels();
-        List<Issue> issuesWithLabels = addLabelInfo(issues);
-        return new IosIssueResponse(issuesWithLabels);
-    }
-
-    public IosIssueResponse findFilterIssues(boolean state) {
-        List<Issue> issues = issueRepository.findFilterIssuesWithoutLabels(state);
-        List<Issue> issuesWithLabels = addLabelInfo(issues);
-        return new IosIssueResponse(issuesWithLabels);
-    }
-
-    private List<Issue> addLabelInfo(List<Issue> issues) {
-        List<IssueLabelMap> issueLabelMaps = issueRepository.findAllIssueLabelMap();
+    public IosIssueResponse findIssuesBy(IssueSearchCondition issueSearchCondition) {
+        List<Issue> issues = issueRepository.findIssueWithoutLabelsBy(issueSearchCondition);
+        List<IssueLabelMap> issueLabelMaps = issueRepository.findIssueLabelMapBy(issueSearchCondition);
 
         HashMap<Integer, Issue> issueHashMap = new HashMap<>();
         for (Issue issue : issues) {
@@ -44,7 +35,8 @@ public class IosIssueService {
                 issue.addLabel(issueLabelMap.getLabel());
             }
         }
-        return new ArrayList<>(issueHashMap.values());
+
+        return new IosIssueResponse(new ArrayList<>(issueHashMap.values()));
     }
 
 }
