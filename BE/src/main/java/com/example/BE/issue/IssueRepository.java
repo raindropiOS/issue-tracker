@@ -7,6 +7,7 @@ import com.example.BE.issue.mapper.IssueLabelMapRowMapper;
 import com.example.BE.issue.mapper.IssueMilestoneUserRowMapper;
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -18,6 +19,15 @@ public interface IssueRepository extends CrudRepository<Issue, Integer> {
             "left outer join USER u on i.user_id = u.id",
             rowMapperClass = IssueMilestoneUserRowMapper.class)
     List<Issue> findAllIssuesWithoutLabels();
+
+    @Query(value = "select i.number, i.title, i.contents, i.state, i.created_date, i.last_updated_date, " +
+            "m.name, m.scheduled_completion_date, m.description_for_label, u.id, u.password, u.nickname " +
+            "from ISSUE i " +
+            "left outer join MILESTONE m on i.milestone_name = m.name " +
+            "left outer join USER u on i.user_id = u.id " +
+            "where i.state = :state",
+            rowMapperClass = IssueMilestoneUserRowMapper.class)
+    List<Issue> findFilterIssuesWithoutLabels(@Param("state") boolean state);
 
     @Query(value = "select ir.issue_number, l.name, l.description, l.background_color, l.text_color " +
             "from ISSUE_LABEL_RELATION ir " +

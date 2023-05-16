@@ -11,19 +11,26 @@ import java.util.List;
 
 @Service
 public class IosIssueService {
-    private final IosIssueRepository issueRepository;
+    private final IssueRepository issueRepository;
 
     @Autowired
-    public IosIssueService(IosIssueRepository issueRepository) {
+    public IosIssueService(IssueRepository issueRepository) {
         this.issueRepository = issueRepository;
     }
 
     public IosIssueResponse makeIosIssueResponse() {
-        return new IosIssueResponse(makeCompleteIssues());
+        List<Issue> issues = issueRepository.findAllIssuesWithoutLabels();
+        List<Issue> issuesWithLabels = addLabelInfo(issues);
+        return new IosIssueResponse(issuesWithLabels);
     }
 
-    private List<Issue> makeCompleteIssues() {
-        List<Issue> issues = issueRepository.findAllIssuesWithoutLabels();
+    public IosIssueResponse findFilterIssues(boolean state) {
+        List<Issue> issues = issueRepository.findFilterIssuesWithoutLabels(state);
+        List<Issue> issuesWithLabels = addLabelInfo(issues);
+        return new IosIssueResponse(issuesWithLabels);
+    }
+
+    private List<Issue> addLabelInfo(List<Issue> issues) {
         List<IssueLabelMap> issueLabelMaps = issueRepository.findAllIssueLabelMap();
 
         HashMap<Integer, Issue> issueHashMap = new HashMap<>();
@@ -33,7 +40,9 @@ public class IosIssueService {
 
         for (IssueLabelMap issueLabelMap : issueLabelMaps) {
             Issue issue = issueHashMap.get(issueLabelMap.getIssueNumber());
-            issue.addLabel(issueLabelMap.getLabel());
+            if (issue != null) {
+                issue.addLabel(issueLabelMap.getLabel());
+            }
         }
         return new ArrayList<>(issueHashMap.values());
     }
