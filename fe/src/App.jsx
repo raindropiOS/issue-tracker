@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import FilterBar from './components/FilterBar';
+import { PageLayout } from './components/common';
+import FilterBar from './components/FilterBar/FilterBar';
 import GlobalStyles from './components/GlobalStyles';
 import IssueTable from './components/IssueTable';
 
@@ -25,12 +26,14 @@ const App = () => {
   return (
     <div>
       <GlobalStyles />
-      <FilterBar filterOptions={filterOptions} />
-      <IssueTable
-        openedIssueCount={counts.openedIssueCount}
-        closedIssueCount={counts.closedIssueCount}
-        isOpened={filterOptions.isOpened}
-      />
+      <PageLayout>
+        <FilterBar filterOptions={filterOptions} />
+        <IssueTable
+          openedIssueCount={counts.openedIssueCount}
+          closedIssueCount={counts.closedIssueCount}
+          isOpened={filterOptions.isOpened}
+        />
+      </PageLayout>
     </div>
   );
 };

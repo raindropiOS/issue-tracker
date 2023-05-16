@@ -10,11 +10,8 @@ const IssueTableContainer = styled.div`
   align-items: flex-start;
   gap: 1px;
 
-  position: absolute;
   width: 1280px;
   height: 266px;
-  left: 80px;
-  top: 190px;
 `;
 
 const IssueTable = (props) => (
