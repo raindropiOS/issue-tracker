@@ -1,9 +1,11 @@
 package com.example.BE.issue;
 
 import com.example.BE.issue.dto.IssueLabelMap;
+import com.example.BE.issue.dto.IssueSearchCondition;
 import com.example.BE.label.Label;
 import com.example.BE.milestone.Milestone;
 import com.example.BE.user.User;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,6 +26,17 @@ class IssueRepositoryTest {
 
     @Autowired
     public IssueRepository issueRepository;
+
+    private IssueSearchCondition issueSearchCondition;
+
+    @BeforeEach
+    public void beforeEach() {
+        issueSearchCondition = new IssueSearchCondition();
+        issueSearchCondition.setState(true);
+        issueSearchCondition.setAuthor("BE");
+        issueSearchCondition.setMilestoneName("BE STEP1");
+        issueSearchCondition.setLabelNames(List.of("feature", "fix"));
+    }
 
     @Test
     public void findAllIssuesWithoutLabels() throws ParseException {
@@ -54,10 +67,11 @@ class IssueRepositoryTest {
         user1.setId("1234");
         user1.setPassword("codesquad");
         user1.setNickname("BE");
+        user1.setImgUrl("https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg");
         issue1.setUser(user1);
 
         // when
-        List<Issue> issues = issueRepository.findAllIssuesWithoutLabels();
+        List<Issue> issues = issueRepository.findIssueWithoutLabelsBy(issueSearchCondition);
 
         // then
         assertThat(issues).usingRecursiveFieldByFieldElementComparator().contains(issue1);
@@ -88,14 +102,14 @@ class IssueRepositoryTest {
         issueLabelMap2.setLabel(label2);
 
         IssueLabelMap issueLabelMap3 = new IssueLabelMap();
-        issueLabelMap3.setIssueNumber(1);
+        issueLabelMap3.setIssueNumber(2);
         issueLabelMap3.setLabel(label2);
 
         // when
-        List<IssueLabelMap> allIssueLabelMap = issueRepository.findAllIssueLabelMap();
+        List<IssueLabelMap> actualIssueLabelMap = issueRepository.findIssueLabelMapBy(issueSearchCondition);
 
         // then
-        assertThat(allIssueLabelMap).usingRecursiveFieldByFieldElementComparator().contains(issueLabelMap1, issueLabelMap2, issueLabelMap3);
+        assertThat(actualIssueLabelMap).usingRecursiveFieldByFieldElementComparator().contains(issueLabelMap1, issueLabelMap2, issueLabelMap3);
 
     }
 
