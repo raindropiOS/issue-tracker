@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { ThemeProvider } from 'styled-components';
 import { PageLayout } from './components/common';
 import FilterBar from './components/FilterBar/FilterBar';
-import GlobalStyles from './components/GlobalStyles';
+import GlobalStyles from './style/GlobalStyles';
 import IssueTable from './components/IssueTable/IssueTable';
+import { darkTheme, lightTheme } from './style';
 
 const initialState = [
   {
@@ -49,6 +51,7 @@ const initialState = [
 ];
 
 const App = () => {
+  const [theme, setTheme] = useState(lightTheme);
   // TODO: 전체 내용 MainPage로 빼고 App은 라우터 설정
   const [issues, setIssues] = useState(initialState);
   const [counts, setCounts] = useState({
@@ -65,6 +68,7 @@ const App = () => {
     // assignee: null,
     // labels: [],
     // milestone: null,
+    // ? author value 배열?
     // author: null,
   });
 
@@ -75,16 +79,25 @@ const App = () => {
   return (
     <div>
       <GlobalStyles />
-      <PageLayout>
-        <FilterBar filterOptions={filterOptions} />
-        <IssueTable
-          issues={filteredIssues}
-          openedIssueCount={counts.openedIssueCount}
-          closedIssueCount={counts.closedIssueCount}
-          isOpened={filterOptions.isOpened}
-          setFilterOptions={setFilterOptions}
-        />
-      </PageLayout>
+      <ThemeProvider
+        theme={{
+          ...theme,
+          setTheme: () => {
+            setTheme(theme.id === 'lightTheme' ? darkTheme : lightTheme);
+          },
+        }}
+      >
+        <PageLayout>
+          <FilterBar filterOptions={filterOptions} />
+          <IssueTable
+            issues={filteredIssues}
+            openedIssueCount={counts.openedIssueCount}
+            closedIssueCount={counts.closedIssueCount}
+            isOpened={filterOptions.isOpened}
+            setFilterOptions={setFilterOptions}
+          />
+        </PageLayout>
+      </ThemeProvider>
     </div>
   );
 };

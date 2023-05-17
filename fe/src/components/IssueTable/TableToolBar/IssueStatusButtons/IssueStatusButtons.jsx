@@ -45,5 +45,6 @@ export default IssueStatusButtons;
 
 const IssueStatusButtonsBox = styled.div`
   display: flex;
+  gap: 24px;
   flex-grow: 1;
 `;

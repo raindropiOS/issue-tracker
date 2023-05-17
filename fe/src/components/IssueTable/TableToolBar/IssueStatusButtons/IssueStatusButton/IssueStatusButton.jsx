@@ -24,11 +24,10 @@ export default IssueStatusButton;
 
 const IssueStatusButtonBox = styled.button`
   display: flex;
-
-  padding-right: 12px;
-  font-weight: 700;
-  font-size: 16px;
-  color: ${(p) => (p.$buttonstatus ? '#14142B' : '#6E7191')};
-  cursor: pointer;
   gap: 10px;
+
+  font-size: ${({ theme }) => theme.fontSize.M.size};
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
+  color: ${({ $buttonstatus, theme }) => ($buttonstatus ? theme.color.neutralTextStrong : theme.color.neutralText)};
+  cursor: pointer;
 `;

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import CheckBox from '../CheckBox';
+import CheckBox from './CheckBox/CheckBox';
 import IssueItem from './IssueItem/IssueItem';
 import IssueStatusButtons from './TableToolBar/IssueStatusButtons/IssueStatusButtons';
 import TableFilterButtons from './TableToolBar/TableFilterButtons/TableFilterButtons';
@@ -13,26 +13,30 @@ const IssueTable = ({ issues, ...rest }) => {
   );
 
   return (
-    <IssueTableBox>
+    <div>
       <TableToolBar>
         <CheckBox />
         <IssueStatusButtons {...rest} />
         <TableFilterButtons />
       </TableToolBar>
-      {issueList}
-    </IssueTableBox>
+      <IssueItemList>{issueList}</IssueItemList>
+    </div>
   );
 };
 
 export default IssueTable;
 
-const IssueTableBox = styled.div`
+const IssueItemList = styled.ul`
   display: flex;
   flex-direction: column;
 
   height: auto;
-  border: 1px solid #d9dbe9;
-  border-radius: 16px;
+  border: 1px solid ${({ theme }) => theme.color.neutralBorder};
+  border-radius: 0px 0px 16px 16px;
+
+  li:last-child {
+    border-radius: 0px 0px 16px 16px;
+  }
 `;
 
 const NoticeBox = styled.div`
@@ -41,7 +45,9 @@ const NoticeBox = styled.div`
   align-items: center;
 
   height: 100px;
-  font-weight: 400;
-  font-size: 16px;
-  color: #6e7191;
+  font-weight: ${({ theme }) => theme.fontWeight.regular};
+  font-size: ${({ theme }) => theme.fontSize.M.size};
+  color: ${({ theme }) => theme.color.neutralTextWeak};
+  background-color: ${({ theme }) => theme.color.neutralBackgroundStrong};
+  border-radius: 0px 0px 16px 16px;
 `;

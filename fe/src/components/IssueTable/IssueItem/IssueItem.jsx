@@ -1,9 +1,10 @@
+/* eslint-disable camelcase */
 import styled from 'styled-components';
 import React from 'react';
-import CheckBox from '../../CheckBox';
+import CheckBox from '../CheckBox/CheckBox';
 import alertCircleBlue from '../../../assets/alertCircleBlue.svg';
 import mileStone from '../../../assets/mileStone.svg';
-import Label from '../../Label';
+import { Label } from '../../common';
 
 const IssueItem = ({
   number,
@@ -23,7 +24,7 @@ const IssueItem = ({
           <img src={alertCircleBlue} alt="alertCirlceBlue" />
           <p>{title}</p>
           {labels.map((labelInfo, idx) => (
-            <Label key={idx} {...labelInfo} />
+            <Label key={labelInfo.name} {...labelInfo} />
           ))}
         </IssueItemTitle>
         <IssueItemAttributes>
@@ -57,12 +58,8 @@ const IssueItemBox = styled.li`
 
   gap: 33px;
   padding: 24px;
-  border-top: 1px solid #d9dbe9;
-
-  span {
-    display: flex;
-    align-items: center;
-  }
+  border-top: 1px solid ${({ theme }) => theme.color.neutralBorder};
+  background: ${({ theme }) => theme.color.neutralBackgroundStrong};
 `;
 
 const IssueItemBody = styled.div`
@@ -77,8 +74,9 @@ const IssueItemTitle = styled.div`
   display: flex;
   align-items: center;
 
-  font-weight: 700;
-  font-size: 18px;
+  font-size: ${({ theme }) => theme.fontSize.L.size};
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
+  color: ${({ theme }) => theme.color.neutralTextStrong};
   gap: 10px;
   flex-direction: row;
 `;
@@ -86,9 +84,9 @@ const IssueItemTitle = styled.div`
 const IssueItemAttributes = styled.div`
   display: flex;
   flex-direction: row;
-
-  font-weight: 400;
-  font-size: 16px;
   gap: 16px;
-  color: #6e7191;
+
+  font-size: ${({ theme }) => theme.fontSize.M.size};
+  font-weight: ${({ theme }) => theme.fontWeight.regular};
+  color: ${({ theme }) => theme.color.neutralTextWeak};
 `;

@@ -14,8 +14,7 @@ const TableToolBarBox = styled.div`
   padding: 24px;
 
   height: 64px;
-  background: #f7f7fc;
+  background-color: ${({ theme }) => theme.color.neutralBackgroundStrong};
+  border: 1px solid ${({ theme }) => theme.color.neutralBorder};
   border-radius: 16px 16px 0px 0px;
-  border: 1px solid #d9dbe9;
-  font-size: 16px;
 `;
