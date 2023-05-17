@@ -36,9 +36,9 @@ class FeIssueServiceTest {
 
         Milestone milestone = new Milestone("마일1", LocalDateTime.now(), "마일1내용");
         User user = new User("hyun", "1234", "hyun", "/cat.jpg");
-        Issue issueWithoutLabels1 = new Issue(1, "제목1", "내용1", true, LocalDateTime.now(), milestone, user, new ArrayList<Label>());
-        Issue issueWithoutLabels2 = new Issue(2, "제목2", "내용2", true, LocalDateTime.now(), milestone, user, new ArrayList<Label>());
-        Issue issueWithoutLabels3 = new Issue(3, "제목3", "내용3", false, LocalDateTime.now(), milestone, user, new ArrayList<Label>());
+        Issue issueWithoutLabels1 = new Issue(1, "제목1", "내용1", true, LocalDateTime.now(), milestone, user);
+        Issue issueWithoutLabels2 = new Issue(2, "제목2", "내용2", true, LocalDateTime.now(), milestone, user);
+        Issue issueWithoutLabels3 = new Issue(3, "제목3", "내용3", false, LocalDateTime.now(), milestone, user);
 
         BDDMockito.given(issueRepository.findAllIssuesWithoutLabelsBy(ArgumentMatchers.any()))
                 .willReturn(List.of(issueWithoutLabels1, issueWithoutLabels2, issueWithoutLabels3));

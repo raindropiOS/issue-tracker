@@ -32,7 +32,7 @@ public class Issue {
     public Issue() {
     }
 
-    public Issue(Integer number, String title, String contents, boolean state, LocalDateTime createdDate, Milestone milestone, User user, List<Label> labels) {
+    public Issue(Integer number, String title, String contents, boolean state, LocalDateTime createdDate, Milestone milestone, User user) {
         this.number = number;
         this.title = title;
         this.contents = contents;
@@ -40,7 +40,6 @@ public class Issue {
         this.createdDate = createdDate;
         this.milestone = milestone;
         this.user = user;
-        this.labels = labels;
     }
 
     public Integer getNumber() {

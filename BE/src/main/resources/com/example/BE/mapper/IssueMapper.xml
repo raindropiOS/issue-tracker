@@ -9,6 +9,7 @@
         u.id, u.password, u.nickname, u.img_url from ISSUE i
         left outer join MILESTONE m on i.milestone_name = m.name
         left outer join USER u on i.user_id = u.id
+        left outer join ASSIGNS a on a.issue_number = i.number
         where i.state = #{state}
             <if test="author != null">
                 and u.nickname = #{author}
@@ -16,6 +17,10 @@
             <if test="milestoneName != null">
                 and m.name = #{milestoneName}
             </if>
+            <if test="assignee != null">
+                and a.user_id = #{assignee}
+            </if>
+
     </select>
 
     <resultMap type="com.example.BE.issue.Issue" id="issuesWithoutLabels">

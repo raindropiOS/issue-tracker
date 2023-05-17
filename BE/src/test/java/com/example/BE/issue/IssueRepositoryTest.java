@@ -40,8 +40,7 @@ class IssueRepositoryTest {
                     true,
                     LocalDateTime.of(2023, 5, 15, 19, 37, 47),
                     new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
-                    new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"),
-                    new ArrayList<Label>());
+                    new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
 
             Issue simpleOpenedIssue3 = new Issue(3,
                     "제목 3",
@@ -49,8 +48,7 @@ class IssueRepositoryTest {
                     true,
                     LocalDateTime.of(2023, 5, 15, 19, 37, 47),
                     new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
-                    new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"),
-                    new ArrayList<Label>());
+                    new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
 
             List<Issue> issuesWithoutLabels = issueRepository.findAllIssuesWithoutLabelsBy(new IssueSearchCondition());
             assertThat(issuesWithoutLabels).usingRecursiveFieldByFieldElementComparator().contains(simpleOpenedIssue1, simpleOpenedIssue3);
@@ -65,8 +63,7 @@ class IssueRepositoryTest {
                     false,
                     LocalDateTime.of(2023, 5, 15, 19, 37, 47),
                     new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
-                    new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"),
-                    new ArrayList<Label>());
+                    new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
 
 
             IssueSearchCondition issueSearchCondition = new IssueSearchCondition();
@@ -86,8 +83,7 @@ class IssueRepositoryTest {
                     true,
                     LocalDateTime.of(2023, 5, 15, 19, 37, 47),
                     new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
-                    new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"),
-                    new ArrayList<Label>());
+                    new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
 
             Issue simpleOpenedIssue3 = new Issue(3,
                     "제목 3",
@@ -95,8 +91,7 @@ class IssueRepositoryTest {
                     true,
                     LocalDateTime.of(2023, 5, 15, 19, 37, 47),
                     new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
-                    new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"),
-                    new ArrayList<Label>());
+                    new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
 
             IssueSearchCondition issueSearchCondition = new IssueSearchCondition();
             issueSearchCondition.setAuthor("BE");
@@ -118,8 +113,7 @@ class IssueRepositoryTest {
                     true,
                     LocalDateTime.of(2023, 5, 15, 19, 37, 47),
                     new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
-                    new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"),
-                    new ArrayList<Label>());
+                    new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
 
             Issue simpleOpenedIssue3 = new Issue(3,
                     "제목 3",
@@ -127,8 +121,7 @@ class IssueRepositoryTest {
                     true,
                     LocalDateTime.of(2023, 5, 15, 19, 37, 47),
                     new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
-                    new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"),
-                    new ArrayList<Label>());
+                    new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
 
             IssueSearchCondition issueSearchCondition = new IssueSearchCondition();
             issueSearchCondition.setMilestoneName("BE STEP1");
@@ -139,6 +132,25 @@ class IssueRepositoryTest {
             issueSearchCondition.setMilestoneName("FE STEP1");
             List<Issue> issuesWithoutLabels2 = issueRepository.findAllIssuesWithoutLabelsBy(issueSearchCondition);
             assertThat(issuesWithoutLabels2).isEmpty();
+        }
+
+        @Test
+        @DisplayName("이슈에 담당된 유저의 아이디를 기준으로 필터링한 목록을 반환한다.")
+        void issuesFilteredByAssignee() {
+            Issue simpleClosedIssue = new Issue(2,
+                    "제목 2",
+                    "두 번째 이슈 내용",
+                    false,
+                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
+                    new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
+                    new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
+
+            IssueSearchCondition issueSearchCondition = new IssueSearchCondition();
+            issueSearchCondition.setState(false);
+            issueSearchCondition.setAssignee("cire");
+
+            List<Issue> issuesWithoutLabels1 = issueRepository.findAllIssuesWithoutLabelsBy(issueSearchCondition);
+            assertThat(issuesWithoutLabels1).usingRecursiveFieldByFieldElementComparator().contains(simpleClosedIssue);
         }
     }
 
