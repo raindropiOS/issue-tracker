@@ -1,5 +1,6 @@
 package com.example.BE.issue;
 
+import com.example.BE.issue.dto.Assignee;
 import com.example.BE.issue.dto.IssueLabelMap;
 import com.example.BE.label.Label;
 import com.example.BE.milestone.Milestone;
@@ -26,6 +27,7 @@ public class Issue {
     private User user;
 
     private List<Label> labels = new ArrayList<>();
+    private List<User> assignees = new ArrayList<>();
 
     public Issue() {
     }
@@ -103,5 +105,13 @@ public class Issue {
 
     public void add(IssueLabelMap issueLabel) {
         this.labels.add(issueLabel.getLabel());
+    }
+
+    public List<User> getAssignees() {
+        return assignees;
+    }
+
+    public void add(Assignee assignee) {
+        this.assignees.add(assignee.getUser());
     }
 }

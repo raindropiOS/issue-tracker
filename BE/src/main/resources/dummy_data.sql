@@ -2,7 +2,8 @@ show databases ;
 use issue_tracker_database;
 
 desc USER;
-insert into USER(id, password, nickname, img_url) values ('1234', 'codesquad', 'BE', 'https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg');
+insert into USER(id, password, nickname, img_url)
+values ('1234', 'codesquad', 'BE', 'https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg'), ('ghkdgus29', 'codesquad1', 'hyun', 'https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cute_cat.jpg'), ('cire', 'codesquad2', 'cire', 'https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/img.jpg');
 select * from USER;
 
 
@@ -15,6 +16,12 @@ desc ISSUE;
 insert into ISSUE(contents, state, created_date, title, user_id, milestone_name)
 values ('첫 번째 이슈 내용', true, '2023-5-15 19:37:47', '제목 1', 1234, 'BE STEP1'), ('두 번째 이슈 내용', false, '2023-5-15 19:37:47','제목 2', 1234, 'BE STEP1'), ('세 번째 이슈 내용', true,'2023-5-15 19:37:47', '제목 3', 1234, 'BE STEP1');
 select * from ISSUE;
+
+desc ASSIGNS;
+insert into ASSIGNS(user_id, issue_number)
+values ('ghkdgus29', 1), ('cire', 2), ('ghkdgus29', 3), ('cire', 3);
+select * from ASSIGNS;
+
 
 desc LABEL;
 insert into LABEL(name, description, background_color, text_color)

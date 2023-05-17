@@ -1,7 +1,9 @@
 package com.example.BE.issue;
 
+import com.example.BE.issue.dto.Assignee;
 import com.example.BE.issue.dto.Count;
 import com.example.BE.issue.dto.IssueLabelMap;
+import com.example.BE.mapper.AssigneeRowMapper;
 import com.example.BE.mapper.CountRowMapper;
 import com.example.BE.mapper.IssueLabelMapRowMapper;
 import org.springframework.data.jdbc.repository.query.Query;
@@ -19,6 +21,13 @@ public interface IssueRepository extends CrudRepository<Issue, Integer>, IssueRe
             "where ir.issue_number in (:issueNumbers)",
             rowMapperClass = IssueLabelMapRowMapper.class)
     List<IssueLabelMap> findAllIssueLabelMap(@Param("issueNumbers") Set<Integer> issueNumbers);
+
+    @Query(value = "select a.issue_number, u.id, u.password, u.nickname, u.img_url " +
+            "from ASSIGNS a " +
+            "left join USER u on a.user_id = u.id " +
+            "where a.issue_number in (:issueNumbers)",
+            rowMapperClass = AssigneeRowMapper.class)
+    List<Assignee> findAssigneesIn(@Param("issueNumbers") Set<Integer> issueNumbers);
 
     @Query(value = "select " +
             "(select count(number) from ISSUE where state=true) as openedIssuesCount, " +
