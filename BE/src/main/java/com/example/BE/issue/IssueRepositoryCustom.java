@@ -1,8 +1,10 @@
 package com.example.BE.issue;
 
+import com.example.BE.issue.dto.IssueSearchCondition;
+
 import java.util.List;
 
 public interface IssueRepositoryCustom {
 
-    List<Issue> findAllIssuesWithoutLabels();
+    List<Issue> findAllIssuesWithoutLabelsBy(IssueSearchCondition issueSearchCondition);
 }

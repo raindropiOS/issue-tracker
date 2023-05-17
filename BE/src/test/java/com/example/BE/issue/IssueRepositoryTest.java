@@ -2,10 +2,12 @@ package com.example.BE.issue;
 
 import com.example.BE.issue.dto.Count;
 import com.example.BE.issue.dto.IssueLabelMap;
+import com.example.BE.issue.dto.IssueSearchCondition;
 import com.example.BE.label.Label;
 import com.example.BE.milestone.Milestone;
 import com.example.BE.user.User;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,39 +27,34 @@ class IssueRepositoryTest {
     @Autowired
     private IssueRepository issueRepository;
 
-    @Test
-    @DisplayName("List<Labels> 를 채우지 않고 DB로 부터 데이터를 불러와 List<Issue> 목록을 반환한다.")
-    void findAllIssuesWithoutLabels() {
+    @Nested
+    @DisplayName("List<Labels> 를 채우지 않고 DB로 부터 데이터를 불러와 List<Issue> 목록을 필터링해 반환한다.")
+    class FindAllIssuesWithoutLabels {
 
-        Issue simpleIssue1 = new Issue(1,
-                "제목 1",
-                "첫 번째 이슈 내용",
-                true,
-                LocalDateTime.of(2023, 5, 15, 19, 37, 47),
-                new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
-                new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"),
-                new ArrayList<Label>());
+        @Test
+        @DisplayName("열린 이슈들로만 이루어진 목록을 반환한다. (IssueSearchCondition 의 state 기본값은 true로 열린 이슈목록들을 필터링한다.)")
+        void openIssues() {
+            Issue simpleOpenedIssue1 = new Issue(1,
+                    "제목 1",
+                    "첫 번째 이슈 내용",
+                    true,
+                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
+                    new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
+                    new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"),
+                    new ArrayList<Label>());
 
-        Issue simpleIssue2 = new Issue(2,
-                "제목 2",
-                "두 번째 이슈 내용",
-                false,
-                LocalDateTime.of(2023, 5, 15, 19, 37, 47),
-                new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
-                new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"),
-                new ArrayList<Label>());
+            Issue simpleOpenedIssue3 = new Issue(3,
+                    "제목 3",
+                    "세 번째 이슈 내용",
+                    true,
+                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
+                    new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
+                    new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"),
+                    new ArrayList<Label>());
 
-        Issue simpleIssue3 = new Issue(3,
-                "제목 3",
-                "세 번째 이슈 내용",
-                true,
-                LocalDateTime.of(2023, 5, 15, 19, 37, 47),
-                new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
-                new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"),
-                new ArrayList<Label>());
-
-        List<Issue> issuesWithoutLabels = issueRepository.findAllIssuesWithoutLabels();
-        assertThat(issuesWithoutLabels).usingRecursiveFieldByFieldElementComparator().contains(simpleIssue1, simpleIssue2, simpleIssue3);
+            List<Issue> issuesWithoutLabels = issueRepository.findAllIssuesWithoutLabelsBy(new IssueSearchCondition());
+            assertThat(issuesWithoutLabels).usingRecursiveFieldByFieldElementComparator().contains(simpleOpenedIssue1, simpleOpenedIssue3);
+        }
     }
 
     @Test
@@ -84,4 +81,5 @@ class IssueRepositoryTest {
         assertThat(count.getLabelsCount()).isEqualTo(2);
         assertThat(count.getMilestoneCount()).isEqualTo(1);
     }
+
 }

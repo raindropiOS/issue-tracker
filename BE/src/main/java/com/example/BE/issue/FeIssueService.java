@@ -3,6 +3,7 @@ package com.example.BE.issue;
 import com.example.BE.issue.dto.Count;
 import com.example.BE.issue.dto.FeIssueResponse;
 import com.example.BE.issue.dto.IssueLabelMap;
+import com.example.BE.issue.dto.IssueSearchCondition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,14 +23,14 @@ public class FeIssueService {
         this.issueRepository = issueRepository;
     }
 
-    public FeIssueResponse makeFeIssueResponse() {
-        Collection<Issue> issues = mapIssueWithLabels();
+    public FeIssueResponse makeFeIssueResponse(IssueSearchCondition issueSearchCondition) {
+        Collection<Issue> issues = mapIssueWithLabels(issueSearchCondition);
         Count count = calculateCount();
         return new FeIssueResponse(issues, count);
     }
 
-    private Collection<Issue> mapIssueWithLabels() {
-        List<Issue> issues = issueRepository.findAllIssuesWithoutLabels();
+    private Collection<Issue> mapIssueWithLabels(IssueSearchCondition issueSearchCondition) {
+        List<Issue> issues = issueRepository.findAllIssuesWithoutLabelsBy(issueSearchCondition);
 
         Map<Integer, Issue> issueMap = issues.stream()
                 .collect(Collectors.toMap(

@@ -3,12 +3,14 @@ package com.example.BE.issue;
 import com.example.BE.issue.dto.Count;
 import com.example.BE.issue.dto.FeIssueResponse;
 import com.example.BE.issue.dto.IssueLabelMap;
+import com.example.BE.issue.dto.IssueSearchCondition;
 import com.example.BE.label.Label;
 import com.example.BE.milestone.Milestone;
 import com.example.BE.user.User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentMatchers;
 import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -38,7 +40,7 @@ class FeIssueServiceTest {
         Issue issueWithoutLabels2 = new Issue(2, "제목2", "내용2", true, LocalDateTime.now(), milestone, user, new ArrayList<Label>());
         Issue issueWithoutLabels3 = new Issue(3, "제목3", "내용3", false, LocalDateTime.now(), milestone, user, new ArrayList<Label>());
 
-        BDDMockito.given(issueRepository.findAllIssuesWithoutLabels())
+        BDDMockito.given(issueRepository.findAllIssuesWithoutLabelsBy(ArgumentMatchers.any()))
                 .willReturn(List.of(issueWithoutLabels1, issueWithoutLabels2, issueWithoutLabels3));
 
         Label label1 = new Label("라벨1", "라벨내용1", "#000000", "#000000");
@@ -56,7 +58,7 @@ class FeIssueServiceTest {
         BDDMockito.given(issueRepository.countEntities())
                 .willReturn(count);
 
-        FeIssueResponse feIssueResponse = issueService.makeFeIssueResponse();
+        FeIssueResponse feIssueResponse = issueService.makeFeIssueResponse(ArgumentMatchers.any());
 
         issueWithoutLabels1.add(issueLabelMap1);
         issueWithoutLabels1.add(issueLabelMap2);
