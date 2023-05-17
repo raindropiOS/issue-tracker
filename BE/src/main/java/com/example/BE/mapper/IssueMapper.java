@@ -12,7 +12,7 @@ import java.util.List;
 public interface IssueMapper {
     List<Issue> findIssueWithoutLabelsBy(IssueSearchCondition issueSearchCondition);
 
-    List<IssueLabelMap> findIssueLabelMapBy(IssueSearchCondition issueSearchCondition);
+    List<IssueLabelMap> findIssueLabelMapBy(List<Issue> issues);
 
     Count countEntities();
 
