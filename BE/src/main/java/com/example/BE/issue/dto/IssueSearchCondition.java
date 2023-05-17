@@ -14,40 +14,24 @@ public class IssueSearchCondition {
         this.state = true;
     }
 
-    public boolean isState() {
-        return state;
+    public Integer getLabelNamesSize() {
+        return labelNames.size();
     }
 
     public void setState(boolean state) {
         this.state = state;
     }
 
-    public String getAuthor() {
-        return author;
-    }
-
     public void setAuthor(String author) {
         this.author = author;
-    }
-
-    public String getAssignee() {
-        return assignee;
     }
 
     public void setAssignee(String assignee) {
         this.assignee = assignee;
     }
 
-    public String getMilestoneName() {
-        return milestoneName;
-    }
-
     public void setMilestoneName(String milestoneName) {
         this.milestoneName = milestoneName;
-    }
-
-    public List<String> getLabelNames() {
-        return labelNames;
     }
 
     public void setLabelNames(List<String> labelNames) {
