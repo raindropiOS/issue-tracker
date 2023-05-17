@@ -21,8 +21,8 @@ public class IssueRepository {
         return issueMapper.findIssueWithoutLabelsBy(issueSearchCondition);
     }
 
-    public List<IssueLabelMap> findIssueLabelMapBy(IssueSearchCondition issueSearchCondition) {
-        return issueMapper.findIssueLabelMapBy(issueSearchCondition);
+    public List<IssueLabelMap> findIssueLabelMapBy(List<Issue> issues) {
+        return issueMapper.findIssueLabelMapBy(issues);
     }
 
     public Count countEntities() {

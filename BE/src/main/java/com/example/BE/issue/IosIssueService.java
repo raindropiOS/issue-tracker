@@ -22,13 +22,12 @@ public class IosIssueService {
 
     public IosIssueResponse findIssuesBy(IssueSearchCondition issueSearchCondition) {
         List<Issue> issues = issueRepository.findIssueWithoutLabelsBy(issueSearchCondition);
-        List<IssueLabelMap> issueLabelMaps = issueRepository.findIssueLabelMapBy(issueSearchCondition);
+        List<IssueLabelMap> issueLabelMaps = issueRepository.findIssueLabelMapBy(issues);
 
         HashMap<Integer, Issue> issueHashMap = new HashMap<>();
         for (Issue issue : issues) {
             issueHashMap.put(issue.getNumber(), issue);
         }
-
         for (IssueLabelMap issueLabelMap : issueLabelMaps) {
             Issue issue = issueHashMap.get(issueLabelMap.getIssueNumber());
             if (issue != null) {

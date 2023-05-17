@@ -25,6 +25,16 @@
             <if test="milestoneName != null">
                 and m.name = #{milestoneName}
             </if>
+            <if test="labelNames != null">
+                and i.number in (select ir.issue_number
+                                FROM ISSUE_LABEL_RELATION ir
+                                where ir.label_name in
+                                <foreach item="labelName" collection="labelNames" open="(" close=")" separator=",">
+                                    #{labelName}
+                                </foreach>
+                                GROUP BY ir.issue_number
+                                HAVING count(*) &lt;= #{labelNamesSize})
+            </if>
         </where>
     </select>
 
@@ -57,10 +67,10 @@
         from ISSUE_LABEL_RELATION ir
         left outer join LABEL l on ir.label_name = l.name
         <where>
-            <if test="labelNames != null">
-                l.name in
-                <foreach item="labelName" collection="labelNames" open="(" close=")" separator=",">
-                    #{labelName}
+            <if test="list != null">
+                ir.issue_number in
+                <foreach item="issue" collection="list" open="(" close=")" separator=",">
+                    #{issue.number}
                 </foreach>
             </if>
         </where>
