@@ -108,6 +108,38 @@ class IssueRepositoryTest {
             List<Issue> issuesWithoutLabels2 = issueRepository.findAllIssuesWithoutLabelsBy(issueSearchCondition);
             assertThat(issuesWithoutLabels2).isEmpty();
         }
+
+        @Test
+        @DisplayName("마일스톤 이름울 기준으로 필터링한 목록을 반환한다.")
+        void issuesFilteredByMilestone() {
+            Issue simpleOpenedIssue1 = new Issue(1,
+                    "제목 1",
+                    "첫 번째 이슈 내용",
+                    true,
+                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
+                    new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
+                    new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"),
+                    new ArrayList<Label>());
+
+            Issue simpleOpenedIssue3 = new Issue(3,
+                    "제목 3",
+                    "세 번째 이슈 내용",
+                    true,
+                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
+                    new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
+                    new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"),
+                    new ArrayList<Label>());
+
+            IssueSearchCondition issueSearchCondition = new IssueSearchCondition();
+            issueSearchCondition.setMilestoneName("BE STEP1");
+
+            List<Issue> issuesWithoutLabels1 = issueRepository.findAllIssuesWithoutLabelsBy(issueSearchCondition);
+            assertThat(issuesWithoutLabels1).usingRecursiveFieldByFieldElementComparator().contains(simpleOpenedIssue1, simpleOpenedIssue3);
+
+            issueSearchCondition.setMilestoneName("FE STEP1");
+            List<Issue> issuesWithoutLabels2 = issueRepository.findAllIssuesWithoutLabelsBy(issueSearchCondition);
+            assertThat(issuesWithoutLabels2).isEmpty();
+        }
     }
 
     @Test
@@ -119,7 +151,6 @@ class IssueRepositoryTest {
 
         List<IssueLabelMap> issueLabelMaps = issueRepository.findAllIssueLabelMap(Set.of(1, 2));
 
-        System.out.println(issueLabelMaps);
         assertThat(issueLabelMaps).usingRecursiveFieldByFieldElementComparator().contains(issueLabelMap1, issueLabelMap2, issueLabelMap3);
     }
 

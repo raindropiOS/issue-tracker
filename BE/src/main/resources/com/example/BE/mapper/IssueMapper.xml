@@ -13,6 +13,9 @@
             <if test="author != null">
                 and u.nickname = #{author}
             </if>
+            <if test="milestoneName != null">
+                and m.name = #{milestoneName}
+            </if>
     </select>
 
     <resultMap type="com.example.BE.issue.Issue" id="issuesWithoutLabels">
