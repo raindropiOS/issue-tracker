@@ -6,7 +6,6 @@ import com.example.BE.issue.dto.IssueLabelMap;
 import com.example.BE.label.Label;
 import com.example.BE.milestone.Milestone;
 import com.example.BE.user.User;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
