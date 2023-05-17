@@ -46,6 +46,10 @@ public class IssueSearchCondition {
         this.labelNames = labelNames;
     }
 
+    public Integer getLabelNamesSize() {
+        return labelNames.size();
+    }
+
     public String getMilestoneName() {
         return milestoneName;
     }

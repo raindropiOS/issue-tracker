@@ -20,6 +20,17 @@
             <if test="assignee != null">
                 and a.user_id = #{assignee}
             </if>
+            <if test="labelNames != null">
+                and i.number in (select ir.issue_number
+                                from ISSUE_LABEL_RELATION ir
+                                where ir.label_name in
+                                <foreach item="labelName" collection="labelNames" open="(" close=")" separator=",">
+                                    #{labelName}
+                                </foreach>
+                                group by ir.issue_number
+                                having count(*) = #{labelNamesSize})
+
+            </if>
 
     </select>
 
