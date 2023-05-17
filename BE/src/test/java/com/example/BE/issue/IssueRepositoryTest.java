@@ -105,11 +105,14 @@ class IssueRepositoryTest {
         issueLabelMap3.setIssueNumber(2);
         issueLabelMap3.setLabel(label2);
 
+        Issue issue = new Issue();
+        issue.setNumber(1);
+
         // when
-        List<IssueLabelMap> actualIssueLabelMap = issueRepository.findIssueLabelMapBy(issueSearchCondition);
+        List<IssueLabelMap> actualIssueLabelMap = issueRepository.findIssueLabelMapBy(List.of(issue));
 
         // then
-        assertThat(actualIssueLabelMap).usingRecursiveFieldByFieldElementComparator().contains(issueLabelMap1, issueLabelMap2, issueLabelMap3);
+        assertThat(actualIssueLabelMap).usingRecursiveFieldByFieldElementComparator().contains(issueLabelMap1, issueLabelMap2);
 
     }
 
