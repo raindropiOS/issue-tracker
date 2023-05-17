@@ -5,14 +5,15 @@ desc USER;
 insert into USER(id, password, nickname, img_url) values ('1234', 'codesquad', 'BE', 'https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg');
 select * from USER;
 
+
 desc MILESTONE;
 insert into MILESTONE(name, scheduled_completion_date, description_for_label)
 values ('BE STEP1', '2023-05-20 00:00:00', 'BE 1주차 이슈들');
 select * from MILESTONE;
 
 desc ISSUE;
-insert into ISSUE(contents, state, title, user_id, milestone_name)
-values ('첫 번째 이슈 내용', true, '제목 1', 1234, 'BE STEP1'), ('두 번째 이슈 내용', false, '제목 2', 1234, 'BE STEP1'), ('세 번째 이슈 내용', true, '제목 3', 1234, 'BE STEP1');
+insert into ISSUE(contents, state, created_date, title, user_id, milestone_name)
+values ('첫 번째 이슈 내용', true, '2023-5-15 19:37:47', '제목 1', 1234, 'BE STEP1'), ('두 번째 이슈 내용', false, '2023-5-15 19:37:47','제목 2', 1234, 'BE STEP1'), ('세 번째 이슈 내용', true,'2023-5-15 19:37:47', '제목 3', 1234, 'BE STEP1');
 select * from ISSUE;
 
 desc LABEL;
