@@ -17,8 +17,8 @@ const DropDownContentBox = styled.div`
   position: absolute;
 
   width: 240px;
-  background: #d9dbe9;
-  border: 1px solid #d9dbe9;
+  background: ${({ theme }) => theme.color.neutralBorder};
+  border: 1px solid ${({ theme }) => theme.color.neutralBorder};
   box-shadow: 0px 0px 8px rgba(20, 20, 43, 0.04);
   border-radius: 16px;
   ${({ $posright }) => ($posright ? 'right: 0;' : 'left: 0;')}

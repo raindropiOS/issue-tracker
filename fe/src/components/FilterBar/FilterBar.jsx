@@ -29,12 +29,12 @@ export default FilterBar;
 const FilterBarBox = styled.div`
   display: flex;
 
-  border: 1px solid #d9dbe9;
+  border: 1px solid ${({ theme }) => theme.color.neutralBorder};
   border-radius: 11px;
   width: 600px;
   position: relative;
   height: 40px;
-  color: #6e7191;
+  color: ${({ theme }) => theme.color.neutralTextWeak};
 `;
 
 const FilterBarDropDown = styled(DropDown)`

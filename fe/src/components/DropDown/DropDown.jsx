@@ -67,8 +67,8 @@ const DropDownBox = styled.div`
 
     width: 100%;
     height: 100%;
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 28px;
+    font-weight: ${({ theme }) => theme.fontWeight.bold};
+    font-size: ${({ theme }) => theme.fontSize.M.size};
+    line-height: ${({ theme }) => theme.fontSize.M.lineHeight};
   }
 `;

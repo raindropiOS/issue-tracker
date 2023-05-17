@@ -23,7 +23,7 @@ const IssueItem = ({
         <IssueItemTitle>
           <img src={alertCircleBlue} alt="alertCirlceBlue" />
           <p>{title}</p>
-          {labels.map((labelInfo, idx) => (
+          {labels.map((labelInfo) => (
             <Label key={labelInfo.name} {...labelInfo} />
           ))}
         </IssueItemTitle>

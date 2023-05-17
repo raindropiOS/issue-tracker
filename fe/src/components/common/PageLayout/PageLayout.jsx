@@ -9,10 +9,12 @@ export const PageLayout = ({ children }) => {
     </PageLayoutBox>
   );
 };
+
 const PageLayoutBox = styled.div`
   background-color: ${({ theme }) => theme.color.neutralBackground};
   height: 100vh;
 `;
+
 const Content = styled.main`
   display: flex;
   flex-direction: column;

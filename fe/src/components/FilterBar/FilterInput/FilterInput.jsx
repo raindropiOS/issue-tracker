@@ -14,21 +14,19 @@ export default FilterInput;
 
 const FilterInputBox = styled.div`
   display: flex;
-  justify-content: center;
   align-items: center;
   gap: 8px;
   flex-grow: 1;
 
-  background: #eff0f6;
+  background: ${({ theme }) => theme.color.neutralBackgroundBold};
   border-radius: 0px 11px 11px 0px;
   padding: 6px 24px;
 
   input {
-    font-weight: 400;
+    font-weight: ${({ theme }) => theme.fontWeight.regular};
     width: 400px;
-    background-color: inherit;
     border: none;
-    font-size: 16px;
-    line-height: 28px;
+    font-size: ${({ theme }) => theme.fontSize.M.size};
+    line-height: ${({ theme }) => theme.fontSize.M.lineHeight};
   }
 `;
