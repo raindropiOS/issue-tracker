@@ -10,6 +10,9 @@
         left outer join MILESTONE m on i.milestone_name = m.name
         left outer join USER u on i.user_id = u.id
         where i.state = #{state}
+            <if test="author != null">
+                and u.nickname = #{author}
+            </if>
     </select>
 
     <resultMap type="com.example.BE.issue.Issue" id="issuesWithoutLabels">

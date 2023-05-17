@@ -55,6 +55,59 @@ class IssueRepositoryTest {
             List<Issue> issuesWithoutLabels = issueRepository.findAllIssuesWithoutLabelsBy(new IssueSearchCondition());
             assertThat(issuesWithoutLabels).usingRecursiveFieldByFieldElementComparator().contains(simpleOpenedIssue1, simpleOpenedIssue3);
         }
+
+        @Test
+        @DisplayName("닫힌 이슈들로만 이루어진 목록을 반환한다.")
+        void closeIssues() {
+            Issue simpleClosedIssue = new Issue(2,
+                    "제목 2",
+                    "두 번째 이슈 내용",
+                    false,
+                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
+                    new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
+                    new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"),
+                    new ArrayList<Label>());
+
+
+            IssueSearchCondition issueSearchCondition = new IssueSearchCondition();
+            issueSearchCondition.setState(false);
+
+            List<Issue> issuesWithoutLabels = issueRepository.findAllIssuesWithoutLabelsBy(issueSearchCondition);
+            assertThat(issuesWithoutLabels).usingRecursiveFieldByFieldElementComparator().contains(simpleClosedIssue);
+        }
+
+        @Test
+        @DisplayName("글 작성자 (닉네임)를 기준으로 필터링한 목록을 반환한다.")
+        void issuesFilteredByAuthor() {
+
+            Issue simpleOpenedIssue1 = new Issue(1,
+                    "제목 1",
+                    "첫 번째 이슈 내용",
+                    true,
+                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
+                    new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
+                    new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"),
+                    new ArrayList<Label>());
+
+            Issue simpleOpenedIssue3 = new Issue(3,
+                    "제목 3",
+                    "세 번째 이슈 내용",
+                    true,
+                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
+                    new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
+                    new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"),
+                    new ArrayList<Label>());
+
+            IssueSearchCondition issueSearchCondition = new IssueSearchCondition();
+            issueSearchCondition.setAuthor("BE");
+
+            List<Issue> issuesWithoutLabels1 = issueRepository.findAllIssuesWithoutLabelsBy(issueSearchCondition);
+            assertThat(issuesWithoutLabels1).usingRecursiveFieldByFieldElementComparator().contains(simpleOpenedIssue1, simpleOpenedIssue3);
+
+            issueSearchCondition.setAuthor("FE");
+            List<Issue> issuesWithoutLabels2 = issueRepository.findAllIssuesWithoutLabelsBy(issueSearchCondition);
+            assertThat(issuesWithoutLabels2).isEmpty();
+        }
     }
 
     @Test

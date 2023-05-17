@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -31,6 +32,10 @@ public class FeIssueService {
 
     private Collection<Issue> mapIssueWithLabels(IssueSearchCondition issueSearchCondition) {
         List<Issue> issues = issueRepository.findAllIssuesWithoutLabelsBy(issueSearchCondition);
+
+        if (issues.isEmpty()) {
+            return Collections.emptyList();
+        }
 
         Map<Integer, Issue> issueMap = issues.stream()
                 .collect(Collectors.toMap(
