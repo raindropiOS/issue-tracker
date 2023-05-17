@@ -1,14 +1,12 @@
 import styled, { css } from 'styled-components';
 
-const Label = ({ name, ...colors }) => {
+export const Label = ({ name, ...colors }) => {
   return (
     <LableBox name={name} {...colors}>
       {name}
     </LableBox>
   );
 };
-
-export default Label;
 
 const LableBox = styled.div`
   display: flex;

@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import { ThemeProvider } from 'styled-components';
 import { PageLayout } from './components/common';
 import FilterBar from './components/FilterBar/FilterBar';
-import GlobalStyles from './components/GlobalStyles';
+import GlobalStyles from './style/GlobalStyles';
 import IssueTable from './components/IssueTable/IssueTable';
+import { lightTheme } from './style/lightTheme';
 
 const initialState = [
   {
@@ -75,16 +77,18 @@ const App = () => {
   return (
     <div>
       <GlobalStyles />
-      <PageLayout>
-        <FilterBar filterOptions={filterOptions} />
-        <IssueTable
-          issues={filteredIssues}
-          openedIssueCount={counts.openedIssueCount}
-          closedIssueCount={counts.closedIssueCount}
-          isOpened={filterOptions.isOpened}
-          setFilterOptions={setFilterOptions}
-        />
-      </PageLayout>
+      <ThemeProvider theme={lightTheme}>
+        <PageLayout>
+          <FilterBar filterOptions={filterOptions} />
+          <IssueTable
+            issues={filteredIssues}
+            openedIssueCount={counts.openedIssueCount}
+            closedIssueCount={counts.closedIssueCount}
+            isOpened={filterOptions.isOpened}
+            setFilterOptions={setFilterOptions}
+          />
+        </PageLayout>
+      </ThemeProvider>
     </div>
   );
 };

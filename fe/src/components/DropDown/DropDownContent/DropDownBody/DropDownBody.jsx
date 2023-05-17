@@ -26,18 +26,17 @@ const DropDownBodyList = styled.ul`
   flex-direction: column;
   gap: 1px;
 
-  color: #4e4b66;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 28px;
+  font-weight: ${({ theme }) => theme.fontWeight.regular};
+  font-size: ${({ theme }) => theme.fontSize.M.size};
+  line-height: ${({ theme }) => theme.fontSize.M.lineHeight};
   border-radius: 0px 0px 16px 16px;
-  background: #d9dbe9;
+  background: ${({ theme }) => theme.color.neutralBorder};
 
   li {
     display: flex;
     justify-content: space-between;
     padding: 8px 16px;
-    background: #fefefe;
+    background: ${({ theme }) => theme.color.neutralBackgroundStrong};
     cursor: pointer;
   }
 

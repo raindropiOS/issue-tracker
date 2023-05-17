@@ -1,9 +1,10 @@
+/* eslint-disable camelcase */
 import styled from 'styled-components';
 import React from 'react';
-import CheckBox from '../../CheckBox';
+import CheckBox from '../CheckBox/CheckBox';
 import alertCircleBlue from '../../../assets/alertCircleBlue.svg';
 import mileStone from '../../../assets/mileStone.svg';
-import Label from '../../Label';
+import { Label } from '../../common';
 
 const IssueItem = ({
   number,
@@ -22,8 +23,8 @@ const IssueItem = ({
         <IssueItemTitle>
           <img src={alertCircleBlue} alt="alertCirlceBlue" />
           <p>{title}</p>
-          {labels.map((labelInfo, idx) => (
-            <Label key={idx} {...labelInfo} />
+          {labels.map((labelInfo) => (
+            <Label key={labelInfo.name} {...labelInfo} />
           ))}
         </IssueItemTitle>
         <IssueItemAttributes>

@@ -22,6 +22,7 @@ const GlobalStyles = createGlobalStyle`
 
     input {
       color: inherit;
+      background-color: inherit;
     }
 
     input:focus {

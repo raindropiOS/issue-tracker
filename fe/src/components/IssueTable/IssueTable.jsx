@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import CheckBox from '../CheckBox';
+import CheckBox from './CheckBox/CheckBox';
 import IssueItem from './IssueItem/IssueItem';
 import IssueStatusButtons from './TableToolBar/IssueStatusButtons/IssueStatusButtons';
 import TableFilterButtons from './TableToolBar/TableFilterButtons/TableFilterButtons';
