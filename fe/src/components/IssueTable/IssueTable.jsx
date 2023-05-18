@@ -31,8 +31,13 @@ const IssueItemList = styled.ul`
   flex-direction: column;
 
   height: auto;
-  border: 1px solid ${({ theme }) => theme.color.neutralBorder};
   border-radius: 0px 0px 16px 16px;
+
+  li {
+    border-right: 1px solid ${({ theme }) => theme.color.neutralBorder};
+    border-left: 1px solid ${({ theme }) => theme.color.neutralBorder};
+    border-bottom: 1px solid ${({ theme }) => theme.color.neutralBorder};
+  }
 
   li:last-child {
     border-radius: 0px 0px 16px 16px;

@@ -4,15 +4,11 @@ import React from 'react';
 import CheckBox from '../CheckBox/CheckBox';
 import alertCircleBlue from '../../../assets/alertCircleBlue.svg';
 import mileStone from '../../../assets/mileStone.svg';
-import { Label } from '../../common';
+import { Label, UserIcon } from '../../common';
+import userImageLarge from '../../../assets/userImageLarge.svg';
 
 const IssueItem = ({
-  number,
-  title,
-  created_date,
-  labels,
-  milestone,
-  author,
+  number, title, createdDate, labels, milestone, user,
 }) => {
   return (
     // TODO: Label key 수정 필요
@@ -28,24 +24,22 @@ const IssueItem = ({
           ))}
         </IssueItemTitle>
         <IssueItemAttributes>
-          <p>
+          <span>
             #
             {number}
-          </p>
-          <p>
-            이 이슈가
-            {created_date}
-            분 전,
-            {author.name}
-            에 의해 작성되엇습니다
-          </p>
-          <p>
+          </span>
+          <span>
+            {`이 이슈가 ${createdDate} 분 전, ${user.nickname}에 의해 작성되었습니다.`}
+          </span>
+          <span>
             <img src={mileStone} alt="mileStone" />
             {milestone.name}
-          </p>
+          </span>
         </IssueItemAttributes>
       </IssueItemBody>
-      <div>작성자 이미지</div>
+      <div>
+        <UserIcon imgSrc={userImageLarge} />
+      </div>
     </IssueItemBox>
   );
 };
@@ -54,12 +48,15 @@ export default IssueItem;
 
 const IssueItemBox = styled.li`
   display: flex;
+  align-items: center;
   flex-direction: row;
 
-  gap: 33px;
   padding: 24px;
-  border-top: 1px solid ${({ theme }) => theme.color.neutralBorder};
   background: ${({ theme }) => theme.color.neutralBackgroundStrong};
+
+  > div {
+    padding: 0 33px;
+  }
 `;
 
 const IssueItemBody = styled.div`
@@ -89,4 +86,9 @@ const IssueItemAttributes = styled.div`
   font-size: ${({ theme }) => theme.fontSize.M.size};
   font-weight: ${({ theme }) => theme.fontWeight.regular};
   color: ${({ theme }) => theme.color.neutralTextWeak};
+
+  > span {
+    display: flex;
+    gap: 8px;
+  }
 `;
