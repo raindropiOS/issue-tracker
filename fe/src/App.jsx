@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { PageLayout } from './components/common';
 import FilterBar from './components/FilterBar/FilterBar';
@@ -6,54 +6,10 @@ import GlobalStyles from './style/GlobalStyles';
 import IssueTable from './components/IssueTable/IssueTable';
 import { darkTheme, lightTheme } from './style';
 
-const initialState = [
-  {
-    number: 1,
-    title: '테스트 이슈 제목1',
-    state: true,
-    created_date: '2023-02-21 11:28:37',
-    labels: [
-      {
-        name: 'documentation',
-        text_color: '#FEFEFE',
-        background_color: '#004DE3',
-      },
-      {
-        name: 'bugfix',
-        text_color: '#14142B',
-        background_color: '#EFF0F6',
-      },
-    ],
-    milestone: { name: '그룹프로젝트: 이슈트래커' },
-    author: {
-      nickname: 'den',
-      image: '이미지파일자체',
-    },
-  },
-  {
-    number: 33,
-    title: '테스트 이슈 제목2',
-    state: true,
-    created_date: '2023-05-09 17:18:11',
-    labels: [
-      {
-        name: 'frontend',
-        text_color: '#ffffff',
-        background_color: '#48d900',
-      },
-    ],
-    milestone: { name: '그룹프로젝트: 이슈트래커' },
-    author: {
-      nickname: 'caesar',
-      image: '이미지파일자체',
-    },
-  },
-];
-
 const App = () => {
   const [theme, setTheme] = useState(lightTheme);
   // TODO: 전체 내용 MainPage로 빼고 App은 라우터 설정
-  const [issues, setIssues] = useState(initialState);
+  const [issues, setIssues] = useState([]);
   const [counts, setCounts] = useState({
     openedIssueCount: 2,
     closedIssueCount: 0,
@@ -72,9 +28,17 @@ const App = () => {
     // author: null,
   });
 
-  const filteredIssues = issues.filter(
-    ({ state }) => state === filterOptions.isOpened,
-  );
+  // const filteredIssues = issues.filter(
+  //   ({ state }) => state === filterOptions.isOpened,
+  // );
+
+  useEffect(() => {
+    fetch('http://3.38.73.117:8080/api-fe/issues')
+      .then((res) => res.json())
+      .then((data) => {
+        setIssues(data.issues);
+      });
+  }, []);
 
   return (
     <div>
@@ -90,7 +54,7 @@ const App = () => {
         <PageLayout>
           <FilterBar filterOptions={filterOptions} />
           <IssueTable
-            issues={filteredIssues}
+            issues={issues}
             openedIssueCount={counts.openedIssueCount}
             closedIssueCount={counts.closedIssueCount}
             isOpened={filterOptions.isOpened}

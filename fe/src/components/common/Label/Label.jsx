@@ -16,8 +16,8 @@ const LableBox = styled.div`
   height: 24px;
   font-weight: 500;
   font-size: 12px;
-  color: ${(p) => p.text_color};
-  background-color: ${(p) => p.background_color};
+  color: ${(p) => p.textColor};
+  background-color: ${(p) => p.backgroundColor};
   border-radius: 50px;
 
   ${({ name }) => {
