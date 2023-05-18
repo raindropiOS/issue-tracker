@@ -116,3 +116,10 @@ BE/.gradle/7.6.1/checksums/md5-checksums.bin
 .DS_Store
 BE/src/main/resources/dummy_data.sql
 BE/src/main/resources/create_table.sql
+BE/.idea/dataSources.local.xml
+BE/.idea/dataSources/c8b1c092-55d8-4064-9b67-49617d7c3158.xml
+BE/.idea/dataSources/c8b1c092-55d8-4064-9b67-49617d7c3158/storage_v2/_src_/schema/information_schema.FNRwLQ.meta
+BE/.idea/dataSources/c8b1c092-55d8-4064-9b67-49617d7c3158/storage_v2/_src_/schema/mysql.osA4Bg.meta
+BE/.idea/dataSources/c8b1c092-55d8-4064-9b67-49617d7c3158/storage_v2/_src_/schema/performance_schema.kIw0nw.meta
+BE/.idea/dataSources/c8b1c092-55d8-4064-9b67-49617d7c3158/storage_v2/_src_/schema/sys.zb4BAA.meta
+BE/out/production/resources/com/example/BE/mapper/IssueMapper.xml
