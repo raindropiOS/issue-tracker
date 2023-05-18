@@ -4,37 +4,65 @@ import java.util.List;
 
 public class IssueSearchCondition {
 
-    public boolean state;
-    public String author;
-    public String assignee;
-    public String milestoneName;
-    public List<String> labelNames;
+    private String author;
+    private String assignee;
+    private List<String> labelNames;
+    private String milestoneName;
+    private boolean state;
 
     public IssueSearchCondition() {
-        this.state = true;
+        state = true;
     }
 
-    public Integer getLabelNamesSize() {
-        return labelNames.size();
-    }
-
-    public void setState(boolean state) {
+    public IssueSearchCondition(String author, String assignee, List<String> labelNames, String milestoneName, boolean state) {
+        this.author = author;
+        this.assignee = assignee;
+        this.labelNames = labelNames;
+        this.milestoneName = milestoneName;
         this.state = state;
+    }
+
+    public String getAuthor() {
+        return author;
     }
 
     public void setAuthor(String author) {
         this.author = author;
     }
 
+    public String getAssignee() {
+        return assignee;
+    }
+
     public void setAssignee(String assignee) {
         this.assignee = assignee;
+    }
+
+    public List<String> getLabelNames() {
+        return labelNames;
+    }
+
+    public void setLabelNames(List<String> labelNames) {
+        this.labelNames = labelNames;
+    }
+
+    public Integer getLabelNamesSize() {
+        return labelNames.size();
+    }
+
+    public String getMilestoneName() {
+        return milestoneName;
     }
 
     public void setMilestoneName(String milestoneName) {
         this.milestoneName = milestoneName;
     }
 
-    public void setLabelNames(List<String> labelNames) {
-        this.labelNames = labelNames;
+    public boolean isState() {
+        return state;
+    }
+
+    public void setState(boolean state) {
+        this.state = state;
     }
 }

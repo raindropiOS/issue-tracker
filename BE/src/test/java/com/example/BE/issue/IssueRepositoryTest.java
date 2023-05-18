@@ -1,119 +1,209 @@
 package com.example.BE.issue;
 
-import com.example.BE.issue.dto.IssueLabelMap;
+
+import com.example.BE.issue.dto.CountDTO;
+import com.example.BE.issue.dto.IssueNumberWithLabelDTO;
 import com.example.BE.issue.dto.IssueSearchCondition;
 import com.example.BE.label.Label;
 import com.example.BE.milestone.Milestone;
 import com.example.BE.user.User;
-import org.junit.jupiter.api.BeforeEach;
+
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @Transactional
 @SpringBootTest
 class IssueRepositoryTest {
 
     @Autowired
-    public IssueRepository issueRepository;
+    private IssueRepository issueRepository;
 
-    private IssueSearchCondition issueSearchCondition;
+    @Nested
+    @DisplayName("List<Labels> 를 채우지 않고 DB로 부터 데이터를 불러와 List<Issue> 목록을 필터링해 반환한다.")
+    class FindAllIssuesWithoutLabels {
 
-    @BeforeEach
-    public void beforeEach() {
-        issueSearchCondition = new IssueSearchCondition();
-        issueSearchCondition.setState(true);
-        issueSearchCondition.setAuthor("BE");
-        issueSearchCondition.setMilestoneName("BE STEP1");
-        issueSearchCondition.setLabelNames(List.of("feature", "fix"));
+        @Test
+        @DisplayName("열린 이슈들로만 이루어진 목록을 반환한다. (IssueSearchCondition 의 state 기본값은 true로 열린 이슈목록들을 필터링한다.)")
+        void openIssues() {
+            Issue simpleOpenedIssue1 = new Issue(1,
+                    "제목 1",
+                    "첫 번째 이슈 내용",
+                    true,
+                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
+                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
+                    new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
+                    new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
+
+            Issue simpleOpenedIssue3 = new Issue(3,
+                    "제목 3",
+                    "세 번째 이슈 내용",
+                    true,
+                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
+                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
+                    new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
+                    new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
+
+            List<Issue> issuesWithoutLabels = issueRepository.findIssuesWithoutLabelsBy(new IssueSearchCondition());
+            assertThat(issuesWithoutLabels).usingRecursiveFieldByFieldElementComparator().contains(simpleOpenedIssue1, simpleOpenedIssue3);
+        }
+
+        @Test
+        @DisplayName("닫힌 이슈들로만 이루어진 목록을 반환한다.")
+        void closeIssues() {
+            Issue simpleClosedIssue = new Issue(2,
+                    "제목 2",
+                    "두 번째 이슈 내용",
+                    false,
+                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
+                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
+                    new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
+                    new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
+
+
+            IssueSearchCondition issueSearchCondition = new IssueSearchCondition();
+            issueSearchCondition.setState(false);
+
+            List<Issue> issuesWithoutLabels = issueRepository.findIssuesWithoutLabelsBy(issueSearchCondition);
+            assertThat(issuesWithoutLabels).usingRecursiveFieldByFieldElementComparator().contains(simpleClosedIssue);
+        }
+
+        @Test
+        @DisplayName("글 작성자 (닉네임)를 기준으로 필터링한 목록을 반환한다.")
+        void issuesFilteredByAuthor() {
+
+            Issue simpleOpenedIssue1 = new Issue(1,
+                    "제목 1",
+                    "첫 번째 이슈 내용",
+                    true,
+                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
+                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
+                    new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
+                    new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
+
+            Issue simpleOpenedIssue3 = new Issue(3,
+                    "제목 3",
+                    "세 번째 이슈 내용",
+                    true,
+                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
+                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
+                    new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
+                    new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
+
+            IssueSearchCondition issueSearchCondition = new IssueSearchCondition();
+            issueSearchCondition.setAuthor("BE");
+
+            List<Issue> issuesWithoutLabels1 = issueRepository.findIssuesWithoutLabelsBy(issueSearchCondition);
+            assertThat(issuesWithoutLabels1).usingRecursiveFieldByFieldElementComparator().contains(simpleOpenedIssue1, simpleOpenedIssue3);
+
+            issueSearchCondition.setAuthor("FE");
+            List<Issue> issuesWithoutLabels2 = issueRepository.findIssuesWithoutLabelsBy(issueSearchCondition);
+            assertThat(issuesWithoutLabels2).isEmpty();
+        }
+
+        @Test
+        @DisplayName("마일스톤 이름울 기준으로 필터링한 목록을 반환한다.")
+        void issuesFilteredByMilestone() {
+            Issue simpleOpenedIssue1 = new Issue(1,
+                    "제목 1",
+                    "첫 번째 이슈 내용",
+                    true,
+                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
+                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
+                    new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
+                    new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
+
+            Issue simpleOpenedIssue3 = new Issue(3,
+                    "제목 3",
+                    "세 번째 이슈 내용",
+                    true,
+                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
+                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
+                    new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
+                    new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
+
+            IssueSearchCondition issueSearchCondition = new IssueSearchCondition();
+            issueSearchCondition.setMilestoneName("BE STEP1");
+
+            List<Issue> issuesWithoutLabels1 = issueRepository.findIssuesWithoutLabelsBy(issueSearchCondition);
+            assertThat(issuesWithoutLabels1).usingRecursiveFieldByFieldElementComparator().contains(simpleOpenedIssue1, simpleOpenedIssue3);
+
+            issueSearchCondition.setMilestoneName("FE STEP1");
+            List<Issue> issuesWithoutLabels2 = issueRepository.findIssuesWithoutLabelsBy(issueSearchCondition);
+            assertThat(issuesWithoutLabels2).isEmpty();
+        }
+
+        @Test
+        @DisplayName("이슈에 담당된 유저의 아이디를 기준으로 필터링한 목록을 반환한다.")
+        void issuesFilteredByAssignee() {
+            Issue simpleClosedIssue = new Issue(2,
+                    "제목 2",
+                    "두 번째 이슈 내용",
+                    false,
+                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
+                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
+                    new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
+                    new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
+
+            IssueSearchCondition issueSearchCondition = new IssueSearchCondition();
+            issueSearchCondition.setState(false);
+            issueSearchCondition.setAssignee("cire");
+
+            List<Issue> issuesWithoutLabels1 = issueRepository.findIssuesWithoutLabelsBy(issueSearchCondition);
+            assertThat(issuesWithoutLabels1).usingRecursiveFieldByFieldElementComparator().contains(simpleClosedIssue);
+        }
+
+        @Test
+        @DisplayName("이슈에 붙은 라벨 이름을 기준으로 필터링한 목록을 반환한다.")
+        void issuesFilteredByLabelNames() {
+            Issue simpleOpenedIssue = new Issue(1,
+                    "제목 1",
+                    "첫 번째 이슈 내용",
+                    true,
+                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
+                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
+                    new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
+                    new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
+
+            IssueSearchCondition issueSearchCondition = new IssueSearchCondition();
+            issueSearchCondition.setLabelNames(List.of("feature", "fix"));
+
+            List<Issue> issuesWithoutLabels1 = issueRepository.findIssuesWithoutLabelsBy(issueSearchCondition);
+            assertThat(issuesWithoutLabels1).usingRecursiveFieldByFieldElementComparator().contains(simpleOpenedIssue);
+        }
     }
 
     @Test
-    public void findAllIssuesWithoutLabels() throws ParseException {
-        String strCreatedDate = "2023-05-15 18:24:05";
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date parsedDate = dateFormat.parse(strCreatedDate);
-        Timestamp createdDate = new Timestamp(parsedDate.getTime());
-        LocalDateTime localDateTime = createdDate.toLocalDateTime();
+    @DisplayName("Issue의 PK값과 대응되는 Label 객체를 가지는 List<IssueLabelMap> 목록을 반환한다.")
+    void findAllIssueLabelMaps() {
+        IssueNumberWithLabelDTO issueNumberWithLabelDTO1 = new IssueNumberWithLabelDTO(1, new Label("feature", "기능을 만들었슴둥", "#000000", "#004DE3"));
+        IssueNumberWithLabelDTO issueNumberWithLabelDTO2 = new IssueNumberWithLabelDTO(1, new Label("fix", "버그를 고쳤음", "#123456", "#654321"));
+        IssueNumberWithLabelDTO issueNumberWithLabelDTO3 = new IssueNumberWithLabelDTO(2, new Label("fix", "버그를 고쳤음", "#123456", "#654321"));
 
-        String strScheduledCompletionDate = "2023-05-20 00:00:00";
-        parsedDate = dateFormat.parse(strScheduledCompletionDate);
-        Timestamp scheduledCompletionDate = new Timestamp(parsedDate.getTime());
+        List<IssueNumberWithLabelDTO> issueNumberWithLabelDTOS = issueRepository.findIssueLabelMapsBy(Set.of(1, 2));
 
-        // given
-        Issue issue1 = new Issue();
-        issue1.setNumber(1);
-        issue1.setTitle("제목 1");
-        issue1.setContents("첫 번째 이슈 내용");
-        issue1.setState(true);
-        issue1.setCreatedDate(localDateTime);
-        issue1.setLastUpdatedDate(localDateTime);
-        Milestone milestone1 = new Milestone();
-        milestone1.setName("BE STEP1");
-        milestone1.setDescriptionForLabel("BE 1주차 이슈들");
-        milestone1.setScheduledCompletionDate(scheduledCompletionDate.toLocalDateTime());
-        issue1.setMilestone(milestone1);
-        User user1 = new User();
-        user1.setId("1234");
-        user1.setPassword("codesquad");
-        user1.setNickname("BE");
-        user1.setImgUrl("https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg");
-        issue1.setUser(user1);
-
-        // when
-        List<Issue> issues = issueRepository.findIssueWithoutLabelsBy(issueSearchCondition);
-
-        // then
-        assertThat(issues).usingRecursiveFieldByFieldElementComparator().contains(issue1);
-
+        assertThat(issueNumberWithLabelDTOS).usingRecursiveFieldByFieldElementComparator().contains(issueNumberWithLabelDTO1, issueNumberWithLabelDTO2, issueNumberWithLabelDTO3);
     }
 
     @Test
-    public void getSimpleLabelTest() throws ParseException {
-        // given
-        Label label1 = new Label();
-        label1.setName("feature");
-        label1.setDescription("기능을 만들었슴둥");
-        label1.setBackgroundColor("#000000");
-        label1.setTextColor("#004DE3");
+    @DisplayName("열린 Issue 개수, 닫힌 Issue 개수, Label 개수, Milestone 개수를 Count 클래스에 담아 반환한다.")
+    void calculateCount() {
 
-        Label label2 = new Label();
-        label2.setName("fix");
-        label2.setDescription("버그를 고쳤음");
-        label2.setBackgroundColor("#123456");
-        label2.setTextColor("#654321");
+        CountDTO countDTO = issueRepository.countEntities();
 
-        IssueLabelMap issueLabelMap1 = new IssueLabelMap();
-        issueLabelMap1.setIssueNumber(1);
-        issueLabelMap1.setLabel(label1);
-
-        IssueLabelMap issueLabelMap2 = new IssueLabelMap();
-        issueLabelMap2.setIssueNumber(1);
-        issueLabelMap2.setLabel(label2);
-
-        IssueLabelMap issueLabelMap3 = new IssueLabelMap();
-        issueLabelMap3.setIssueNumber(2);
-        issueLabelMap3.setLabel(label2);
-
-        Issue issue = new Issue();
-        issue.setNumber(1);
-
-        // when
-        List<IssueLabelMap> actualIssueLabelMap = issueRepository.findIssueLabelMapBy(List.of(issue));
-
-        // then
-        assertThat(actualIssueLabelMap).usingRecursiveFieldByFieldElementComparator().contains(issueLabelMap1, issueLabelMap2);
-
+        assertThat(countDTO.getOpenedIssuesCount()).isEqualTo(2);
+        assertThat(countDTO.getClosedIssuesCount()).isEqualTo(1);
+        assertThat(countDTO.getLabelsCount()).isEqualTo(2);
+        assertThat(countDTO.getMilestoneCount()).isEqualTo(1);
     }
 
 }

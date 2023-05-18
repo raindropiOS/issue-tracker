@@ -1,5 +1,7 @@
 package com.example.BE.issue;
 
+import com.example.BE.assignee.Assignee;
+import com.example.BE.issue.dto.IssueNumberWithLabelDTO;
 import com.example.BE.label.Label;
 import com.example.BE.milestone.Milestone;
 import com.example.BE.user.User;
@@ -23,20 +25,25 @@ public class Issue {
 
     private LocalDateTime lastUpdatedDate;
 
-    public LocalDateTime getLastUpdatedDate() {
-        return lastUpdatedDate;
-    }
-
-    public void setLastUpdatedDate(LocalDateTime lastUpdatedDate) {
-        this.lastUpdatedDate = lastUpdatedDate;
-    }
-
     private Milestone milestone;
     private User user;
 
     private List<Label> labels = new ArrayList<>();
 
+    private List<User> assignees = new ArrayList<>();
+
     public Issue() {
+    }
+
+    public Issue(Integer number, String title, String contents, boolean state, LocalDateTime createdDate, LocalDateTime lastUpdatedDate, Milestone milestone, User user) {
+        this.number = number;
+        this.title = title;
+        this.contents = contents;
+        this.state = state;
+        this.createdDate = createdDate;
+        this.lastUpdatedDate = lastUpdatedDate;
+        this.milestone = milestone;
+        this.user = user;
     }
 
     public Integer getNumber() {
@@ -79,6 +86,14 @@ public class Issue {
         this.createdDate = createdDate;
     }
 
+    public LocalDateTime getLastUpdatedDate() {
+        return lastUpdatedDate;
+    }
+
+    public void setLastUpdatedDate(LocalDateTime lastUpdatedDate) {
+        this.lastUpdatedDate = lastUpdatedDate;
+    }
+
     public Milestone getMilestone() {
         return milestone;
     }
@@ -99,22 +114,15 @@ public class Issue {
         return labels;
     }
 
-    public void addLabel(Label label) {
-        this.labels.add(label);
+    public void add(IssueNumberWithLabelDTO issueLabel) {
+        this.labels.add(issueLabel.getLabel());
     }
 
-    @Override
-    public String toString() {
-        return "Issue{" +
-                "number=" + number +
-                ", title='" + title + '\'' +
-                ", contents='" + contents + '\'' +
-                ", state=" + state +
-                ", createdDate=" + createdDate +
-                ", lastUpdatedDate=" + lastUpdatedDate +
-                ", milestone=" + milestone +
-                ", user=" + user +
-                ", labels=" + labels +
-                '}';
+    public List<User> getAssignees() {
+        return assignees;
+    }
+
+    public void add(Assignee assignee) {
+        this.assignees.add(assignee.getUser());
     }
 }

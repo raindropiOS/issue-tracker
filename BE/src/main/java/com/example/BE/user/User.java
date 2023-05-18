@@ -17,6 +17,14 @@ public class User {
     public User() {
     }
 
+
+    public User(String id, String password, String nickname, String imgUrl) {
+        this.id = id;
+        this.password = password;
+        this.nickname = nickname;
+        this.imgUrl = imgUrl;
+    }
+
     public String getId() {
         return id;
     }
@@ -49,13 +57,4 @@ public class User {
         this.imgUrl = imgUrl;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id='" + id + '\'' +
-                ", password='" + password + '\'' +
-                ", nickname='" + nickname + '\'' +
-                ", imgUrl= '" + imgUrl + '\'' +
-                '}';
-    }
 }

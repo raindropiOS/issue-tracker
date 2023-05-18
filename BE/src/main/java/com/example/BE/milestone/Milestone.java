@@ -17,6 +17,12 @@ public class Milestone {
     public Milestone() {
     }
 
+    public Milestone(String name, LocalDateTime scheduledCompletionDate, String descriptionForLabel) {
+        this.name = name;
+        this.scheduledCompletionDate = scheduledCompletionDate;
+        this.descriptionForLabel = descriptionForLabel;
+    }
+
     public boolean isEmpty() {
         return name == null;
     }
@@ -45,12 +51,4 @@ public class Milestone {
         this.descriptionForLabel = descriptionForLabel;
     }
 
-    @Override
-    public String toString() {
-        return "Milestone{" +
-                "name='" + name + '\'' +
-                ", scheduledCompletionDate=" + scheduledCompletionDate +
-                ", descriptionForLabel='" + descriptionForLabel + '\'' +
-                '}';
-    }
 }
