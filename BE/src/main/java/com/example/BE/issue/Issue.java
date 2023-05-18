@@ -22,6 +22,7 @@ public class Issue {
     private String contents;
     private boolean state;
     private LocalDateTime createdDate;
+    private LocalDateTime lastUpdatedDate;
 
     private Milestone milestone;
     private User user;
@@ -41,6 +42,8 @@ public class Issue {
         this.milestone = milestone;
         this.user = user;
     }
+
+
 
     public Integer getNumber() {
         return number;
@@ -80,6 +83,14 @@ public class Issue {
 
     public void setCreatedDate(LocalDateTime createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public LocalDateTime getLastUpdatedDate() {
+        return lastUpdatedDate;
+    }
+
+    public void setLastUpdatedDate(LocalDateTime lastUpdatedDate) {
+        this.lastUpdatedDate = lastUpdatedDate;
     }
 
     public Milestone getMilestone() {

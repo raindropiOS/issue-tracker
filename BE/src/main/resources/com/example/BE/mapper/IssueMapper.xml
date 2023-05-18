@@ -4,7 +4,7 @@
 <mapper namespace="com.example.BE.mapper.IssueMapper">
 
     <select id="findAllIssuesWithoutLabelsBy" resultMap="issuesWithoutLabels" parameterType="com.example.BE.issue.dto.IssueSearchCondition">
-        select i.number, i.title, i.contents, i.state, i.created_date,
+        select i.number, i.title, i.contents, i.state, i.created_date, i.last_updated_date,
         m.name, m.scheduled_completion_date, m.description_for_label,
         u.id, u.password, u.nickname, u.img_url from ISSUE i
         left outer join MILESTONE m on i.milestone_name = m.name
