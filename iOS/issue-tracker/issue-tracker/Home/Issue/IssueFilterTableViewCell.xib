@@ -41,8 +41,8 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="checkmarkView" destination="VGm-v8-0en" id="PRk-bT-EEN"/>
                 <outlet property="filterOptionLabel" destination="Zqv-Yh-bEP" id="HWY-mv-s3C"/>
+                <outlet property="togglableImageView" destination="VGm-v8-0en" id="95R-fP-68O"/>
             </connections>
             <point key="canvasLocation" x="-26.717557251908396" y="-39.436619718309863"/>
         </tableViewCell>

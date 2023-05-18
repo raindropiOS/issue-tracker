@@ -10,32 +10,24 @@ import UIKit
 class IssueFilterTableViewCell: UITableViewCell {
 
     @IBOutlet var filterOptionLabel: UILabel!
-    @IBOutlet var checkmarkView: UIImageView!
-    private let config = UIImage.SymbolConfiguration(pointSize: 14)
+    @IBOutlet var togglableImageView: UIImageView!
     var isOptionSelected = false
-    lazy var tintCheckmarkImage = UIImage(systemName: "checkmark", withConfiguration: config)
-    lazy var grayCheckmarkImage = tintCheckmarkImage?.withTintColor(.gray, renderingMode: .alwaysOriginal)
+    var selectedImage: UIImage?
+    var deselectedImage: UIImage?
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        configureAsNotChecked()
-    }
-
-    func configureAsNotChecked() {
-        checkmarkView.image = grayCheckmarkImage
     }
     
-    func configureAsChecked() {
-        checkmarkView.image = tintCheckmarkImage
+    func configureWith(optionName: String, selectedImage: UIImage?, deselectedImage: UIImage?) {
+        filterOptionLabel.text = optionName
+        self.selectedImage = selectedImage
+        self.deselectedImage = deselectedImage
+        togglableImageView.image = deselectedImage
     }
     
-    func setOptionName(with optionName: String) {
-        self.filterOptionLabel.text = optionName
-    }
-    
-    func toggleCheckmarkColor() {
-        self.isOptionSelected.toggle()
-        checkmarkView.image = isOptionSelected ? tintCheckmarkImage : grayCheckmarkImage
+    func toggleImage() {
+        isOptionSelected.toggle()
+        togglableImageView.image = isOptionSelected ? selectedImage : deselectedImage
     }
 }
-
