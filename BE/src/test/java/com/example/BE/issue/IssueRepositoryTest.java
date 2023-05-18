@@ -1,6 +1,7 @@
 package com.example.BE.issue;
 
 
+import com.example.BE.BeApplication;
 import com.example.BE.issue.dto.CountDTO;
 import com.example.BE.issue.dto.IssueNumberWithLabelDTO;
 import com.example.BE.issue.dto.IssueSearchCondition;
@@ -22,7 +23,7 @@ import java.util.Set;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Transactional
-@SpringBootTest
+@SpringBootTest(classes = BeApplication.class)
 class IssueRepositoryTest {
 
     @Autowired
