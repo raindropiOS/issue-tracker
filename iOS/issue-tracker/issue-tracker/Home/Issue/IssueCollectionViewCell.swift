@@ -6,36 +6,44 @@
 //
 
 import UIKit
+import SwipeCellKit
 
-class IssueCollectionViewCell: UICollectionViewCell {
+class IssueCollectionViewCell: SwipeCollectionViewCell {
     static let identifier = "IssueCollectionViewCell"
     @IBOutlet var title: UILabel!
     @IBOutlet var contents: UILabel!
     @IBOutlet var milestoneImage: UIImageView!
     @IBOutlet var milestone: UILabel!
-    @IBOutlet var badge: UILabel!
+    @IBOutlet var labelsStackView: UIStackView!
+    
+    let badges = ["sfgs","gggassfsdfg","adfqewersdfsqasd"]
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         setTitle()
+        setStackView()
         setBadge()
     }
     private func setTitle() {
         title.text = "iOS 이슈트래커 개발"
     }
+    
+    private func setStackView() {
+        labelsStackView.axis = .horizontal
+        labelsStackView.spacing = 10
+        labelsStackView.distribution = .fill
+    }
+    
     private func setBadge() {
-        badge.clipsToBounds = true
-        badge.layer.cornerRadius = 15
-        badge.text = "Label"
-        
-        let font = badge.font
-        let text = badge.text ?? ""
+        for item in badges {
+            labelsStackView.addArrangedSubview(BadgeLabel(name: item))
+        }
+        labelsStackView.addArrangedSubview(UIView(frame: CGRect()))
+    }
+}
 
-        let attributes = [NSAttributedString.Key.font: font]
-        let textSize = (text as NSString).size(withAttributes: attributes)
-        let textWidth = ceil(textSize.width)
-        
-        badge.translatesAutoresizingMaskIntoConstraints = false
-        
-        badge.widthAnchor.constraint(equalToConstant: textWidth*1.7).isActive = true
+extension IssueCollectionViewCell: SwipeCollectionViewCellDelegate {
+    func collectionView(_ collectionView: UICollectionView, editActionsForItemAt indexPath: IndexPath, for orientation: SwipeCellKit.SwipeActionsOrientation) -> [SwipeCellKit.SwipeAction]? {
+        return nil
     }
 }
