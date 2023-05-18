@@ -22,6 +22,8 @@ module.exports = {
       { namedComponents: ['arrow-function'] },
     ],
     'react/prop-types': 'off',
+    'jsx-a11y/click-events-have-key-events': 'off',
+    'jsx-a11y/no-noninteractive-element-interactions': 'off',
     'no-unused-vars': 'warn',
     'arrow-body-style': 'off',
     'linebreak-style': 0,
