@@ -15,7 +15,6 @@ class IssueFilterTableViewController: UITableViewController {
         super.viewDidLoad()
         let filterOptionCellNib: UINib = UINib(nibName: "IssueFilterTableViewCell", bundle: nil)
         tableView.register(filterOptionCellNib, forCellReuseIdentifier: "filterOptionCell")
-        tableView.rowHeight = tableView.frame.width * 0.1173
         
         configureBackButton()
     }
@@ -55,6 +54,12 @@ class IssueFilterTableViewController: UITableViewController {
         case 2: return "레이블"
         default: return "Header \(section)"
         }
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let num = round(tableView.frame.height * 44 / 811)
+        
+        return num
     }
     
     func configureBackButton() {
