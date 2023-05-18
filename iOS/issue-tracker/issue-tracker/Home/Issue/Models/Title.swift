@@ -8,5 +8,5 @@
 import Foundation
 
 struct Title {
-    
+    let text: String
 }

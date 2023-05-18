@@ -8,5 +8,7 @@
 import Foundation
 
 struct Label {
-    
+    let name: String
+    let textColor: String
+    let backgroundColor: String
 }
