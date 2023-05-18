@@ -17,6 +17,7 @@ class IssueFilterTableViewController: UITableViewController {
         tableView.register(filterOptionCellNib, forCellReuseIdentifier: "filterOptionCell")
         
         configureBackButton()
+        configureSaveButton()
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -62,24 +63,31 @@ class IssueFilterTableViewController: UITableViewController {
         return num
     }
     
-    func configureBackButton() {
+    private func configureBackButton() {
         let backbutton = UIButton(type: .custom)
         backbutton.setImage(UIImage(systemName: "chevron.left"), for: .normal)
         backbutton.setTitle("Back", for: .normal)
-        backbutton.setTitleColor(backbutton.tintColor, for: .normal) // You can change the TitleColor
+        backbutton.setTitleColor(backbutton.tintColor, for: .normal)
         backbutton.addTarget(self, action: #selector(backAction), for: .touchUpInside)
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backbutton)
     }
     
-    
-    @IBAction func cancelButtonPressed(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+    private func configureSaveButton() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveAction))
     }
     
-    @objc func backAction() -> Void {
-//        self.navigationController?.popViewController(animated: true)
-        self.navigationController?.dismiss(animated: true)
+    @objc func backAction() {
+        dismissSelf()
+    }
+    
+    @objc func saveAction() {
+        // TODO: Convey filter options to previous VC
+        dismissSelf()
+    }
+    
+    private func dismissSelf() {
+        self.dismiss(animated: true, completion: nil)
     }
 }
 
