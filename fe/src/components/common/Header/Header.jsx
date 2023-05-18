@@ -1,13 +1,13 @@
 import { styled } from 'styled-components';
 import { UserIcon } from '../UserIcon/UserIcon';
-import logoMedium from '../../../assets/LogotypeMedium.svg';
+import { ReactComponent as Logo } from '../../../assets/LogotypeMedium.svg';
 import userImageLarge from '../../../assets/userImageLarge.svg';
 import Toggle from '../Toggle/Toggle';
 
 export const Header = () => {
   return (
     <HeaderBox>
-      <img src={logoMedium} alt="medium logo" />
+      <LogoBox />
       <div>
         <Toggle />
         <UserIcon imgSrc={userImageLarge} large />
@@ -15,6 +15,10 @@ export const Header = () => {
     </HeaderBox>
   );
 };
+
+const LogoBox = styled(Logo)`
+  fill: ${({ theme }) => theme.color.neutralTextStrong};
+`;
 
 const HeaderBox = styled.header`
   display: flex;
