@@ -32,13 +32,6 @@ class SubIconView: UIImageView {
         ])
     }
     
-    override func didMoveToSuperview() {
-        super.didMoveToSuperview()
-        self.updateConstraints()
-        print("움직였다.")
-    }
-
-    
     override func updateConstraints() {
         super.updateConstraints()
         
