@@ -9,11 +9,10 @@ const FilterBar = () => {
     buttonImage: chevronDown,
     headerText: '이슈 필터',
     bodyItems: [
-      { img: chevronDown, text: '열린 이슈', checked: true },
+      { text: '열린 이슈', checked: true, onClick: () => console.log('hi') },
       { text: '닫힌 이슈', checked: false },
     ],
     bodyCheck: true,
-    // posright: true,
     marginTop: '10px',
   };
 

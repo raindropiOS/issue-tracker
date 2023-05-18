@@ -1,16 +1,21 @@
 import { styled } from 'styled-components';
 import checkOffCircle from '../../../../assets/checkOffCircle.svg';
 
-const DropDownBody = ({ bodyItems, bodyCheck }) => {
+const DropDownBody = ({ bodyItems, bodyCheck, handleIsOpen }) => {
   // TODO: div 이미지로 수정하기
-  const itemList = bodyItems.map(({ img, text }) => {
+  const itemList = bodyItems.map(({ img, text, onClick }) => {
     return (
-      <li key={text}>
+      <li
+        key={text}
+        onClick={() => {
+          handleIsOpen(false);
+          onClick();
+        }}
+      >
         <IconTextBox>
           {img && <img src={img} alt="img" />}
           <span>{text}</span>
         </IconTextBox>
-
         {bodyCheck && <img src={checkOffCircle} alt="check off circle" />}
       </li>
     );

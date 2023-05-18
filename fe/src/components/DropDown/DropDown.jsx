@@ -47,7 +47,11 @@ const DropDown = ({
       {isOpen && (
         <DropDownContent posright={posright} marginTop={marginTop}>
           <DropDownHeader headerText={headerText} />
-          <DropDownBody bodyItems={bodyItems} bodyCheck={bodyCheck} />
+          <DropDownBody
+            bodyItems={bodyItems}
+            bodyCheck={bodyCheck}
+            handleIsOpen={setIsOpen}
+          />
         </DropDownContent>
       )}
     </DropDownBox>
