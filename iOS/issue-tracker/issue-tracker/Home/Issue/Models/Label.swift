@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Label {
+struct Label: Codable {
     let name: String
     let textColor: String
     let backgroundColor: String
