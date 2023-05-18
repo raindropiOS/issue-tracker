@@ -63,7 +63,7 @@ const IssueItemBody = styled.div`
   display: flex;
   flex-direction: column;
 
-  gap: 24px;
+  gap: 8px;
   flex-grow: 1;
 `;
 
