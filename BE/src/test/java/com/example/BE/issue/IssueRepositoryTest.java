@@ -1,7 +1,7 @@
 package com.example.BE.issue;
 
-import com.example.BE.issue.dto.Count;
-import com.example.BE.issue.dto.IssueLabelMap;
+import com.example.BE.issue.dto.CountDTO;
+import com.example.BE.issue.dto.IssueNumberWithLabelDTO;
 import com.example.BE.issue.dto.IssueSearchCondition;
 import com.example.BE.label.Label;
 import com.example.BE.milestone.Milestone;
@@ -14,7 +14,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -39,6 +38,7 @@ class IssueRepositoryTest {
                     "첫 번째 이슈 내용",
                     true,
                     LocalDateTime.of(2023, 5, 15, 19, 37, 47),
+                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
                     new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
                     new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
 
@@ -47,10 +47,11 @@ class IssueRepositoryTest {
                     "세 번째 이슈 내용",
                     true,
                     LocalDateTime.of(2023, 5, 15, 19, 37, 47),
+                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
                     new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
                     new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
 
-            List<Issue> issuesWithoutLabels = issueRepository.findAllIssuesWithoutLabelsBy(new IssueSearchCondition());
+            List<Issue> issuesWithoutLabels = issueRepository.findIssuesWithoutLabelsBy(new IssueSearchCondition());
             assertThat(issuesWithoutLabels).usingRecursiveFieldByFieldElementComparator().contains(simpleOpenedIssue1, simpleOpenedIssue3);
         }
 
@@ -62,6 +63,7 @@ class IssueRepositoryTest {
                     "두 번째 이슈 내용",
                     false,
                     LocalDateTime.of(2023, 5, 15, 19, 37, 47),
+                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
                     new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
                     new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
 
@@ -69,7 +71,7 @@ class IssueRepositoryTest {
             IssueSearchCondition issueSearchCondition = new IssueSearchCondition();
             issueSearchCondition.setState(false);
 
-            List<Issue> issuesWithoutLabels = issueRepository.findAllIssuesWithoutLabelsBy(issueSearchCondition);
+            List<Issue> issuesWithoutLabels = issueRepository.findIssuesWithoutLabelsBy(issueSearchCondition);
             assertThat(issuesWithoutLabels).usingRecursiveFieldByFieldElementComparator().contains(simpleClosedIssue);
         }
 
@@ -82,6 +84,7 @@ class IssueRepositoryTest {
                     "첫 번째 이슈 내용",
                     true,
                     LocalDateTime.of(2023, 5, 15, 19, 37, 47),
+                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
                     new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
                     new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
 
@@ -90,17 +93,18 @@ class IssueRepositoryTest {
                     "세 번째 이슈 내용",
                     true,
                     LocalDateTime.of(2023, 5, 15, 19, 37, 47),
+                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
                     new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
                     new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
 
             IssueSearchCondition issueSearchCondition = new IssueSearchCondition();
             issueSearchCondition.setAuthor("BE");
 
-            List<Issue> issuesWithoutLabels1 = issueRepository.findAllIssuesWithoutLabelsBy(issueSearchCondition);
+            List<Issue> issuesWithoutLabels1 = issueRepository.findIssuesWithoutLabelsBy(issueSearchCondition);
             assertThat(issuesWithoutLabels1).usingRecursiveFieldByFieldElementComparator().contains(simpleOpenedIssue1, simpleOpenedIssue3);
 
             issueSearchCondition.setAuthor("FE");
-            List<Issue> issuesWithoutLabels2 = issueRepository.findAllIssuesWithoutLabelsBy(issueSearchCondition);
+            List<Issue> issuesWithoutLabels2 = issueRepository.findIssuesWithoutLabelsBy(issueSearchCondition);
             assertThat(issuesWithoutLabels2).isEmpty();
         }
 
@@ -112,6 +116,7 @@ class IssueRepositoryTest {
                     "첫 번째 이슈 내용",
                     true,
                     LocalDateTime.of(2023, 5, 15, 19, 37, 47),
+                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
                     new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
                     new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
 
@@ -120,17 +125,18 @@ class IssueRepositoryTest {
                     "세 번째 이슈 내용",
                     true,
                     LocalDateTime.of(2023, 5, 15, 19, 37, 47),
+                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
                     new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
                     new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
 
             IssueSearchCondition issueSearchCondition = new IssueSearchCondition();
             issueSearchCondition.setMilestoneName("BE STEP1");
 
-            List<Issue> issuesWithoutLabels1 = issueRepository.findAllIssuesWithoutLabelsBy(issueSearchCondition);
+            List<Issue> issuesWithoutLabels1 = issueRepository.findIssuesWithoutLabelsBy(issueSearchCondition);
             assertThat(issuesWithoutLabels1).usingRecursiveFieldByFieldElementComparator().contains(simpleOpenedIssue1, simpleOpenedIssue3);
 
             issueSearchCondition.setMilestoneName("FE STEP1");
-            List<Issue> issuesWithoutLabels2 = issueRepository.findAllIssuesWithoutLabelsBy(issueSearchCondition);
+            List<Issue> issuesWithoutLabels2 = issueRepository.findIssuesWithoutLabelsBy(issueSearchCondition);
             assertThat(issuesWithoutLabels2).isEmpty();
         }
 
@@ -142,6 +148,7 @@ class IssueRepositoryTest {
                     "두 번째 이슈 내용",
                     false,
                     LocalDateTime.of(2023, 5, 15, 19, 37, 47),
+                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
                     new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
                     new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
 
@@ -149,7 +156,7 @@ class IssueRepositoryTest {
             issueSearchCondition.setState(false);
             issueSearchCondition.setAssignee("cire");
 
-            List<Issue> issuesWithoutLabels1 = issueRepository.findAllIssuesWithoutLabelsBy(issueSearchCondition);
+            List<Issue> issuesWithoutLabels1 = issueRepository.findIssuesWithoutLabelsBy(issueSearchCondition);
             assertThat(issuesWithoutLabels1).usingRecursiveFieldByFieldElementComparator().contains(simpleClosedIssue);
         }
 
@@ -161,13 +168,14 @@ class IssueRepositoryTest {
                     "첫 번째 이슈 내용",
                     true,
                     LocalDateTime.of(2023, 5, 15, 19, 37, 47),
+                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
                     new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
                     new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
 
             IssueSearchCondition issueSearchCondition = new IssueSearchCondition();
             issueSearchCondition.setLabelNames(List.of("feature", "fix"));
 
-            List<Issue> issuesWithoutLabels1 = issueRepository.findAllIssuesWithoutLabelsBy(issueSearchCondition);
+            List<Issue> issuesWithoutLabels1 = issueRepository.findIssuesWithoutLabelsBy(issueSearchCondition);
             assertThat(issuesWithoutLabels1).usingRecursiveFieldByFieldElementComparator().contains(simpleOpenedIssue);
         }
     }
@@ -175,25 +183,25 @@ class IssueRepositoryTest {
     @Test
     @DisplayName("Issue의 PK값과 대응되는 Label 객체를 가지는 List<IssueLabelMap> 목록을 반환한다.")
     void findAllIssueLabelMaps() {
-        IssueLabelMap issueLabelMap1 = new IssueLabelMap(1, new Label("feature", "기능을 만들었슴둥", "#000000", "#004DE3"));
-        IssueLabelMap issueLabelMap2 = new IssueLabelMap(1, new Label("fix", "버그를 고쳤음", "#123456", "#654321"));
-        IssueLabelMap issueLabelMap3 = new IssueLabelMap(2, new Label("fix", "버그를 고쳤음", "#123456", "#654321"));
+        IssueNumberWithLabelDTO issueNumberWithLabelDTO1 = new IssueNumberWithLabelDTO(1, new Label("feature", "기능을 만들었슴둥", "#000000", "#004DE3"));
+        IssueNumberWithLabelDTO issueNumberWithLabelDTO2 = new IssueNumberWithLabelDTO(1, new Label("fix", "버그를 고쳤음", "#123456", "#654321"));
+        IssueNumberWithLabelDTO issueNumberWithLabelDTO3 = new IssueNumberWithLabelDTO(2, new Label("fix", "버그를 고쳤음", "#123456", "#654321"));
 
-        List<IssueLabelMap> issueLabelMaps = issueRepository.findAllIssueLabelMap(Set.of(1, 2));
+        List<IssueNumberWithLabelDTO> issueNumberWithLabelDTOS = issueRepository.findIssueLabelMapsBy(Set.of(1, 2));
 
-        assertThat(issueLabelMaps).usingRecursiveFieldByFieldElementComparator().contains(issueLabelMap1, issueLabelMap2, issueLabelMap3);
+        assertThat(issueNumberWithLabelDTOS).usingRecursiveFieldByFieldElementComparator().contains(issueNumberWithLabelDTO1, issueNumberWithLabelDTO2, issueNumberWithLabelDTO3);
     }
 
     @Test
     @DisplayName("열린 Issue 개수, 닫힌 Issue 개수, Label 개수, Milestone 개수를 Count 클래스에 담아 반환한다.")
     void calculateCount() {
 
-        Count count = issueRepository.countEntities();
+        CountDTO countDTO = issueRepository.countEntities();
 
-        assertThat(count.getOpenedIssuesCount()).isEqualTo(2);
-        assertThat(count.getClosedIssuesCount()).isEqualTo(1);
-        assertThat(count.getLabelsCount()).isEqualTo(2);
-        assertThat(count.getMilestoneCount()).isEqualTo(1);
+        assertThat(countDTO.getOpenedIssuesCount()).isEqualTo(2);
+        assertThat(countDTO.getClosedIssuesCount()).isEqualTo(1);
+        assertThat(countDTO.getLabelsCount()).isEqualTo(2);
+        assertThat(countDTO.getMilestoneCount()).isEqualTo(1);
     }
 
 }

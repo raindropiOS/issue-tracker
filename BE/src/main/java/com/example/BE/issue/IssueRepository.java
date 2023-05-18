@@ -1,11 +1,11 @@
 package com.example.BE.issue;
 
-import com.example.BE.issue.dto.Assignee;
-import com.example.BE.issue.dto.Count;
-import com.example.BE.issue.dto.IssueLabelMap;
-import com.example.BE.mapper.AssigneeRowMapper;
-import com.example.BE.mapper.CountRowMapper;
-import com.example.BE.mapper.IssueLabelMapRowMapper;
+import com.example.BE.assignee.Assignee;
+import com.example.BE.issue.dto.CountDTO;
+import com.example.BE.issue.dto.IssueNumberWithLabelDTO;
+import com.example.BE.issue.mapper.AssigneeRowMapper;
+import com.example.BE.issue.mapper.CountRowMapper;
+import com.example.BE.issue.mapper.IssueLabelMapRowMapper;
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
@@ -20,14 +20,14 @@ public interface IssueRepository extends CrudRepository<Issue, Integer>, IssueRe
             "left outer join LABEL l on ir.label_name = l.name " +
             "where ir.issue_number in (:issueNumbers)",
             rowMapperClass = IssueLabelMapRowMapper.class)
-    List<IssueLabelMap> findAllIssueLabelMap(@Param("issueNumbers") Set<Integer> issueNumbers);
+    List<IssueNumberWithLabelDTO> findIssueLabelMapsBy(@Param("issueNumbers") Set<Integer> issueNumbers);
 
     @Query(value = "select a.issue_number, u.id, u.password, u.nickname, u.img_url " +
             "from ASSIGNS a " +
             "left join USER u on a.user_id = u.id " +
             "where a.issue_number in (:issueNumbers)",
             rowMapperClass = AssigneeRowMapper.class)
-    List<Assignee> findAssigneesIn(@Param("issueNumbers") Set<Integer> issueNumbers);
+    List<Assignee> findAssigneesBy(@Param("issueNumbers") Set<Integer> issueNumbers);
 
     @Query(value = "select " +
             "(select count(number) from ISSUE where state=true) as openedIssuesCount, " +
@@ -35,5 +35,5 @@ public interface IssueRepository extends CrudRepository<Issue, Integer>, IssueRe
             "(select count(name) from LABEL) as labelsCount, " +
             "(select count(name) from MILESTONE) as milestoneCount",
             rowMapperClass = CountRowMapper.class)
-    Count countEntities();
+    CountDTO countEntities();
 }

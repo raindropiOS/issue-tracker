@@ -1,16 +1,16 @@
 package com.example.BE.issue.dto;
 
-public class Count {
+public class CountDTO {
 
     private int openedIssuesCount;
     private int closedIssuesCount;
     private int labelsCount;
     private int milestoneCount;
 
-    public Count() {
+    public CountDTO() {
     }
 
-    public Count(int openedIssuesCount, int closedIssuesCount, int labelsCount, int milestoneCount) {
+    public CountDTO(int openedIssuesCount, int closedIssuesCount, int labelsCount, int milestoneCount) {
         this.openedIssuesCount = openedIssuesCount;
         this.closedIssuesCount = closedIssuesCount;
         this.labelsCount = labelsCount;

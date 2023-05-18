@@ -10,14 +10,14 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(FeIssueController.class)
+@WebMvcTest(IssueController.class)
 class IssueControllerTest {
 
     @Autowired
     MockMvc mvc;
 
     @MockBean
-    FeIssueService feIssueService;
+    IssueService issueService;
 
     @Test
     @DisplayName("/api-fe/issues 로 GET 요청 시, FE 용 API 를 반환한다.")

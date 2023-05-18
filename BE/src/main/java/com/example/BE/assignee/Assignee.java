@@ -1,4 +1,4 @@
-package com.example.BE.issue.dto;
+package com.example.BE.assignee;
 
 import com.example.BE.user.User;
 

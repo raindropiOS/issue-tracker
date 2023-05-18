@@ -4,12 +4,12 @@ import com.example.BE.issue.Issue;
 
 import java.util.Collection;
 
-public class FeIssueResponse {
+public class FeIssueResponseDTO {
 
     private Collection<Issue> issues;
-    private Count counts;
+    private CountDTO counts;
 
-    public FeIssueResponse(Collection<Issue> issues, Count counts) {
+    public FeIssueResponseDTO(Collection<Issue> issues, CountDTO counts) {
         this.issues = issues;
         this.counts = counts;
     }
@@ -22,11 +22,11 @@ public class FeIssueResponse {
         this.issues = issues;
     }
 
-    public Count getCounts() {
+    public CountDTO getCounts() {
         return counts;
     }
 
-    public void setCounts(Count counts) {
+    public void setCounts(CountDTO counts) {
         this.counts = counts;
     }
 }

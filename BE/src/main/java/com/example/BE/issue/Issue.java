@@ -1,7 +1,7 @@
 package com.example.BE.issue;
 
-import com.example.BE.issue.dto.Assignee;
-import com.example.BE.issue.dto.IssueLabelMap;
+import com.example.BE.assignee.Assignee;
+import com.example.BE.issue.dto.IssueNumberWithLabelDTO;
 import com.example.BE.label.Label;
 import com.example.BE.milestone.Milestone;
 import com.example.BE.user.User;
@@ -33,17 +33,16 @@ public class Issue {
     public Issue() {
     }
 
-    public Issue(Integer number, String title, String contents, boolean state, LocalDateTime createdDate, Milestone milestone, User user) {
+    public Issue(Integer number, String title, String contents, boolean state, LocalDateTime createdDate, LocalDateTime lastUpdatedDate, Milestone milestone, User user) {
         this.number = number;
         this.title = title;
         this.contents = contents;
         this.state = state;
         this.createdDate = createdDate;
+        this.lastUpdatedDate = lastUpdatedDate;
         this.milestone = milestone;
         this.user = user;
     }
-
-
 
     public Integer getNumber() {
         return number;
@@ -113,7 +112,7 @@ public class Issue {
         return labels;
     }
 
-    public void add(IssueLabelMap issueLabel) {
+    public void add(IssueNumberWithLabelDTO issueLabel) {
         this.labels.add(issueLabel.getLabel());
     }
 

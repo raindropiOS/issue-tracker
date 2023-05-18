@@ -1,5 +1,6 @@
 package com.example.BE.issue;
 
+import com.example.BE.assignee.Assignee;
 import com.example.BE.issue.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,23 +13,23 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
-public class FeIssueService {
+public class IssueService {
 
     private final IssueRepository issueRepository;
 
     @Autowired
-    public FeIssueService(IssueRepository issueRepository) {
+    public IssueService(IssueRepository issueRepository) {
         this.issueRepository = issueRepository;
     }
 
-    public FeIssueResponse makeFeIssueResponse(IssueSearchCondition issueSearchCondition) {
-        Collection<Issue> issues = mapIssueWithLabels(issueSearchCondition);
-        Count count = calculateCount();
-        return new FeIssueResponse(issues, count);
+    public FeIssueResponseDTO makeFeIssueResponse(IssueSearchCondition issueSearchCondition) {
+        Collection<Issue> issues = findIssues(issueSearchCondition);
+        CountDTO countDTO = calculateCount();
+        return new FeIssueResponseDTO(issues, countDTO);
     }
 
-    private Collection<Issue> mapIssueWithLabels(IssueSearchCondition issueSearchCondition) {
-        List<Issue> issues = issueRepository.findAllIssuesWithoutLabelsBy(issueSearchCondition);
+    private Collection<Issue> findIssues(IssueSearchCondition issueSearchCondition) {
+        List<Issue> issues = issueRepository.findIssuesWithoutLabelsBy(issueSearchCondition);
 
         if (issues.isEmpty()) {
             return Collections.emptyList();
@@ -40,16 +41,16 @@ public class FeIssueService {
                         Function.identity()
                 ));
 
-        List<IssueLabelMap> issueLabelMaps = issueRepository.findAllIssueLabelMap(issueMap.keySet());
-        issueLabelMaps.forEach(issueLabel -> issueMap.get(issueLabel.getIssueNumber()).add(issueLabel));
+        List<IssueNumberWithLabelDTO> issueNumberWithLabelDTOs = issueRepository.findIssueLabelMapsBy(issueMap.keySet());
+        issueNumberWithLabelDTOs.forEach(issueLabel -> issueMap.get(issueLabel.getIssueNumber()).add(issueLabel));
 
-        List<Assignee> assignees = issueRepository.findAssigneesIn(issueMap.keySet());
+        List<Assignee> assignees = issueRepository.findAssigneesBy(issueMap.keySet());
         assignees.forEach(assignee -> issueMap.get(assignee.getIssueNumber()).add(assignee));
 
         return issueMap.values();
     }
 
-    private Count calculateCount() {
+    private CountDTO calculateCount() {
         return issueRepository.countEntities();
     }
 }

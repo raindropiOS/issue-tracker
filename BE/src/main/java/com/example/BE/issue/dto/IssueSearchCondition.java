@@ -65,15 +65,4 @@ public class IssueSearchCondition {
     public void setState(boolean state) {
         this.state = state;
     }
-
-    @Override
-    public String toString() {
-        return "IssueSearchCondition{" +
-                "author='" + author + '\'' +
-                ", assignee='" + assignee + '\'' +
-                ", labelNames=" + labelNames +
-                ", milestoneName='" + milestoneName + '\'' +
-                ", state=" + state +
-                '}';
-    }
 }

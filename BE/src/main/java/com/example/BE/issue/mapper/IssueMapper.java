@@ -1,4 +1,4 @@
-package com.example.BE.mapper;
+package com.example.BE.issue.mapper;
 
 import com.example.BE.issue.Issue;
 import com.example.BE.issue.dto.IssueSearchCondition;
@@ -8,5 +8,5 @@ import java.util.List;
 
 @Mapper
 public interface IssueMapper {
-    List<Issue> findAllIssuesWithoutLabelsBy(IssueSearchCondition issueSearchCondition);
+    List<Issue> findIssuesWithoutLabelsBy(IssueSearchCondition issueSearchCondition);
 }

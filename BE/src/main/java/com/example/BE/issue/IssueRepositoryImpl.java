@@ -1,7 +1,7 @@
 package com.example.BE.issue;
 
 import com.example.BE.issue.dto.IssueSearchCondition;
-import com.example.BE.mapper.IssueMapper;
+import com.example.BE.issue.mapper.IssueMapper;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ public class IssueRepositoryImpl implements IssueRepositoryCustom{
     }
 
     @Override
-    public List<Issue> findAllIssuesWithoutLabelsBy(IssueSearchCondition issueSearchCondition) {
-        return issueMapper.findAllIssuesWithoutLabelsBy(issueSearchCondition);
+    public List<Issue> findIssuesWithoutLabelsBy(IssueSearchCondition issueSearchCondition) {
+        return issueMapper.findIssuesWithoutLabelsBy(issueSearchCondition);
     }
 }

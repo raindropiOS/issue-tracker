@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface IssueRepositoryCustom {
 
-    List<Issue> findAllIssuesWithoutLabelsBy(IssueSearchCondition issueSearchCondition);
+    List<Issue> findIssuesWithoutLabelsBy(IssueSearchCondition issueSearchCondition);
 }

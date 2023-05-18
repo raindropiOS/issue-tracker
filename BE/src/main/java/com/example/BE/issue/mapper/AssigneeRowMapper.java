@@ -1,6 +1,6 @@
-package com.example.BE.mapper;
+package com.example.BE.issue.mapper;
 
-import com.example.BE.issue.dto.Assignee;
+import com.example.BE.assignee.Assignee;
 import com.example.BE.user.User;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;

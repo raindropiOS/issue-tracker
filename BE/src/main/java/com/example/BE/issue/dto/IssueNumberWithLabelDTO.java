@@ -2,15 +2,15 @@ package com.example.BE.issue.dto;
 
 import com.example.BE.label.Label;
 
-public class IssueLabelMap {
+public class IssueNumberWithLabelDTO {
 
     private Integer issueNumber;
     private Label label;
 
-    public IssueLabelMap() {
+    public IssueNumberWithLabelDTO() {
     }
 
-    public IssueLabelMap(Integer issueNumber, Label label) {
+    public IssueNumberWithLabelDTO(Integer issueNumber, Label label) {
         this.issueNumber = issueNumber;
         this.label = label;
     }

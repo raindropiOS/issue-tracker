@@ -1,4 +1,4 @@
-package com.example.BE.mapper;
+package com.example.BE.issue.mapper;
 
 import com.example.BE.issue.Issue;
 import com.example.BE.milestone.Milestone;
