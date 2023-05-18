@@ -33,7 +33,7 @@
                                     #{labelName}
                                 </foreach>
                                 GROUP BY ir.issue_number
-                                HAVING count(*) &lt;= #{labelNamesSize})
+                                HAVING count(*) = #{labelNamesSize})
             </if>
         </where>
     </select>
