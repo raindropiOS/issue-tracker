@@ -8,5 +8,10 @@
 import Foundation
 
 struct Issue {
-    
+    let title: Title
+    let contents: Contents
+    let milestone: Milestone
+    let labels: [Label]
+    var state: State
+    let author: Author
 }
