@@ -5,10 +5,7 @@ import com.example.BE.issue.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -26,6 +23,11 @@ public class IssueService {
         Collection<Issue> issues = findIssues(issueSearchCondition);
         CountDTO countDTO = calculateCount();
         return new FeIssueResponseDTO(issues, countDTO);
+    }
+
+    public IosIssueResponseDTO makeIosIssueResponse(IssueSearchCondition issueSearchCondition) {
+        Collection<Issue> issues = findIssues(issueSearchCondition);
+        return new IosIssueResponseDTO(issues);
     }
 
     private Collection<Issue> findIssues(IssueSearchCondition issueSearchCondition) {

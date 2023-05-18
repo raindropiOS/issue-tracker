@@ -1,11 +1,14 @@
 package com.example.BE.issue;
 
+
+import com.example.BE.BeApplication;
 import com.example.BE.issue.dto.CountDTO;
 import com.example.BE.issue.dto.IssueNumberWithLabelDTO;
 import com.example.BE.issue.dto.IssueSearchCondition;
 import com.example.BE.label.Label;
 import com.example.BE.milestone.Milestone;
 import com.example.BE.user.User;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -20,7 +23,7 @@ import java.util.Set;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Transactional
-@SpringBootTest
+@SpringBootTest(classes = BeApplication.class)
 class IssueRepositoryTest {
 
     @Autowired

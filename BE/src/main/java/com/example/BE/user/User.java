@@ -11,10 +11,12 @@ public class User {
 
     private String password;
     private String nickname;
+
     private String imgUrl;
 
     public User() {
     }
+
 
     public User(String id, String password, String nickname, String imgUrl) {
         this.id = id;
@@ -54,4 +56,5 @@ public class User {
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
     }
+
 }

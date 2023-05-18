@@ -54,4 +54,5 @@ public class Label {
     public void setTextColor(String textColor) {
         this.textColor = textColor;
     }
+
 }

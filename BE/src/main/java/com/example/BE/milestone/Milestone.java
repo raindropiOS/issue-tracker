@@ -50,4 +50,5 @@ public class Milestone {
     public void setDescriptionForLabel(String descriptionForLabel) {
         this.descriptionForLabel = descriptionForLabel;
     }
+
 }
