@@ -16,6 +16,8 @@ class IssueFilterTableViewController: UITableViewController {
         let filterOptionCellNib: UINib = UINib(nibName: "IssueFilterTableViewCell", bundle: nil)
         tableView.register(filterOptionCellNib, forCellReuseIdentifier: "filterOptionCell")
         tableView.rowHeight = tableView.frame.width * 0.1173
+        
+        configureBackButton()
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -55,9 +57,24 @@ class IssueFilterTableViewController: UITableViewController {
         }
     }
     
+    func configureBackButton() {
+        let backbutton = UIButton(type: .custom)
+        backbutton.setImage(UIImage(systemName: "chevron.left"), for: .normal)
+        backbutton.setTitle("Back", for: .normal)
+        backbutton.setTitleColor(backbutton.tintColor, for: .normal) // You can change the TitleColor
+        backbutton.addTarget(self, action: #selector(backAction), for: .touchUpInside)
+        
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backbutton)
+    }
+    
     
     @IBAction func cancelButtonPressed(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func backAction() -> Void {
+//        self.navigationController?.popViewController(animated: true)
+        self.navigationController?.dismiss(animated: true)
     }
 }
 

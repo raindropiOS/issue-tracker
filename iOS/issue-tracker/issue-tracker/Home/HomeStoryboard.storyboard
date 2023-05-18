@@ -178,13 +178,7 @@
                             <outlet property="delegate" destination="Yfx-Yi-e9y" id="Wk6-wU-1pN"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="lBk-bV-fT5">
-                        <barButtonItem key="leftBarButtonItem" title="취소" id="OmE-xX-BjO">
-                            <connections>
-                                <action selector="cancelButtonPressed:" destination="Yfx-Yi-e9y" id="shj-yc-vk3"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="lBk-bV-fT5"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XwH-KB-smv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
