@@ -2,10 +2,13 @@ import styled from 'styled-components';
 import FilterBar from './FilterBar/FilterBar';
 import NabTab from './NavTab/NabTab';
 
-const TabBar = ({ filterOptions }) => {
+const TabBar = ({ filterOptions, setFilterOptions }) => {
   return (
     <TabBarBox>
-      <FilterBar filterOptions={filterOptions} />
+      <FilterBar
+        filterOptions={filterOptions}
+        setFilterOptions={setFilterOptions}
+      />
       <NabTab />
     </TabBarBox>
   );

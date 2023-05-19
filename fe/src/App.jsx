@@ -5,6 +5,7 @@ import GlobalStyles from './style/GlobalStyles';
 import IssueTable from './components/IssueTable/IssueTable';
 import { darkTheme, lightTheme } from './style';
 import TabBar from './components/TabBar/TabBar';
+import { ALL, CLOSED, OPENED } from './constants';
 
 const App = () => {
   const [theme, setTheme] = useState(lightTheme);
@@ -13,7 +14,7 @@ const App = () => {
   const [issues, setIssues] = useState([]);
   const [counts, setCounts] = useState({});
   const [filterOptions, setFilterOptions] = useState({
-    state: 'opened',
+    state: OPENED,
     // writtenByMe: false,
     // assignedToMe: false,
     // commentedByMe: false,
@@ -25,16 +26,17 @@ const App = () => {
 
   // TODO: dot env 로 빼기
   // TODO: 각각의 filter 옵션에 대해서 분기처리 필요
+  // TODO: FilterInput의 helper랑 통합가능하면 하기
   useEffect(() => {
     const fetchData = async () => {
       try {
         const issueState = filterOptions.state;
         let queryString;
-        if (issueState === 'all') {
+        if (issueState === ALL) {
           queryString = '';
-        } else if (issueState === 'opened') {
+        } else if (issueState === OPENED) {
           queryString = '?state=true';
-        } else if (issueState === 'closed') {
+        } else if (issueState === CLOSED) {
           queryString = '?state=false';
         }
 
@@ -63,7 +65,10 @@ const App = () => {
         }}
       >
         <PageLayout>
-          <TabBar filterOptions={filterOptions} />
+          <TabBar
+            filterOptions={filterOptions}
+            setFilterOptions={setFilterOptions}
+          />
           <IssueTable
             issues={issues}
             counts={counts}

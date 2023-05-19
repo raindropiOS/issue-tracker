@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 import { UserIcon } from '../UserIcon/UserIcon';
-import { ReactComponent as Logo } from '../../../assets/LogotypeMedium.svg';
+import { ReactComponent as Logo } from '../../../assets/logotypeMedium.svg';
 import userImageLarge from '../../../assets/userImageLarge.svg';
 import Toggle from '../Toggle/Toggle';
 

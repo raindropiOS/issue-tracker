@@ -9,13 +9,13 @@ const FilterBar = ({ filterOptions, setFilterOptions }) => {
     bodyItems: [
       {
         text: '열린 이슈',
-        checked: filterOptions.isOpened,
-        onClick: () => setFilterOptions({ ...filterOptions, isOpened: true }),
+        checked: filterOptions.state === 'opened',
+        onClick: () => setFilterOptions({ ...filterOptions, state: 'opened' }),
       },
       {
         text: '닫힌 이슈',
-        checked: !filterOptions.isOpened,
-        onClick: () => setFilterOptions({ ...filterOptions, isOpened: false }),
+        checked: filterOptions.state === 'closed',
+        onClick: () => setFilterOptions({ ...filterOptions, state: 'closed' }),
       },
     ],
     bodyCheck: true,

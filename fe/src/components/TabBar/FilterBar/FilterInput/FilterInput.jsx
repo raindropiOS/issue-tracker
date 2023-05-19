@@ -1,10 +1,14 @@
 import { styled } from 'styled-components';
 import { useEffect, useState } from 'react';
 import { ReactComponent as Search } from '../../../../assets/search.svg';
+import { ALL, CLOSED, OPENED } from '../../../../constants';
 
 // TODO: 모든 필터옵션에 대해 하도록 추후 수정
-const helper = ({ isOpened }) => {
-  return isOpened ? 'is:open' : 'is:close';
+const helper = ({ state }) => {
+  if (state === ALL) return '';
+  if (state === OPENED) return 'is:open';
+  if (state === CLOSED) return 'is:close';
+  return '';
 };
 
 const FilterInput = ({ filterOptions }) => {

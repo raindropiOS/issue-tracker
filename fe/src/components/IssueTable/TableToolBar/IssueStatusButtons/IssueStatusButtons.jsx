@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { ReactComponent as alertCircle } from '../../../../assets/alertCircle.svg';
 import { ReactComponent as archive } from '../../../../assets/archive.svg';
 import { Button } from '../../../common';
+import { CLOSED, OPENED } from '../../../../constants';
 
 const IssueStatusButtons = ({
   openedIssuesCount,
@@ -9,10 +10,10 @@ const IssueStatusButtons = ({
   issueState,
   setFilterOptions,
 }) => {
-  const isOpened = issueState === 'opened';
+  const isOpened = issueState === OPENED;
 
   const handleOpenedIssueButton = () => {
-    const newState = isOpened ? 'closed' : 'opened';
+    const newState = isOpened ? CLOSED : OPENED;
     setFilterOptions((prevState) => {
       return {
         ...prevState,
@@ -22,7 +23,7 @@ const IssueStatusButtons = ({
   };
 
   const handleClosedIssueButton = () => {
-    const newState = isOpened ? 'closed' : 'opened';
+    const newState = isOpened ? CLOSED : OPENED;
     setFilterOptions((prevState) => ({
       ...prevState,
       state: newState,
