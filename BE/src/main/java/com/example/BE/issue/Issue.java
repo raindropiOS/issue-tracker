@@ -35,6 +35,15 @@ public class Issue {
     public Issue() {
     }
 
+    public Issue(String title, String contents, Milestone milestone, User user, List<Label> labels, List<User> assignees) {
+        this.title = title;
+        this.contents = contents;
+        this.milestone = milestone;
+        this.user = user;
+        this.labels = labels;
+        this.assignees = assignees;
+    }
+
     public Issue(Integer number, String title, String contents, boolean state, LocalDateTime createdDate, LocalDateTime lastUpdatedDate, Milestone milestone, User user) {
         this.number = number;
         this.title = title;

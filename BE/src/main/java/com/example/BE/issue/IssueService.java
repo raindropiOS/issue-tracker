@@ -2,6 +2,7 @@ package com.example.BE.issue;
 
 import com.example.BE.assignee.Assignee;
 import com.example.BE.issue.dto.*;
+import com.example.BE.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +29,10 @@ public class IssueService {
     public IosIssueResponseDTO makeIosIssueResponse(IssueSearchCondition issueSearchCondition) {
         Collection<Issue> issues = findIssues(issueSearchCondition);
         return new IosIssueResponseDTO(issues);
+    }
+
+    public Issue createIssue(User testUser, IssueCreateFormDTO issueCreateFormDTO) {
+        return null;
     }
 
     private Collection<Issue> findIssues(IssueSearchCondition issueSearchCondition) {
