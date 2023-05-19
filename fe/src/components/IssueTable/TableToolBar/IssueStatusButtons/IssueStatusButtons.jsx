@@ -6,19 +6,27 @@ import { Button } from '../../../common';
 const IssueStatusButtons = ({
   openedIssuesCount,
   closedIssuesCount,
-  isOpened,
+  issueState,
   setFilterOptions,
 }) => {
+  const isOpened = issueState === 'opened';
+
   const handleOpenedIssueButton = () => {
-    setFilterOptions({
-      isOpened: true,
+    const newState = isOpened ? 'closed' : 'opened';
+    setFilterOptions((prevState) => {
+      return {
+        ...prevState,
+        state: newState,
+      };
     });
   };
 
   const handleClosedIssueButton = () => {
-    setFilterOptions({
-      isOpened: false,
-    });
+    const newState = isOpened ? 'closed' : 'opened';
+    setFilterOptions((prevState) => ({
+      ...prevState,
+      state: newState,
+    }));
   };
 
   return (

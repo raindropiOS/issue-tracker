@@ -13,7 +13,7 @@ const App = () => {
   const [issues, setIssues] = useState([]);
   const [counts, setCounts] = useState({});
   const [filterOptions, setFilterOptions] = useState({
-    isOpened: true,
+    state: 'opened',
     // writtenByMe: false,
     // assignedToMe: false,
     // commentedByMe: false,
@@ -28,9 +28,17 @@ const App = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const url = `http://3.38.73.117:8080/api-fe/issues${
-          !filterOptions.isOpened ? '?state=false' : ''
-        }`;
+        const issueState = filterOptions.state;
+        let queryString;
+        if (issueState === 'all') {
+          queryString = '';
+        } else if (issueState === 'opened') {
+          queryString = '?state=true';
+        } else if (issueState === 'closed') {
+          queryString = '?state=false';
+        }
+
+        const url = `http://3.38.73.117:8080/api-fe/issues${queryString}`;
         const response = await fetch(url);
         const data = await response.json();
         setIssues(data.issues);
@@ -59,7 +67,7 @@ const App = () => {
           <IssueTable
             issues={issues}
             counts={counts}
-            isOpened={filterOptions.isOpened}
+            issueState={filterOptions.state}
             setFilterOptions={setFilterOptions}
           />
         </PageLayout>

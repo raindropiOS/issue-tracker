@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 import { useEffect, useState } from 'react';
-import { ReactComponent as Search } from '../../../assets/search.svg';
+import { ReactComponent as Search } from '../../../../assets/search.svg';
 
 // TODO: 모든 필터옵션에 대해 하도록 추후 수정
 const helper = ({ isOpened }) => {
