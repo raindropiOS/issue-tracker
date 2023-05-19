@@ -26,12 +26,4 @@ public class IssueLabelMap {
     public void setLabel(Label label) {
         this.label = label;
     }
-
-    @Override
-    public String toString() {
-        return "IssueLabelMap{" +
-                "issueNumber=" + issueNumber +
-                ", label=" + label +
-                '}';
-    }
 }
