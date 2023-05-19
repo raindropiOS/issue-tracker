@@ -1,16 +1,37 @@
 import { styled } from 'styled-components';
-import search from '../../../../assets/search.svg';
+import { useEffect, useState } from 'react';
+import { ReactComponent as Search } from '../../../assets/search.svg';
 
-const FilterInput = () => {
+// TODO: 모든 필터옵션에 대해 하도록 추후 수정
+const helper = ({ isOpened }) => {
+  return isOpened ? 'is:open' : 'is:close';
+};
+
+const FilterInput = ({ filterOptions }) => {
+  const [inputValue, setInputValue] = useState(helper(filterOptions));
+
+  // ?: useEffect를 제대로 사용한건지?
+  useEffect(() => {
+    setInputValue(helper(filterOptions));
+  }, [filterOptions]);
+
   return (
     <FilterInputBox>
-      <img src={search} alt="search" />
-      <input placeholder="Search all issues" />
+      <SearchImage />
+      <input
+        placeholder="Search all issues"
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+      />
     </FilterInputBox>
   );
 };
 
 export default FilterInput;
+
+const SearchImage = styled(Search)`
+  stroke: ${({ theme }) => theme.color.neutralTextWeak};
+`;
 
 const FilterInputBox = styled.div`
   display: flex;

@@ -31,6 +31,7 @@ const GlobalStyles = createGlobalStyle`
     
     li{
       list-style: none;
+      color: inherit;
     }
 `;
 

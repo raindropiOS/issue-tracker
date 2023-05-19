@@ -1,16 +1,22 @@
 import { styled } from 'styled-components';
 import FilterInput from './FilterInput/FilterInput';
 import DropDown from '../../DropDown/DropDown';
-import chevronDown from '../../../assets/chevronDown.svg';
 
-const FilterBar = () => {
+const FilterBar = ({ filterOptions, setFilterOptions }) => {
   const dropDownConfig = {
     buttonText: '필터',
-    buttonImage: chevronDown,
     headerText: '이슈 필터',
     bodyItems: [
-      { text: '열린 이슈', checked: true, onClick: () => console.log('hi') },
-      { text: '닫힌 이슈', checked: false },
+      {
+        text: '열린 이슈',
+        checked: filterOptions.isOpened,
+        onClick: () => setFilterOptions({ ...filterOptions, isOpened: true }),
+      },
+      {
+        text: '닫힌 이슈',
+        checked: !filterOptions.isOpened,
+        onClick: () => setFilterOptions({ ...filterOptions, isOpened: false }),
+      },
     ],
     bodyCheck: true,
     marginTop: '10px',
@@ -19,7 +25,7 @@ const FilterBar = () => {
   return (
     <FilterBarBox>
       <FilterBarDropDown config={dropDownConfig} />
-      <FilterInput />
+      <FilterInput filterOptions={filterOptions} />
     </FilterBarBox>
   );
 };
