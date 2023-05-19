@@ -8,13 +8,12 @@ public class IssueSearchCondition {
     private String assignee;
     private List<String> labelNames;
     private String milestoneName;
-    private boolean state;
+    private Boolean state;
 
     public IssueSearchCondition() {
-        state = true;
     }
 
-    public IssueSearchCondition(String author, String assignee, List<String> labelNames, String milestoneName, boolean state) {
+    public IssueSearchCondition(String author, String assignee, List<String> labelNames, String milestoneName, Boolean state) {
         this.author = author;
         this.assignee = assignee;
         this.labelNames = labelNames;
@@ -58,11 +57,22 @@ public class IssueSearchCondition {
         this.milestoneName = milestoneName;
     }
 
-    public boolean isState() {
+    public Boolean getState() {
         return state;
     }
 
-    public void setState(boolean state) {
+    public void setState(Boolean state) {
         this.state = state;
+    }
+
+    @Override
+    public String toString() {
+        return "IssueSearchCondition{" +
+                "author='" + author + '\'' +
+                ", assignee='" + assignee + '\'' +
+                ", labelNames=" + labelNames +
+                ", milestoneName='" + milestoneName + '\'' +
+                ", state=" + state +
+                '}';
     }
 }

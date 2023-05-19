@@ -20,6 +20,7 @@ public class IssueController {
 
     @GetMapping("/api-fe/issues")
     public FeIssueResponseDTO createFeIssueResponse(@ModelAttribute IssueSearchCondition issueSearchCondition) {
+        System.out.println(issueSearchCondition);
         return issueService.makeFeIssueResponse(issueSearchCondition);
     }
 

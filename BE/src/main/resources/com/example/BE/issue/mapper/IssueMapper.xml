@@ -9,7 +9,10 @@
         left outer join MILESTONE m on i.milestone_name = m.name
         left outer join USER u on i.user_id = u.id
         left outer join ASSIGNS a on a.issue_number = i.number
-        where i.state = #{state}
+        <where>
+            <if test="state != null">
+                and i.state = #{state}
+            </if>
             <if test="author != null">
                 and u.nickname = #{author}
             </if>
@@ -30,7 +33,7 @@
                                 having count(*) = #{labelNamesSize})
 
             </if>
-
+        </where>
     </select>
 
     <resultMap type="com.example.BE.issue.Issue" id="issuesWithoutLabels">
