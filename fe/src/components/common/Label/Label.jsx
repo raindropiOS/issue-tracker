@@ -1,8 +1,12 @@
 import styled, { css } from 'styled-components';
 
-export const Label = ({ name, ...colors }) => {
+export const Label = ({ name, textColor, backgroundColor }) => {
   return (
-    <LableBox name={name} {...colors}>
+    <LableBox
+      name={name}
+      textcolor={textColor}
+      backgroundcolor={backgroundColor}
+    >
       {name}
     </LableBox>
   );
@@ -16,8 +20,8 @@ const LableBox = styled.div`
   height: 24px;
   font-weight: 500;
   font-size: 12px;
-  color: ${(p) => p.textColor};
-  background-color: ${(p) => p.backgroundColor};
+  color: ${(p) => p.textcolor};
+  background-color: ${(p) => p.backgroundcolor};
   border-radius: 50px;
 
   ${({ name }) => {

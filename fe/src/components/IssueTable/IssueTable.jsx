@@ -5,8 +5,10 @@ import IssueStatusButtons from './TableToolBar/IssueStatusButtons/IssueStatusBut
 import TableFilterButtons from './TableToolBar/TableFilterButtons/TableFilterButtons';
 import TableToolBar from './TableToolBar/TableToolBar';
 
-const IssueTable = ({ issues, ...rest }) => {
-  const issueList = issues.length ? (
+const IssueTable = ({
+  issues, counts, isOpened, setFilterOptions,
+}) => {
+  const issueItems = issues.length ? (
     issues.map((issue) => <IssueItem key={issue.number} {...issue} />)
   ) : (
     <NoticeBox>검색과 일치하는 결과가 없습니다.</NoticeBox>
@@ -16,10 +18,14 @@ const IssueTable = ({ issues, ...rest }) => {
     <div>
       <TableToolBar>
         <CheckBox />
-        <IssueStatusButtons {...rest} />
+        <IssueStatusButtons
+          {...counts}
+          isOpened={isOpened}
+          setFilterOptions={setFilterOptions}
+        />
         <TableFilterButtons />
       </TableToolBar>
-      <IssueItemList>{issueList}</IssueItemList>
+      <IssueItemList>{issueItems}</IssueItemList>
     </div>
   );
 };

@@ -4,8 +4,8 @@ import { ReactComponent as archive } from '../../../../assets/archive.svg';
 import { Button } from '../../../common';
 
 const IssueStatusButtons = ({
-  openedIssueCount,
-  closedIssueCount,
+  openedIssuesCount,
+  closedIssuesCount,
   isOpened,
   setFilterOptions,
 }) => {
@@ -27,25 +27,25 @@ const IssueStatusButtons = ({
         buttonStatus={isOpened}
         handleButton={handleOpenedIssueButton}
         buttonText="열린이슈"
-        count={openedIssueCount}
+        count={openedIssuesCount}
         gap="10px"
         fontWeight={isOpened ? 'bold' : 'regular'}
         fontSize="M"
         color={isOpened ? 'neutralTextStrong' : 'neutralText'}
       >
-        <AlertCircleIcon isopen={isOpened} />
+        <AlertCircleIcon $isopen={isOpened} />
       </Button>
       <Button
         buttonText="닫힌이슈"
         handleButton={handleClosedIssueButton}
-        count={closedIssueCount}
+        count={closedIssuesCount}
         buttonStatus={!isOpened}
         gap="10px"
         fontWeight={!isOpened ? 'bold' : 'regular'}
         fontSize="M"
         color={!isOpened ? 'neutralTextStrong' : 'neutralText'}
       >
-        <ArchiveIcon isopen={isOpened} />
+        <ArchiveIcon $isopen={isOpened} />
       </Button>
     </IssueStatusButtonsBox>
   );
@@ -60,9 +60,9 @@ const IssueStatusButtonsBox = styled.div`
 `;
 
 const AlertCircleIcon = styled(alertCircle)`
-  stroke: ${({ theme, isopen }) => (isopen ? theme.color.iconBackgoundBlue : theme.color.neutralText)};
+  stroke: ${({ theme, $isopen }) => ($isopen ? theme.color.iconBackgoundBlue : theme.color.neutralText)};
 `;
 
 const ArchiveIcon = styled(archive)`
-  stroke: ${({ theme, isopen }) => (!isopen ? theme.color.iconBackgoundBlue : theme.color.neutralText)};
+  stroke: ${({ theme, $isopen }) => (!$isopen ? theme.color.iconBackgoundBlue : theme.color.neutralText)};
 `;
