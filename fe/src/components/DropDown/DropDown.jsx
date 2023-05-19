@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-
 import { styled } from 'styled-components';
+import { ChevronDown } from '../common';
 import DropDownHeader from './DropDownContent/DropDownHeader/DropDownHeader';
 import DropDownBody from './DropDownContent/DropDownBody/DropDownBody';
 import DropDownContent from './DropDownContent/DropDownContent';
@@ -8,13 +8,7 @@ import DropDownContent from './DropDownContent/DropDownContent';
 const DropDown = ({
   className,
   config: {
-    buttonText,
-    buttonImage,
-    headerText,
-    bodyItems,
-    bodyCheck,
-    posright,
-    marginTop,
+    buttonText, headerText, bodyItems, bodyCheck, posright, marginTop,
   },
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -40,9 +34,7 @@ const DropDown = ({
         onClick={() => setIsOpen((prevIsOpen) => !prevIsOpen)}
       >
         <span>{buttonText}</span>
-        {buttonImage && (
-          <img src={buttonImage} alt="filter button chevronDown" />
-        )}
+        <ChevronDown />
       </button>
       {isOpen && (
         <DropDownContent posright={posright} marginTop={marginTop}>

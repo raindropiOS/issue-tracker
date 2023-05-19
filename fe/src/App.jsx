@@ -52,7 +52,10 @@ const App = () => {
         }}
       >
         <PageLayout>
-          <FilterBar filterOptions={filterOptions} />
+          <FilterBar
+            filterOptions={filterOptions}
+            setFilterOptions={setFilterOptions}
+          />
           <IssueTable
             issues={issues}
             openedIssueCount={counts.openedIssueCount}
