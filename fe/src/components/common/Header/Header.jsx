@@ -7,7 +7,7 @@ import Toggle from '../Toggle/Toggle';
 export const Header = () => {
   return (
     <HeaderBox>
-      <LogoBox />
+      <LogoImage />
       <div>
         <Toggle />
         <UserIcon imgSrc={userImageLarge} large />
@@ -16,7 +16,7 @@ export const Header = () => {
   );
 };
 
-const LogoBox = styled(Logo)`
+const LogoImage = styled(Logo)`
   fill: ${({ theme }) => theme.color.neutralTextStrong};
 `;
 
