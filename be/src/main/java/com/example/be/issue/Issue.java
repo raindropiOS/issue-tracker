@@ -6,6 +6,7 @@ import com.example.be.label.Label;
 import com.example.be.milestone.Milestone;
 import com.example.be.user.User;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;

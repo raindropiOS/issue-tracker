@@ -32,9 +32,11 @@ public class IssueController {
     }
 
     @PostMapping("/api/issues")
-    public Issue createIssue(@ModelAttribute IssueCreateFormDTO issueCreateFormDTO) {
+    public String createIssue(@ModelAttribute IssueCreateFormDTO issueCreateFormDTO) {
         User testUser = new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg");
-        return issueService.createIssue(testUser, issueCreateFormDTO);
+        issueCreateFormDTO.setUserId(testUser.getId());
+        issueService.createIssue(issueCreateFormDTO);
+        return "ok";
     }
 
 }

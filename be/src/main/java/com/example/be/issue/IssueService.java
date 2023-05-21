@@ -40,22 +40,8 @@ public class IssueService {
         return new IosIssueResponseDTO(issues);
     }
 
-    public Issue createIssue(User testUser, IssueCreateFormDTO issueCreateFormDTO) {
-        Issue issue = new Issue(issueCreateFormDTO.getTitle(), issueCreateFormDTO.getContents(), testUser);
-
-        if (issueCreateFormDTO.getLabelNames() != null) {
-            issue.setLabels(labelRepository.findByNames(issueCreateFormDTO.getLabelNames()));
-        }
-
-        if (issueCreateFormDTO.getAssignees() != null) {
-            issue.setAssignees(userRepository.findByNames(issueCreateFormDTO.getAssignees()));
-        }
-
-        if (issueCreateFormDTO.getMilestoneName() != null) {
-            issue.setMilestone(milestoneRepository.findByName(issueCreateFormDTO.getMilestoneName()));
-        }
-
-        return null;
+    public void createIssue(IssueCreateFormDTO issueCreateFormDTO) {
+        issueRepository.save(issueCreateFormDTO);
     }
 
     private Collection<Issue> findIssues(IssueSearchCondition issueSearchCondition) {

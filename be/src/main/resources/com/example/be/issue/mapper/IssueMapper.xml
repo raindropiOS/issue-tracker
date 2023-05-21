@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.be.issue.mapper.IssueMapper">
-    <select id="findIssuesWithoutLabelsBy" resultMap="issuesWithoutLabels" parameterType="com.example.be.issue.dto.IssueSearchCondition">
+    <select id="findIssuesWithoutLabelsBy" resultMap="issuesWithoutLabels"
+            parameterType="com.example.be.issue.dto.IssueSearchCondition">
         select i.number, i.title, i.contents, i.state, i.created_date, i.last_updated_date,
         m.name, m.scheduled_completion_date, m.description_for_label,
         u.id, u.password, u.nickname, u.img_url from ISSUE i
@@ -24,13 +25,13 @@
             </if>
             <if test="labelNames != null">
                 and i.number in (select ir.issue_number
-                                from ISSUE_LABEL_RELATION ir
-                                where ir.label_name in
-                                <foreach item="labelName" collection="labelNames" open="(" close=")" separator=",">
-                                    #{labelName}
-                                </foreach>
-                                group by ir.issue_number
-                                having count(*) = #{labelNamesSize})
+                from ISSUE_LABEL_RELATION ir
+                where ir.label_name in
+                <foreach item="labelName" collection="labelNames" open="(" close=")" separator=",">
+                    #{labelName}
+                </foreach>
+                group by ir.issue_number
+                having count(*) = #{labelNamesSize})
 
             </if>
         </where>
@@ -56,4 +57,29 @@
         </association>
     </resultMap>
 
+    <insert id="save" parameterType="com.example.be.issue.dto.IssueCreateFormDTO">
+        insert into ISSUE(title, contents, state, user_id<if test="milestoneName != null">, milestone_name</if>)
+        values (#{title}, #{contents}, true, #{userId}<if test="milestoneName != null">, #{milestoneName}</if>)
+
+        <selectKey resultType="int" keyProperty="issueNumber" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+
+    </insert>
+
+    <insert id="saveIssueLabelRelation" parameterType="com.example.be.issue.dto.IssueCreateFormDTO">
+        insert into ISSUE_LABEL_RELATION(issue_number, label_name)
+        values
+        <foreach item="labelName" collection="labelNames" separator=",">
+            (#{issueNumber}, #{labelName})
+        </foreach>
+    </insert>
+
+    <insert id="saveAssignee" parameterType="com.example.be.issue.dto.IssueCreateFormDTO">
+        insert into ASSIGNS(issue_number, user_id)
+        values
+        <foreach item="assignee" collection="assignees" separator=",">
+            (#{issueNumber}, #{assignee})
+        </foreach>
+    </insert>
 </mapper>
