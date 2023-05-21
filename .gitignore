@@ -1,6 +1,10 @@
 BE/out/
-.idea/
+
 BE/.gradle/
+BE/.idea/
 BE/build/
+
 BE/src/main/resources/application.properties
 BE/src/test/resources/application.properties
+
+.idea/workspace.xml
