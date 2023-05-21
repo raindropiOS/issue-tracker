@@ -1,6 +1,5 @@
 package com.example.be.label;
 
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +18,10 @@ class LabelRepositoryTest {
     @Test
     @DisplayName("라벨 이름들을 파라미터로 받아, 해당하는 라벨 목록들을 반환한다.")
     void getLabelsByNames() {
-        Label label1 = new Label("feature", "기능을 만들었슴둥", "#000000", "#004DE3");
-        Label label2 = new Label("fix", "버그를 고쳤음", "#123456", "#654321");
+        List<String> labelNames1 = labelRepository.validateNames(List.of("feature", "fix"));
+        assertThat(labelNames1).containsExactly("feature", "fix");
 
-        List<Label> labels = labelRepository.findByNames(List.of("feature", "fix"));
-
-        assertThat(labels).usingRecursiveFieldByFieldElementComparator().containsExactly(label1, label2);
+        List<String> labelNames2 = labelRepository.validateNames(List.of("feat", "fix"));
+        assertThat(labelNames2).containsExactly("fix");
     }
 }

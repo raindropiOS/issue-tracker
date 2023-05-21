@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface UserRepository extends CrudRepository<User, String> {
 
-    @Query("select id, password, nickname, img_url " +
+    @Query("select id " +
             "from USER " +
             "where id in (:names)")
-    List<User> findByNames(@Param("names") List<String> names);
+    List<String> validateNames(@Param("names") List<String> names);
 }

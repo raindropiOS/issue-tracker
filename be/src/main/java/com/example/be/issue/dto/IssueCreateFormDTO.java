@@ -55,4 +55,16 @@ public class IssueCreateFormDTO {
     public List<String> getLabelNames() {
         return labelNames;
     }
+
+    public void setAssignees(List<String> assignees) {
+        this.assignees = assignees;
+    }
+
+    public void setMilestoneName(String milestoneName) {
+        this.milestoneName = milestoneName;
+    }
+
+    public void setLabelNames(List<String> labelNames) {
+        this.labelNames = labelNames;
+    }
 }

@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface LabelRepository extends CrudRepository<Label, String> {
 
-    @Query("select name, description, background_color, text_color " +
+    @Query("select name " +
             "from LABEL " +
             "where name in (:names)")
-    List<Label> findByNames(@Param("names") List<String> names);
+    List<String> validateNames(@Param("names") List<String> names);
 }

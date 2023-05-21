@@ -18,10 +18,10 @@ class MilestoneRepositoryTest {
     @Test
     @DisplayName("마일스톤 이름을 파라미터로 받아, 해당하는 마일스톤을 반환한다.")
     void findByName() {
-        Milestone milestone = new Milestone("BE STEP1", LocalDateTime.of(2023,5,20,0,0,0), "BE 1주차 이슈들");
+        String milestoneName1 = milestoneRepository.validateName("BE STEP1");
+        assertThat(milestoneName1).isEqualTo("BE STEP1");
 
-        Milestone findMilestone = milestoneRepository.findByName("BE STEP1");
-
-        assertThat(findMilestone).usingRecursiveComparison().isEqualTo(milestone);
+        String milestoneName2 = milestoneRepository.validateName("BE STEP2");
+        assertThat(milestoneName2).isNull();
     }
 }

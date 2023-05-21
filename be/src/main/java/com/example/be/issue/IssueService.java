@@ -41,6 +41,18 @@ public class IssueService {
     }
 
     public void createIssue(IssueCreateFormDTO issueCreateFormDTO) {
+        if (issueCreateFormDTO.getAssignees() != null) {
+            issueCreateFormDTO.setAssignees(userRepository.validateNames(issueCreateFormDTO.getAssignees()));
+        }
+
+        if (issueCreateFormDTO.getLabelNames() != null) {
+            issueCreateFormDTO.setLabelNames(labelRepository.validateNames(issueCreateFormDTO.getLabelNames()));
+        }
+
+        if (issueCreateFormDTO.getMilestoneName() != null) {
+            issueCreateFormDTO.setMilestoneName(milestoneRepository.validateName(issueCreateFormDTO.getMilestoneName()));
+        }
+
         issueRepository.save(issueCreateFormDTO);
     }
 
