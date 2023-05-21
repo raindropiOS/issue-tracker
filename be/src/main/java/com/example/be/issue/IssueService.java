@@ -2,7 +2,10 @@ package com.example.be.issue;
 
 import com.example.be.assignee.Assignee;
 import com.example.be.issue.dto.*;
+import com.example.be.label.Label;
+import com.example.be.label.LabelRepository;
 import com.example.be.user.User;
+import com.example.be.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +17,14 @@ import java.util.stream.Collectors;
 public class IssueService {
 
     private final IssueRepository issueRepository;
+    private final LabelRepository labelRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public IssueService(IssueRepository issueRepository) {
+    public IssueService(IssueRepository issueRepository, LabelRepository labelRepository, UserRepository userRepository) {
         this.issueRepository = issueRepository;
+        this.labelRepository = labelRepository;
+        this.userRepository = userRepository;
     }
 
     public FeIssueResponseDTO makeFeIssueResponse(IssueSearchCondition issueSearchCondition) {
@@ -32,6 +39,16 @@ public class IssueService {
     }
 
     public Issue createIssue(User testUser, IssueCreateFormDTO issueCreateFormDTO) {
+        List<Label> labels = Collections.emptyList();
+        if (issueCreateFormDTO.getLabelNames() != null) {
+            labels = labelRepository.findByNames(issueCreateFormDTO.getLabelNames());
+        }
+
+        List<User> assignees = Collections.emptyList();
+        if (issueCreateFormDTO.getAssigness() != null) {
+            assignees = userRepository.findByNames(issueCreateFormDTO.getAssigness());
+        }
+
         return null;
     }
 
