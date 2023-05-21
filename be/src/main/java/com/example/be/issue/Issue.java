@@ -31,13 +31,11 @@ public class Issue {
     public Issue() {
     }
 
-    public Issue(String title, String contents, Milestone milestone, User user, List<Label> labels, List<User> assignees) {
+    public Issue(String title, String contents, User user) {
         this.title = title;
         this.contents = contents;
-        this.milestone = milestone;
+        this.state = true;
         this.user = user;
-        this.labels = labels;
-        this.assignees = assignees;
     }
 
     public Issue(Integer number, String title, String contents, boolean state, LocalDateTime createdDate, LocalDateTime lastUpdatedDate, Milestone milestone, User user) {
@@ -119,12 +117,20 @@ public class Issue {
         return labels;
     }
 
+    public void setLabels(List<Label> labels) {
+        this.labels = labels;
+    }
+
     public void add(IssueNumberWithLabelDTO issueLabel) {
         this.labels.add(issueLabel.getLabel());
     }
 
     public List<User> getAssignees() {
         return assignees;
+    }
+
+    public void setAssignees(List<User> assignees) {
+        this.assignees = assignees;
     }
 
     public void add(Assignee assignee) {

@@ -6,14 +6,14 @@ public class IssueCreateFormDTO {
 
     private String title;
     private String contents;
-    private List<String> assigness;
+    private List<String> assignees;
     private String milestoneName;
     private List<String> labelNames;
 
-    public IssueCreateFormDTO(String title, String contents, List<String> assigness, String milestoneName, List<String> labelNames) {
+    public IssueCreateFormDTO(String title, String contents, List<String> assignees, String milestoneName, List<String> labelNames) {
         this.title = title;
         this.contents = contents;
-        this.assigness = assigness;
+        this.assignees = assignees;
         this.milestoneName = milestoneName;
         this.labelNames = labelNames;
     }
@@ -26,8 +26,8 @@ public class IssueCreateFormDTO {
         return contents;
     }
 
-    public List<String> getAssigness() {
-        return assigness;
+    public List<String> getAssignees() {
+        return assignees;
     }
 
     public String getMilestoneName() {

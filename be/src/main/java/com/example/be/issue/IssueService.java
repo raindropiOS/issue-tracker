@@ -2,8 +2,8 @@ package com.example.be.issue;
 
 import com.example.be.assignee.Assignee;
 import com.example.be.issue.dto.*;
-import com.example.be.label.Label;
 import com.example.be.label.LabelRepository;
+import com.example.be.milestone.MilestoneRepository;
 import com.example.be.user.User;
 import com.example.be.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +19,14 @@ public class IssueService {
     private final IssueRepository issueRepository;
     private final LabelRepository labelRepository;
     private final UserRepository userRepository;
+    private final MilestoneRepository milestoneRepository;
 
     @Autowired
-    public IssueService(IssueRepository issueRepository, LabelRepository labelRepository, UserRepository userRepository) {
+    public IssueService(IssueRepository issueRepository, LabelRepository labelRepository, UserRepository userRepository, MilestoneRepository milestoneRepository) {
         this.issueRepository = issueRepository;
         this.labelRepository = labelRepository;
         this.userRepository = userRepository;
+        this.milestoneRepository = milestoneRepository;
     }
 
     public FeIssueResponseDTO makeFeIssueResponse(IssueSearchCondition issueSearchCondition) {
@@ -39,14 +41,18 @@ public class IssueService {
     }
 
     public Issue createIssue(User testUser, IssueCreateFormDTO issueCreateFormDTO) {
-        List<Label> labels = Collections.emptyList();
+        Issue issue = new Issue(issueCreateFormDTO.getTitle(), issueCreateFormDTO.getContents(), testUser);
+
         if (issueCreateFormDTO.getLabelNames() != null) {
-            labels = labelRepository.findByNames(issueCreateFormDTO.getLabelNames());
+            issue.setLabels(labelRepository.findByNames(issueCreateFormDTO.getLabelNames()));
         }
 
-        List<User> assignees = Collections.emptyList();
-        if (issueCreateFormDTO.getAssigness() != null) {
-            assignees = userRepository.findByNames(issueCreateFormDTO.getAssigness());
+        if (issueCreateFormDTO.getAssignees() != null) {
+            issue.setAssignees(userRepository.findByNames(issueCreateFormDTO.getAssignees()));
+        }
+
+        if (issueCreateFormDTO.getMilestoneName() != null) {
+            issue.setMilestone(milestoneRepository.findByName(issueCreateFormDTO.getMilestoneName()));
         }
 
         return null;
