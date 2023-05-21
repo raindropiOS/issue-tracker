@@ -22,14 +22,10 @@ public class Issue {
     private String contents;
     private boolean state;
     private LocalDateTime createdDate;
-
     private LocalDateTime lastUpdatedDate;
-
     private Milestone milestone;
     private User user;
-
     private List<Label> labels = new ArrayList<>();
-
     private List<User> assignees = new ArrayList<>();
 
     public Issue() {
