@@ -8,10 +8,16 @@
 import UIKit
 
 class IssueTabViewController: UIViewController {
+    
+    @IBOutlet var selectButton: UIBarButtonItem!
+    
+    var cancelButton: UIBarButtonItem?
+    
     let fetcher = HTTPDataFetcher()
     
     let collectionView = IssueCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     @IBOutlet var backPlane: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         backPlane.addSubview(collectionView)
@@ -24,11 +30,33 @@ class IssueTabViewController: UIViewController {
                 print(error.localizedDescription)
             }
         })
+        setCancelButton()
+    }
+
+    
+    private func setCancelButton() {
+        cancelButton = UIBarButtonItem(title: "취소  ", style: .plain, target: self, action: #selector(cancelButtonTouched))
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let navigationController = segue.destination as? UINavigationController{
-            let filterTableViewController = navigationController.topViewController as? IssueFilterTableViewController
-        }
+    @IBAction func filterButtonTouched(_ sender: UIButton) {
+        let filterTableViewController = IssueFilterTableViewController()
+        show(filterTableViewController, sender: sender)
     }
+    
+    @IBAction func selectButtonTouched(_ sender: UIButton) {
+        
+        self.navigationController?.isToolbarHidden = false
+        self.tabBarController?.tabBar.isHidden = true
+        self.navigationItem.leftBarButtonItem?.isHidden = true
+        
+        self.navigationItem.rightBarButtonItem = cancelButton
+    }
+    
+    @objc private func cancelButtonTouched() {
+        self.navigationController?.isToolbarHidden = true
+        self.tabBarController?.tabBar.isHidden = false
+        self.navigationItem.leftBarButtonItem?.isHidden = false
+        self.navigationItem.rightBarButtonItem = selectButton
+    }
+
 }
