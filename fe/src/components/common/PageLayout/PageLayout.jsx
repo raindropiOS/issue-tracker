@@ -1,11 +1,14 @@
 import { styled } from 'styled-components';
+import { Outlet } from 'react-router-dom';
 import { Header } from '../Header/Header';
 
-export const PageLayout = ({ children }) => {
+export const PageLayout = () => {
   return (
     <PageLayoutBox>
       <Header />
-      <Content>{children}</Content>
+      <Content>
+        <Outlet />
+      </Content>
     </PageLayoutBox>
   );
 };
