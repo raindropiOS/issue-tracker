@@ -39,7 +39,7 @@ class IssueFilterTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "filterOptionCell", for: indexPath) as? IssueFilterTableViewCell else { return UITableViewCell() }
-        cell.configureWith(optionName: "Filter option", selectedImage: checkmarkImage, deselectedImage: grayCheckmarkImage)
+        cell.configureWith(filterOption: FilterOption(filterLabel: "Test", filterUrlStr: nil), selectedImage: checkmarkImage, deselectedImage: grayCheckmarkImage)
         return cell
     }
     

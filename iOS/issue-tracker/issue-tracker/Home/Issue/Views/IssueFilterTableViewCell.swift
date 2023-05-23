@@ -11,6 +11,7 @@ class IssueFilterTableViewCell: UITableViewCell {
 
     @IBOutlet var filterOptionLabel: UILabel!
     @IBOutlet var togglableImageView: UIImageView!
+    var filterOption: FilterOption?
     var isOptionSelected = false {
         willSet {
             togglableImageView.image = newValue ? selectedImage : deselectedImage
@@ -23,8 +24,8 @@ class IssueFilterTableViewCell: UITableViewCell {
         super.awakeFromNib()
     }
     
-    func configureWith(optionName: String, selectedImage: UIImage?, deselectedImage: UIImage?) {
-        filterOptionLabel.text = optionName
+    func configureWith(filterOption: FilterOption, selectedImage: UIImage?, deselectedImage: UIImage?) {
+        filterOptionLabel.text = filterOption.filterLabel
         self.selectedImage = selectedImage
         self.deselectedImage = deselectedImage
         togglableImageView.image = deselectedImage
