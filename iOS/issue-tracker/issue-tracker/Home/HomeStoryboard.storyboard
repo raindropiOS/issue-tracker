@@ -138,6 +138,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="backPlane" destination="bus-B5-wOJ" id="Aq5-Pq-9Bg"/>
+                        <outlet property="filterButton" destination="1zk-3q-DS8" id="JY3-Db-cuM"/>
                         <outlet property="selectButton" destination="ZUL-Ft-uWb" id="ZQr-xv-efg"/>
                     </connections>
                 </viewController>

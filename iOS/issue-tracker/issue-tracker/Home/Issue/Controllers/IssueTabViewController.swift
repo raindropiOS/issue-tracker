@@ -10,10 +10,11 @@ import OSLog
 
 class IssueTabViewController: UIViewController {
     
-    
+    @IBOutlet var filterButton: UIBarButtonItem!
     @IBOutlet var selectButton: UIBarButtonItem!
     
     var cancelButton: UIBarButtonItem?
+    let nothingButton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     
     let fetcher = HTTPDataFetcher()
     
@@ -58,7 +59,7 @@ class IssueTabViewController: UIViewController {
         
         self.navigationController?.isToolbarHidden = false
         self.tabBarController?.tabBar.isHidden = true
-        self.navigationItem.leftBarButtonItem?.isHidden = true
+        self.navigationItem.leftBarButtonItem = nothingButton
         
         self.navigationItem.rightBarButtonItem = cancelButton
     }
@@ -66,7 +67,7 @@ class IssueTabViewController: UIViewController {
     @objc private func cancelButtonTouched() {
         self.navigationController?.isToolbarHidden = true
         self.tabBarController?.tabBar.isHidden = false
-        self.navigationItem.leftBarButtonItem?.isHidden = false
+        self.navigationItem.leftBarButtonItem = filterButton
         self.navigationItem.rightBarButtonItem = selectButton
     }
     
