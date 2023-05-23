@@ -8,10 +8,9 @@
 import UIKit
 
 class IssueFilterTableViewController: UITableViewController {
-    
-
     private let checkmarkImage = UIImage(systemName: "checkmark")
     private let grayCheckmarkImage = UIImage(systemName: "checkmark")?.withTintColor(.gray, renderingMode: .alwaysOriginal)
+    var filterOptionList: FilterOptionsLike = FilterOptionListMock()
     weak var delegate: IssueTabViewController?
     
     override func viewDidLoad() {
@@ -22,11 +21,11 @@ class IssueFilterTableViewController: UITableViewController {
         configureBackButton()
         configureSaveButton()
     }
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 3
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0: return 4
@@ -35,11 +34,11 @@ class IssueFilterTableViewController: UITableViewController {
         default: return 1
         }
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "filterOptionCell", for: indexPath) as? IssueFilterTableViewCell else { return UITableViewCell() }
-        cell.configureWith(filterOption: FilterOption(filterLabel: "Test", filterUrlStr: nil), selectedImage: checkmarkImage, deselectedImage: grayCheckmarkImage)
+        cell.configureWith(filterOption: filterOptionList.list[indexPath.section][indexPath.row], selectedImage: checkmarkImage, deselectedImage: grayCheckmarkImage)
         return cell
     }
     
@@ -51,7 +50,7 @@ class IssueFilterTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection
-                                section: Int) -> String? {
+                            section: Int) -> String? {
         switch section {
         case 0: return "상태"
         case 1: return "담당자"
@@ -92,4 +91,29 @@ class IssueFilterTableViewController: UITableViewController {
     private func dismissSelf() {
         navigationController?.popViewController(animated: true)
     }
+}
+
+struct FilterOptionListMock: FilterOptionsLike {
+    let list: [[FilterOption]] = [
+        [
+            FilterOption(filterLabel: "열린 이슈", filterUrlStr: nil),
+            FilterOption(filterLabel: "내가 작성한 이슈", filterUrlStr: nil),
+            FilterOption(filterLabel: "내가 댓글을 남긴 이슈", filterUrlStr: nil),
+            FilterOption(filterLabel: "닫힌 이슈", filterUrlStr: "?{close=true}"),
+        ],
+        [
+            FilterOption(filterLabel: "chloe", filterUrlStr: nil),
+            FilterOption(filterLabel: "head", filterUrlStr: nil),
+            FilterOption(filterLabel: "sam", filterUrlStr: nil),
+            FilterOption(filterLabel: "zello", filterUrlStr: nil),
+        ],
+        [
+            FilterOption(filterLabel: "레이블 없음", filterUrlStr: nil),
+            FilterOption(filterLabel: "그룹프로젝트:이슈트래커", filterUrlStr: nil),
+        ],
+    ]
+}
+
+protocol FilterOptionsLike {
+    var list: [[FilterOption]] { get }
 }
