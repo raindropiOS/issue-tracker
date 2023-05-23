@@ -9,14 +9,14 @@ import UIKit
 import OSLog
 
 class IssueTabViewController: UIViewController {
-
+    
     
     @IBOutlet var selectButton: UIBarButtonItem!
     
     var cancelButton: UIBarButtonItem?
     
     let fetcher = HTTPDataFetcher()
-
+    
     private let logger = Logger()
     private let networkManager = NetworkManager()
     private var issueFrames: [IssueFrame]?
@@ -41,7 +41,7 @@ class IssueTabViewController: UIViewController {
             case .failure(let error):
                 self.logger.error("error : \(error)")
             }
-        })
+        }
         setCancelButton()
     }
     
@@ -69,15 +69,6 @@ class IssueTabViewController: UIViewController {
         self.navigationItem.leftBarButtonItem?.isHidden = false
         self.navigationItem.rightBarButtonItem = selectButton
     }
-        }
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let navigationController = segue.destination as? UINavigationController{
-            let filterTableViewController = navigationController.topViewController as? IssueFilterTableViewController
-            filterTableViewController?.delegate = self
-        }
-    }
     
     func fetchData() {
         guard let url = URL(string: currentIssueDataUrlString) else {
@@ -104,5 +95,6 @@ class IssueTabViewController: UIViewController {
     func setUrlString(with urlString: String) {
         currentIssueDataUrlString = urlString
     }
-
 }
+
+
