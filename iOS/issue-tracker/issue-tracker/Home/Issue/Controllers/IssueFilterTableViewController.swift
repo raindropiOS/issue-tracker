@@ -8,6 +8,8 @@
 import UIKit
 
 class IssueFilterTableViewController: UITableViewController {
+    
+
     private let checkmarkImage = UIImage(systemName: "checkmark")
     private let grayCheckmarkImage = UIImage(systemName: "checkmark")?.withTintColor(.gray, renderingMode: .alwaysOriginal)
     weak var delegate: IssueTabViewController?
@@ -75,7 +77,7 @@ class IssueFilterTableViewController: UITableViewController {
     }
     
     private func configureSaveButton() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "저장", style: .plain, target: self, action: #selector(saveAction))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "저장  ", style: .plain, target: self, action: #selector(saveAction))
     }
     
     @objc func backAction() {
@@ -83,13 +85,11 @@ class IssueFilterTableViewController: UITableViewController {
     }
     
     @objc func saveAction() {
-        // TODO: Convey filter options to previous VC
-        
         delegate?.fetchData()
         dismissSelf()
     }
     
     private func dismissSelf() {
-        self.dismiss(animated: true, completion: nil)
+        navigationController?.popViewController(animated: true)
     }
 }
