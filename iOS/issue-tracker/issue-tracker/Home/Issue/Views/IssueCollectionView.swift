@@ -9,11 +9,7 @@ import UIKit
 import SwipeCellKit
 
 class IssueCollectionView: UICollectionView {
-    var issueFrames: [IssueFrame] = [
-        IssueFrame(number: 1, title: "Test-1", contents: "Test1Contents", state: true, createdDate: "123", lastUpdatedDate: "123", milestone: Milestone(name: "MilestoneName", scheduledCompletionDate: "123", descriptionForLabel: "milestoneDescription", empty: false), user: User(id: "testId", password: "123", nickname: "Eddie", imgUrl: "www."), labels: [Label(name: "TestLabel", textColor: "color", backgroundColor: "color")], assignees: []),
-        IssueFrame(number: 2, title: "Test-2", contents: "Test2Contents", state: false, createdDate: "213", lastUpdatedDate: "123", milestone: Milestone(name: "MilestoneName", scheduledCompletionDate: "123", descriptionForLabel: "milestoneDescription", empty: false), user: User(id: "testId2", password: "123", nickname: "Eddie2", imgUrl: "www."), labels: [Label(name: "TestLabel1", textColor: "color", backgroundColor: "color")], assignees: [])
-    
-    ]
+    var issueFrames = [IssueFrame]()
     
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: layout)
