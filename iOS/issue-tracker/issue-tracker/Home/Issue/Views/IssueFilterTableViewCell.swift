@@ -28,7 +28,7 @@ class IssueFilterTableViewCell: UITableViewCell {
         filterOptionLabel.text = filterOption.filterLabel
         self.selectedImage = selectedImage
         self.deselectedImage = deselectedImage
-        togglableImageView.image = deselectedImage
+        isOptionSelected = filterOption.isSelected
     }
     
     func toggleSelecting() {

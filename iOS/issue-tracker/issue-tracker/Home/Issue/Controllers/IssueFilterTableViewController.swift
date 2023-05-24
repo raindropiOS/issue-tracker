@@ -99,7 +99,7 @@ struct FilterOptionListMock: FilterOptionsLike {
             FilterOption(filterLabel: "열린 이슈", filterUrlStr: nil),
             FilterOption(filterLabel: "내가 작성한 이슈", filterUrlStr: nil),
             FilterOption(filterLabel: "내가 댓글을 남긴 이슈", filterUrlStr: nil),
-            FilterOption(filterLabel: "닫힌 이슈", filterUrlStr: "?{close=true}"),
+            FilterOption(filterLabel: "닫힌 이슈", filterUrlStr: "?{close=true}", isSelected: false),
         ],
         [
             FilterOption(filterLabel: "chloe", filterUrlStr: nil),
@@ -108,8 +108,8 @@ struct FilterOptionListMock: FilterOptionsLike {
             FilterOption(filterLabel: "zello", filterUrlStr: nil),
         ],
         [
-            FilterOption(filterLabel: "레이블 없음", filterUrlStr: nil),
-            FilterOption(filterLabel: "그룹프로젝트:이슈트래커", filterUrlStr: nil),
+            FilterOption(filterLabel: "레이블 없음", filterUrlStr: nil, isSelected: false),
+            FilterOption(filterLabel: "그룹프로젝트:이슈트래커", filterUrlStr: nil, isSelected: false),
         ],
     ]
 }
