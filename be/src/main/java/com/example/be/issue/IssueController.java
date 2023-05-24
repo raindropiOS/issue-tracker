@@ -6,10 +6,10 @@ import com.example.be.issue.dto.IssueCreateFormDTO;
 import com.example.be.issue.dto.IssueSearchCondition;
 import com.example.be.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindException;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -34,11 +34,17 @@ public class IssueController {
     }
 
     @PostMapping("/api/issues")
-    public Map<String, Integer> createIssue(@ModelAttribute IssueCreateFormDTO issueCreateFormDTO) {
+    public Map<String, Integer> createIssue(@Validated @ModelAttribute IssueCreateFormDTO issueCreateFormDTO) {
         User testUser = new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg");
         issueCreateFormDTO.setUserId(testUser.getId());
         int issueNumber = issueService.createIssue(issueCreateFormDTO);
         return Map.of("issueNumber", issueNumber);
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(BindException.class)
+    public Map<String, String> issueCreateFormExHandler(BindException e) {
+        return Map.of("fail", e.getMessage());
     }
 
 }
