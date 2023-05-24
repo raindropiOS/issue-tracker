@@ -148,12 +148,12 @@ class IssueRepositoryTest {
                     new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
 
             IssueSearchCondition issueSearchCondition = new IssueSearchCondition();
-            issueSearchCondition.setAuthor("BE");
+            issueSearchCondition.setAuthor("1234");
 
             List<Issue> issuesWithoutLabels1 = issueRepository.findIssuesWithoutLabelsBy(issueSearchCondition);
             assertThat(issuesWithoutLabels1).usingRecursiveFieldByFieldElementComparator().containsExactly(simpleOpenedIssue1, simpleClosedIssue2, simpleOpenedIssue3);
 
-            issueSearchCondition.setAuthor("FE");
+            issueSearchCondition.setAuthor("4321");
             List<Issue> issuesWithoutLabels2 = issueRepository.findIssuesWithoutLabelsBy(issueSearchCondition);
             assertThat(issuesWithoutLabels2).isEmpty();
         }
