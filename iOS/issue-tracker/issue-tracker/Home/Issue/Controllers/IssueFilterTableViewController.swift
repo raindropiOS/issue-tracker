@@ -65,6 +65,23 @@ class IssueFilterTableViewController: UITableViewController {
         return num
     }
     
+    private func dismissSelf() {
+        navigationController?.popViewController(animated: true)
+    }
+}
+
+protocol FilterOptionsLike {
+    var list: [[FilterOption]] { get set }
+    func collectSelectedFilterOptionUrlString() -> String
+}
+
+protocol IssueTabViewControllerLike {
+    func setUrlString(with: String)
+    func fetchData()
+}
+
+// 취소, 저장 버튼
+extension IssueFilterTableViewController {
     private func configureBackButton() {
         let backbutton = UIButton(type: .custom)
         backbutton.setImage(UIImage(systemName: "chevron.left"), for: .normal)
@@ -89,18 +106,4 @@ class IssueFilterTableViewController: UITableViewController {
         delegate?.fetchData()
         dismissSelf()
     }
-    
-    private func dismissSelf() {
-        navigationController?.popViewController(animated: true)
-    }
-}
-
-protocol FilterOptionsLike {
-    var list: [[FilterOption]] { get set }
-    func collectSelectedFilterOptionUrlString() -> String
-}
-
-protocol IssueTabViewControllerLike {
-    func setUrlString(with: String)
-    func fetchData()
 }
