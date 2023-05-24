@@ -4,9 +4,11 @@ import React from 'react';
 import CheckBox from '../CheckBox/CheckBox';
 import { ReactComponent as alertCircle } from '../../../assets/alertCircle.svg';
 import { ReactComponent as mileStone } from '../../../assets/mileStone.svg';
+import { ReactComponent as archive } from '../../../assets/archive.svg';
 import { Label, UserIcon } from '../../common';
 
 const IssueItem = ({
+  state,
   number,
   title,
   createdDate,
@@ -31,13 +33,11 @@ const IssueItem = ({
   };
 
   return (
-    // TODO: Label key 수정 필요
-    // TODO: 템플릿 리터럴 이용
     <IssueItemBox>
       <CheckBox />
       <IssueItemBody>
         <IssueItemTitle>
-          <AlertCircleIcon />
+          {state ? <AlertCircleIcon /> : <Archive />}
           <p>{title}</p>
           {labels.map((labelInfo) => (
             <Label key={labelInfo.name} {...labelInfo} />
@@ -116,6 +116,10 @@ const IssueItemAttributes = styled.div`
 `;
 
 const AlertCircleIcon = styled(alertCircle)`
+  stroke: ${({ theme }) => theme.color.iconBackgoundBlue};
+`;
+
+const Archive = styled(archive)`
   stroke: ${({ theme }) => theme.color.iconBackgoundBlue};
 `;
 
