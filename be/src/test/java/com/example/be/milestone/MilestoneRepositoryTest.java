@@ -42,7 +42,10 @@ class MilestoneRepositoryTest {
     @DisplayName("마일스톤 엔티티를 파라미터로 받아, 마일스톤을 저장해야한다.")
     void saveTest() {
 
-        Milestone milestone = new Milestone(milestoneCreateFormDTO);
+        Milestone milestone = new Milestone(
+                milestoneCreateFormDTO.getName(),
+                milestoneCreateFormDTO.getScheduledCompletionDate(),
+                milestoneCreateFormDTO.getDescriptionForLabel());
         milestoneRepository.save(milestone.getEntityForInsert());
 
         Milestone actualMilestone = milestoneRepository.findById("test1").get();

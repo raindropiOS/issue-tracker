@@ -46,12 +46,6 @@ public class Milestone implements Persistable<String> {
 
     public Milestone() {}
 
-    public Milestone(MilestoneCreateFormDTO milestoneCreateFormDTO) {
-        this.name = milestoneCreateFormDTO.getName();
-        this.scheduledCompletionDate = milestoneCreateFormDTO.getScheduledCompletionDate();
-        this.descriptionForLabel = milestoneCreateFormDTO.getDescriptionForLabel();
-    }
-
     public Milestone(String name, LocalDateTime scheduledCompletionDate, String descriptionForLabel) {
         this.name = name;
         this.scheduledCompletionDate = scheduledCompletionDate;
