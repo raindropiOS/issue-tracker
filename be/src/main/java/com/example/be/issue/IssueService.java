@@ -4,16 +4,20 @@ import com.example.be.assignee.Assignee;
 import com.example.be.issue.dto.*;
 import com.example.be.label.LabelRepository;
 import com.example.be.milestone.MilestoneRepository;
-import com.example.be.user.User;
 import com.example.be.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class IssueService {
 
     private final IssueRepository issueRepository;
