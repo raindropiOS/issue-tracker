@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { Button } from '../../common';
 import { ReactComponent as label } from '../../../assets/label.svg';
 import { ReactComponent as mileStone } from '../../../assets/mileStone.svg';
@@ -33,19 +34,21 @@ const NabTab = () => {
           <MileStoneIcon />
         </Button>
       </div>
-      <Button
-        handleButton={() => {}}
-        buttonText="이슈 작성"
-        gap="7px"
-        width="120px"
-        fontWeight="bold"
-        fontSize="S"
-        color="accentText"
-        backgroundColor="accentBackground"
-        borderRadius="11px"
-      >
-        <PlusIcon />
-      </Button>
+      <Link to="/add-issue">
+        <Button
+          handleButton={() => {}}
+          buttonText="이슈 작성"
+          gap="7px"
+          width="120px"
+          fontWeight="bold"
+          fontSize="S"
+          color="accentText"
+          backgroundColor="accentBackground"
+          borderRadius="11px"
+        >
+          <PlusIcon />
+        </Button>
+      </Link>
     </NabTabBox>
   );
 };

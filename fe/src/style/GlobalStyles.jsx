@@ -23,15 +23,28 @@ const GlobalStyles = createGlobalStyle`
     input {
       color: inherit;
       background-color: inherit;
+      border: none;
     }
 
-    input:focus {
+    textarea{
+      border: none;
+      background-color: inherit;
+      font-family: inherit;
+      resize: none;
+    }
+
+    input:focus, textarea:focus {
       outline:none;
     }
     
     li{
       list-style: none;
       color: inherit;
+    }
+
+    h1{
+      font-size: inherit;
+      font-weight: inherit;
     }
 `;
 

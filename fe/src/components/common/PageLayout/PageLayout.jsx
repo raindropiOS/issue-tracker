@@ -14,8 +14,8 @@ export const PageLayout = () => {
 };
 
 const PageLayoutBox = styled.div`
+  min-height: 100vh;
   background-color: ${({ theme }) => theme.color.neutralBackground};
-  height: 100vh;
 `;
 
 const Content = styled.main`

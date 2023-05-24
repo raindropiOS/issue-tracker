@@ -6,6 +6,7 @@ import { darkTheme, lightTheme } from './style';
 import IssueList from './pages/IssueList';
 import AddIssue from './pages/AddIssue';
 import { PageLayout } from './components/common';
+import IssueDetail from './pages/IssueDetail';
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <IssueList /> },
       { path: '/add-issue', element: <AddIssue /> },
+      { path: '/issue-detail', element: <IssueDetail /> },
     ],
   },
 ]);
