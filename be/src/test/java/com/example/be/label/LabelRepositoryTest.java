@@ -41,7 +41,11 @@ class LabelRepositoryTest {
     @Test
     @DisplayName("라벨 엔티티를 파라미터로 받아, 라벨을 저장해야한다.")
     void saveTest() {
-        Label label = new Label(labelCreateFormDTO);
+        Label label = new Label(
+                labelCreateFormDTO.getName(),
+                labelCreateFormDTO.getDescription(),
+                labelCreateFormDTO.getBackgroundColor(),
+                labelCreateFormDTO.getTextColor());
         labelRepository.save(label.getEntityForInsert());
 
         Label actualLabel = labelRepository.findById("test").get();

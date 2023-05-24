@@ -8,10 +8,7 @@ public class MilestoneCreateFormDTO {
     private LocalDateTime scheduledCompletionDate;
     private String descriptionForLabel;
 
-    public MilestoneCreateFormDTO() {
-        scheduledCompletionDate = LocalDateTime.of(1, 1, 1, 1, 1);
-        descriptionForLabel = "";
-    }
+    public MilestoneCreateFormDTO() {}
 
     public String getName() {
         return name;

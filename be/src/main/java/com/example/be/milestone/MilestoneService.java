@@ -21,12 +21,12 @@ public class MilestoneService {
         if (optionalMilestone.isPresent()) {
             return false;
         }
-        Milestone milestone = new Milestone(milestoneCreateFormDTO);
+        Milestone milestone = new Milestone(
+                milestoneCreateFormDTO.getName(),
+                milestoneCreateFormDTO.getScheduledCompletionDate(),
+                milestoneCreateFormDTO.getDescriptionForLabel());
         milestoneRepository.save(milestone.getEntityForInsert());
         return true;
     }
 
-    public Optional<Milestone> findMilestoneBy(String mileName) {
-        return milestoneRepository.findById(mileName);
-    }
 }

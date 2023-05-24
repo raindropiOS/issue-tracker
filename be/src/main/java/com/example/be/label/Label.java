@@ -46,13 +46,6 @@ public class Label implements Persistable<String>{
 
     public Label() {}
 
-    public Label(LabelCreateFormDTO labelCreateFromDTO) {
-        this.name = labelCreateFromDTO.getName();
-        description = labelCreateFromDTO.getDescription();
-        backgroundColor = labelCreateFromDTO.getBackgroundColor();
-        textColor = labelCreateFromDTO.getTextColor();
-    }
-
     public Label(String name, String description, String backgroundColor, String textColor) {
         this.name = name;
         this.description = description;

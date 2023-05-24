@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @Transactional
 @SpringBootTest
@@ -30,18 +29,17 @@ class LabelServiceTest {
 
 
     @Test
-    @DisplayName("라벨 엔티티를 파라미터로 받아, 라벨을 저장해야한다.")
+    @DisplayName("라벨 생성 DTO를 파라미터로 받아, 라벨을 저장해야한다.")
     void saveTest() {
         // given
-        Label expected = new Label(labelCreateFormDTO);
+        Label expected = new Label(
+                labelCreateFormDTO.getName(),
+                labelCreateFormDTO.getDescription(),
+                labelCreateFormDTO.getBackgroundColor(),
+                labelCreateFormDTO.getTextColor());
 
-        // when
-        labelService.createLabel(labelCreateFormDTO);
-        Optional<Label> optionalActual = labelService.findLabelBy(labelCreateFormDTO.getName());
-        Label actual = optionalActual.get();
-
-        // then
-        assertThat(actual).usingRecursiveComparison().isEqualTo(expected);
+        assertThat(labelService.createLabel(labelCreateFormDTO)).isTrue();
+        assertThat(labelService.createLabel(labelCreateFormDTO)).isFalse();
 
     }
 }

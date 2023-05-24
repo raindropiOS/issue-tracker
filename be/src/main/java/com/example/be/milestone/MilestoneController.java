@@ -15,7 +15,7 @@ public class MilestoneController {
         this.milestoneService = milestoneService;
     }
 
-    @PostMapping("/milestone")
+    @PostMapping("/api/milestone")
     public String createMilestone(@ModelAttribute MilestoneCreateFormDTO milestoneCreateFormDTO) {
         if (milestoneService.createMilestone(milestoneCreateFormDTO)) {
             return "ok";

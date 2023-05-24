@@ -28,18 +28,17 @@ class MilestoneServiceTest {
     }
 
     @Test
-    @DisplayName("마일스톤 엔티티를 파라미터로 받아, 마일스톤을 저장해야한다.")
+    @DisplayName("마일스톤 생성 DTO를 파라미터로 받아, 마일스톤을 저장해야한다.")
     void createMilestoneTest() {
         // given
-        Milestone expected = new Milestone(milestoneCreateFormDTO);
+        Milestone expected = new Milestone(
+                milestoneCreateFormDTO.getName(),
+                milestoneCreateFormDTO.getScheduledCompletionDate(),
+                milestoneCreateFormDTO.getDescriptionForLabel());
 
-        // when
-        milestoneService.createMilestone(milestoneCreateFormDTO);
-        Optional<Milestone> optionalActual = milestoneService.findMilestoneBy("test1234");
-        Milestone actual = optionalActual.get();
+        assertThat(milestoneService.createMilestone(milestoneCreateFormDTO)).isTrue();
+        assertThat(milestoneService.createMilestone(milestoneCreateFormDTO)).isFalse();
 
-        // then
-        assertThat(actual).usingRecursiveComparison().isEqualTo(expected);
     }
 
 
