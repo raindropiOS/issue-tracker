@@ -17,7 +17,7 @@ public class LabelController {
         this.labelService = labelService;
     }
 
-    @PostMapping("/label")
+    @PostMapping("/api/label")
     public String createLabel(@ModelAttribute LabelCreateFormDTO labelCreateFormDTO) {
         if (labelService.createLabel(labelCreateFormDTO)) {
             return "fail";

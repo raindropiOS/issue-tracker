@@ -8,7 +8,6 @@ public class LabelCreateFormDTO {
     private String textColor;
 
     public LabelCreateFormDTO() {
-        description = "";
         backgroundColor = "#B60205";
         textColor = "#E99695";
     };

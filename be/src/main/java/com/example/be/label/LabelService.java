@@ -18,12 +18,13 @@ public class LabelService {
         if (optionalLabel.isPresent()) {
             return false;
         }
-        Label label = new Label(labelCreateFromDTO);
+        Label label = new Label(
+                labelCreateFromDTO.getName(),
+                labelCreateFromDTO.getDescription(),
+                labelCreateFromDTO.getBackgroundColor(),
+                labelCreateFromDTO.getTextColor());
         labelRepository.save(label.getEntityForInsert());
         return true;
     }
 
-    public Optional<Label> findLabelBy(String labelName) {
-        return labelRepository.findById(labelName);
-    }
 }
