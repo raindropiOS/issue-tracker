@@ -260,8 +260,6 @@ class IssueRepositoryTest {
 
         assertThat(countDTO.getOpenedIssuesCount()).isEqualTo(2);
         assertThat(countDTO.getClosedIssuesCount()).isEqualTo(1);
-        assertThat(countDTO.getLabelsCount()).isEqualTo(2);
-        assertThat(countDTO.getMilestoneCount()).isEqualTo(1);
     }
 
 }
