@@ -36,16 +36,16 @@ class IssueFilterTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "filterOptionCell", for: indexPath) as? IssueFilterTableViewCell else { return UITableViewCell() }
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "filterOptionCell", for: indexPath) as? IssueFilterTableViewCell else { return UITableViewCell() }
         cell.configureWith(filterOption: filterOptionList.list[indexPath.section][indexPath.row], selectedImage: checkmarkImage, deselectedImage: grayCheckmarkImage)
-        return cell
+                return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if let cell = tableView.cellForRow(at: indexPath) as? IssueFilterTableViewCell {
             cell.toggleSelecting()
+            filterOptionList.list[indexPath.section][indexPath.row].isSelected.toggle()
         }
     }
     
@@ -84,6 +84,8 @@ class IssueFilterTableViewController: UITableViewController {
     }
     
     @objc func saveAction() {
+        let newUrlString = filterOptionList.collectSelectedFilterOptionUrlString()
+        delegate?.setUrlString(with: newUrlString)
         delegate?.fetchData()
         dismissSelf()
     }
@@ -94,12 +96,12 @@ class IssueFilterTableViewController: UITableViewController {
 }
 
 struct FilterOptionListMock: FilterOptionsLike {
-    let list: [[FilterOption]] = [
+    var list: [[FilterOption]] = [
         [
             FilterOption(filterLabel: "열린 이슈", filterUrlStr: nil),
             FilterOption(filterLabel: "내가 작성한 이슈", filterUrlStr: nil),
             FilterOption(filterLabel: "내가 댓글을 남긴 이슈", filterUrlStr: nil),
-            FilterOption(filterLabel: "닫힌 이슈", filterUrlStr: "?{close=true}", isSelected: false),
+            FilterOption(filterLabel: "닫힌 이슈", filterUrlStr: "{close=true}", isSelected: false),
         ],
         [
             FilterOption(filterLabel: "chloe", filterUrlStr: nil),
@@ -112,8 +114,21 @@ struct FilterOptionListMock: FilterOptionsLike {
             FilterOption(filterLabel: "그룹프로젝트:이슈트래커", filterUrlStr: nil, isSelected: false),
         ],
     ]
+    
+    func collectSelectedFilterOptionUrlString() -> String {
+        var collectedOptionUrlString = "?"
+        
+        for options in list {
+            for option in options {
+                guard let urlStr = option.filterUrlStr else { continue }
+                collectedOptionUrlString += option.isSelected ? urlStr : ""
+            }
+        }
+        return collectedOptionUrlString.count == 1 ? "" : collectedOptionUrlString
+    }
 }
 
 protocol FilterOptionsLike {
-    var list: [[FilterOption]] { get }
+    var list: [[FilterOption]] { get set }
+    func collectSelectedFilterOptionUrlString() -> String
 }
