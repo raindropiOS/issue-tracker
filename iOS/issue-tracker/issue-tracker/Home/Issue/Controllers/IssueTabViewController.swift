@@ -9,7 +9,6 @@ import UIKit
 import OSLog
 
 class IssueTabViewController: UIViewController {
-    
     private var addIssueButton: AddIssueButton?
     private var toolBar: UIToolbar?
     @IBOutlet var filterButton: UIBarButtonItem!
@@ -45,6 +44,7 @@ class IssueTabViewController: UIViewController {
         }
         setCancelButton()
         setToolbar()
+
         setAddIssueButton()
     }
     
