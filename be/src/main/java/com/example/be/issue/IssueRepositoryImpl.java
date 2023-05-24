@@ -20,7 +20,7 @@ public class IssueRepositoryImpl implements IssueRepositoryCustom{
     }
 
     @Override
-    public void save(IssueCreateFormDTO issueCreateFormDTO) {
+    public int save(IssueCreateFormDTO issueCreateFormDTO) {
         issueMapper.save(issueCreateFormDTO);
 
         if (issueCreateFormDTO.getLabelNames() != null) {
@@ -30,5 +30,7 @@ public class IssueRepositoryImpl implements IssueRepositoryCustom{
         if (issueCreateFormDTO.getAssignees() != null) {
             issueMapper.saveAssignee(issueCreateFormDTO);
         }
+
+        return issueCreateFormDTO.getIssueNumber();
     }
 }

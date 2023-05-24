@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RestController
 public class IssueController {
 
@@ -32,11 +34,11 @@ public class IssueController {
     }
 
     @PostMapping("/api/issues")
-    public String createIssue(@ModelAttribute IssueCreateFormDTO issueCreateFormDTO) {
+    public Map<String, Integer> createIssue(@ModelAttribute IssueCreateFormDTO issueCreateFormDTO) {
         User testUser = new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg");
         issueCreateFormDTO.setUserId(testUser.getId());
-        issueService.createIssue(issueCreateFormDTO);
-        return "ok";
+        int issueNumber = issueService.createIssue(issueCreateFormDTO);
+        return Map.of("issueNumber", issueNumber);
     }
 
 }

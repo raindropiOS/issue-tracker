@@ -40,7 +40,7 @@ public class IssueService {
         return new IosIssueResponseDTO(issues);
     }
 
-    public void createIssue(IssueCreateFormDTO issueCreateFormDTO) {
+    public int createIssue(IssueCreateFormDTO issueCreateFormDTO) {
         if (issueCreateFormDTO.getAssignees() != null) {
             issueCreateFormDTO.setAssignees(userRepository.validateNames(issueCreateFormDTO.getAssignees()));
         }
@@ -53,7 +53,7 @@ public class IssueService {
             issueCreateFormDTO.setMilestoneName(milestoneRepository.validateName(issueCreateFormDTO.getMilestoneName()));
         }
 
-        issueRepository.save(issueCreateFormDTO);
+        return issueRepository.save(issueCreateFormDTO);
     }
 
     private Collection<Issue> findIssues(IssueSearchCondition issueSearchCondition) {

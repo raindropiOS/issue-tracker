@@ -9,5 +9,5 @@ public interface IssueRepositoryCustom {
 
     List<Issue> findIssuesWithoutLabelsBy(IssueSearchCondition issueSearchCondition);
 
-    void save(IssueCreateFormDTO issueCreateFormDTO);
+    int save(IssueCreateFormDTO issueCreateFormDTO);
 }
