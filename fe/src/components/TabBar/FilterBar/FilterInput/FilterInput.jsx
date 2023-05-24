@@ -1,22 +1,34 @@
 import { styled } from 'styled-components';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { ReactComponent as Search } from '../../../../assets/search.svg';
-import { ALL, CLOSED, OPENED } from '../../../../constants';
+import { generateQueryString } from '../../../../utils/generateQueryString';
+import { MainPageContext } from '../../../../context/MainPage/MainPageContext';
 
-// TODO: 모든 필터옵션에 대해 하도록 추후 수정
-const helper = ({ state }) => {
-  if (state === ALL) return '';
-  if (state === OPENED) return 'is:open';
-  if (state === CLOSED) return 'is:close';
-  return '';
+const getModifiedQueryString = (queryString) => {
+  const queryStringParts = queryString.split('&');
+  const firstPart = queryStringParts[0];
+
+  let modifiedFirstPart = firstPart;
+  if (firstPart.endsWith('true')) {
+    modifiedFirstPart = 'is:open';
+  } else if (firstPart.endsWith('false')) {
+    modifiedFirstPart = 'is:closed';
+  }
+
+  queryStringParts[0] = modifiedFirstPart;
+  return queryStringParts.join(' ');
 };
 
-const FilterInput = ({ filterOptions }) => {
-  const [inputValue, setInputValue] = useState(helper(filterOptions));
+const FilterInput = () => {
+  const { filterOptions } = useContext(MainPageContext);
+  const [inputValue, setInputValue] = useState('');
 
   // ?: useEffect를 제대로 사용한건지?
   useEffect(() => {
-    setInputValue(helper(filterOptions));
+    const modifiedQueryString = getModifiedQueryString(
+      generateQueryString(filterOptions),
+    );
+    setInputValue(modifiedQueryString);
   }, [filterOptions]);
 
   return (
