@@ -3,5 +3,3 @@ be/out/
 be/.gradle/
 be/build/
 .DS_Store
-.gradle/
-gradle
