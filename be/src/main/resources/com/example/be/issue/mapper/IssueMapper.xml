@@ -15,7 +15,7 @@
                 and i.state = #{state}
             </if>
             <if test="author != null">
-                and u.nickname = #{author}
+                and u.id = #{author}
             </if>
             <if test="milestoneName != null">
                 and m.name = #{milestoneName}
