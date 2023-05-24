@@ -9,6 +9,7 @@ import UIKit
 import OSLog
 
 class IssueTabViewController: UIViewController {
+    private var addIssueButton: AddIssueButton?
     private var toolBar: UIToolbar?
     @IBOutlet var filterButton: UIBarButtonItem!
     @IBOutlet var selectButton: UIBarButtonItem!
@@ -43,6 +44,30 @@ class IssueTabViewController: UIViewController {
         }
         setCancelButton()
         setToolbar()
+
+        setAddIssueButton()
+    }
+    
+    private func setAddIssueButton() {
+        addIssueButton = AddIssueButton(radius: self.view.frame.height * 56 / 666)
+        guard let addIssueButton = addIssueButton else {
+            return
+        }
+        self.view.addSubview(addIssueButton)
+        setIssueAddButtonConstraints(button: addIssueButton)
+    }
+    
+    private func setIssueAddButtonConstraints(button: UIButton) {
+        
+        let length = self.view.frame.height * 56 / 666
+        
+        button.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            button.heightAnchor.constraint(equalToConstant: length),
+            button.widthAnchor.constraint(equalToConstant: length),
+            button.bottomAnchor.constraint(equalTo: self.collectionView.bottomAnchor, constant: -length/2),
+            button.trailingAnchor.constraint(equalTo: self.collectionView.trailingAnchor, constant: -length/2)
+        ])
     }
     
     private func calculateToolBarFrame() -> CGRect {

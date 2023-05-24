@@ -113,7 +113,7 @@ extension IssueCollectionView: SwipeCollectionViewCellDelegate {
         
         exit.image = UIImage(systemName: "archivebox")
         exit.backgroundColor = UIColor(red: 0.329, green: 0.227, blue: 0.745, alpha: 1)
-
+        
         return [delete, exit]
     }
     
