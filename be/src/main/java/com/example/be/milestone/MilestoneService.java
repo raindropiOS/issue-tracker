@@ -25,7 +25,7 @@ public class MilestoneService {
                 milestoneCreateFormDTO.getName(),
                 milestoneCreateFormDTO.getScheduledCompletionDate(),
                 milestoneCreateFormDTO.getDescriptionForLabel());
-        milestoneRepository.save(milestone.getEntityForInsert());
+        milestoneRepository.save(milestone.createEntityForInsert());
         return true;
     }
 

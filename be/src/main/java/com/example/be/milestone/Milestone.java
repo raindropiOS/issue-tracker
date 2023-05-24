@@ -1,6 +1,5 @@
 package com.example.be.milestone;
 
-import com.example.be.milestone.dto.MilestoneCreateFormDTO;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.domain.Persistable;
@@ -34,12 +33,12 @@ public class Milestone implements Persistable<String> {
         return isNew;
     }
 
-    public Milestone getEntityForInsert() {
+    public Milestone createEntityForInsert() {
         isNew = true;
         return this;
     }
 
-    public Milestone getEntityForUpdate() {
+    public Milestone createEntityForUpdate() {
         isNew = false;
         return this;
     }

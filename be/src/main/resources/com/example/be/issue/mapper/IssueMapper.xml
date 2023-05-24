@@ -20,7 +20,10 @@
             <if test="milestoneName != null">
                 and m.name = #{milestoneName}
             </if>
-            <if test="assignee != null">
+            <if test="assignee != null and assignee == '$none'.toString()">
+                and a.user_id is null
+            </if>
+            <if test="assignee != null and assignee != '$none'.toString()">
                 and a.user_id = #{assignee}
             </if>
             <if test="labelNames != null">

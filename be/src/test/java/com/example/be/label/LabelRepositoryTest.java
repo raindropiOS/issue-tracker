@@ -9,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -46,7 +45,7 @@ class LabelRepositoryTest {
                 labelCreateFormDTO.getDescription(),
                 labelCreateFormDTO.getBackgroundColor(),
                 labelCreateFormDTO.getTextColor());
-        labelRepository.save(label.getEntityForInsert());
+        labelRepository.save(label.createEntityForInsert());
 
         Label actualLabel = labelRepository.findById("test").get();
 

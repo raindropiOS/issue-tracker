@@ -1,6 +1,5 @@
 package com.example.be.label;
 
-import com.example.be.label.dto.LabelCreateFormDTO;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.domain.Persistable;
@@ -34,12 +33,12 @@ public class Label implements Persistable<String>{
         return isNew;
     }
 
-    public Label getEntityForInsert() {
+    public Label createEntityForInsert() {
         isNew = true;
         return this;
     }
 
-    public Label getEntityForUpdate() {
+    public Label createEntityForUpdate() {
         isNew = false;
         return this;
     }

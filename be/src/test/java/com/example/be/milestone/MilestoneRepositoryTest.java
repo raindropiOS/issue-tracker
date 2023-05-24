@@ -1,6 +1,5 @@
 package com.example.be.milestone;
 
-import com.example.be.label.Label;
 import com.example.be.milestone.dto.MilestoneCreateFormDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -8,8 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -46,7 +43,7 @@ class MilestoneRepositoryTest {
                 milestoneCreateFormDTO.getName(),
                 milestoneCreateFormDTO.getScheduledCompletionDate(),
                 milestoneCreateFormDTO.getDescriptionForLabel());
-        milestoneRepository.save(milestone.getEntityForInsert());
+        milestoneRepository.save(milestone.createEntityForInsert());
 
         Milestone actualMilestone = milestoneRepository.findById("test1").get();
 

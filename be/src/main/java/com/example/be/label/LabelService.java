@@ -23,7 +23,7 @@ public class LabelService {
                 labelCreateFromDTO.getDescription(),
                 labelCreateFromDTO.getBackgroundColor(),
                 labelCreateFromDTO.getTextColor());
-        labelRepository.save(label.getEntityForInsert());
+        labelRepository.save(label.createEntityForInsert());
         return true;
     }
 
