@@ -7,6 +7,7 @@ import IssueList from './pages/IssueList';
 import AddIssue from './pages/AddIssue';
 import { PageLayout } from './components/common';
 import MainPageProvider from './context/MainPage/MainPageContext';
+import IssueDetail from './pages/IssueDetail';
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
         ),
       },
       { path: '/add-issue', element: <AddIssue /> },
+      { path: '/issue-detail', element: <IssueDetail /> },
     ],
   },
 ]);

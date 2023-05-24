@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '../../common';
 import { ReactComponent as label } from '../../../assets/label.svg';
 import { ReactComponent as mileStone } from '../../../assets/mileStone.svg';
@@ -38,17 +39,19 @@ const NabTab = () => {
           {`마일스톤(${totalMileStone})`}
         </Button>
       </div>
-      <Button
-        type="containerButton"
-        size="S"
-        gap="7px"
-        color="accentText"
-        backgroundColor="accentBackground"
-        hoverColor="neutralText"
-      >
-        <PlusIcon />
-        이슈작성
-      </Button>
+      <Link to="/add-issue">
+        <Button
+          type="containerButton"
+          size="S"
+          gap="7px"
+          color="accentText"
+          backgroundColor="accentBackground"
+          hoverColor="neutralText"
+        >
+          <PlusIcon />
+          이슈작성
+        </Button>
+      </Link>
     </NabTabBox>
   );
 };

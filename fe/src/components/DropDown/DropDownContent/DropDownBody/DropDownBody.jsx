@@ -4,16 +4,16 @@ import { ReactComponent as CheckOnCircle } from '../../../../assets/checkOnCircl
 
 const DropDownBody = ({ bodyItems, bodyCheck, handleIsOpen }) => {
   const itemList = bodyItems.map(({
-    img, text, onClick, checked,
+    img, text, handleItemClick, checked,
   }) => {
     return (
       <li
         key={text}
         onClick={() => {
           handleIsOpen(false);
-          if (typeof onClick === 'function') {
-            onClick();
-          }
+          if (typeof handleItemClick !== 'function') return;
+
+          handleItemClick();
         }}
       >
         <IconTextBox checked={checked}>
@@ -53,6 +53,8 @@ const DropDownBodyList = styled.ul`
   li {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+
     padding: 8px 16px;
     background: ${({ theme }) => theme.color.neutralBackgroundStrong};
     cursor: pointer;

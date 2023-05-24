@@ -12,30 +12,28 @@ const DropDown = ({
   },
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const divEl = useRef();
+  const DropDownRef = useRef();
 
   useEffect(() => {
-    const clickHandler = ({ target }) => {
-      if (!divEl.current.contains(target)) {
-        setIsOpen(false);
-      }
+    const handleClickOutside = ({ target }) => {
+      if (!DropDownRef.current.contains(target)) setIsOpen(false);
     };
-    document.addEventListener('click', clickHandler);
+    document.addEventListener('click', handleClickOutside);
 
     return () => {
-      document.removeEventListener('click', clickHandler);
+      document.removeEventListener('click', handleClickOutside);
     };
   }, []);
 
   return (
-    <DropDownBox ref={divEl} className={className}>
-      <button
+    <DropDownBox ref={DropDownRef} className={className}>
+      <DropDownButton
         type="button"
         onClick={() => setIsOpen((prevIsOpen) => !prevIsOpen)}
       >
         <span>{buttonText}</span>
         <ChevronDown />
-      </button>
+      </DropDownButton>
       {isOpen && (
         <DropDownContent posright={posright} marginTop={marginTop}>
           <DropDownHeader headerText={headerText} />
@@ -54,17 +52,17 @@ export default DropDown;
 
 const DropDownBox = styled.div`
   position: relative;
+`;
 
-  button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
+const DropDownButton = styled.button`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
 
-    width: 100%;
-    height: 100%;
-    font-weight: ${({ theme }) => theme.fontWeight.bold};
-    font-size: ${({ theme }) => theme.fontSize.M.size};
-    line-height: ${({ theme }) => theme.fontSize.M.lineHeight};
-  }
+  width: 100%;
+  height: 100%;
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
+  font-size: ${({ theme }) => theme.fontSize.M.size};
+  line-height: ${({ theme }) => theme.fontSize.M.lineHeight};
 `;
