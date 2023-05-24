@@ -3,28 +3,30 @@ import { ReactComponent as CheckOffCircle } from '../../../../assets/checkOffCir
 import { ReactComponent as CheckOnCircle } from '../../../../assets/checkOnCircle.svg';
 
 const DropDownBody = ({ bodyItems, bodyCheck, handleIsOpen }) => {
-  const itemList = bodyItems.map(({
-    img, text, onClick, checked,
-  }) => {
-    return (
-      <li
-        key={text}
-        onClick={() => {
-          handleIsOpen(false);
-          if (typeof onClick === 'function') {
-            onClick();
-          }
-        }}
-      >
-        <IconTextBox checked={checked}>
-          {img && <img src={img} alt="img" />}
-          <span>{text}</span>
-        </IconTextBox>
-        {bodyCheck
-          && (checked ? <CheckOnCircleImage /> : <CheckOffCircleImage />)}
-      </li>
-    );
-  });
+  const itemList = bodyItems.map(
+    ({
+      img, text, handleItemClick, checked,
+    }) => {
+      return (
+        <li
+          key={text}
+          onClick={() => {
+            handleIsOpen(false);
+            if (typeof handleItemClick !== 'function') return;
+
+            handleItemClick();
+          }}
+        >
+          <IconTextBox checked={checked}>
+            {img && <img src={img} alt="img" />}
+            <span>{text}</span>
+          </IconTextBox>
+          {bodyCheck
+            && (checked ? <CheckOnCircleImage /> : <CheckOffCircleImage />)}
+        </li>
+      );
+    },
+  );
 
   return <DropDownBodyList>{itemList}</DropDownBodyList>;
 };
