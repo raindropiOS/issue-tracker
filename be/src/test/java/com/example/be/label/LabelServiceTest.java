@@ -8,17 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Transactional
 @SpringBootTest
-class LabelRepositoryTest {
+class LabelServiceTest {
 
     @Autowired
-    private LabelRepository labelRepository;
+    private LabelService labelService;
 
     private LabelCreateFormDTO labelCreateFormDTO;
 
@@ -28,29 +27,19 @@ class LabelRepositoryTest {
         labelCreateFormDTO.setName("test");
     }
 
-    @Test
-    @DisplayName("라벨 이름들을 파라미터로 받아, 해당하는 라벨 목록들을 반환한다.")
-    void getLabelsByNames() {
-        List<String> labelNames1 = labelRepository.validateNames(List.of("feature", "fix"));
-        assertThat(labelNames1).containsExactly("feature", "fix");
-
-        List<String> labelNames2 = labelRepository.validateNames(List.of("feat", "fix"));
-        assertThat(labelNames2).containsExactly("fix");
-    }
 
     @Test
-    @DisplayName("라벨 엔티티를 파라미터로 받아, 라벨을 저장해야한다.")
+    @DisplayName("라벨 생성 DTO를 파라미터로 받아, 라벨을 저장해야한다.")
     void saveTest() {
-        Label label = new Label(
+        // given
+        Label expected = new Label(
                 labelCreateFormDTO.getName(),
                 labelCreateFormDTO.getDescription(),
                 labelCreateFormDTO.getBackgroundColor(),
                 labelCreateFormDTO.getTextColor());
-        labelRepository.save(label.getEntityForInsert());
 
-        Label actualLabel = labelRepository.findById("test").get();
+        assertThat(labelService.createLabel(labelCreateFormDTO)).isTrue();
+        assertThat(labelService.createLabel(labelCreateFormDTO)).isFalse();
 
-        assertThat(label).usingRecursiveComparison().isEqualTo(actualLabel);
     }
-
 }

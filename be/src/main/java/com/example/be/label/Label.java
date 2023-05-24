@@ -1,20 +1,50 @@
 package com.example.be.label;
 
+import com.example.be.label.dto.LabelCreateFormDTO;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.domain.Persistable;
+import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 @Table("LABEL")
-public class Label {
+public class Label implements Persistable<String>{
 
     @Id
+    @Column("name")
     private String name;
 
+    @Column("description")
     private String description;
+    @Column("background_color")
     private String backgroundColor;
+    @Column("text_color")
     private String textColor;
 
-    public Label() {
+    @Transient
+    private boolean isNew = true;
+
+    @Override
+    public String getId() {
+        return name;
     }
+
+    @Override
+    public boolean isNew() {
+        return isNew;
+    }
+
+    public Label getEntityForInsert() {
+        isNew = true;
+        return this;
+    }
+
+    public Label getEntityForUpdate() {
+        isNew = false;
+        return this;
+    }
+
+    public Label() {}
 
     public Label(String name, String description, String backgroundColor, String textColor) {
         this.name = name;

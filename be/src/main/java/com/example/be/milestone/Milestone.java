@@ -1,21 +1,50 @@
 package com.example.be.milestone;
 
+import com.example.be.milestone.dto.MilestoneCreateFormDTO;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.domain.Persistable;
+import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;
 
 @Table("MILESTONE")
-public class Milestone {
+public class Milestone implements Persistable<String> {
 
     @Id
     private String name;
 
+    @Column("scheduled_completion_date")
     private LocalDateTime scheduledCompletionDate;
+
+    @Column("description_for_label")
     private String descriptionForLabel;
 
-    public Milestone() {
+    @Override
+    public String getId() {
+        return name;
     }
+
+    @Transient
+    private boolean isNew = true;
+
+    @Override
+    public boolean isNew() {
+        return isNew;
+    }
+
+    public Milestone getEntityForInsert() {
+        isNew = true;
+        return this;
+    }
+
+    public Milestone getEntityForUpdate() {
+        isNew = false;
+        return this;
+    }
+
+    public Milestone() {}
 
     public Milestone(String name, LocalDateTime scheduledCompletionDate, String descriptionForLabel) {
         this.name = name;
