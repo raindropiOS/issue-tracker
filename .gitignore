@@ -2,6 +2,6 @@ be/out/
 .idea/
 be/.gradle/
 be/build/
-be/src/main/resources/application.properties
-be/src/test/resources/application.properties
 .DS_Store
+.gradle/
+gradle
