@@ -6,8 +6,8 @@ const useInputFocus = () => {
   const inputRef = useRef(null);
 
   useEffect(() => {
-    const handleDocumentClick = (event) => {
-      if (inputBoxRef.current.contains(event.target)) {
+    const handleDocumentClick = ({ target }) => {
+      if (inputBoxRef.current.contains(target)) {
         setIsInputFocused(true);
         inputRef.current.focus();
       } else {
