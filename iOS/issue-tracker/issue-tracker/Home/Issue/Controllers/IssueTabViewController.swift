@@ -9,8 +9,7 @@ import UIKit
 import OSLog
 
 class IssueTabViewController: UIViewController {
-    private var toolBar : UIToolbar? = nil
-    
+    private var toolBar: UIToolbar?
     @IBOutlet var filterButton: UIBarButtonItem!
     @IBOutlet var selectButton: UIBarButtonItem!
     @IBOutlet var collectionView: IssueCollectionView!
@@ -46,36 +45,19 @@ class IssueTabViewController: UIViewController {
         setToolbar()
     }
     
-    private func setToolBarItems() -> [UIBarButtonItem] {
-        let rightItem = UIBarButtonItem(image: UIImage(systemName: "archivebox"), style: .plain, target: nil, action: nil)
-        //TODO: 이슈 선택 개수에 따라 title 변경 기능
-        let titleItem = UIBarButtonItem(title: "이슈를 선택하세요.", style: .done, target: nil, action: nil)
-        
-        titleItem.isEnabled = false
-        
-        
-        let leftItem = UIBarButtonItem(image: UIImage(systemName: "checkmark.circle"), style: .plain, target: nil, action: nil)
-        
-        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        
-        
-        return([leftItem, flexibleSpace, titleItem, flexibleSpace, rightItem])
+    private func calculateToolBarFrame() -> CGRect {
+        guard let tabBar = self.tabBarController?.tabBar else {
+            return CGRect()
+        }
+        let frame = CGRect(origin: tabBar.frame.origin, size: CGSize(width: tabBar.frame.width, height: tabBar.frame.height/2))
+        return frame
     }
     
     private func setToolbar() {
-        guard let tabBar = self.tabBarController?.tabBar else {
-            return
-        }
-        let frame = CGRect(origin: tabBar.frame.origin, size: CGSize(width: tabBar.frame.width, height: tabBar.frame.height/2))
-        
-        self.toolBar = UIToolbar(frame: frame)
-        
+        self.toolBar = IssueSelectingToolbar(frame: calculateToolBarFrame())
         guard let toolBar = self.toolBar else {
             return
         }
-        toolBar.items = setToolBarItems()
-        toolBar.isHidden = true
-        toolBar.barTintColor = .white
         self.view.addSubview(toolBar)
     }
     
@@ -89,11 +71,9 @@ class IssueTabViewController: UIViewController {
     }
     
     @IBAction func selectButtonTouched(_ sender: UIButton) {
-        
         self.toolBar?.isHidden = false
         self.tabBarController?.tabBar.isHidden = true
         self.navigationItem.leftBarButtonItem = nothingButton
-        
         self.navigationItem.rightBarButtonItem = cancelButton
     }
     

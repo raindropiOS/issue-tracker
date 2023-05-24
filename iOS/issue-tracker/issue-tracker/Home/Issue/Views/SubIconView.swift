@@ -27,7 +27,6 @@ class SubIconView: UIImageView {
             self.heightAnchor.constraint(equalTo: superview.heightAnchor, multiplier: 16 / 148),
             self.widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.7),
             self.centerXAnchor.constraint(equalTo: superview.trailingAnchor, constant: superview.frame.height / -6),
-
             self.centerYAnchor.constraint(equalTo: superview.topAnchor, constant: superview.frame.height / 6)
         ])
     }
