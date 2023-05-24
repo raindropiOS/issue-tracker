@@ -132,3 +132,8 @@ protocol FilterOptionsLike {
     var list: [[FilterOption]] { get set }
     func collectSelectedFilterOptionUrlString() -> String
 }
+
+protocol IssueTabViewControllerLike {
+    func setUrlString(with: String)
+    func fetchData()
+}
