@@ -52,7 +52,7 @@ class IssueServiceTest {
         BDDMockito.given(issueRepository.findIssueLabelMapsBy(Set.of(1, 2, 3)))
                 .willReturn(List.of(issueNumberWithLabelDTO1, issueNumberWithLabelDTO2, issueNumberWithLabelDTO3));
 
-        CountDTO countDTO = new CountDTO(2, 1, 2, 1);
+        CountDTO countDTO = new CountDTO(2, 1);
 
         BDDMockito.given(issueRepository.countEntities())
                 .willReturn(countDTO);
