@@ -6,13 +6,21 @@ import { darkTheme, lightTheme } from './style';
 import IssueList from './pages/IssueList';
 import AddIssue from './pages/AddIssue';
 import { PageLayout } from './components/common';
+import MainPageProvider from './context/MainPage/MainPageContext';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <PageLayout />,
     children: [
-      { index: true, element: <IssueList /> },
+      {
+        index: true,
+        element: (
+          <MainPageProvider>
+            <IssueList />
+          </MainPageProvider>
+        ),
+      },
       { path: '/add-issue', element: <AddIssue /> },
     ],
   },
