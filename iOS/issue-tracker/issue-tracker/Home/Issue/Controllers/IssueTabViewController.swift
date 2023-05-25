@@ -17,6 +17,7 @@ class IssueTabViewController: UIViewController, IssueCollectionViewDelegate {
     @IBOutlet var collectionView: IssueCollectionView!
     var cancelButton: UIBarButtonItem?
     let nothingButton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+    var filterOptionList: FilterOptionsLike = FilterOptionListMock()
     
     let fetcher = HTTPDataFetcher()
     
@@ -29,26 +30,12 @@ class IssueTabViewController: UIViewController, IssueCollectionViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.collectionViewDelegate = self
-        // TODO: fetchData(with: String)로 대체 예정
-        networkManager.fetchIssueData { result in
-            switch result {
-            case .success(let issueFrameHolder):
-                self.issueFrames = issueFrameHolder.issues
-                guard let issueFrames = self.issueFrames else { return }
-                self.collectionView.issueFrames = issueFrames
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
-                }
-            case .failure(let error):
-                self.logger.error("error : \(error)")
-            }
-        }
         setCancelButton()
         setToolbar()
         setAddIssueButton()
     }
     
+
     func didSelectCell(in collectionView: IssueCollectionView, at indexPath: IndexPath) {
         if isSelectionMode == true {
             guard let cell = collectionView.cellForItem(at: indexPath) as? IssueCollectionViewCell else {
@@ -60,6 +47,9 @@ class IssueTabViewController: UIViewController, IssueCollectionViewDelegate {
             cell.subIconView.change(isCheckmarked: isPlus)
             cell.updateSubIconViewConstraints()
         }
+
+    override func viewWillAppear(_ animated: Bool) {
+        fetchData()
     }
     
     private func setAddIssueButton() {
@@ -106,6 +96,8 @@ class IssueTabViewController: UIViewController, IssueCollectionViewDelegate {
     
     @IBAction func filterButtonTouched(_ sender: UIButton) {
         let filterTableViewController = IssueFilterTableViewController()
+        filterTableViewController.delegate = self
+        filterTableViewController.filterOptionList = filterOptionList
         show(filterTableViewController, sender: sender)
     }
     
@@ -127,13 +119,12 @@ class IssueTabViewController: UIViewController, IssueCollectionViewDelegate {
         self.isSelectionMode.toggle()
     }
     
-    func fetchData() {
+    private func fetchData() {
         guard let url = URL(string: currentIssueDataUrlString) else {
             self.logger.log(
                 "Invalie URL string : \(self.currentIssueDataUrlString)")
             return
         }
-        
         networkManager.fetchIssueData(with: url) { result in
             switch result {
             case .success(let issueFrameHolder):
@@ -157,4 +148,3 @@ class IssueTabViewController: UIViewController, IssueCollectionViewDelegate {
 protocol IssueCollectionViewDelegate: AnyObject {
     func didSelectCell(in collectionView: IssueCollectionView, at indexPath: IndexPath)
 }
-
