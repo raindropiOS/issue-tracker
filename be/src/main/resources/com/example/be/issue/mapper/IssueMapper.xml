@@ -89,6 +89,22 @@
         </foreach>
     </insert>
 
+    <select id="validIssue" resultType="int" parameterType="com.example.be.issue.dto.IssueUpdateFormDTO">
+        SELECT count(*) FROM ISSUE WHERE number = #{issueNumber}
+    </select>
+
+    <update id="updateIssue" parameterType="com.example.be.issue.dto.IssueUpdateFormDTO">
+        update ISSUE
+        <set>
+            <if test="state != null">state = #{state},</if>
+            <if test="title != null">title = #{title},</if>
+            <if test="contents != null">contents = #{contents},</if>
+            <if test="milestoneName != null">milestone_name = #{milestoneName},</if>
+            last_updated_date = now()
+        </set>
+        where number = #{issueNumber}
+    </update>
+
     <select id="findIssueSize" resultType="int"
             parameterType="com.example.be.issue.dto.IssueSearchCondition">
         select count(*)

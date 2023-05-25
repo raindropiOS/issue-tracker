@@ -54,4 +54,12 @@ public class IssueController {
         return Map.of(fieldError.getField(), fieldError.getDefaultMessage());
     }
 
+    @PatchMapping("/api/issues")
+    public String updateIssue(@Validated @RequestBody IssueUpdateFormDTO issueUpdateFormDTO) {
+        if (issueService.updateIssue(issueUpdateFormDTO)) {
+           return "ok";
+        }
+        return "fail";
+    }
+
 }

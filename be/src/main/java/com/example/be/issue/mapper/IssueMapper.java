@@ -3,9 +3,8 @@ package com.example.be.issue.mapper;
 import com.example.be.issue.Issue;
 import com.example.be.issue.dto.IssueCreateFormDTO;
 import com.example.be.issue.dto.IssueSearchCondition;
-import com.example.be.util.Paging;
+import com.example.be.issue.dto.IssueUpdateFormDTO;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -20,5 +19,18 @@ public interface IssueMapper {
     void saveIssueLabelRelation(IssueCreateFormDTO issueCreateFormDTO);
 
     void saveAssignee(IssueCreateFormDTO issueCreateFormDTO);
+
+    int updateIssue(IssueUpdateFormDTO issueUpdateFormDTO);
+
+    int validIssue(IssueUpdateFormDTO issueUpdateFormDTO);
+
+
+    void insertAssigns(IssueUpdateFormDTO issueUpdateFormDTO);
+
+    void deleteAssigns(IssueUpdateFormDTO issueUpdateFormDTO);
+
+    void insertIssueLabelRelation(IssueUpdateFormDTO issueUpdateFormDTO);
+
+    void deleteIssueLabelRelation(IssueUpdateFormDTO issueUpdateFormDTO);
 
 }
