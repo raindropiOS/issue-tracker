@@ -30,6 +30,7 @@ class IssueTabViewController: UIViewController, IssueCollectionViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        collectionView.collectionViewDelegate = self
         setCancelButton()
         setToolbar()
         setAddIssueButton()
