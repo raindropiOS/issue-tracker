@@ -2,6 +2,7 @@ package com.example.be.issue;
 
 import com.example.be.issue.dto.*;
 import com.example.be.user.User;
+import com.example.be.util.Paging;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
@@ -22,13 +23,15 @@ public class IssueController {
     }
 
     @GetMapping("/api-fe/issues")
-    public FeIssueResponseDTO createFeIssueResponse(@ModelAttribute IssueSearchCondition issueSearchCondition) {
-        return issueService.makeFeIssueResponse(issueSearchCondition);
+    public FeIssueResponseDTO createFeIssueResponse(@ModelAttribute IssueSearchCondition issueSearchCondition,
+                                                    @RequestParam(required = false) Integer cntPage) {
+        return issueService.makeFeIssueResponse(issueSearchCondition, cntPage);
     }
 
     @GetMapping("/api-ios/issues")
-    public IosIssueResponseDTO createIosIssueResponse(@ModelAttribute IssueSearchCondition issueSearchCondition) {
-        return issueService.makeIosIssueResponse(issueSearchCondition);
+    public IosIssueResponseDTO createIosIssueResponse(@ModelAttribute IssueSearchCondition issueSearchCondition,
+                                                      @RequestParam(required = false) Integer cntPage) {
+        return issueService.makeIosIssueResponse(issueSearchCondition, cntPage);
     }
 
     @GetMapping("/api/issues")
