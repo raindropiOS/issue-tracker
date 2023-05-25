@@ -38,6 +38,9 @@
 
             </if>
         </where>
+        <if test="startIndex != null and cntPerPage != null">
+            limit #{startIndex}, #{cntPerPage}
+        </if>
     </select>
 
     <resultMap type="com.example.be.issue.Issue" id="issuesWithoutLabels">
@@ -85,4 +88,40 @@
             (#{issueNumber}, #{assignee})
         </foreach>
     </insert>
+
+    <select id="findIssueSize" resultType="int"
+            parameterType="com.example.be.issue.dto.IssueSearchCondition">
+        select count(*)
+        from ISSUE i
+        left outer join MILESTONE m on i.milestone_name = m.name
+        left outer join USER u on i.user_id = u.id
+        left outer join ASSIGNS a on a.issue_number = i.number
+        <where>
+            <if test="state != null">
+                and i.state = #{state}
+            </if>
+            <if test="author != null">
+                and u.id = #{author}
+            </if>
+            <if test="milestoneName != null">
+                and m.name = #{milestoneName}
+            </if>
+            <if test="assignee != null and assignee == '$none'.toString()">
+                and a.user_id is null
+            </if>
+            <if test="assignee != null and assignee != '$none'.toString()">
+                and a.user_id = #{assignee}
+            </if>
+            <if test="labelNames != null">
+                and i.number in (select ir.issue_number
+                from ISSUE_LABEL_RELATION ir
+                where ir.label_name in
+                <foreach item="labelName" collection="labelNames" open="(" close=")" separator=",">
+                    #{labelName}
+                </foreach>
+                group by ir.issue_number
+                having count(*) = #{labelNamesSize})
+            </if>
+        </where>
+    </select>
 </mapper>

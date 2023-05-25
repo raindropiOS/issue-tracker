@@ -3,6 +3,7 @@ package com.example.be.issue;
 import com.example.be.issue.dto.IssueCreateFormDTO;
 import com.example.be.issue.dto.IssueSearchCondition;
 import com.example.be.issue.mapper.IssueMapper;
+import com.example.be.util.Paging;
 
 import java.util.List;
 
@@ -17,6 +18,11 @@ public class IssueRepositoryImpl implements IssueRepositoryCustom{
     @Override
     public List<Issue> findIssuesWithoutLabelsBy(IssueSearchCondition issueSearchCondition) {
         return issueMapper.findIssuesWithoutLabelsBy(issueSearchCondition);
+    }
+
+    @Override
+    public int findIssueSize(IssueSearchCondition issueSearchCondition) {
+        return issueMapper.findIssueSize(issueSearchCondition);
     }
 
     @Override

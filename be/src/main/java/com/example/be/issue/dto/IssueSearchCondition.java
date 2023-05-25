@@ -10,6 +10,10 @@ public class IssueSearchCondition {
     private String milestoneName;
     private Boolean state;
 
+    private int startIndex;
+
+    private int cntPerPage;
+
     public IssueSearchCondition() {
     }
 
@@ -63,5 +67,21 @@ public class IssueSearchCondition {
 
     public void setState(Boolean state) {
         this.state = state;
+    }
+
+    public int getStartIndex() {
+        return startIndex;
+    }
+
+    public void setStartIndex(int startIndex) {
+        this.startIndex = startIndex;
+    }
+
+    public int getCntPerPage() {
+        return cntPerPage;
+    }
+
+    public void setCntPerPage(int cntPerPage) {
+        this.cntPerPage = cntPerPage;
     }
 }
