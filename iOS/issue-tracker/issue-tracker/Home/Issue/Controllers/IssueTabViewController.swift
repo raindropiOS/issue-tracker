@@ -16,6 +16,7 @@ class IssueTabViewController: UIViewController {
     @IBOutlet var collectionView: IssueCollectionView!
     var cancelButton: UIBarButtonItem?
     let nothingButton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+    var filterOptionList: FilterOptionsLike = FilterOptionListMock()
     
     let fetcher = HTTPDataFetcher()
     
@@ -28,20 +29,6 @@ class IssueTabViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // TODO: fetchData(with: String)로 대체 예정
-        networkManager.fetchIssueData { result in
-            switch result {
-            case .success(let issueFrameHolder):
-                self.issueFrames = issueFrameHolder.issues
-                guard let issueFrames = self.issueFrames else { return }
-                self.collectionView.issueFrames = issueFrames
-                DispatchQueue.main.async {
-                    self.collectionView.reloadData()
-                }
-            case .failure(let error):
-                self.logger.error("error : \(error)")
-            }
-        }
         setCancelButton()
         setToolbar()
 
@@ -86,12 +73,18 @@ class IssueTabViewController: UIViewController {
         self.view.addSubview(toolBar)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        fetchData()
+    }
+    
     private func setCancelButton() {
         cancelButton = UIBarButtonItem(title: "취소  ", style: .plain, target: self, action: #selector(cancelButtonTouched))
     }
     
     @IBAction func filterButtonTouched(_ sender: UIButton) {
         let filterTableViewController = IssueFilterTableViewController()
+        filterTableViewController.delegate = self
+        filterTableViewController.filterOptionList = filterOptionList
         show(filterTableViewController, sender: sender)
     }
     
@@ -109,13 +102,12 @@ class IssueTabViewController: UIViewController {
         self.navigationItem.rightBarButtonItem = selectButton
     }
     
-    func fetchData() {
+    private func fetchData() {
         guard let url = URL(string: currentIssueDataUrlString) else {
             self.logger.log(
                 "Invalie URL string : \(self.currentIssueDataUrlString)")
             return
         }
-        
         networkManager.fetchIssueData(with: url) { result in
             switch result {
             case .success(let issueFrameHolder):
@@ -135,5 +127,3 @@ class IssueTabViewController: UIViewController {
         currentIssueDataUrlString = urlString
     }
 }
-
-

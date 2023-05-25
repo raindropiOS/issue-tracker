@@ -10,6 +10,7 @@
 		5610FF8ABBD23DCD832DAE04 /* Pods_issue_tracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4A228AF8694FA3F29925403 /* Pods_issue_tracker.framework */; };
 		8F334AAB2A0B7E7C0070DDEA /* IssueFilterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F334AAA2A0B7E7C0070DDEA /* IssueFilterTableViewController.swift */; };
 		8F4456BD2A09E67100EC6B39 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 8F4456BC2A09E67100EC6B39 /* .swiftlint.yml */; };
+		8F5204FB2A1DDF4900B49CF0 /* FilterOptionListMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5204FA2A1DDF4900B49CF0 /* FilterOptionListMock.swift */; };
 		8F61EB262A1642ED0020E302 /* State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F61EB252A1642ED0020E302 /* State.swift */; };
 		8F61EB282A1648B90020E302 /* IssueFrame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F61EB272A1648B90020E302 /* IssueFrame.swift */; };
 		8FB11D842A18D8BC00EDEE45 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FB11D832A18D8BC00EDEE45 /* NetworkManager.swift */; };
@@ -49,6 +50,7 @@
 		6FA8EEB52250DFCA5841EF77 /* Pods-issue-tracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-issue-tracker.release.xcconfig"; path = "Target Support Files/Pods-issue-tracker/Pods-issue-tracker.release.xcconfig"; sourceTree = "<group>"; };
 		8F334AAA2A0B7E7C0070DDEA /* IssueFilterTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueFilterTableViewController.swift; sourceTree = "<group>"; };
 		8F4456BC2A09E67100EC6B39 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		8F5204FA2A1DDF4900B49CF0 /* FilterOptionListMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterOptionListMock.swift; sourceTree = "<group>"; };
 		8F61EB252A1642ED0020E302 /* State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = State.swift; sourceTree = "<group>"; };
 		8F61EB272A1648B90020E302 /* IssueFrame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueFrame.swift; sourceTree = "<group>"; };
 		8FB11D832A18D8BC00EDEE45 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -231,6 +233,7 @@
 				8F61EB272A1648B90020E302 /* IssueFrame.swift */,
 				8FB11D852A18E72E00EDEE45 /* IssueFrameHolder.swift */,
 				8FB11D8A2A1C530E00EDEE45 /* FilterOption.swift */,
+				8F5204FA2A1DDF4900B49CF0 /* FilterOptionListMock.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -405,6 +408,7 @@
 				E4D8AD672A1616AA005BA9BA /* Author.swift in Sources */,
 				8FBE800B2A0B8D8B00D9DA1A /* IssueFilterTableViewCell.swift in Sources */,
 				E48278652A09DAC800E91FA3 /* SceneDelegate.swift in Sources */,
+				8F5204FB2A1DDF4900B49CF0 /* FilterOptionListMock.swift in Sources */,
 				E4D8AD652A161692005BA9BA /* Label.swift in Sources */,
 				E48278A02A0C8AEC00E91FA3 /* IssueCollectionViewHeaderCell.swift in Sources */,
 				E482787C2A09EA3400E91FA3 /* HomeViewController.swift in Sources */,
