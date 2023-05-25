@@ -8,9 +8,10 @@
 import UIKit
 import OSLog
 
-class IssueTabViewController: UIViewController {
+class IssueTabViewController: UIViewController, IssueCollectionViewDelegate {
+    private var isSelectionMode: Bool = false
     private var addIssueButton: AddIssueButton?
-    private var toolBar: UIToolbar?
+    private var toolBar: IssueSelectingToolbar?
     @IBOutlet var filterButton: UIBarButtonItem!
     @IBOutlet var selectButton: UIBarButtonItem!
     @IBOutlet var collectionView: IssueCollectionView!
@@ -28,6 +29,7 @@ class IssueTabViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        collectionView.collectionViewDelegate = self
         // TODO: fetchData(with: String)로 대체 예정
         networkManager.fetchIssueData { result in
             switch result {
@@ -44,8 +46,18 @@ class IssueTabViewController: UIViewController {
         }
         setCancelButton()
         setToolbar()
-
         setAddIssueButton()
+    }
+    
+    func didSelectCell(in collectionView: IssueCollectionView, at indexPath: IndexPath) {
+        if isSelectionMode == true {
+            guard let cell = collectionView.cellForItem(at: indexPath) as? IssueCollectionViewCell else {
+                return
+            }
+            cell.isCheckmarked.toggle()
+            let isPlus = cell.isCheckmarked
+            self.toolBar!.updateTitle(isPlus: isPlus)
+        }
     }
     
     private func setAddIssueButton() {
@@ -100,6 +112,8 @@ class IssueTabViewController: UIViewController {
         self.tabBarController?.tabBar.isHidden = true
         self.navigationItem.leftBarButtonItem = nothingButton
         self.navigationItem.rightBarButtonItem = cancelButton
+        self.addIssueButton?.isHidden = true
+        self.isSelectionMode.toggle()
     }
     
     @objc private func cancelButtonTouched() {
@@ -107,6 +121,8 @@ class IssueTabViewController: UIViewController {
         self.tabBarController?.tabBar.isHidden = false
         self.navigationItem.leftBarButtonItem = filterButton
         self.navigationItem.rightBarButtonItem = selectButton
+        self.addIssueButton?.isHidden = false
+        self.isSelectionMode.toggle()
     }
     
     func fetchData() {
@@ -136,4 +152,7 @@ class IssueTabViewController: UIViewController {
     }
 }
 
+protocol IssueCollectionViewDelegate: AnyObject {
+    func didSelectCell(in collectionView: IssueCollectionView, at indexPath: IndexPath)
+}
 
