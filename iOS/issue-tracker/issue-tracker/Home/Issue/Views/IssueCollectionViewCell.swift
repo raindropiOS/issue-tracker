@@ -15,6 +15,7 @@ class IssueCollectionViewCell: SwipeCollectionViewCell {
     @IBOutlet var milestoneImage: UIImageView!
     @IBOutlet var milestone: UILabel!
     @IBOutlet var labelsStackView: UIStackView!
+    @IBOutlet var subIconView: SubIconView!
     
     var badges = ["sfgs","gggassfsdfg","adfqewersdfsqasd"]
     
@@ -26,6 +27,17 @@ class IssueCollectionViewCell: SwipeCollectionViewCell {
         setContents()
         setMilestoneImage()
         setMilestone()
+        setSubIconView()
+    }
+    private func setSubIconView() {
+        subIconView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            subIconView.centerXAnchor.constraint(equalTo: self.trailingAnchor, constant: self.frame.height / -6),
+            subIconView.centerYAnchor.constraint(equalTo: title.centerYAnchor),
+            subIconView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 25 / 148),
+            subIconView.widthAnchor.constraint(equalTo: subIconView.heightAnchor, multiplier: 0.7)
+        ])
     }
     private func setTitle() {
         title.text = "iOS 이슈트래커 개발"
