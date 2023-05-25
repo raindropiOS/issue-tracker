@@ -6,6 +6,7 @@ import com.example.be.label.Label;
 import com.example.be.label.LabelRepository;
 import com.example.be.milestone.Milestone;
 import com.example.be.milestone.MilestoneRepository;
+import com.example.be.user.User;
 import com.example.be.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,8 +44,10 @@ public class IssueService {
                 .collect(Collectors.toList());
         List<Milestone> allMilestones = StreamSupport.stream(milestoneRepository.findAll().spliterator(), false)
                 .collect(Collectors.toList());
+        List<User> allUsers = StreamSupport.stream(userRepository.findAll().spliterator(), false)
+                .collect(Collectors.toList());
 
-        return new FeIssueResponseDTO(issues, countDTO, allLabels, allMilestones);
+        return new FeIssueResponseDTO(issues, countDTO, allLabels, allMilestones, allUsers);
     }
 
     public IosIssueResponseDTO makeIosIssueResponse(IssueSearchCondition issueSearchCondition) {
