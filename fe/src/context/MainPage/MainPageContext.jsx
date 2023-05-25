@@ -1,7 +1,11 @@
 import React, { createContext, useReducer } from 'react';
 import { OPENED } from '../../constants';
 import {
-  SET_STATE_FILTER_OPTION,
+  checkDuplicateAndReturnValue,
+  updateArrayWithDuplicateCheck,
+} from '../../utils/utils';
+import {
+  SET_ISSUE_STATE_FILTER_OPTION,
   SET_WRITTEN_BY_ME_FILTER_OPTION,
   SET_ASSIGNED_TO_ME_FILTER_OPTION,
   SET_COMMENTED_BY_ME_FILTER_OPTION,
@@ -10,9 +14,6 @@ import {
   SET_MILESTONE_FILTER_OPTION,
   SET_AUTHOR_FILTER_OPTION,
   SET_PAGE_FILTER_OPTION,
-  SET_USERS,
-  SET_LABELS,
-  SET_MILESTONES,
   SET_MAIN_PAGE_STATE,
   FETCH_START,
   FETCH_SUCCESS,
@@ -24,6 +25,7 @@ export const MainPageContext = createContext(null);
 export const MainPageDispatchContext = createContext(null);
 
 const mainPageReducer = (state, action) => {
+  // ? reduce 내부에서 util 함수를 호출해도 되는걸까? 순수성?
   switch (action.type) {
     case SET_MAIN_PAGE_STATE:
       return {
@@ -51,12 +53,12 @@ const mainPageReducer = (state, action) => {
         ...state,
         filterOptions: action.payload,
       };
-    case SET_STATE_FILTER_OPTION:
+    case SET_ISSUE_STATE_FILTER_OPTION:
       return {
         ...state,
         filterOptions: {
           ...state.filterOptions,
-          state: action.payload,
+          issueState: action.payload,
         },
       };
     case SET_WRITTEN_BY_ME_FILTER_OPTION:
@@ -88,7 +90,10 @@ const mainPageReducer = (state, action) => {
         ...state,
         filterOptions: {
           ...state.filterOptions,
-          assignee: action.payload,
+          assignee: checkDuplicateAndReturnValue(
+            state.filterOptions.assignee,
+            action.payload,
+          ),
         },
       };
     case SET_LABELS_FILTER_OPTION:
@@ -96,7 +101,10 @@ const mainPageReducer = (state, action) => {
         ...state,
         filterOptions: {
           ...state.filterOptions,
-          labels: [...state.filterOptions.labels, action.payload],
+          labels: updateArrayWithDuplicateCheck(
+            state.filterOptions.labels,
+            action.payload,
+          ),
         },
       };
     case SET_MILESTONE_FILTER_OPTION:
@@ -104,7 +112,10 @@ const mainPageReducer = (state, action) => {
         ...state,
         filterOptions: {
           ...state.filterOptions,
-          milestone: action.payload,
+          milestone: checkDuplicateAndReturnValue(
+            state.filterOptions.milestone,
+            action.payload,
+          ),
         },
       };
     case SET_AUTHOR_FILTER_OPTION:
@@ -112,7 +123,10 @@ const mainPageReducer = (state, action) => {
         ...state,
         filterOptions: {
           ...state.filterOptions,
-          author: action.payload,
+          author: checkDuplicateAndReturnValue(
+            state.filterOptions.author,
+            action.payload,
+          ),
         },
       };
     case SET_PAGE_FILTER_OPTION:
@@ -123,21 +137,6 @@ const mainPageReducer = (state, action) => {
           page: action.payload,
         },
       };
-    case SET_USERS:
-      return {
-        ...state,
-        users: action.payload,
-      };
-    case SET_LABELS:
-      return {
-        ...state,
-        labels: action.payload,
-      };
-    case SET_MILESTONES:
-      return {
-        ...state,
-        milestones: action.payload,
-      };
     default:
       throw new Error(`Unknown action: ${action.type}`);
   }
@@ -146,14 +145,14 @@ const mainPageReducer = (state, action) => {
 export const mainPageInitialState = {
   issues: [],
   counts: {},
-  users: [],
-  labels: [],
-  milestones: [],
+  allUsers: [],
+  allLabels: [],
+  allMilestones: [],
   // TODO(덴): pagination 기능 구현 필요 & 백엔드와 API 협의 필요
   // currentPage
   // maxPage
   filterOptions: {
-    state: OPENED,
+    issueState: OPENED,
     writtenByMe: false,
     assignedToMe: false,
     commentedByMe: false,

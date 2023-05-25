@@ -5,7 +5,7 @@ import {
   MainPageContext,
   MainPageDispatchContext,
 } from '../context/MainPage/MainPageContext';
-import { generateQueryString } from '../utils/generateQueryString';
+import { generateQueryString } from '../utils/utils';
 import {
   fetchStart,
   fetchSuccess,
@@ -25,12 +25,13 @@ const IssueList = () => {
       const url = `http://3.38.73.117:8080/api-fe/issues${queryString}`;
 
       const response = await fetch(url);
-      const mainPagedata = await response.json();
+      const mainPageData = await response.json();
 
-      dispatch(setMainPageState(mainPagedata));
+      dispatch(setMainPageState(mainPageData));
       dispatch(fetchSuccess());
     } catch (error) {
-      // TODO(덴): 에러발생시 진행할 로직 구현 고민하기. ex. 개발자향 or 사용자향 UI?
+      // TODO(덴): 에러발생시 진행할 로직 구현 고민하기.(PR질문) ex. 개발자향, 사용자향 UI?
+      // ? navigate 개념 이용 ?
       dispatch(fetchError(error));
     }
   }, [dispatch, filterOptions]);

@@ -6,8 +6,8 @@ import {
   MainPageContext,
   MainPageDispatchContext,
 } from '../../../context/MainPage/MainPageContext';
-import { setStateFilterOption } from '../../../context/MainPage/MainPageActions';
-import { CLOSED, OPENED } from '../../../constants';
+import { setFilterOption } from '../../../context/MainPage/MainPageActions';
+import { CLOSED, ISSUE_STATE, OPENED } from '../../../constants';
 
 const FilterBar = () => {
   const { filterOptions } = useContext(MainPageContext);
@@ -20,12 +20,12 @@ const FilterBar = () => {
       {
         text: '열린 이슈',
         checked: filterOptions.state === OPENED,
-        onClick: () => dispatch(setStateFilterOption(OPENED)),
+        handleItemClick: () => dispatch(setFilterOption(ISSUE_STATE, OPENED)),
       },
       {
         text: '닫힌 이슈',
-        checked: filterOptions.state === 'closed',
-        onClick: () => dispatch(setStateFilterOption(CLOSED)),
+        checked: filterOptions.state === CLOSED,
+        handleItemClick: () => dispatch(setFilterOption(ISSUE_STATE, CLOSED)),
       },
     ],
     bodyCheck: true,

@@ -1,11 +1,11 @@
 import { styled } from 'styled-components';
 import { useEffect, useState, useContext } from 'react';
 import { ReactComponent as Search } from '../../../../assets/search.svg';
-import { generateQueryString } from '../../../../utils/generateQueryString';
+import { generateQueryString } from '../../../../utils/utils';
 import { MainPageContext } from '../../../../context/MainPage/MainPageContext';
 
 const getModifiedQueryString = (queryString) => {
-  const queryStringParts = queryString.split('&');
+  const queryStringParts = queryString.replaceAll('=', ':').split('&');
   const firstPart = queryStringParts[0];
 
   let modifiedFirstPart = firstPart;

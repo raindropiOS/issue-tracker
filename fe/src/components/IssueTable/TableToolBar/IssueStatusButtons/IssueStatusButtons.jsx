@@ -3,12 +3,12 @@ import { useContext } from 'react';
 import { ReactComponent as alertCircle } from '../../../../assets/alertCircle.svg';
 import { ReactComponent as archive } from '../../../../assets/archive.svg';
 import { Button } from '../../../common';
-import { CLOSED, OPENED } from '../../../../constants';
+import { CLOSED, ISSUE_STATE, OPENED } from '../../../../constants';
 import {
   MainPageContext,
   MainPageDispatchContext,
 } from '../../../../context/MainPage/MainPageContext';
-import { setStateFilterOption } from '../../../../context/MainPage/MainPageActions';
+import { setFilterOption } from '../../../../context/MainPage/MainPageActions';
 
 const IssueStatusButtons = () => {
   const {
@@ -28,7 +28,7 @@ const IssueStatusButtons = () => {
         color={isOpened ? 'neutralTextStrong' : 'neutralText'}
         hoverColor={isOpened ? 'neutralText' : 'neutralTextStrong'}
         onclick={() => {
-          dispatch(setStateFilterOption(OPENED));
+          dispatch(setFilterOption(ISSUE_STATE, OPENED));
         }}
       >
         <AlertCircleIcon $isopen={isOpened} />
@@ -43,7 +43,7 @@ const IssueStatusButtons = () => {
         color={!isOpened ? 'neutralTextStrong' : 'neutralText'}
         hoverColor={isOpened ? 'neutralTextStrong' : 'neutralText'}
         onclick={() => {
-          dispatch(setStateFilterOption(CLOSED));
+          dispatch(setFilterOption(ISSUE_STATE, CLOSED));
         }}
       >
         <ArchiveIcon $isopen={isOpened} />

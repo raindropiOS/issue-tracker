@@ -11,9 +11,9 @@ import {
   mainPageInitialState,
 } from '../../context/MainPage/MainPageContext';
 import { Button, Spinner } from '../common';
-import { OPENED } from '../../constants';
+import { OPENED, RESET } from '../../constants';
 import { ReactComponent as xSquare } from '../../assets/xSquare.svg';
-import { resetFilterOptions } from '../../context/MainPage/MainPageActions';
+import { setFilterOption } from '../../context/MainPage/MainPageActions';
 
 const IssueTable = () => {
   const { issues, filterOptions, loading } = useContext(MainPageContext);
@@ -49,7 +49,9 @@ const IssueTable = () => {
             color="neutralText"
             hoverColor="iconBackgoundBlue"
             onclick={() => {
-              dispatch(resetFilterOptions(mainPageInitialState.filterOptions));
+              dispatch(
+                setFilterOption(RESET, mainPageInitialState.filterOptions),
+              );
             }}
           >
             <XSquare />

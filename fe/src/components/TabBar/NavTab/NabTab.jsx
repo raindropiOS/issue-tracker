@@ -8,10 +8,10 @@ import { ReactComponent as plus } from '../../../assets/plus.svg';
 import { MainPageContext } from '../../../context/MainPage/MainPageContext';
 
 const NabTab = () => {
-  const { labels, mileStones } = useContext(MainPageContext);
+  const { allLabels, allMilestones } = useContext(MainPageContext);
 
-  const totalLabel = labels?.length > 0 ? label.length : 0;
-  const totalMileStone = mileStones?.length > 0 ? mileStone.length : 0;
+  const totalLabel = allLabels?.length > 0 ? allLabels.length : 0;
+  const totalMileStone = allMilestones?.length > 0 ? allMilestones.length : 0;
 
   return (
     <NabTabBox>
