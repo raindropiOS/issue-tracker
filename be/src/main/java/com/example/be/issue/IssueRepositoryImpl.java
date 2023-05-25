@@ -42,7 +42,10 @@ public class IssueRepositoryImpl implements IssueRepositoryCustom{
 
     @Override
     public boolean update(IssueUpdateFormDTO issueUpdateFormDTO) {
-        if (issueMapper.validIssue(issueUpdateFormDTO) != 1) {
+        if (issueMapper.validIssue(issueUpdateFormDTO.getIssueNumber()) != 1) {
+            return false;
+        }
+        if (issueUpdateFormDTO.getMilestoneName() != null && issueMapper.validMilestone(issueUpdateFormDTO.getMilestoneName()) != 1) {
             return false;
         }
         return issueMapper.updateIssue(issueUpdateFormDTO) == 1;

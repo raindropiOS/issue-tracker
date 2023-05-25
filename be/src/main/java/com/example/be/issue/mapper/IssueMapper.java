@@ -22,8 +22,9 @@ public interface IssueMapper {
 
     int updateIssue(IssueUpdateFormDTO issueUpdateFormDTO);
 
-    int validIssue(IssueUpdateFormDTO issueUpdateFormDTO);
+    int validIssue(int issueNumber);
 
+    int validMilestone(String milestoneName);
 
     void insertAssigns(IssueUpdateFormDTO issueUpdateFormDTO);
 

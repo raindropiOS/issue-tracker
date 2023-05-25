@@ -93,6 +93,10 @@
         SELECT count(*) FROM ISSUE WHERE number = #{issueNumber}
     </select>
 
+    <select id="validMilestone" resultType="int" parameterType="com.example.be.issue.dto.IssueUpdateFormDTO">
+        SELECT count(*) FROM MILESTONE WHERE name = #{milestoneName}
+    </select>
+
     <update id="updateIssue" parameterType="com.example.be.issue.dto.IssueUpdateFormDTO">
         update ISSUE
         <set>
