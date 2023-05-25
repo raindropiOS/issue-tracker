@@ -57,6 +57,8 @@ class IssueTabViewController: UIViewController, IssueCollectionViewDelegate {
             cell.isCheckmarked.toggle()
             let isPlus = cell.isCheckmarked
             self.toolBar!.updateTitle(isPlus: isPlus)
+            cell.subIconView.change(isCheckmarked: isPlus)
+            cell.updateSubIconViewConstraints()
         }
     }
     
