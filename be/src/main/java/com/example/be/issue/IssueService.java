@@ -2,11 +2,8 @@ package com.example.be.issue;
 
 import com.example.be.assignee.Assignee;
 import com.example.be.issue.dto.*;
-import com.example.be.label.Label;
 import com.example.be.label.LabelRepository;
-import com.example.be.milestone.Milestone;
 import com.example.be.milestone.MilestoneRepository;
-import com.example.be.user.User;
 import com.example.be.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +15,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Service
 @Transactional
@@ -40,19 +36,18 @@ public class IssueService {
     public FeIssueResponseDTO makeFeIssueResponse(IssueSearchCondition issueSearchCondition) {
         Collection<Issue> issues = findIssues(issueSearchCondition);
         CountDTO countDTO = issueRepository.countEntities();
-        List<Label> allLabels = StreamSupport.stream(labelRepository.findAll().spliterator(), false)
-                .collect(Collectors.toList());
-        List<Milestone> allMilestones = StreamSupport.stream(milestoneRepository.findAll().spliterator(), false)
-                .collect(Collectors.toList());
-        List<User> allUsers = StreamSupport.stream(userRepository.findAll().spliterator(), false)
-                .collect(Collectors.toList());
+        AllEntitiesDTO allEntitiesDTO = gatherAllEntities();
 
-        return new FeIssueResponseDTO(issues, countDTO, allLabels, allMilestones, allUsers);
+        return new FeIssueResponseDTO(issues, countDTO, allEntitiesDTO.getAllLabels(), allEntitiesDTO.getAllMilestones(), allEntitiesDTO.getAllUsers());
     }
 
     public IosIssueResponseDTO makeIosIssueResponse(IssueSearchCondition issueSearchCondition) {
         Collection<Issue> issues = findIssues(issueSearchCondition);
         return new IosIssueResponseDTO(issues);
+    }
+
+    public AllEntitiesDTO gatherAllEntities() {
+        return new AllEntitiesDTO(labelRepository.findAll(), milestoneRepository.findAll(), userRepository.findAll());
     }
 
     public int createIssue(IssueCreateFormDTO issueCreateFormDTO) {

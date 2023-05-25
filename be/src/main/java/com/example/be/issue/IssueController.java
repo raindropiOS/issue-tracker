@@ -1,14 +1,10 @@
 package com.example.be.issue;
 
-import com.example.be.issue.dto.FeIssueResponseDTO;
-import com.example.be.issue.dto.IosIssueResponseDTO;
-import com.example.be.issue.dto.IssueCreateFormDTO;
-import com.example.be.issue.dto.IssueSearchCondition;
+import com.example.be.issue.dto.*;
 import com.example.be.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +29,11 @@ public class IssueController {
     @GetMapping("/api-ios/issues")
     public IosIssueResponseDTO createIosIssueResponse(@ModelAttribute IssueSearchCondition issueSearchCondition) {
         return issueService.makeIosIssueResponse(issueSearchCondition);
+    }
+
+    @GetMapping("/api/issues")
+    public AllEntitiesDTO showIssueWriteForm() {
+        return issueService.gatherAllEntities();
     }
 
     @PostMapping("/api/issues")
