@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -23,13 +24,20 @@ class MilestoneRepositoryTest {
 
     @BeforeEach
     private void beforeEach() {
-        this.milestoneCreateFormDTO= new MilestoneCreateFormDTO();
+        this.milestoneCreateFormDTO = new MilestoneCreateFormDTO();
         milestoneCreateFormDTO.setName("test1");
     }
 
     @Test
     @DisplayName("마일스톤 이름을 파라미터로 받아, 해당하는 마일스톤을 반환한다.")
     void findByName() {
+        // given
+        Milestone milestone = new Milestone("BE STEP1", LocalDateTime.now(), "테스트");
+
+        // when
+        milestoneRepository.save(milestone);
+
+        // then
         String milestoneName1 = milestoneRepository.validateName("BE STEP1");
         assertThat(milestoneName1).isEqualTo("BE STEP1");
 

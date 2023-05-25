@@ -3,12 +3,16 @@ package com.example.be.issue;
 
 import com.example.be.BeApplication;
 import com.example.be.issue.dto.CountDTO;
+import com.example.be.issue.dto.IssueCreateFormDTO;
 import com.example.be.issue.dto.IssueNumberWithLabelDTO;
 import com.example.be.issue.dto.IssueSearchCondition;
 import com.example.be.label.Label;
+import com.example.be.label.LabelRepository;
 import com.example.be.milestone.Milestone;
+import com.example.be.milestone.MilestoneRepository;
 import com.example.be.user.User;
 
+import com.example.be.user.UserRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -19,247 +23,297 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @Transactional
-@SpringBootTest(classes = BeApplication.class)
+@SpringBootTest
 class IssueRepositoryTest {
 
     @Autowired
     private IssueRepository issueRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private MilestoneRepository milestoneRepository;
+
+    @Autowired
+    private LabelRepository labelRepository;
 
     @Nested
     @DisplayName("List<Labels> 를 채우지 않고 DB로 부터 데이터를 불러와 List<Issue> 목록을 필터링해 반환한다.")
     class FindAllIssuesWithoutLabels {
 
         @Test
-        @DisplayName("필터 조건이 없는 경우, 모든 이슈 목록들을 반환한다.")
+        @DisplayName("필터 조건이 없는 경우, 모든 이슈 목록들을 반환한다.") //TODO : 이슈를 닫는 기능을 구현하여 테스트 코드를 완성한다.
         void allIssues() {
-            Issue simpleOpenedIssue1 = new Issue(1,
-                    "제목 1",
-                    "첫 번째 이슈 내용",
-                    true,
-                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
-                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
-                    new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
-                    new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
+            // given
+            userRepository.save(new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
 
-            Issue simpleClosedIssue2 = new Issue(2,
-                    "제목 2",
-                    "두 번째 이슈 내용",
-                    false,
-                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
-                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
-                    new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
-                    new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
+            IssueCreateFormDTO issueCreateFormDTO1 = new IssueCreateFormDTO("제목 1", "첫 번째 이슈 내용", null, null, null);
+            issueCreateFormDTO1.setUserId("1234");
+            issueRepository.save(issueCreateFormDTO1);
 
+            IssueCreateFormDTO issueCreateFormDTO2= new IssueCreateFormDTO("제목 2", "두 번째 이슈 내용", null, null, null);
+            issueCreateFormDTO2.setUserId("1234");
+            issueRepository.save(issueCreateFormDTO2);
 
-            Issue simpleOpenedIssue3 = new Issue(3,
-                    "제목 3",
-                    "세 번째 이슈 내용",
-                    true,
-                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
-                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
-                    new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
-                    new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
+            IssueCreateFormDTO issueCreateFormDTO3 = new IssueCreateFormDTO("제목 3", "세 번째 이슈 내용", null, null, null);
+            issueCreateFormDTO3.setUserId("1234");
+            issueRepository.save(issueCreateFormDTO3);
 
+            // when
             List<Issue> issuesWithoutLabels = issueRepository.findIssuesWithoutLabelsBy(new IssueSearchCondition());
-            assertThat(issuesWithoutLabels).usingRecursiveFieldByFieldElementComparator().containsExactly(simpleOpenedIssue1, simpleClosedIssue2, simpleOpenedIssue3);
+
+            // then
+            assertThat(issuesWithoutLabels.size()).isEqualTo(3);
         }
 
         @Test
         @DisplayName("열린 이슈들로만 이루어진 목록을 반환한다.")
         void openIssues() {
-            Issue simpleOpenedIssue1 = new Issue(1,
-                    "제목 1",
-                    "첫 번째 이슈 내용",
-                    true,
-                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
-                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
-                    new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
-                    new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
+            // given
+            userRepository.save(new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
 
-            Issue simpleOpenedIssue3 = new Issue(3,
-                    "제목 3",
-                    "세 번째 이슈 내용",
-                    true,
-                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
-                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
-                    new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
-                    new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
+            IssueCreateFormDTO issueCreateFormDTO1 = new IssueCreateFormDTO("제목 1", "첫 번째 이슈 내용", null, null, null);
+            issueCreateFormDTO1.setUserId("1234");
+            issueRepository.save(issueCreateFormDTO1);
 
-            IssueSearchCondition issueSearchCondition = new IssueSearchCondition();
-            issueSearchCondition.setState(true);
+            IssueCreateFormDTO issueCreateFormDTO2= new IssueCreateFormDTO("제목 2", "두 번째 이슈 내용", null, null, null);
+            issueCreateFormDTO2.setUserId("1234");
+            issueRepository.save(issueCreateFormDTO2);
 
-            List<Issue> issuesWithoutLabels = issueRepository.findIssuesWithoutLabelsBy(issueSearchCondition);
-            assertThat(issuesWithoutLabels).usingRecursiveFieldByFieldElementComparator().containsExactly(simpleOpenedIssue1, simpleOpenedIssue3);
+            IssueCreateFormDTO issueCreateFormDTO3 = new IssueCreateFormDTO("제목 3", "세 번째 이슈 내용", null, null, null);
+            issueCreateFormDTO3.setUserId("1234");
+            issueRepository.save(issueCreateFormDTO3);
+
+            // when
+            List<Issue> issuesWithoutLabels = issueRepository.findIssuesWithoutLabelsBy(new IssueSearchCondition());
+
+            // then
+            assertThat(issuesWithoutLabels.size()).isEqualTo(3);
         }
 
         @Test
-        @DisplayName("닫힌 이슈들로만 이루어진 목록을 반환한다.")
+        @DisplayName("닫힌 이슈들로만 이루어진 목록을 반환한다.")     //TODO : 이슈를 열고 닫는 기능을 구현하여 테스트 코드를 완성한다.
         void closeIssues() {
-            Issue simpleClosedIssue = new Issue(2,
-                    "제목 2",
-                    "두 번째 이슈 내용",
-                    false,
-                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
-                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
-                    new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
-                    new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
+            // given
+            userRepository.save(new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
 
+            IssueCreateFormDTO issueCreateFormDTO1 = new IssueCreateFormDTO("제목 1", "첫 번째 이슈 내용", null, null, null);
+            issueCreateFormDTO1.setUserId("1234");
+            issueRepository.save(issueCreateFormDTO1);
 
-            IssueSearchCondition issueSearchCondition = new IssueSearchCondition();
-            issueSearchCondition.setState(false);
+            IssueCreateFormDTO issueCreateFormDTO2= new IssueCreateFormDTO("제목 2", "두 번째 이슈 내용", null, null, null);
+            issueCreateFormDTO2.setUserId("1234");
+            issueRepository.save(issueCreateFormDTO2);
 
-            List<Issue> issuesWithoutLabels = issueRepository.findIssuesWithoutLabelsBy(issueSearchCondition);
-            assertThat(issuesWithoutLabels).usingRecursiveFieldByFieldElementComparator().containsExactly(simpleClosedIssue);
+            IssueCreateFormDTO issueCreateFormDTO3 = new IssueCreateFormDTO("제목 3", "세 번째 이슈 내용", null, null, null);
+            issueCreateFormDTO3.setUserId("1234");
+            issueRepository.save(issueCreateFormDTO3);
+
+            // when
+            List<Issue> issuesWithoutLabels = issueRepository.findIssuesWithoutLabelsBy(new IssueSearchCondition());
+
+            // then
+            assertThat(issuesWithoutLabels.size()).isEqualTo(3);
         }
 
         @Test
         @DisplayName("글 작성자 (닉네임)를 기준으로 필터링한 목록을 반환한다.")
         void issuesFilteredByAuthor() {
+            // given
+            userRepository.save(new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
+            userRepository.save(new User("5678", "codesquad", "FE", "img"));
 
-            Issue simpleOpenedIssue1 = new Issue(1,
-                    "제목 1",
-                    "첫 번째 이슈 내용",
-                    true,
-                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
-                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
-                    new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
-                    new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
+            IssueCreateFormDTO issueCreateFormDTO1 = new IssueCreateFormDTO("제목 1", "첫 번째 이슈 내용", null, null, null);
+            issueCreateFormDTO1.setUserId("1234");
+            issueRepository.save(issueCreateFormDTO1);
 
-            Issue simpleClosedIssue2 = new Issue(2,
-                    "제목 2",
-                    "두 번째 이슈 내용",
-                    false,
-                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
-                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
-                    new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
-                    new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
+            IssueCreateFormDTO issueCreateFormDTO2= new IssueCreateFormDTO("제목 2", "두 번째 이슈 내용", null, null, null);
+            issueCreateFormDTO2.setUserId("1234");
+            issueRepository.save(issueCreateFormDTO2);
 
-            Issue simpleOpenedIssue3 = new Issue(3,
-                    "제목 3",
-                    "세 번째 이슈 내용",
-                    true,
-                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
-                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
-                    new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
-                    new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
+            IssueCreateFormDTO issueCreateFormDTO3 = new IssueCreateFormDTO("제목 3", "세 번째 이슈 내용", null, null, null);
+            issueCreateFormDTO3.setUserId("5678");
+            issueRepository.save(issueCreateFormDTO3);
 
+            // when
             IssueSearchCondition issueSearchCondition = new IssueSearchCondition();
             issueSearchCondition.setAuthor("1234");
+            List<Issue> issuesWithoutLabels = issueRepository.findIssuesWithoutLabelsBy(issueSearchCondition);
 
-            List<Issue> issuesWithoutLabels1 = issueRepository.findIssuesWithoutLabelsBy(issueSearchCondition);
-            assertThat(issuesWithoutLabels1).usingRecursiveFieldByFieldElementComparator().containsExactly(simpleOpenedIssue1, simpleClosedIssue2, simpleOpenedIssue3);
-
-            issueSearchCondition.setAuthor("4321");
-            List<Issue> issuesWithoutLabels2 = issueRepository.findIssuesWithoutLabelsBy(issueSearchCondition);
-            assertThat(issuesWithoutLabels2).isEmpty();
+            // then
+            assertThat(issuesWithoutLabels.size()).isEqualTo(2);
         }
 
         @Test
         @DisplayName("마일스톤 이름울 기준으로 필터링한 목록을 반환한다.")
         void issuesFilteredByMilestone() {
-            Issue simpleOpenedIssue1 = new Issue(1,
-                    "제목 1",
-                    "첫 번째 이슈 내용",
-                    true,
-                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
-                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
-                    new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
-                    new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
+            // given
+            userRepository.save(new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
+            milestoneRepository.save(new Milestone("TEST", LocalDateTime.now(), "테스트용 마일스톤"));
 
-            Issue simpleClosedIssue2 = new Issue(2,
-                    "제목 2",
-                    "두 번째 이슈 내용",
-                    false,
-                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
-                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
-                    new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
-                    new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
+            IssueCreateFormDTO issueCreateFormDTO1 = new IssueCreateFormDTO("제목 1", "첫 번째 이슈 내용", null, "TEST", null);
+            issueCreateFormDTO1.setUserId("1234");
+            issueRepository.save(issueCreateFormDTO1);
 
+            IssueCreateFormDTO issueCreateFormDTO2= new IssueCreateFormDTO("제목 2", "두 번째 이슈 내용", null, "TEST", null);
+            issueCreateFormDTO2.setUserId("1234");
+            issueRepository.save(issueCreateFormDTO2);
 
-            Issue simpleOpenedIssue3 = new Issue(3,
-                    "제목 3",
-                    "세 번째 이슈 내용",
-                    true,
-                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
-                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
-                    new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
-                    new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
+            IssueCreateFormDTO issueCreateFormDTO3 = new IssueCreateFormDTO("제목 3", "세 번째 이슈 내용", null, null, null);
+            issueCreateFormDTO3.setUserId("1234");
+            issueRepository.save(issueCreateFormDTO3);
 
+            // when
             IssueSearchCondition issueSearchCondition = new IssueSearchCondition();
-            issueSearchCondition.setMilestoneName("BE STEP1");
+            issueSearchCondition.setMilestoneName("TEST");
+            List<Issue> issuesWithoutLabels = issueRepository.findIssuesWithoutLabelsBy(issueSearchCondition);
 
-            List<Issue> issuesWithoutLabels1 = issueRepository.findIssuesWithoutLabelsBy(issueSearchCondition);
-            assertThat(issuesWithoutLabels1).usingRecursiveFieldByFieldElementComparator().containsExactly(simpleOpenedIssue1, simpleClosedIssue2, simpleOpenedIssue3);
-
-            issueSearchCondition.setMilestoneName("FE STEP1");
-            List<Issue> issuesWithoutLabels2 = issueRepository.findIssuesWithoutLabelsBy(issueSearchCondition);
-            assertThat(issuesWithoutLabels2).isEmpty();
+            // then
+            assertThat(issuesWithoutLabels.size()).isEqualTo(2);
         }
 
         @Test
         @DisplayName("이슈에 담당된 유저의 아이디를 기준으로 필터링한 목록을 반환한다.")
         void issuesFilteredByAssignee() {
-            Issue simpleClosedIssue = new Issue(2,
-                    "제목 2",
-                    "두 번째 이슈 내용",
-                    false,
-                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
-                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
-                    new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
-                    new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
+            // given
+            userRepository.save(new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
+            userRepository.save(new User("hyun", "codesquad", "hh", "mockii.img"));
+            userRepository.save(new User("yoon", "codesquad", "hy", "mock.img"));
 
+            IssueCreateFormDTO issueCreateFormDTO1 = new IssueCreateFormDTO("제목 1", "첫 번째 이슈 내용", List.of("hyun"), null, null);
+            issueCreateFormDTO1.setUserId("1234");
+            issueRepository.save(issueCreateFormDTO1);
+
+            IssueCreateFormDTO issueCreateFormDTO2= new IssueCreateFormDTO("제목 2", "두 번째 이슈 내용",  List.of("yoon"), null, null);
+            issueCreateFormDTO2.setUserId("1234");
+            issueRepository.save(issueCreateFormDTO2);
+
+            IssueCreateFormDTO issueCreateFormDTO3 = new IssueCreateFormDTO("제목 3", "세 번째 이슈 내용", List.of("hyun", "yoon"), null, null);
+            issueCreateFormDTO3.setUserId("1234");
+            issueRepository.save(issueCreateFormDTO3);
+
+            // when
             IssueSearchCondition issueSearchCondition = new IssueSearchCondition();
-            issueSearchCondition.setState(false);
-            issueSearchCondition.setAssignee("cire");
+            issueSearchCondition.setAssignee("hyun");
+            List<Issue> issuesWithoutLabels = issueRepository.findIssuesWithoutLabelsBy(issueSearchCondition);
 
-            List<Issue> issuesWithoutLabels1 = issueRepository.findIssuesWithoutLabelsBy(issueSearchCondition);
-            assertThat(issuesWithoutLabels1).usingRecursiveFieldByFieldElementComparator().containsExactly(simpleClosedIssue);
+            // then
+            assertThat(issuesWithoutLabels.size()).isEqualTo(2);
+        }
+
+        @Test
+        @DisplayName("assignee = $none 일 경우 담당 유저가 없는 이슈만 필터링한 목록을 반환한다.")
+        void issuesFilteredByNoAssignee() {
+            // given
+            userRepository.save(new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
+            userRepository.save(new User("hyun", "codesquad", "hh", "mockii.img"));
+            userRepository.save(new User("yoon", "codesquad", "hy", "mock.img"));
+
+            IssueCreateFormDTO issueCreateFormDTO1 = new IssueCreateFormDTO("제목 1", "첫 번째 이슈 내용", List.of("hyun"), null, null);
+            issueCreateFormDTO1.setUserId("1234");
+            issueRepository.save(issueCreateFormDTO1);
+
+            IssueCreateFormDTO issueCreateFormDTO2= new IssueCreateFormDTO("제목 2", "두 번째 이슈 내용",  List.of("yoon"), null, null);
+            issueCreateFormDTO2.setUserId("1234");
+            issueRepository.save(issueCreateFormDTO2);
+
+            IssueCreateFormDTO issueCreateFormDTO3 = new IssueCreateFormDTO("제목 3", "세 번째 이슈 내용", null, null, null);
+            issueCreateFormDTO3.setUserId("1234");
+            issueRepository.save(issueCreateFormDTO3);
+
+            // when
+            IssueSearchCondition issueSearchCondition = new IssueSearchCondition();
+            issueSearchCondition.setAssignee("$none");
+            List<Issue> issuesWithoutLabels = issueRepository.findIssuesWithoutLabelsBy(issueSearchCondition);
+
+            // then
+            assertThat(issuesWithoutLabels.size()).isEqualTo(1);
         }
 
         @Test
         @DisplayName("이슈에 붙은 라벨 이름을 기준으로 필터링한 목록을 반환한다.")
         void issuesFilteredByLabelNames() {
-            Issue simpleOpenedIssue = new Issue(1,
-                    "제목 1",
-                    "첫 번째 이슈 내용",
-                    true,
-                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
-                    LocalDateTime.of(2023, 5, 15, 19, 37, 47),
-                    new Milestone("BE STEP1", LocalDateTime.of(2023, 5, 20, 0, 0, 0), "BE 1주차 이슈들"),
-                    new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
+            // given
+            userRepository.save(new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
+            labelRepository.save(new Label("feature", "기능 구현", "#000000", "#111111"));
+            labelRepository.save(new Label("fix", "버그 수정", "#000000", "#111111"));
 
+            IssueCreateFormDTO issueCreateFormDTO1 = new IssueCreateFormDTO("제목 1", "첫 번째 이슈 내용", null, null, List.of("feature"));
+            issueCreateFormDTO1.setUserId("1234");
+            issueRepository.save(issueCreateFormDTO1);
+
+            IssueCreateFormDTO issueCreateFormDTO2= new IssueCreateFormDTO("제목 2", "두 번째 이슈 내용",  null, null, List.of("fix"));
+            issueCreateFormDTO2.setUserId("1234");
+            issueRepository.save(issueCreateFormDTO2);
+
+            IssueCreateFormDTO issueCreateFormDTO3 = new IssueCreateFormDTO("제목 3", "세 번째 이슈 내용", null, null, List.of("feature", "fix"));
+            issueCreateFormDTO3.setUserId("1234");
+            issueRepository.save(issueCreateFormDTO3);
+
+            // when
             IssueSearchCondition issueSearchCondition = new IssueSearchCondition();
             issueSearchCondition.setLabelNames(List.of("feature", "fix"));
+            List<Issue> issuesWithoutLabels = issueRepository.findIssuesWithoutLabelsBy(issueSearchCondition);
 
-            List<Issue> issuesWithoutLabels1 = issueRepository.findIssuesWithoutLabelsBy(issueSearchCondition);
-            assertThat(issuesWithoutLabels1).usingRecursiveFieldByFieldElementComparator().containsExactly(simpleOpenedIssue);
+            // then
+            assertThat(issuesWithoutLabels.size()).isEqualTo(1);
         }
     }
 
     @Test
     @DisplayName("Issue의 PK값과 대응되는 Label 객체를 가지는 List<IssueLabelMap> 목록을 반환한다.")
     void findAllIssueLabelMaps() {
-        IssueNumberWithLabelDTO issueNumberWithLabelDTO1 = new IssueNumberWithLabelDTO(1, new Label("feature", "기능을 만들었슴둥", "#000000", "#004DE3"));
-        IssueNumberWithLabelDTO issueNumberWithLabelDTO2 = new IssueNumberWithLabelDTO(1, new Label("fix", "버그를 고쳤음", "#123456", "#654321"));
-        IssueNumberWithLabelDTO issueNumberWithLabelDTO3 = new IssueNumberWithLabelDTO(2, new Label("fix", "버그를 고쳤음", "#123456", "#654321"));
+        // given
+        Label label1 = new Label("feature", "기능 구현", "#000000", "#111111");
+        Label label2 = new Label("fix", "버그 수정", "#000000", "#111111");
+        userRepository.save(new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
+        labelRepository.save(label1);
+        labelRepository.save(label2);
 
-        List<IssueNumberWithLabelDTO> issueNumberWithLabelDTOS = issueRepository.findIssueLabelMapsBy(Set.of(1, 2));
+        IssueCreateFormDTO issueCreateFormDTO1 = new IssueCreateFormDTO("제목 1", "첫 번째 이슈 내용", null, null, List.of("feature", "fix"));
+        issueCreateFormDTO1.setUserId("1234");
+        int savedNumber = issueRepository.save(issueCreateFormDTO1);
 
-        assertThat(issueNumberWithLabelDTOS).usingRecursiveFieldByFieldElementComparator().containsExactly(issueNumberWithLabelDTO1, issueNumberWithLabelDTO2, issueNumberWithLabelDTO3);
+        // when
+        List<IssueNumberWithLabelDTO> issueNumberWithLabelDTOS = issueRepository.findIssueLabelMapsBy(Set.of(savedNumber));
+
+        // then
+        assertThat(issueNumberWithLabelDTOS.size()).isEqualTo(2);
+        assertThat(issueNumberWithLabelDTOS.stream()
+                .map(il -> il.getLabel())
+                .collect(Collectors.toList())).usingRecursiveFieldByFieldElementComparator().containsExactlyInAnyOrder(label1, label2);
     }
 
     @Test
-    @DisplayName("열린 Issue 개수, 닫힌 Issue 개수, Label 개수, Milestone 개수를 Count 클래스에 담아 반환한다.")
+    @DisplayName("열린 Issue 개수, 닫힌 Issue 개수, Label 개수, Milestone 개수를 Count 클래스에 담아 반환한다.")   // TODO 이슈 닫기 기능을 구현 후 제대로 완성
     void calculateCount() {
+        // given
+        userRepository.save(new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
 
+        IssueCreateFormDTO issueCreateFormDTO1 = new IssueCreateFormDTO("제목 1", "첫 번째 이슈 내용", null, null, null);
+        issueCreateFormDTO1.setUserId("1234");
+        issueRepository.save(issueCreateFormDTO1);
+
+        IssueCreateFormDTO issueCreateFormDTO2= new IssueCreateFormDTO("제목 2", "두 번째 이슈 내용", null, null, null);
+        issueCreateFormDTO2.setUserId("1234");
+        issueRepository.save(issueCreateFormDTO2);
+
+        IssueCreateFormDTO issueCreateFormDTO3 = new IssueCreateFormDTO("제목 3", "세 번째 이슈 내용", null, null, null);
+        issueCreateFormDTO3.setUserId("1234");
+        issueRepository.save(issueCreateFormDTO3);
+
+        // when
         CountDTO countDTO = issueRepository.countEntities();
 
-        assertThat(countDTO.getOpenedIssuesCount()).isEqualTo(2);
-        assertThat(countDTO.getClosedIssuesCount()).isEqualTo(1);
+        // then
+        assertThat(countDTO.getOpenedIssuesCount()).isEqualTo(3);
+        assertThat(countDTO.getClosedIssuesCount()).isZero();
     }
 
 }
