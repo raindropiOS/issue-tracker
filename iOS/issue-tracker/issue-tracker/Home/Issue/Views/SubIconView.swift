@@ -14,14 +14,14 @@ class SubIconView: UIImageView {
         self.image = image?.withTintColor(.gray, renderingMode: .alwaysOriginal)
     }
 
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        guard let superview = superview else {
-            return
+    func change(isCheckmarked: Bool) {
+        if isCheckmarked == true {
+            self.image = UIImage(systemName: "checkmark.circle.fill")
+            self.image = image?.withTintColor(.tintColor, renderingMode: .alwaysOriginal)
         }
-        
-        self.translatesAutoresizingMaskIntoConstraints = false
-        
-    }
+        else if isCheckmarked == false {
+            self.image = UIImage(systemName: "chevron.forward")
+            self.image = image?.withTintColor(.gray, renderingMode: .alwaysOriginal)
+        }
     }
 }

@@ -17,6 +17,8 @@ class IssueCollectionViewCell: SwipeCollectionViewCell {
     @IBOutlet var labelsStackView: UIStackView!
     @IBOutlet var subIconView: SubIconView!
     
+    var isCheckmarked: Bool = false
+    
     var badges = ["sfgs","gggassfsdfg","adfqewersdfsqasd"]
     
     override func awakeFromNib() {
@@ -39,6 +41,28 @@ class IssueCollectionViewCell: SwipeCollectionViewCell {
             subIconView.widthAnchor.constraint(equalTo: subIconView.heightAnchor, multiplier: 0.7)
         ])
     }
+    
+    func updateSubIconViewConstraints() {
+        NSLayoutConstraint.deactivate(subIconView.constraints)
+        
+        if isCheckmarked {
+            NSLayoutConstraint.activate([
+                subIconView.centerXAnchor.constraint(equalTo: self.trailingAnchor, constant: self.frame.height / -6),
+                subIconView.centerYAnchor.constraint(equalTo: title.centerYAnchor),
+                subIconView.heightAnchor.constraint(equalTo: subIconView.heightAnchor),
+                subIconView.widthAnchor.constraint(equalTo: subIconView.heightAnchor)
+            ])
+        } else {
+            NSLayoutConstraint.activate([
+                subIconView.centerXAnchor.constraint(equalTo: self.trailingAnchor, constant: self.frame.height / -6),
+                subIconView.centerYAnchor.constraint(equalTo: title.centerYAnchor),
+                subIconView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 25 / 148),
+                subIconView.widthAnchor.constraint(equalTo: subIconView.heightAnchor, multiplier: 0.7)
+            ])
+        }
+    }
+    
+    
     private func setTitle() {
         title.text = "iOS 이슈트래커 개발"
         
