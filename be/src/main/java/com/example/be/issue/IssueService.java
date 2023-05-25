@@ -6,17 +6,21 @@ import com.example.be.label.Label;
 import com.example.be.label.LabelRepository;
 import com.example.be.milestone.Milestone;
 import com.example.be.milestone.MilestoneRepository;
-import com.example.be.user.User;
 import com.example.be.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Service
+@Transactional
 public class IssueService {
 
     private final IssueRepository issueRepository;
@@ -48,7 +52,7 @@ public class IssueService {
         return new IosIssueResponseDTO(issues);
     }
 
-    public void createIssue(IssueCreateFormDTO issueCreateFormDTO) {
+    public int createIssue(IssueCreateFormDTO issueCreateFormDTO) {
         if (issueCreateFormDTO.getAssignees() != null) {
             issueCreateFormDTO.setAssignees(userRepository.validateNames(issueCreateFormDTO.getAssignees()));
         }
@@ -61,7 +65,7 @@ public class IssueService {
             issueCreateFormDTO.setMilestoneName(milestoneRepository.validateName(issueCreateFormDTO.getMilestoneName()));
         }
 
-        issueRepository.save(issueCreateFormDTO);
+        return issueRepository.save(issueCreateFormDTO);
     }
 
     private Collection<Issue> findIssues(IssueSearchCondition issueSearchCondition) {
