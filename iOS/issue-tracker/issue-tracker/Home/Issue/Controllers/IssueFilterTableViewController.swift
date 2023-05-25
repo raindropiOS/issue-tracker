@@ -10,7 +10,7 @@ import UIKit
 class IssueFilterTableViewController: UITableViewController {
     private let checkmarkImage = UIImage(systemName: "checkmark")
     private let grayCheckmarkImage = UIImage(systemName: "checkmark")?.withTintColor(.gray, renderingMode: .alwaysOriginal)
-    var filterOptionList: FilterOptionsLike = FilterOptionListMock()
+    var filterOptionList: FilterOptionsLike?
     weak var delegate: IssueTabViewController?
     
     override func viewDidLoad() {
@@ -28,24 +28,25 @@ class IssueFilterTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        case 0: return filterOptionList.list[0].count
-        case 1: return filterOptionList.list[1].count
-        case 2: return filterOptionList.list[2].count
+        case 0: return filterOptionList?.list[0].count ?? 1
+        case 1: return filterOptionList?.list[1].count ?? 1
+        case 2: return filterOptionList?.list[2].count ?? 1
         default: return 1
         }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "filterOptionCell", for: indexPath) as? IssueFilterTableViewCell else { return UITableViewCell() }
-        cell.configureWith(filterOption: filterOptionList.list[indexPath.section][indexPath.row], selectedImage: checkmarkImage, deselectedImage: grayCheckmarkImage)
-                return cell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "filterOptionCell", for: indexPath) as? IssueFilterTableViewCell else { return UITableViewCell() }
+        guard let filterOption = filterOptionList?.list[indexPath.section][indexPath.row] else { return UITableViewCell() }
+        cell.configureWith(filterOption: filterOption, selectedImage: checkmarkImage, deselectedImage: grayCheckmarkImage)
+        return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if let cell = tableView.cellForRow(at: indexPath) as? IssueFilterTableViewCell {
             cell.toggleSelecting()
-            filterOptionList.list[indexPath.section][indexPath.row].isSelected.toggle()
+            filterOptionList?.list[indexPath.section][indexPath.row].isSelected.toggle()
         }
     }
     
@@ -101,9 +102,9 @@ extension IssueFilterTableViewController {
     }
     
     @objc func saveAction() {
-        let newUrlString = filterOptionList.collectSelectedFilterOptionUrlString()
+        let filterUrlString = delegate?.filterOptionList.collectSelectedFilterOptionUrlString() ?? ""
+        let newUrlString = "http://3.38.73.117:8080/api-ios/issues" + filterUrlString
         delegate?.setUrlString(with: newUrlString)
-        delegate?.fetchData()
         dismissSelf()
     }
 }

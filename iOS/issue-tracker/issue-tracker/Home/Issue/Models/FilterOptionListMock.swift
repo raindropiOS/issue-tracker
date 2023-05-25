@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct FilterOptionListMock: FilterOptionsLike {
+class FilterOptionListMock: FilterOptionsLike {
     var list: [[FilterOption]] = [
         [
             FilterOption(filterLabel: "열린 이슈", filterUrlStr: nil),

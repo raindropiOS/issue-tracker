@@ -14,6 +14,7 @@ class IssueTabViewController: UIViewController {
     @IBOutlet var collectionView: IssueCollectionView!
     var cancelButton: UIBarButtonItem?
     let nothingButton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+    var filterOptionList: FilterOptionsLike = FilterOptionListMock()
     
     let fetcher = HTTPDataFetcher()
     
@@ -39,6 +40,8 @@ class IssueTabViewController: UIViewController {
     
     @IBAction func filterButtonTouched(_ sender: UIButton) {
         let filterTableViewController = IssueFilterTableViewController()
+        filterTableViewController.delegate = self
+        filterTableViewController.filterOptionList = filterOptionList
         show(filterTableViewController, sender: sender)
     }
     
