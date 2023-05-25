@@ -75,7 +75,7 @@ const ButtonBox = styled.button`
   cursor: pointer;
 
   &:hover {
-    color: ${({ theme, hovercolor }) => theme.color[hovercolor] || theme.color.accentText};
+    ${({ theme, hovercolor }) => `${hovercolor && `color: ${theme.color[hovercolor]}`}`};
     > svg {
       stroke: ${({ theme, hovercolor }) => theme.color[hovercolor] || theme.color.accentText};
     }
@@ -95,7 +95,7 @@ const outlineButton = styled(ButtonBox)`
   padding: 0px 16px;
   background-color: transparent;
   border-radius: 11px;
-  border-color: ${({ theme }) => theme.color.accentBorderWeak};
+  border: 1px solid ${({ theme }) => theme.color.accentBorderWeak};
 `;
 
 const ghostButton = styled(ButtonBox)`

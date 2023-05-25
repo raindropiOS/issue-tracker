@@ -1,5 +1,5 @@
 import { styled } from 'styled-components';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { UserIcon } from '../components/common';
 import largeUserImage from '../assets/userImageLarge.svg';
 import SideBar from '../components/SideBar/SideBar';
@@ -9,8 +9,82 @@ import TitleInput from '../components/TitleInput/TitleInput';
 const AddIssue = () => {
   const [form, setForm] = useState({ title: '', comment: '' });
 
+  const [users, setUsers] = useState([]);
+  const [labels, setLabels] = useState([]);
+  const [milestones, setMilestones] = useState([]);
+
+  const [selectedUserIds, setSelectedUserIds] = useState([]);
+  const [selectedLabelIds, setSelectedLabelIds] = useState([]);
+  const [selectedMilestoneId, setSelectedMilestoneId] = useState('');
+
   const onChange = ({ target }) => {
     setForm({ ...form, [target.name]: target.value });
+  };
+
+  const onLabelClick = (labelId) => {
+    setSelectedLabelIds(
+      selectedLabelIds.includes(labelId)
+        ? selectedLabelIds.filter(
+          (selectedLabelId) => selectedLabelId !== labelId,
+        )
+        : [...selectedLabelIds, labelId],
+    );
+  };
+
+  const onMilestoneClick = (milestoneId) => {
+    setSelectedMilestoneId(
+      selectedMilestoneId === milestoneId ? '' : milestoneId,
+    );
+  };
+
+  const onUserClick = (userId) => {
+    setSelectedUserIds(
+      selectedUserIds.includes(userId)
+        ? selectedUserIds.filter((selectedUserId) => selectedUserId !== userId)
+        : [...selectedUserIds, userId],
+    );
+  };
+
+  // TODO: 이름 바꾸기
+  // TODO: loader로 뺄지 고민해보기?
+  const fetchAddIssueData = async () => {
+    // TODO: url 바꾸기
+    const data = await fetch('http://3.38.73.117:8080/api-fe/issues');
+    const res = await data.json();
+
+    setLabels(res.allLabels);
+    setMilestones(res.allMilestones);
+    setUsers(res.allUsers);
+  };
+
+  useEffect(() => {
+    fetchAddIssueData();
+  }, []);
+
+  const createIssue = () => {
+    fetch('http://3.38.73.117:8080/api/issues', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        title: form.title,
+        contents: form.comment,
+        assignees: selectedUserIds,
+        milestoneName: selectedMilestoneId,
+        labelNames: selectedLabelIds,
+      }),
+    })
+      .then((res) => {
+        // TODO: 에러메시지 바꾸기
+        // TODO: 리다이렉션
+        if (!res.ok) throw new Error('에러');
+        console.log('리다이렉션으로 바꾸기');
+      })
+      .catch((e) => {
+        // TODO: 에러처리 바꾸기
+        console.log(e);
+      });
   };
 
   return (
@@ -32,11 +106,23 @@ const AddIssue = () => {
             placeholder="코멘트를 입력하세요"
           />
         </InputBox>
-        <SideBar />
+        <SideBar
+          labels={labels}
+          selectedLabelsIds={selectedLabelIds}
+          onLabelClick={onLabelClick}
+          milestones={milestones}
+          selectedMilestoneId={selectedMilestoneId}
+          onMilestoneClick={onMilestoneClick}
+          users={users}
+          selectedUserIds={selectedUserIds}
+          onUserClick={onUserClick}
+        />
       </SectionBox>
       <ButtonBox>
         <button type="button">작성 취소</button>
-        <button type="button">완료</button>
+        <button type="button" onClick={createIssue}>
+          완료
+        </button>
       </ButtonBox>
     </>
   );

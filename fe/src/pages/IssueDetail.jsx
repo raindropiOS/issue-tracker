@@ -1,6 +1,7 @@
 import { styled } from 'styled-components';
 import CommentList from '../components/CommentList/CommentList';
 import SideBar from '../components/SideBar/SideBar';
+import { Button } from '../components/common';
 
 const IssueDetail = () => {
   return (
@@ -13,7 +14,14 @@ const IssueDetail = () => {
           <IssueNumberSpan>#2</IssueNumberSpan>
         </HeaderBox>
         <ButtonsBox>
-          <button type="button">제목 편집</button>
+          <Button
+            type="outlineButton"
+            size="S"
+            gap="4px"
+            color="accentBorderWeak"
+          >
+            제목 편집
+          </Button>
           <button type="button">이슈 닫기</button>
         </ButtonsBox>
       </HeaderButtonsBox>

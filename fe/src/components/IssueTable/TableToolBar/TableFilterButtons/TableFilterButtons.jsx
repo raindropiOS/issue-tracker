@@ -8,10 +8,15 @@ const TableFilterButtons = () => {
     headerText: '담당자 필터',
     bodyItems: [
       { text: '담당자가 없는 이슈', checked: false },
-      { img: tempImg, text: 'chloe', checked: false },
+      {
+        userImage:
+          'https://pbs.twimg.com/media/DCzwbJuVYAIsJss?format=jpg&name=900x900',
+        text: 'chloe',
+        checked: false,
+      },
       { img: tempImg, text: 'head', checked: false },
       { img: tempImg, text: 'sam', checked: false },
-      { img: tempImg, text: 'zello', checked: false },
+      { labelColor: '#EEA', text: 'zello', checked: false },
     ],
     bodyCheck: true,
     posright: true,
