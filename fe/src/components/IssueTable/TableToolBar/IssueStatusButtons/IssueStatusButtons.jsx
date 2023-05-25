@@ -17,7 +17,7 @@ const IssueStatusButtons = () => {
   } = useContext(MainPageContext);
   const dispatch = useContext(MainPageDispatchContext);
 
-  const isOpened = filterOptions.state !== CLOSED;
+  const isOpened = filterOptions.issueState !== CLOSED;
 
   return (
     <IssueStatusButtonsBox>

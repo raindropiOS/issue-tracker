@@ -19,7 +19,7 @@ const IssueList = () => {
 
   const queryString = generateQueryString(filterOptions);
 
-  const fetchIssueData = useCallback(async () => {
+  const fetchMainPageData = useCallback(async () => {
     dispatch(fetchStart());
     try {
       const url = `http://3.38.73.117:8080/api-fe/issues${queryString}`;
@@ -37,8 +37,8 @@ const IssueList = () => {
   }, [dispatch, filterOptions]);
 
   useEffect(() => {
-    fetchIssueData();
-  }, [fetchIssueData]);
+    fetchMainPageData();
+  }, [fetchMainPageData]);
 
   return (
     <>
