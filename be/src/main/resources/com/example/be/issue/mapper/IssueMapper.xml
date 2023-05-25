@@ -121,6 +121,26 @@
         delete from ASSIGNS where issue_number = #{issueNumber}
     </delete>
 
+    <select id="validLabels" resultType="int" parameterType="com.example.be.issue.dto.IssueLabelRelationUpdateFormDTO">
+        SELECT count(*) FROM LABEL
+        where name in
+        <foreach item="labelName" collection="labelNames" open="(" close=")" separator=",">
+            #{labelName}
+        </foreach>
+    </select>
+
+    <insert id="insertIssueLabelRelation" parameterType="com.example.be.issue.dto.IssueLabelRelationUpdateFormDTO">
+        insert into ISSUE_LABEL_RELATION(issue_number, label_name)
+        values
+        <foreach item="labelName" collection="labelNames" separator=",">
+            (#{issueNumber}, #{labelName})
+        </foreach>
+    </insert>
+
+    <delete id="deleteIssueLabelRelation" parameterType="com.example.be.issue.dto.IssueLabelRelationUpdateFormDTO">
+        delete from ISSUE_LABEL_RELATION where issue_number = #{issueNumber}
+    </delete>
+
     <select id="findIssueSize" resultType="int"
             parameterType="com.example.be.issue.dto.IssueSearchCondition">
         select count(*)

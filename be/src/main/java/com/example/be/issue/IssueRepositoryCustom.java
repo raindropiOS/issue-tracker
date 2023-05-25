@@ -1,9 +1,6 @@
 package com.example.be.issue;
 
-import com.example.be.issue.dto.IssueAssignsUpdateFormDTO;
-import com.example.be.issue.dto.IssueCreateFormDTO;
-import com.example.be.issue.dto.IssueSearchCondition;
-import com.example.be.issue.dto.IssueUpdateFormDTO;
+import com.example.be.issue.dto.*;
 import com.example.be.util.Paging;
 
 import java.util.List;
@@ -19,4 +16,7 @@ public interface IssueRepositoryCustom {
     boolean update(IssueUpdateFormDTO issueUpdateFormDTO);
 
     boolean updateAssigns(IssueAssignsUpdateFormDTO issueAssignsUpdateFormDTO);
+
+    boolean updateIssueLabelRelation(IssueLabelRelationUpdateFormDTO issueLabelRelationUpdateFormDTO);
+
 }

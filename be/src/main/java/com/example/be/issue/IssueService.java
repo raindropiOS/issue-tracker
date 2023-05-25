@@ -114,4 +114,8 @@ public class IssueService {
     public boolean updateIssueAssigns(IssueAssignsUpdateFormDTO issueAssignsUpdateFormDTO) {
         return issueRepository.updateAssigns(issueAssignsUpdateFormDTO);
     }
+
+    public boolean updateIssueLabelRelation(IssueLabelRelationUpdateFormDTO issueLabelRelationUpdateFormDTO) {
+        return issueRepository.updateIssueLabelRelation(issueLabelRelationUpdateFormDTO);
+    }
 }

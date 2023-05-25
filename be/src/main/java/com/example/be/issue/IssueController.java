@@ -70,4 +70,12 @@ public class IssueController {
         return "fail";
     }
 
+    @PatchMapping("/api/issues/labels")
+    public String updateIssueLabelRelation(@Validated @RequestBody IssueLabelRelationUpdateFormDTO issueLabelRelationUpdateFormDTO) {
+        if (issueService.updateIssueLabelRelation(issueLabelRelationUpdateFormDTO)) {
+            return "ok";
+        }
+        return "fail";
+    }
+
 }

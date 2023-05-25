@@ -1,9 +1,6 @@
 package com.example.be.issue;
 
-import com.example.be.issue.dto.IssueAssignsUpdateFormDTO;
-import com.example.be.issue.dto.IssueCreateFormDTO;
-import com.example.be.issue.dto.IssueSearchCondition;
-import com.example.be.issue.dto.IssueUpdateFormDTO;
+import com.example.be.issue.dto.*;
 import com.example.be.issue.mapper.IssueMapper;
 
 import java.util.List;
@@ -64,6 +61,22 @@ public class IssueRepositoryImpl implements IssueRepositoryCustom{
         }
        return true;
     }
+    @Override
+    public boolean updateIssueLabelRelation(IssueLabelRelationUpdateFormDTO issueLabelRelationUpdateFormDTO) {
 
+        if (issueMapper.validIssue(issueLabelRelationUpdateFormDTO.getIssueNumber()) != 1) {
+            return false;
+        }
+
+        if (issueMapper.validLabels(issueLabelRelationUpdateFormDTO.getLabelNames()) != issueLabelRelationUpdateFormDTO.getLabelNames().size()) {
+            return false;
+        }
+
+        issueMapper.deleteIssueLabelRelation(issueLabelRelationUpdateFormDTO);
+        if (issueLabelRelationUpdateFormDTO.getLabelNames().size() != 0) {
+            return issueMapper.insertIssueLabelRelation(issueLabelRelationUpdateFormDTO) == issueLabelRelationUpdateFormDTO.getLabelNames().size();
+        }
+        return true;
+    }
 
 }
