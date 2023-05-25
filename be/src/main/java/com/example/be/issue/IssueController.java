@@ -37,7 +37,7 @@ public class IssueController {
     }
 
     @PostMapping("/api/issues")
-    public Map<String, Integer> createIssue(@Validated @ModelAttribute IssueCreateFormDTO issueCreateFormDTO) {
+    public Map<String, Integer> createIssue(@Validated @RequestBody IssueCreateFormDTO issueCreateFormDTO) {
         User testUser = new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg");
         issueCreateFormDTO.setUserId(testUser.getId());
         int issueNumber = issueService.createIssue(issueCreateFormDTO);

@@ -1,4 +1,5 @@
 be/out/
+be/bin/
 .idea/
 be/.gradle/
 be/build/
