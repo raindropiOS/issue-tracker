@@ -10,6 +10,7 @@ import SwipeCellKit
 
 class IssueCollectionView: UICollectionView {
     var issueFrames = [IssueFrame]()
+    weak var collectionViewDelegate: IssueCollectionViewDelegate?
     
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: layout)
@@ -30,6 +31,9 @@ class IssueCollectionView: UICollectionView {
 }
 
 extension IssueCollectionView: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionViewDelegate?.didSelectCell(in: self, at: indexPath)
+    }
 }
 
 extension IssueCollectionView: UICollectionViewDataSource {
@@ -124,4 +128,3 @@ extension IssueCollectionView: SwipeCollectionViewCellDelegate {
         return options
     }
 }
-

@@ -60,6 +60,7 @@
                 <outlet property="labelsStackView" destination="BeV-Tu-p6V" id="XTm-1I-iIi"/>
                 <outlet property="milestone" destination="op5-ox-cAC" id="8u1-pz-uMu"/>
                 <outlet property="milestoneImage" destination="q9F-pn-4B5" id="tk7-tF-fah"/>
+                <outlet property="subIconView" destination="n3w-IR-4Ta" id="gHH-Lx-Jso"/>
                 <outlet property="title" destination="Ne7-SF-c0Q" id="KUH-ZJ-Kv2"/>
             </connections>
             <point key="canvasLocation" x="-11.450381679389313" y="1.7605633802816902"/>

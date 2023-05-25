@@ -8,9 +8,10 @@
 import UIKit
 import OSLog
 
-class IssueTabViewController: UIViewController {
+class IssueTabViewController: UIViewController, IssueCollectionViewDelegate {
+    private var isSelectionMode: Bool = false
     private var addIssueButton: AddIssueButton?
-    private var toolBar: UIToolbar?
+    private var toolBar: IssueSelectingToolbar?
     @IBOutlet var filterButton: UIBarButtonItem!
     @IBOutlet var selectButton: UIBarButtonItem!
     @IBOutlet var collectionView: IssueCollectionView!
@@ -31,10 +32,22 @@ class IssueTabViewController: UIViewController {
         super.viewDidLoad()
         setCancelButton()
         setToolbar()
-
         setAddIssueButton()
     }
     
+
+    func didSelectCell(in collectionView: IssueCollectionView, at indexPath: IndexPath) {
+        if isSelectionMode == true {
+            guard let cell = collectionView.cellForItem(at: indexPath) as? IssueCollectionViewCell else {
+                return
+            }
+            cell.isCheckmarked.toggle()
+            let isPlus = cell.isCheckmarked
+            self.toolBar!.updateTitle(isPlus: isPlus)
+            cell.subIconView.change(isCheckmarked: isPlus)
+            cell.updateSubIconViewConstraints()
+        }
+
     override func viewWillAppear(_ animated: Bool) {
         fetchData()
     }
@@ -93,6 +106,8 @@ class IssueTabViewController: UIViewController {
         self.tabBarController?.tabBar.isHidden = true
         self.navigationItem.leftBarButtonItem = nothingButton
         self.navigationItem.rightBarButtonItem = cancelButton
+        self.addIssueButton?.isHidden = true
+        self.isSelectionMode.toggle()
     }
     
     @objc private func cancelButtonTouched() {
@@ -100,6 +115,8 @@ class IssueTabViewController: UIViewController {
         self.tabBarController?.tabBar.isHidden = false
         self.navigationItem.leftBarButtonItem = filterButton
         self.navigationItem.rightBarButtonItem = selectButton
+        self.addIssueButton?.isHidden = false
+        self.isSelectionMode.toggle()
     }
     
     private func fetchData() {
@@ -126,4 +143,8 @@ class IssueTabViewController: UIViewController {
     func setUrlString(with urlString: String) {
         currentIssueDataUrlString = urlString
     }
+}
+
+protocol IssueCollectionViewDelegate: AnyObject {
+    func didSelectCell(in collectionView: IssueCollectionView, at indexPath: IndexPath)
 }

@@ -15,6 +15,9 @@ class IssueCollectionViewCell: SwipeCollectionViewCell {
     @IBOutlet var milestoneImage: UIImageView!
     @IBOutlet var milestone: UILabel!
     @IBOutlet var labelsStackView: UIStackView!
+    @IBOutlet var subIconView: SubIconView!
+    
+    var isCheckmarked: Bool = false
     
     var badges = ["sfgs","gggassfsdfg","adfqewersdfsqasd"]
     
@@ -26,8 +29,39 @@ class IssueCollectionViewCell: SwipeCollectionViewCell {
         setContents()
         setMilestoneImage()
         setMilestone()
+        setSubIconView()
+    }
+    private func setSubIconView() {
+        subIconView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            subIconView.centerXAnchor.constraint(equalTo: self.trailingAnchor, constant: self.frame.height / -6),
+            subIconView.centerYAnchor.constraint(equalTo: title.centerYAnchor),
+            subIconView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 25 / 148),
+            subIconView.widthAnchor.constraint(equalTo: subIconView.heightAnchor, multiplier: 0.7)
+        ])
     }
     
+    func updateSubIconViewConstraints() {
+        NSLayoutConstraint.deactivate(subIconView.constraints)
+        
+        if isCheckmarked {
+            NSLayoutConstraint.activate([
+                subIconView.centerXAnchor.constraint(equalTo: self.trailingAnchor, constant: self.frame.height / -6),
+                subIconView.centerYAnchor.constraint(equalTo: title.centerYAnchor),
+                subIconView.heightAnchor.constraint(equalTo: subIconView.heightAnchor),
+                subIconView.widthAnchor.constraint(equalTo: subIconView.heightAnchor)
+            ])
+        } else {
+            NSLayoutConstraint.activate([
+                subIconView.centerXAnchor.constraint(equalTo: self.trailingAnchor, constant: self.frame.height / -6),
+                subIconView.centerYAnchor.constraint(equalTo: title.centerYAnchor),
+                subIconView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 25 / 148),
+                subIconView.widthAnchor.constraint(equalTo: subIconView.heightAnchor, multiplier: 0.7)
+            ])
+        }
+    }
+
     override func prepareForReuse() {
         super.prepareForReuse()
         labelsStackView.arrangedSubviews.forEach { view in view.removeFromSuperview() }
