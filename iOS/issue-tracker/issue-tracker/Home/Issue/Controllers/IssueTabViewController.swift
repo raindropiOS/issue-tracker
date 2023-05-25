@@ -47,6 +47,7 @@ class IssueTabViewController: UIViewController, IssueCollectionViewDelegate {
             cell.subIconView.change(isCheckmarked: isPlus)
             cell.updateSubIconViewConstraints()
         }
+    }
 
     override func viewWillAppear(_ animated: Bool) {
         fetchData()
