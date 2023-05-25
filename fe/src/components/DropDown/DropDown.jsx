@@ -8,7 +8,7 @@ import DropDownContent from './DropDownContent/DropDownContent';
 const DropDown = ({
   className,
   config: {
-    buttonText, headerText, bodyItems, bodyCheck, posright, marginTop,
+    buttonText, headerText, bodyItems, bodyCheck, pos, marginTop,
   },
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -35,9 +35,10 @@ const DropDown = ({
         <ChevronDown />
       </DropDownButton>
       {isOpen && (
-        <DropDownContent posright={posright} marginTop={marginTop}>
-          <DropDownHeader headerText={headerText} />
+        <DropDownContent pos={pos} marginTop={marginTop}>
+          {headerText && <DropDownHeader headerText={headerText} />}
           <DropDownBody
+            headerText={headerText}
             bodyItems={bodyItems}
             bodyCheck={bodyCheck}
             handleIsOpen={setIsOpen}

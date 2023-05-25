@@ -2,31 +2,43 @@ import { styled } from 'styled-components';
 import { ReactComponent as CheckOffCircle } from '../../../../assets/checkOffCircle.svg';
 import { ReactComponent as CheckOnCircle } from '../../../../assets/checkOnCircle.svg';
 
-const DropDownBody = ({ bodyItems, bodyCheck, handleIsOpen }) => {
-  const itemList = bodyItems.map(({
-    img, text, handleItemClick, checked,
-  }) => {
-    return (
-      <li
-        key={text}
-        onClick={() => {
-          handleIsOpen(false);
-          if (typeof handleItemClick !== 'function') return;
+const DropDownBody = ({
+  bodyItems, bodyCheck, handleIsOpen, headerText,
+}) => {
+  const itemList = bodyItems.map(
+    ({
+      userImage, labelColor, text, handleItemClick, checked, key,
+    }) => {
+      return (
+        <li
+          key={key}
+          onClick={() => {
+            handleIsOpen(false);
+            if (typeof handleItemClick !== 'function') return;
 
-          handleItemClick();
-        }}
-      >
-        <IconTextBox checked={checked}>
-          {img && <img src={img} alt="img" />}
-          <span>{text}</span>
-        </IconTextBox>
-        {bodyCheck
-          && (checked ? <CheckOnCircleImage /> : <CheckOffCircleImage />)}
-      </li>
-    );
-  });
+            handleItemClick();
+          }}
+        >
+          <IconTextBox checked={checked}>
+            {(userImage || labelColor) && (
+              <IconLabel
+                userimage={userImage}
+                labelcolor={labelColor}
+                alt="user profile or label"
+              />
+            )}
+            <span>{text}</span>
+          </IconTextBox>
+          {bodyCheck
+            && (checked ? <CheckOnCircleImage /> : <CheckOffCircleImage />)}
+        </li>
+      );
+    },
+  );
 
-  return <DropDownBodyList>{itemList}</DropDownBodyList>;
+  return (
+    <DropDownBodyList headertext={headerText}>{itemList}</DropDownBodyList>
+  );
 };
 
 export default DropDownBody;
@@ -47,7 +59,12 @@ const DropDownBodyList = styled.ul`
   font-weight: ${({ theme }) => theme.fontWeight.regular};
   font-size: ${({ theme }) => theme.fontSize.M.size};
   line-height: ${({ theme }) => theme.fontSize.M.lineHeight};
-  border-radius: 0px 0px 16px 16px;
+  ${({ headertext }) => (!headertext
+    ? 'border-top-left-radius: 16px; border-top-right-radius: 16px;'
+    : '')};
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+
   background: ${({ theme }) => theme.color.neutralBorder};
 
   li {
@@ -60,9 +77,25 @@ const DropDownBodyList = styled.ul`
     cursor: pointer;
   }
 
-  li:last-child {
-    border-radius: 0px 0px 16px 16px;
+  li:first-child {
+    ${({ headertext }) => (!headertext
+    ? 'border-top-left-radius: 16px; border-top-right-radius: 16px;'
+    : '')};
   }
+
+  li:last-child {
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+  }
+`;
+
+const IconLabel = styled.div`
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  ${({ userimage, labelcolor }) => `background: ${
+    labelcolor || `url(${userimage})`
+  } no-repeat center center ;`}
 `;
 
 const IconTextBox = styled.div`
