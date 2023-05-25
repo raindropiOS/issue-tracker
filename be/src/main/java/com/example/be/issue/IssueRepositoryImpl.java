@@ -1,5 +1,6 @@
 package com.example.be.issue;
 
+import com.example.be.issue.dto.IssueAssignsUpdateFormDTO;
 import com.example.be.issue.dto.IssueCreateFormDTO;
 import com.example.be.issue.dto.IssueSearchCondition;
 import com.example.be.issue.dto.IssueUpdateFormDTO;
@@ -50,4 +51,19 @@ public class IssueRepositoryImpl implements IssueRepositoryCustom{
         }
         return issueMapper.updateIssue(issueUpdateFormDTO) == 1;
     }
+
+    @Override
+    public boolean updateAssigns(IssueAssignsUpdateFormDTO issueAssignsUpdateFormDTO) {
+        // TODO : 사용자 검증 필요
+        if (issueMapper.validIssue(issueAssignsUpdateFormDTO.getIssueNumber()) != 1) {
+            return false;
+        }
+        issueMapper.deleteAssigns(issueAssignsUpdateFormDTO);
+        if (issueAssignsUpdateFormDTO.getAssignees().size() != 0) {
+            return issueMapper.insertAssigns(issueAssignsUpdateFormDTO) == issueAssignsUpdateFormDTO.getAssignees().size();
+        }
+       return true;
+    }
+
+
 }

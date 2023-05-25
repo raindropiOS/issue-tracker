@@ -1,5 +1,6 @@
 package com.example.be.issue;
 
+import com.example.be.issue.dto.IssueAssignsUpdateFormDTO;
 import com.example.be.issue.dto.IssueCreateFormDTO;
 import com.example.be.issue.dto.IssueSearchCondition;
 import com.example.be.issue.dto.IssueUpdateFormDTO;
@@ -16,4 +17,6 @@ public interface IssueRepositoryCustom {
     int save(IssueCreateFormDTO issueCreateFormDTO);
 
     boolean update(IssueUpdateFormDTO issueUpdateFormDTO);
+
+    boolean updateAssigns(IssueAssignsUpdateFormDTO issueAssignsUpdateFormDTO);
 }

@@ -1,6 +1,7 @@
 package com.example.be.issue.mapper;
 
 import com.example.be.issue.Issue;
+import com.example.be.issue.dto.IssueAssignsUpdateFormDTO;
 import com.example.be.issue.dto.IssueCreateFormDTO;
 import com.example.be.issue.dto.IssueSearchCondition;
 import com.example.be.issue.dto.IssueUpdateFormDTO;
@@ -26,9 +27,9 @@ public interface IssueMapper {
 
     int validMilestone(String milestoneName);
 
-    void insertAssigns(IssueUpdateFormDTO issueUpdateFormDTO);
+    int insertAssigns(IssueAssignsUpdateFormDTO issueAssignsUpdateFormDTO);
 
-    void deleteAssigns(IssueUpdateFormDTO issueUpdateFormDTO);
+    void deleteAssigns(IssueAssignsUpdateFormDTO issueAssignsUpdateFormDTO);
 
     void insertIssueLabelRelation(IssueUpdateFormDTO issueUpdateFormDTO);
 

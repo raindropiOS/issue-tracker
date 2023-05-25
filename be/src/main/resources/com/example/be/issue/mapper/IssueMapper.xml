@@ -109,6 +109,18 @@
         where number = #{issueNumber}
     </update>
 
+    <insert id="insertAssigns" parameterType="com.example.be.issue.dto.IssueAssignsUpdateFormDTO">
+        insert into ASSIGNS(issue_number, user_id)
+        values
+        <foreach item="assignee" collection="assignees" separator=",">
+            (#{issueNumber}, #{assignee})
+        </foreach>
+    </insert>
+
+    <delete id="deleteAssigns" parameterType="com.example.be.issue.dto.IssueAssignsUpdateFormDTO">
+        delete from ASSIGNS where issue_number = #{issueNumber}
+    </delete>
+
     <select id="findIssueSize" resultType="int"
             parameterType="com.example.be.issue.dto.IssueSearchCondition">
         select count(*)

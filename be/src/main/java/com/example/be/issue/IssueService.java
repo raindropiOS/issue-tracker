@@ -110,4 +110,8 @@ public class IssueService {
         }
         return issueRepository.update(issueUpdateFormDTO);
     }
+
+    public boolean updateIssueAssigns(IssueAssignsUpdateFormDTO issueAssignsUpdateFormDTO) {
+        return issueRepository.updateAssigns(issueAssignsUpdateFormDTO);
+    }
 }

@@ -62,4 +62,12 @@ public class IssueController {
         return "fail";
     }
 
+    @PatchMapping("/api/issues/assigns")
+    public String updateIssueAssigns(@Validated @RequestBody IssueAssignsUpdateFormDTO issueAssignsUpdateFormDTO) {
+        if (issueService.updateIssueAssigns(issueAssignsUpdateFormDTO)) {
+            return "ok";
+        }
+        return "fail";
+    }
+
 }
