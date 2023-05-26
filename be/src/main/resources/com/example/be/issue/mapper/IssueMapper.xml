@@ -13,11 +13,20 @@
             <if test="state != null">
                 and i.state = #{state}
             </if>
+
             <if test="author != null">
                 and u.id = #{author}
             </if>
+
             <if test="milestoneName != null">
-                and m.name = #{milestoneName}
+                <choose>
+                    <when test="milestoneName == '$none'.toString()">
+                        and m.name is null
+                    </when>
+                    <otherwise>
+                        and m.name = #{milestoneName}
+                    </otherwise>
+                </choose>
             </if>
 
             <if test="assignees != null">
@@ -39,15 +48,21 @@
             </if>
 
             <if test="labelNames != null">
-                and i.number in (select ir.issue_number
-                from ISSUE_LABEL_RELATION ir
-                where ir.label_name in
-                <foreach item="labelName" collection="labelNames" open="(" close=")" separator=",">
-                    #{labelName}
-                </foreach>
-                group by ir.issue_number
-                having count(*) = #{labelNamesSize})
-
+                <choose>
+                    <when test="labelNames[0] == '$none'.toString()">
+                        and i.number not in (select ir.issue_number from ISSUE_LABEL_RELATION ir)
+                    </when>
+                    <otherwise>
+                        and i.number in (select ir.issue_number
+                        from ISSUE_LABEL_RELATION ir
+                        where ir.label_name in
+                        <foreach item="labelName" collection="labelNames" open="(" close=")" separator=",">
+                            #{labelName}
+                        </foreach>
+                        group by ir.issue_number
+                        having count(*) = #{labelNamesSize})
+                    </otherwise>
+                </choose>
             </if>
         </where>
         <if test="startIndex != null and cntPerPage != null">
@@ -102,11 +117,15 @@
     </insert>
 
     <select id="validIssue" resultType="int" parameterType="com.example.be.issue.dto.IssueUpdateFormDTO">
-        SELECT count(*) FROM ISSUE WHERE number = #{issueNumber}
+        SELECT count(*)
+        FROM ISSUE
+        WHERE number = #{issueNumber}
     </select>
 
     <select id="validMilestone" resultType="int" parameterType="com.example.be.issue.dto.IssueUpdateFormDTO">
-        SELECT count(*) FROM MILESTONE WHERE name = #{milestoneName}
+        SELECT count(*)
+        FROM MILESTONE
+        WHERE name = #{milestoneName}
     </select>
 
     <update id="updateIssue" parameterType="com.example.be.issue.dto.IssueUpdateFormDTO">
@@ -130,7 +149,9 @@
     </insert>
 
     <delete id="deleteAssigns" parameterType="com.example.be.issue.dto.IssueAssignsUpdateFormDTO">
-        delete from ASSIGNS where issue_number = #{issueNumber}
+        delete
+        from ASSIGNS
+        where issue_number = #{issueNumber}
     </delete>
 
     <select id="validLabels" resultType="int" parameterType="com.example.be.issue.dto.IssueLabelRelationUpdateFormDTO">
@@ -150,7 +171,9 @@
     </insert>
 
     <delete id="deleteIssueLabelRelation" parameterType="com.example.be.issue.dto.IssueLabelRelationUpdateFormDTO">
-        delete from ISSUE_LABEL_RELATION where issue_number = #{issueNumber}
+        delete
+        from ISSUE_LABEL_RELATION
+        where issue_number = #{issueNumber}
     </delete>
 
     <select id="findIssueSize" resultType="int"
@@ -166,9 +189,18 @@
             <if test="author != null">
                 and u.id = #{author}
             </if>
+
             <if test="milestoneName != null">
-                and m.name = #{milestoneName}
+                <choose>
+                    <when test="milestoneName == '$none'.toString()">
+                        and m.name is null
+                    </when>
+                    <otherwise>
+                        and m.name = #{milestoneName}
+                    </otherwise>
+                </choose>
             </if>
+
             <if test="assignees != null">
                 <choose>
                     <when test="assignees[0] == '$none'.toString()">
@@ -188,14 +220,21 @@
             </if>
 
             <if test="labelNames != null">
-                and i.number in (select ir.issue_number
-                from ISSUE_LABEL_RELATION ir
-                where ir.label_name in
-                <foreach item="labelName" collection="labelNames" open="(" close=")" separator=",">
-                    #{labelName}
-                </foreach>
-                group by ir.issue_number
-                having count(*) = #{labelNamesSize})
+                <choose>
+                    <when test="labelNames[0] == '$none'.toString()">
+                        and i.number not in (select ir.issue_number from ISSUE_LABEL_RELATION ir)
+                    </when>
+                    <otherwise>
+                        and i.number in (select ir.issue_number
+                        from ISSUE_LABEL_RELATION ir
+                        where ir.label_name in
+                        <foreach item="labelName" collection="labelNames" open="(" close=")" separator=",">
+                            #{labelName}
+                        </foreach>
+                        group by ir.issue_number
+                        having count(*) = #{labelNamesSize})
+                    </otherwise>
+                </choose>
             </if>
         </where>
     </select>
