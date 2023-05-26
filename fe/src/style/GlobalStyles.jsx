@@ -20,6 +20,10 @@ const GlobalStyles = createGlobalStyle`
       color: inherit;
     }
 
+    button:disabled{
+      cursor: not-allowed;
+    }
+
     input {
       color: inherit;
       background-color: inherit;
