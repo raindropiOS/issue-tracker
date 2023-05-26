@@ -20,9 +20,14 @@ public class CommentController {
 
     @PostMapping("/api/issues/{issueNumber}/comments")
     public Map<String, String> addComment(@PathVariable int issueNumber, @Validated @RequestBody CommentInputFormDTO commentInputFormDTO) {
-        System.out.println("hi");
         User testUser = new User("1234", "codesquad", "BE", "mock.img");
         commentService.save(issueNumber, testUser, commentInputFormDTO);
         return Map.of("commentSave", "OK");
+    }
+
+    @PutMapping("/api/issues/{issueNumber}/comments/{commentId}")
+    public Map<String, String> updateComment(@PathVariable int commentId, @Validated @RequestBody CommentInputFormDTO commentInputFormDTO) {
+        commentService.update(commentId, commentInputFormDTO);
+        return Map.of("commentUpdate", "OK");
     }
 }

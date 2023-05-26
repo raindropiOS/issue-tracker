@@ -20,4 +20,8 @@ public class CommentService {
     public void save(int issueNumber, User user, CommentInputFormDTO commentInputFormDTO) {
         commentRepository.save(issueNumber, user.getId(), commentInputFormDTO.getContents());
     }
+
+    public void update(int commentId, CommentInputFormDTO commentInputFormDTO) {
+        commentRepository.update(commentId, commentInputFormDTO.getContents());
+    }
 }

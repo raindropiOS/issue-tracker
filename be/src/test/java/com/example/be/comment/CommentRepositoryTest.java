@@ -54,4 +54,30 @@ class CommentRepositoryTest {
 
         assertThat(comments.get(0).getContents()).isEqualTo(contents);
     }
+
+    @Test
+    @DisplayName("댓글 아이디와 수정할 내용을 파라미터로 받아 댓글을 수정할 수 있다.")
+    void update() {
+        // given
+        User user = userRepository.save(new User("hyun", "codesquad", "hyun", "mock.img"));
+        IssueCreateFormDTO issueCreateFormDTO = new IssueCreateFormDTO("테스트", "내용", null, null, null);
+        issueCreateFormDTO.setUserId(user.getId());
+        int issueNumber = issueRepository.save(issueCreateFormDTO);
+        String contents = "댓글 내용이당";
+        commentRepository.save(issueNumber, user.getId(), contents);
+
+        Comment comment = StreamSupport.stream(commentRepository.findAll().spliterator(), false)
+                .collect(Collectors.toList()).get(0);
+
+        String updateContents = "댓글 수정이당";
+
+        // when
+        commentRepository.update(comment.getId(), updateContents);
+
+        // then
+        Comment updatedComment = StreamSupport.stream(commentRepository.findAll().spliterator(), false)
+                .collect(Collectors.toList()).get(0);
+
+        assertThat(updatedComment.getContents()).isEqualTo(updateContents);
+    }
 }
