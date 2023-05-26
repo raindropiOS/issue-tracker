@@ -216,7 +216,7 @@ class IssueRepositoryTest {
         }
 
         @Test
-        @DisplayName("assignee = $none 일 경우 담당 유저가 없는 이슈만 필터링한 목록을 반환한다.")
+        @DisplayName("assignees = $none 일 경우 담당 유저가 없는 이슈만 필터링한 목록을 반환한다.")
         void issuesFilteredByNoAssignee() {
             // given
             userRepository.save(new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));

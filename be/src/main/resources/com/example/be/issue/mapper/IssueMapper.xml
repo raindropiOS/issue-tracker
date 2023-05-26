@@ -19,22 +19,23 @@
             <if test="milestoneName != null">
                 and m.name = #{milestoneName}
             </if>
-            <!--            <if test="assignee != null and assignee == '$none'.toString()">-->
-            <!--                and a.user_id is null-->
-            <!--            </if>-->
-            <!--            <if test="assignee != null and assignee != '$none'.toString()">-->
-            <!--                and a.user_id = #{assignee}-->
-            <!--            </if>-->
 
             <if test="assignees != null">
-                and i.number in (select a.issue_number
-                from ASSIGNS a
-                where a.user_id in
-                <foreach item="assignee" collection="assignees" open="(" close=")" separator=",">
-                    #{assignee}
-                </foreach>
-                group by a.issue_number
-                having count(*) = #{assigneesSize})
+                <choose>
+                    <when test="assignees[0] == '$none'.toString()">
+                        and i.number not in (select a.issue_number from ASSIGNS a)
+                    </when>
+                    <otherwise>
+                        and i.number in (select a.issue_number
+                        from ASSIGNS a
+                        where a.user_id in
+                        <foreach item="assignee" collection="assignees" open="(" close=")" separator=",">
+                            #{assignee}
+                        </foreach>
+                        group by a.issue_number
+                        having count(*) = #{assigneesSize})
+                    </otherwise>
+                </choose>
             </if>
 
             <if test="labelNames != null">
@@ -116,21 +117,22 @@
             <if test="milestoneName != null">
                 and m.name = #{milestoneName}
             </if>
-            <!--            <if test="assignee != null and assignee == '$none'.toString()">-->
-            <!--                and a.user_id is null-->
-            <!--            </if>-->
-            <!--            <if test="assignee != null and assignee != '$none'.toString()">-->
-            <!--                and a.user_id = #{assignee}-->
-            <!--            </if>-->
             <if test="assignees != null">
-                and i.number in (select a.issue_number
-                from ASSIGNS a
-                where a.user_id in
-                <foreach item="assignee" collection="assignees" open="(" close=")" separator=",">
-                    #{assignee}
-                </foreach>
-                group by a.issue_number
-                having count(*) = #{assigneesSize})
+                <choose>
+                    <when test="assignees[0] == '$none'.toString()">
+                        and i.number not in (select a.issue_number from ASSIGNS a)
+                    </when>
+                    <otherwise>
+                        and i.number in (select a.issue_number
+                        from ASSIGNS a
+                        where a.user_id in
+                        <foreach item="assignee" collection="assignees" open="(" close=")" separator=",">
+                            #{assignee}
+                        </foreach>
+                        group by a.issue_number
+                        having count(*) = #{assigneesSize})
+                    </otherwise>
+                </choose>
             </if>
 
             <if test="labelNames != null">
