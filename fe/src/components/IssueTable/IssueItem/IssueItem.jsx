@@ -7,6 +7,7 @@ import { ReactComponent as mileStone } from '../../../assets/mileStone.svg';
 import { ReactComponent as archive } from '../../../assets/archive.svg';
 import { Label, UserIcon } from '../../common';
 
+// TODO(덴): 방어로직 구현 필요
 const IssueItem = ({
   state,
   number,
@@ -55,7 +56,7 @@ const IssueItem = ({
           </span>
           <span>
             <MileStoneIcon />
-            {milestone.name}
+            {milestone?.name}
           </span>
         </IssueItemAttributes>
       </IssueItemBody>

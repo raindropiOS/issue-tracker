@@ -10,7 +10,7 @@ import {
   MainPageDispatchContext,
   mainPageInitialState,
 } from '../../context/MainPage/MainPageContext';
-import { Button, Spinner } from '../common';
+import { Button } from '../common';
 import { OPENED, RESET } from '../../constants';
 import { ReactComponent as xSquare } from '../../assets/xSquare.svg';
 import { setFilterOption } from '../../context/MainPage/MainPageActions';
@@ -22,7 +22,8 @@ const IssueTable = () => {
   let content;
 
   if (loading) {
-    content = <Spinner />;
+    // TODO(덴): 스피너 기능에 대한 고민 필요. 굳이 필요한가?
+    // content = <Spinner />;
   } else if (issues.length) {
     content = issues.map((issue) => (
       <IssueItem key={issue.number} {...issue} />

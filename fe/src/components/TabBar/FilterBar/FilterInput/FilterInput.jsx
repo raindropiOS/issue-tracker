@@ -4,6 +4,17 @@ import { ReactComponent as Search } from '../../../../assets/search.svg';
 import { generateQueryString } from '../../../../utils/utils';
 import { MainPageContext } from '../../../../context/MainPage/MainPageContext';
 
+// TODO(덴): api 객체 형태에 맞게 상태 수정 작업 진행 했으나 리팩 필요해보임.
+const changeAssigneeIdToName = (allUsers, filterOptions) => {
+  const currentFilterOptions = { ...filterOptions };
+  allUsers.forEach((userInfo) => {
+    if (userInfo.id === filterOptions.assignee) {
+      currentFilterOptions.assignee = userInfo.nickname;
+    }
+  });
+  return currentFilterOptions;
+};
+
 const getModifiedQueryString = (queryString) => {
   const queryStringParts = queryString.replaceAll('=', ':').split('&');
   const firstPart = queryStringParts[0];
@@ -20,14 +31,17 @@ const getModifiedQueryString = (queryString) => {
 };
 
 const FilterInput = () => {
-  const { filterOptions } = useContext(MainPageContext);
+  const { allUsers, filterOptions } = useContext(MainPageContext);
   const [inputValue, setInputValue] = useState('');
 
   // ?: useEffect를 제대로 사용한건지?
   useEffect(() => {
-    const modifiedQueryString = getModifiedQueryString(
-      generateQueryString(filterOptions),
+    const modifiedFilterOptions = changeAssigneeIdToName(
+      allUsers,
+      filterOptions,
     );
+    const queryString = generateQueryString(modifiedFilterOptions);
+    const modifiedQueryString = getModifiedQueryString(queryString);
     setInputValue(modifiedQueryString);
   }, [filterOptions]);
 

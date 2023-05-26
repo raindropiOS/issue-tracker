@@ -15,6 +15,7 @@ import {
 } from '../../../../context/MainPage/MainPageContext';
 import DropDown from '../../../DropDown/DropDown';
 
+// TODO(덴): DropDown Config 변환해주는 함수 유틸로 빼보기.
 const convertOptionItems = (
   optionItems,
   filterOptionState,
@@ -23,20 +24,22 @@ const convertOptionItems = (
   optionType,
 ) => {
   return optionItems.map((item) => {
-    const isChecked = filterOptionState === null
-      ? false
-      : filterOptionState.includes(item.name);
+    const optionId = item.name || item.id;
+    const optionName = item.name || item.nickname;
+
+    const isChecked = filterOptionState === null ? false : filterOptionState.includes(optionId);
 
     const dropDownBodyItemConfig = {
-      text: item.nickname || item.name,
+      key: item.id,
+      text: optionName,
       checked: isChecked,
       handleItemClick: () => {
         dispatch(action(optionType, item.id));
       },
     };
 
-    if (item.backgroundColor) dropDownBodyItemConfig.img = item.backgroundColor;
-    if (item.imgUrl) dropDownBodyItemConfig.img = item.imgUrl;
+    if (item.backgroundColor) dropDownBodyItemConfig.labelColor = item.backgroundColor;
+    if (item.imgUrl) dropDownBodyItemConfig.userImage = item.imgUrl;
     return dropDownBodyItemConfig;
   });
 };
@@ -50,6 +53,7 @@ const TableFilterButtons = () => {
   const filterDropDownConfigList = ISSUE_TABLE_FILTER_OPTIONS.map(
     (filterOption) => {
       const targetFilterOption = filterOptions[filterOption.KEY];
+
       const isChecked = targetFilterOption === null
         ? false
         : filterOptions[filterOption.KEY].includes(NONE);
@@ -57,6 +61,7 @@ const TableFilterButtons = () => {
       let bodyItems = filterOption.KO !== AUTHOR.KO
         ? [
           {
+            key: NONE,
             text: `${filterOption.KO} 없는 이슈`,
             checked: isChecked,
             handleItemClick: () => {
@@ -103,7 +108,7 @@ const TableFilterButtons = () => {
         headerText: `${filterOption.KO} 필터`,
         bodyItems,
         bodyCheck: true,
-        posright: true,
+        pos: 'right',
         marginTop: '10px',
       };
     },

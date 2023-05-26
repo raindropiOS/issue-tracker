@@ -19,12 +19,12 @@ const FilterBar = () => {
     bodyItems: [
       {
         text: '열린 이슈',
-        checked: filterOptions.state === OPENED,
+        checked: filterOptions.issueState === OPENED,
         handleItemClick: () => dispatch(setFilterOption(ISSUE_STATE, OPENED)),
       },
       {
         text: '닫힌 이슈',
-        checked: filterOptions.state === CLOSED,
+        checked: filterOptions.issueState === CLOSED,
         handleItemClick: () => dispatch(setFilterOption(ISSUE_STATE, CLOSED)),
       },
     ],
