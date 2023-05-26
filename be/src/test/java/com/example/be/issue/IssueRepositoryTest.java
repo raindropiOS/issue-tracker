@@ -1,7 +1,6 @@
 package com.example.be.issue;
 
 
-import com.example.be.BeApplication;
 import com.example.be.issue.dto.CountDTO;
 import com.example.be.issue.dto.IssueCreateFormDTO;
 import com.example.be.issue.dto.IssueNumberWithLabelDTO;
@@ -11,8 +10,8 @@ import com.example.be.label.LabelRepository;
 import com.example.be.milestone.Milestone;
 import com.example.be.milestone.MilestoneRepository;
 import com.example.be.user.User;
-
 import com.example.be.user.UserRepository;
+import com.example.be.util.Paging;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -65,8 +64,10 @@ class IssueRepositoryTest {
             issueCreateFormDTO3.setUserId("1234");
             issueRepository.save(issueCreateFormDTO3);
 
+            IssueSearchCondition issueSearchCondition = getFirstPage();
+
             // when
-            List<Issue> issuesWithoutLabels = issueRepository.findIssuesWithoutLabelsBy(new IssueSearchCondition());
+            List<Issue> issuesWithoutLabels = issueRepository.findIssuesWithoutLabelsBy(issueSearchCondition);
 
             // then
             assertThat(issuesWithoutLabels.size()).isEqualTo(3);
@@ -90,8 +91,10 @@ class IssueRepositoryTest {
             issueCreateFormDTO3.setUserId("1234");
             issueRepository.save(issueCreateFormDTO3);
 
+            IssueSearchCondition issueSearchCondition = getFirstPage();
+
             // when
-            List<Issue> issuesWithoutLabels = issueRepository.findIssuesWithoutLabelsBy(new IssueSearchCondition());
+            List<Issue> issuesWithoutLabels = issueRepository.findIssuesWithoutLabelsBy(issueSearchCondition);
 
             // then
             assertThat(issuesWithoutLabels.size()).isEqualTo(3);
@@ -115,8 +118,10 @@ class IssueRepositoryTest {
             issueCreateFormDTO3.setUserId("1234");
             issueRepository.save(issueCreateFormDTO3);
 
+            IssueSearchCondition issueSearchCondition = getFirstPage();
+
             // when
-            List<Issue> issuesWithoutLabels = issueRepository.findIssuesWithoutLabelsBy(new IssueSearchCondition());
+            List<Issue> issuesWithoutLabels = issueRepository.findIssuesWithoutLabelsBy(issueSearchCondition);
 
             // then
             assertThat(issuesWithoutLabels.size()).isEqualTo(3);
@@ -141,9 +146,10 @@ class IssueRepositoryTest {
             issueCreateFormDTO3.setUserId("5678");
             issueRepository.save(issueCreateFormDTO3);
 
-            // when
-            IssueSearchCondition issueSearchCondition = new IssueSearchCondition();
+            IssueSearchCondition issueSearchCondition = getFirstPage();
             issueSearchCondition.setAuthor("1234");
+
+            // when
             List<Issue> issuesWithoutLabels = issueRepository.findIssuesWithoutLabelsBy(issueSearchCondition);
 
             // then
@@ -169,9 +175,10 @@ class IssueRepositoryTest {
             issueCreateFormDTO3.setUserId("1234");
             issueRepository.save(issueCreateFormDTO3);
 
-            // when
-            IssueSearchCondition issueSearchCondition = new IssueSearchCondition();
+            IssueSearchCondition issueSearchCondition = getFirstPage();
             issueSearchCondition.setMilestoneName("TEST");
+
+            // when
             List<Issue> issuesWithoutLabels = issueRepository.findIssuesWithoutLabelsBy(issueSearchCondition);
 
             // then
@@ -198,9 +205,10 @@ class IssueRepositoryTest {
             issueCreateFormDTO3.setUserId("1234");
             issueRepository.save(issueCreateFormDTO3);
 
+            IssueSearchCondition issueSearchCondition = getFirstPage();
+            issueSearchCondition.setAssignees(List.of("hyun"));
+
             // when
-            IssueSearchCondition issueSearchCondition = new IssueSearchCondition();
-            issueSearchCondition.setAssignee("hyun");
             List<Issue> issuesWithoutLabels = issueRepository.findIssuesWithoutLabelsBy(issueSearchCondition);
 
             // then
@@ -208,7 +216,7 @@ class IssueRepositoryTest {
         }
 
         @Test
-        @DisplayName("assignee = $none 일 경우 담당 유저가 없는 이슈만 필터링한 목록을 반환한다.")
+        @DisplayName("assignees = $none 일 경우 담당 유저가 없는 이슈만 필터링한 목록을 반환한다.")
         void issuesFilteredByNoAssignee() {
             // given
             userRepository.save(new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
@@ -227,9 +235,10 @@ class IssueRepositoryTest {
             issueCreateFormDTO3.setUserId("1234");
             issueRepository.save(issueCreateFormDTO3);
 
+            IssueSearchCondition issueSearchCondition = getFirstPage();
+            issueSearchCondition.setAssignees(List.of("$none"));
+
             // when
-            IssueSearchCondition issueSearchCondition = new IssueSearchCondition();
-            issueSearchCondition.setAssignee("$none");
             List<Issue> issuesWithoutLabels = issueRepository.findIssuesWithoutLabelsBy(issueSearchCondition);
 
             // then
@@ -256,13 +265,22 @@ class IssueRepositoryTest {
             issueCreateFormDTO3.setUserId("1234");
             issueRepository.save(issueCreateFormDTO3);
 
-            // when
-            IssueSearchCondition issueSearchCondition = new IssueSearchCondition();
+            IssueSearchCondition issueSearchCondition = getFirstPage();
             issueSearchCondition.setLabelNames(List.of("feature", "fix"));
+
+            // when
             List<Issue> issuesWithoutLabels = issueRepository.findIssuesWithoutLabelsBy(issueSearchCondition);
 
             // then
             assertThat(issuesWithoutLabels.size()).isEqualTo(1);
+        }
+
+        private IssueSearchCondition getFirstPage() {
+            Paging paging = new Paging(1, 3);
+            IssueSearchCondition issueSearchCondition = new IssueSearchCondition();
+            issueSearchCondition.setStartIndex(paging.getStartIndex());
+            issueSearchCondition.setCntPerPage(paging.getCntPerPage());
+            return issueSearchCondition;
         }
     }
 

@@ -52,11 +52,6 @@ public class IssueService {
         return new IosIssueResponseDTO(issues, paging);
     }
 
-    private static void addPaginationCondition(IssueSearchCondition issueSearchCondition, Paging paging) {
-        issueSearchCondition.setStartIndex(paging.getStartIndex());
-        issueSearchCondition.setCntPerPage(paging.getCntPerPage());
-    }
-
     public AllEntitiesDTO gatherAllEntities() {
         return new AllEntitiesDTO(labelRepository.findAll(), milestoneRepository.findAll(), userRepository.findAll());
     }
@@ -75,6 +70,24 @@ public class IssueService {
         }
 
         return issueRepository.save(issueCreateFormDTO);
+    }
+
+    public boolean updateIssue(IssueUpdateFormDTO issueUpdateFormDTO) {
+        if (issueUpdateFormDTO.isState() == null &&
+                issueUpdateFormDTO.getTitle() == null &&
+                issueUpdateFormDTO.getContents() == null &&
+                issueUpdateFormDTO.getMilestoneName() == null) {
+            return false;
+        }
+        return issueRepository.update(issueUpdateFormDTO);
+    }
+
+    public boolean updateIssueAssigns(IssueAssignsUpdateFormDTO issueAssignsUpdateFormDTO) {
+        return issueRepository.updateAssigns(issueAssignsUpdateFormDTO);
+    }
+
+    public boolean updateIssueLabelRelation(IssueLabelRelationUpdateFormDTO issueLabelRelationUpdateFormDTO) {
+        return issueRepository.updateIssueLabelRelation(issueLabelRelationUpdateFormDTO);
     }
 
     private List<Issue> findIssues(IssueSearchCondition issueSearchCondition) {
@@ -101,21 +114,8 @@ public class IssueService {
                 .collect(Collectors.toList());
     }
 
-    public boolean updateIssue(IssueUpdateFormDTO issueUpdateFormDTO) {
-        if (issueUpdateFormDTO.isState() == null &&
-                issueUpdateFormDTO.getTitle() == null &&
-                issueUpdateFormDTO.getContents() == null &&
-                issueUpdateFormDTO.getMilestoneName() == null) {
-            return false;
-        }
-        return issueRepository.update(issueUpdateFormDTO);
-    }
-
-    public boolean updateIssueAssigns(IssueAssignsUpdateFormDTO issueAssignsUpdateFormDTO) {
-        return issueRepository.updateAssigns(issueAssignsUpdateFormDTO);
-    }
-
-    public boolean updateIssueLabelRelation(IssueLabelRelationUpdateFormDTO issueLabelRelationUpdateFormDTO) {
-        return issueRepository.updateIssueLabelRelation(issueLabelRelationUpdateFormDTO);
+    private void addPaginationCondition(IssueSearchCondition issueSearchCondition, Paging paging) {
+        issueSearchCondition.setStartIndex(paging.getStartIndex());
+        issueSearchCondition.setCntPerPage(paging.getCntPerPage());
     }
 }
