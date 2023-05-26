@@ -1,3 +1,4 @@
+// TODO: Lint 속성 점검 필요
 /* eslint-disable no-use-before-define */
 import styled, { css } from 'styled-components';
 

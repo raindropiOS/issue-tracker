@@ -1,3 +1,4 @@
+// TODO: Lint 속성 점검 필요
 /* eslint-disable camelcase */
 import styled from 'styled-components';
 import React from 'react';
