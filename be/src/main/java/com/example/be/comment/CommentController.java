@@ -30,4 +30,10 @@ public class CommentController {
         commentService.update(commentId, commentInputFormDTO);
         return Map.of("commentUpdate", "OK");
     }
+
+    @DeleteMapping("/api/issues/{issueNumber}/comments/{commentId}")
+    public Map<String, String> deleteComment(@PathVariable int commentId) {
+        commentService.delete(commentId);
+        return Map.of("commentDelete", "OK");
+    }
 }

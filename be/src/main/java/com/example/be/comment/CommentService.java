@@ -24,4 +24,8 @@ public class CommentService {
     public void update(int commentId, CommentInputFormDTO commentInputFormDTO) {
         commentRepository.update(commentId, commentInputFormDTO.getContents());
     }
+
+    public void delete(int commentId) {
+        commentRepository.deleteById(commentId);
+    }
 }
