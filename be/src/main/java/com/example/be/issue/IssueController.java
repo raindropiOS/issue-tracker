@@ -2,11 +2,7 @@ package com.example.be.issue;
 
 import com.example.be.issue.dto.*;
 import com.example.be.user.User;
-import com.example.be.util.Paging;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.validation.BindException;
-import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,13 +43,6 @@ public class IssueController {
         return Map.of("issueNumber", issueNumber);
     }
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(BindException.class)
-    public Map<String, String> issueCreateFormExHandler(BindException e) {
-        FieldError fieldError = e.getBindingResult().getFieldError();
-        return Map.of(fieldError.getField(), fieldError.getDefaultMessage());
-    }
-
     @PatchMapping("/api/issues")
     public String updateIssue(@Validated @RequestBody IssueUpdateFormDTO issueUpdateFormDTO) {
         if (issueService.updateIssue(issueUpdateFormDTO)) {
@@ -77,5 +66,4 @@ public class IssueController {
         }
         return "fail";
     }
-
 }
