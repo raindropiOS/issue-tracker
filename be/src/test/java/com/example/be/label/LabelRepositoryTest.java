@@ -31,11 +31,19 @@ class LabelRepositoryTest {
     @Test
     @DisplayName("라벨 이름들을 파라미터로 받아, 해당하는 라벨 목록들을 반환한다.")
     void getLabelsByNames() {
-        List<String> labelNames1 = labelRepository.validateNames(List.of("feature", "fix"));
-        assertThat(labelNames1).containsExactly("feature", "fix");
+        // given
+        Label label1 = new Label("feature", "기능 구현", "#000000", "#111111");
+        Label label2 = new Label("fix", "버그 수정", "#000000", "#111111");
+        labelRepository.save(label1);
+        labelRepository.save(label2);
 
+        // when
+        List<String> labelNames1 = labelRepository.validateNames(List.of("feature", "fix"));
         List<String> labelNames2 = labelRepository.validateNames(List.of("feat", "fix"));
-        assertThat(labelNames2).containsExactly("fix");
+
+        // then
+        assertThat(labelNames1).containsExactlyInAnyOrder("feature", "fix");
+        assertThat(labelNames2).containsExactlyInAnyOrder("fix");
     }
 
     @Test
