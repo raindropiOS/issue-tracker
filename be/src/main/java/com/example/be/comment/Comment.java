@@ -1,7 +1,5 @@
 package com.example.be.comment;
 
-import com.example.be.issue.Issue;
-import com.example.be.user.User;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
