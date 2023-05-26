@@ -10,7 +10,7 @@ import Foundation
 struct HTTPDataFetcher {
     
     func fetchIssueData(completion: @escaping (Result<String, Error>) -> Void) {
-        guard let url = URL(string: "http://3.38.73.117:8080/api-ios/issues") else {
+        guard let url = URL(string: Server.base.rawValue) else {
             return
         }
         let request = URLRequest(url: url, timeoutInterval: 3.0)

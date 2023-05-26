@@ -24,7 +24,7 @@ class IssueTabViewController: UIViewController, IssueCollectionViewDelegate {
     private let logger = Logger()
     private let networkManager = NetworkManager()
     private var issueFrames: [IssueFrame]?
-    private var currentIssueDataUrlString: String = "http://3.38.73.117:8080/api-ios/issues"
+    private var currentIssueDataUrlString: String = Server.base.rawValue
     
     @IBOutlet var backPlane: UIView!
     

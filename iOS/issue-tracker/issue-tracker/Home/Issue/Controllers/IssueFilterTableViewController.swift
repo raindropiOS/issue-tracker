@@ -98,7 +98,7 @@ extension IssueFilterTableViewController {
     
     @objc func saveAction() {
         let filterUrlString = delegate?.filterOptionList.collectSelectedFilterOptionUrlString() ?? ""
-        let newUrlString = "http://3.38.73.117:8080/api-ios/issues" + filterUrlString
+        let newUrlString = Server.base.rawValue + filterUrlString
         delegate?.setUrlString(with: newUrlString)
         dismissSelf()
     }
