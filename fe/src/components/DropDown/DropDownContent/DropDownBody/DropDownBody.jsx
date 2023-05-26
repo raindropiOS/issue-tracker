@@ -1,6 +1,7 @@
 import { styled } from 'styled-components';
 import { ReactComponent as CheckOffCircle } from '../../../../assets/checkOffCircle.svg';
 import { ReactComponent as CheckOnCircle } from '../../../../assets/checkOnCircle.svg';
+import { UserIcon } from '../../../common';
 
 const DropDownBody = ({
   bodyItems, bodyCheck, handleIsOpen, headerText,
@@ -20,13 +21,8 @@ const DropDownBody = ({
           }}
         >
           <IconTextBox checked={checked}>
-            {(userImage || labelColor) && (
-              <IconLabel
-                userimage={userImage}
-                labelcolor={labelColor}
-                alt="user profile or label"
-              />
-            )}
+            {labelColor && <IconLabel labelcolor={labelColor} />}
+            {userImage && <UserIcon imgSrc={userImage} />}
             <span>{text}</span>
           </IconTextBox>
           {bodyCheck
@@ -93,9 +89,7 @@ const IconLabel = styled.div`
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  ${({ userimage, labelcolor }) => `background: ${
-    labelcolor || `url(${userimage})`
-  } no-repeat center center ;`}
+  background: ${({ labelcolor }) => labelcolor};
 `;
 
 const IconTextBox = styled.div`

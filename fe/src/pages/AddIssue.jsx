@@ -1,6 +1,7 @@
 import { styled } from 'styled-components';
 import { useEffect, useState } from 'react';
-import { UserIcon } from '../components/common';
+import { Link, useNavigate } from 'react-router-dom';
+import { Button, UserIcon } from '../components/common';
 import largeUserImage from '../assets/userImageLarge.svg';
 import SideBar from '../components/SideBar/SideBar';
 import CommentTextArea from '../components/CommentTextArea/CommentTextArea';
@@ -9,39 +10,41 @@ import TitleInput from '../components/TitleInput/TitleInput';
 const AddIssue = () => {
   const [form, setForm] = useState({ title: '', comment: '' });
 
+  // TODO: 여기부터
   const [users, setUsers] = useState([]);
   const [labels, setLabels] = useState([]);
   const [milestones, setMilestones] = useState([]);
+  // TODO: 여기까지 sidebar로 상태 내리기
 
-  const [selectedUserIds, setSelectedUserIds] = useState([]);
-  const [selectedLabelIds, setSelectedLabelIds] = useState([]);
-  const [selectedMilestoneId, setSelectedMilestoneId] = useState('');
+  const [selectedUsers, setSelectedUsers] = useState([]);
+  const [selectedLabels, setSelectedLabels] = useState([]);
+  const [selectedMilestone, setSelectedMilestone] = useState(null);
+
+  const navigate = useNavigate();
 
   const onChange = ({ target }) => {
     setForm({ ...form, [target.name]: target.value });
   };
 
-  const onLabelClick = (labelId) => {
-    setSelectedLabelIds(
-      selectedLabelIds.includes(labelId)
-        ? selectedLabelIds.filter(
-          (selectedLabelId) => selectedLabelId !== labelId,
-        )
-        : [...selectedLabelIds, labelId],
+  const onUserClick = (user) => {
+    setSelectedUsers(
+      selectedUsers.some(({ id }) => id === user.id)
+        ? selectedUsers.filter(({ id }) => id !== user.id)
+        : [...selectedUsers, user],
     );
   };
 
-  const onMilestoneClick = (milestoneId) => {
-    setSelectedMilestoneId(
-      selectedMilestoneId === milestoneId ? '' : milestoneId,
+  const onLabelClick = (label) => {
+    setSelectedLabels(
+      selectedLabels.some(({ id }) => id === label.id)
+        ? selectedLabels.filter(({ id }) => id !== label.id)
+        : [...selectedLabels, label],
     );
   };
 
-  const onUserClick = (userId) => {
-    setSelectedUserIds(
-      selectedUserIds.includes(userId)
-        ? selectedUserIds.filter((selectedUserId) => selectedUserId !== userId)
-        : [...selectedUserIds, userId],
+  const onMilestoneClick = (milestone) => {
+    setSelectedMilestone(
+      selectedMilestone?.id === milestone.id ? null : milestone,
     );
   };
 
@@ -62,24 +65,39 @@ const AddIssue = () => {
   }, []);
 
   const createIssue = () => {
+    const body = {
+      title: form.title,
+      contents: form.comment,
+      assignees: selectedUsers.map(({ id }) => id),
+      milestoneName: selectedMilestone?.id,
+      labelNames: selectedLabels.map(({ id }) => id),
+    };
+
+    // TODO: 서버에 물어보고 서버 문제면 지우기 (빈 배열일 경우 cors 오류 뜸)
+    if (body.assignees.length === 0) {
+      delete body.assignees;
+    }
+
+    if (body.labelNames.length === 0) {
+      delete body.labelNames;
+    }
+
+    // TODO: async await으로 바꾸기
     fetch('http://3.38.73.117:8080/api/issues', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        title: form.title,
-        contents: form.comment,
-        assignees: selectedUserIds,
-        milestoneName: selectedMilestoneId,
-        labelNames: selectedLabelIds,
-      }),
+      body: JSON.stringify(body),
     })
       .then((res) => {
         // TODO: 에러메시지 바꾸기
-        // TODO: 리다이렉션
-        if (!res.ok) throw new Error('에러');
-        console.log('리다이렉션으로 바꾸기');
+        // TODO: navigate 주소 상세 페이지로 바꾸기
+        if (!res.ok) {
+          console.log(res);
+          throw new Error('에러');
+        }
+        navigate('/');
       })
       .catch((e) => {
         // TODO: 에러처리 바꾸기
@@ -108,21 +126,25 @@ const AddIssue = () => {
         </InputBox>
         <SideBar
           labels={labels}
-          selectedLabelsIds={selectedLabelIds}
+          selectedLabels={selectedLabels}
           onLabelClick={onLabelClick}
           milestones={milestones}
-          selectedMilestoneId={selectedMilestoneId}
+          selectedMilestone={selectedMilestone}
           onMilestoneClick={onMilestoneClick}
           users={users}
-          selectedUserIds={selectedUserIds}
+          selectedUsers={selectedUsers}
           onUserClick={onUserClick}
         />
       </SectionBox>
       <ButtonBox>
-        <button type="button">작성 취소</button>
-        <button type="button" onClick={createIssue}>
+        <Link to="/">
+          <Button type="ghostButton" size="M">
+            x 작성 취소
+          </Button>
+        </Link>
+        <MyButton disabled={form.title.length <= 0} onClick={createIssue}>
           완료
-        </button>
+        </MyButton>
       </ButtonBox>
     </>
   );
@@ -165,4 +187,24 @@ const AddIssueCommentTextArea = styled(CommentTextArea)`
 const ButtonBox = styled.div`
   display: flex;
   justify-content: flex-end;
+  align-items: center;
+
+  gap: 32px;
+`;
+
+// TODO: 나중에 제거하기..
+const MyButton = styled.button`
+  padding: 12px 24px;
+  width: 240px;
+  height: 56px;
+  background: ${({ theme }) => theme.color.accentBackground};
+  border-radius: 16px;
+
+  font-weight: ${({ theme }) => theme.fontWeight.bold};
+  font-size: ${({ theme }) => theme.fontSize.L.size};
+  color: ${({ theme }) => theme.color.accentText};
+
+  &:hover {
+    opacity: ${({ disabled }) => (disabled ? '1' : '0.8')};
+  }
 `;

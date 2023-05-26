@@ -55,7 +55,7 @@ const IssueItem = ({
           </span>
           <span>
             <MileStoneIcon />
-            {milestone.name}
+            {milestone?.name}
           </span>
         </IssueItemAttributes>
       </IssueItemBody>

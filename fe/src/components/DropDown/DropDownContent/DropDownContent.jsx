@@ -29,7 +29,7 @@ const DropDownContentBox = styled.div`
       return 'right: 0';
     }
     if (pos === 'center') {
-      return 'left: 50%; transform: translate(-50%, 50%);';
+      return 'left: 50%; transform: translateX(-50%);';
     }
 
     return 'left: 0';

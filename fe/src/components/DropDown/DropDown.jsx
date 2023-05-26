@@ -16,9 +16,10 @@ const DropDown = ({
 
   useEffect(() => {
     const handleClickOutside = ({ target }) => {
-      if (!DropDownRef.current.contains(target)) setIsOpen(false);
+      if (!DropDownRef.current?.contains(target)) setIsOpen(false);
     };
-    document.addEventListener('click', handleClickOutside);
+
+    document.addEventListener('click', handleClickOutside, true);
 
     return () => {
       document.removeEventListener('click', handleClickOutside);

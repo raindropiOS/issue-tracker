@@ -67,6 +67,8 @@ const ButtonBox = styled.button`
         font-size: 12px;
       `;
     }
+
+    return '';
   }}
 
   border-radius: 11px;
