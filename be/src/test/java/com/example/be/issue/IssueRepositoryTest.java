@@ -186,6 +186,35 @@ class IssueRepositoryTest {
         }
 
         @Test
+        @DisplayName("milestoneName = $none 일 경우 마일스톤이 없는 이슈만 필터링한 목록을 반환한다.")
+        void issueFilteredByNoMilestone() {
+            // given
+            userRepository.save(new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
+            milestoneRepository.save(new Milestone("TEST", LocalDateTime.now(), "테스트용 마일스톤"));
+
+            IssueCreateFormDTO issueCreateFormDTO1 = new IssueCreateFormDTO("제목 1", "첫 번째 이슈 내용", null, "TEST", null);
+            issueCreateFormDTO1.setUserId("1234");
+            issueRepository.save(issueCreateFormDTO1);
+
+            IssueCreateFormDTO issueCreateFormDTO2= new IssueCreateFormDTO("제목 2", "두 번째 이슈 내용", null, "TEST", null);
+            issueCreateFormDTO2.setUserId("1234");
+            issueRepository.save(issueCreateFormDTO2);
+
+            IssueCreateFormDTO issueCreateFormDTO3 = new IssueCreateFormDTO("제목 3", "세 번째 이슈 내용", null, null, null);
+            issueCreateFormDTO3.setUserId("1234");
+            issueRepository.save(issueCreateFormDTO3);
+
+            IssueSearchCondition issueSearchCondition = getFirstPage();
+            issueSearchCondition.setMilestoneName("$none");
+
+            // when
+            List<Issue> issuesWithoutLabels = issueRepository.findIssuesWithoutLabelsBy(issueSearchCondition);
+
+            // then
+            assertThat(issuesWithoutLabels.size()).isEqualTo(1);
+        }
+
+        @Test
         @DisplayName("이슈에 담당된 유저의 아이디를 기준으로 필터링한 목록을 반환한다.")
         void issuesFilteredByAssignee() {
             // given
@@ -267,6 +296,36 @@ class IssueRepositoryTest {
 
             IssueSearchCondition issueSearchCondition = getFirstPage();
             issueSearchCondition.setLabelNames(List.of("feature", "fix"));
+
+            // when
+            List<Issue> issuesWithoutLabels = issueRepository.findIssuesWithoutLabelsBy(issueSearchCondition);
+
+            // then
+            assertThat(issuesWithoutLabels.size()).isEqualTo(1);
+        }
+
+        @Test
+        @DisplayName("labelNames = $none 일 경우 라벨이 없는 이슈만 필터링한 목록을 반환한다.")
+        void issuesFilteredByNoLabels() {
+            // given
+            userRepository.save(new User("1234", "codesquad", "BE", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/cat.jpg"));
+            labelRepository.save(new Label("feature", "기능 구현", "#000000", "#111111"));
+            labelRepository.save(new Label("fix", "버그 수정", "#000000", "#111111"));
+
+            IssueCreateFormDTO issueCreateFormDTO1 = new IssueCreateFormDTO("제목 1", "첫 번째 이슈 내용", null, null, List.of("feature"));
+            issueCreateFormDTO1.setUserId("1234");
+            issueRepository.save(issueCreateFormDTO1);
+
+            IssueCreateFormDTO issueCreateFormDTO2= new IssueCreateFormDTO("제목 2", "두 번째 이슈 내용",  null, null, List.of("fix"));
+            issueCreateFormDTO2.setUserId("1234");
+            issueRepository.save(issueCreateFormDTO2);
+
+            IssueCreateFormDTO issueCreateFormDTO3 = new IssueCreateFormDTO("제목 3", "세 번째 이슈 내용", null, null, null);
+            issueCreateFormDTO3.setUserId("1234");
+            issueRepository.save(issueCreateFormDTO3);
+
+            IssueSearchCondition issueSearchCondition = getFirstPage();
+            issueSearchCondition.setLabelNames(List.of("$none"));
 
             // when
             List<Issue> issuesWithoutLabels = issueRepository.findIssuesWithoutLabelsBy(issueSearchCondition);
