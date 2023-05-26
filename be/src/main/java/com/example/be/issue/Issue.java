@@ -32,13 +32,6 @@ public class Issue {
     public Issue() {
     }
 
-    public Issue(String title, String contents, User user) {
-        this.title = title;
-        this.contents = contents;
-        this.state = true;
-        this.user = user;
-    }
-
     public Issue(Integer number, String title, String contents, boolean state, LocalDateTime createdDate, LocalDateTime lastUpdatedDate, Milestone milestone, User user) {
         this.number = number;
         this.title = title;
