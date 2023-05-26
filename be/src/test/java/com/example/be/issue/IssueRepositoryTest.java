@@ -206,7 +206,7 @@ class IssueRepositoryTest {
             issueRepository.save(issueCreateFormDTO3);
 
             IssueSearchCondition issueSearchCondition = getFirstPage();
-            issueSearchCondition.setAssignee("hyun");
+            issueSearchCondition.setAssignees(List.of("hyun"));
 
             // when
             List<Issue> issuesWithoutLabels = issueRepository.findIssuesWithoutLabelsBy(issueSearchCondition);
@@ -236,7 +236,7 @@ class IssueRepositoryTest {
             issueRepository.save(issueCreateFormDTO3);
 
             IssueSearchCondition issueSearchCondition = getFirstPage();
-            issueSearchCondition.setAssignee("$none");
+            issueSearchCondition.setAssignees(List.of("$none"));
 
             // when
             List<Issue> issuesWithoutLabels = issueRepository.findIssuesWithoutLabelsBy(issueSearchCondition);

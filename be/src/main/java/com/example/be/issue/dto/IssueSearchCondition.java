@@ -5,21 +5,19 @@ import java.util.List;
 public class IssueSearchCondition {
 
     private String author;
-    private String assignee;
+    private List<String> assignees;
     private List<String> labelNames;
     private String milestoneName;
     private Boolean state;
-
     private int startIndex;
-
     private int cntPerPage;
 
     public IssueSearchCondition() {
     }
 
-    public IssueSearchCondition(String author, String assignee, List<String> labelNames, String milestoneName, Boolean state) {
+    public IssueSearchCondition(String author, List<String> assignees, List<String> labelNames, String milestoneName, Boolean state) {
         this.author = author;
-        this.assignee = assignee;
+        this.assignees = assignees;
         this.labelNames = labelNames;
         this.milestoneName = milestoneName;
         this.state = state;
@@ -33,12 +31,16 @@ public class IssueSearchCondition {
         this.author = author;
     }
 
-    public String getAssignee() {
-        return assignee;
+    public List<String> getAssignees() {
+        return assignees;
     }
 
-    public void setAssignee(String assignee) {
-        this.assignee = assignee;
+    public void setAssignees(List<String> assignees) {
+        this.assignees = assignees;
+    }
+
+    public Integer getAssigneesSize() {
+        return assignees.size();
     }
 
     public List<String> getLabelNames() {

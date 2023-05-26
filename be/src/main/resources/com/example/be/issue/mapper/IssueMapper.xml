@@ -9,7 +9,6 @@
         u.id, u.password, u.nickname, u.img_url from ISSUE i
         left outer join MILESTONE m on i.milestone_name = m.name
         left outer join USER u on i.user_id = u.id
-        left outer join ASSIGNS a on a.issue_number = i.number
         <where>
             <if test="state != null">
                 and i.state = #{state}
@@ -20,12 +19,24 @@
             <if test="milestoneName != null">
                 and m.name = #{milestoneName}
             </if>
-            <if test="assignee != null and assignee == '$none'.toString()">
-                and a.user_id is null
+            <!--            <if test="assignee != null and assignee == '$none'.toString()">-->
+            <!--                and a.user_id is null-->
+            <!--            </if>-->
+            <!--            <if test="assignee != null and assignee != '$none'.toString()">-->
+            <!--                and a.user_id = #{assignee}-->
+            <!--            </if>-->
+
+            <if test="assignees != null">
+                and i.number in (select a.issue_number
+                from ASSIGNS a
+                where a.user_id in
+                <foreach item="assignee" collection="assignees" open="(" close=")" separator=",">
+                    #{assignee}
+                </foreach>
+                group by a.issue_number
+                having count(*) = #{assigneesSize})
             </if>
-            <if test="assignee != null and assignee != '$none'.toString()">
-                and a.user_id = #{assignee}
-            </if>
+
             <if test="labelNames != null">
                 and i.number in (select ir.issue_number
                 from ISSUE_LABEL_RELATION ir
@@ -95,7 +106,6 @@
         from ISSUE i
         left outer join MILESTONE m on i.milestone_name = m.name
         left outer join USER u on i.user_id = u.id
-        left outer join ASSIGNS a on a.issue_number = i.number
         <where>
             <if test="state != null">
                 and i.state = #{state}
@@ -106,12 +116,23 @@
             <if test="milestoneName != null">
                 and m.name = #{milestoneName}
             </if>
-            <if test="assignee != null and assignee == '$none'.toString()">
-                and a.user_id is null
+            <!--            <if test="assignee != null and assignee == '$none'.toString()">-->
+            <!--                and a.user_id is null-->
+            <!--            </if>-->
+            <!--            <if test="assignee != null and assignee != '$none'.toString()">-->
+            <!--                and a.user_id = #{assignee}-->
+            <!--            </if>-->
+            <if test="assignees != null">
+                and i.number in (select a.issue_number
+                from ASSIGNS a
+                where a.user_id in
+                <foreach item="assignee" collection="assignees" open="(" close=")" separator=",">
+                    #{assignee}
+                </foreach>
+                group by a.issue_number
+                having count(*) = #{assigneesSize})
             </if>
-            <if test="assignee != null and assignee != '$none'.toString()">
-                and a.user_id = #{assignee}
-            </if>
+
             <if test="labelNames != null">
                 and i.number in (select ir.issue_number
                 from ISSUE_LABEL_RELATION ir

@@ -52,11 +52,6 @@ public class IssueService {
         return new IosIssueResponseDTO(issues, paging);
     }
 
-    private static void addPaginationCondition(IssueSearchCondition issueSearchCondition, Paging paging) {
-        issueSearchCondition.setStartIndex(paging.getStartIndex());
-        issueSearchCondition.setCntPerPage(paging.getCntPerPage());
-    }
-
     public AllEntitiesDTO gatherAllEntities() {
         return new AllEntitiesDTO(labelRepository.findAll(), milestoneRepository.findAll(), userRepository.findAll());
     }
@@ -99,5 +94,10 @@ public class IssueService {
         return issueMap.values().stream()
                 .sorted((o1, o2) -> o1.getNumber() - o2.getNumber())
                 .collect(Collectors.toList());
+    }
+
+    private void addPaginationCondition(IssueSearchCondition issueSearchCondition, Paging paging) {
+        issueSearchCondition.setStartIndex(paging.getStartIndex());
+        issueSearchCondition.setCntPerPage(paging.getCntPerPage());
     }
 }
