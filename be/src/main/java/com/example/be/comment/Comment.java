@@ -11,71 +11,31 @@ import java.time.LocalDateTime;
 public class Comment {
 
     @Id
-    private int id;
+    private Integer id;
 
     private String contents;
     private LocalDateTime createdData;
     private LocalDateTime lastUpdatedDate;
     private boolean deleted;
-    private User user;
-    private Issue issue;
-
-    public Comment() {
-    }
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getContents() {
         return contents;
     }
 
-    public void setContents(String contents) {
-        this.contents = contents;
-    }
-
     public LocalDateTime getCreatedData() {
         return createdData;
-    }
-
-    public void setCreatedData(LocalDateTime createdData) {
-        this.createdData = createdData;
     }
 
     public LocalDateTime getLastUpdatedDate() {
         return lastUpdatedDate;
     }
 
-    public void setLastUpdatedDate(LocalDateTime lastUpdatedDate) {
-        this.lastUpdatedDate = lastUpdatedDate;
-    }
-
     public boolean isDeleted() {
         return deleted;
     }
 
-    public void setDeleted(boolean deleted) {
-        this.deleted = deleted;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Issue getIssue() {
-        return issue;
-    }
-
-    public void setIssue(Issue issue) {
-        this.issue = issue;
-    }
 }
