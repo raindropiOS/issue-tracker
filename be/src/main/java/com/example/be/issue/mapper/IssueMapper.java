@@ -1,11 +1,8 @@
 package com.example.be.issue.mapper;
 
 import com.example.be.issue.Issue;
-import com.example.be.issue.dto.IssueCreateFormDTO;
-import com.example.be.issue.dto.IssueSearchCondition;
-import com.example.be.util.Paging;
+import com.example.be.issue.dto.*;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -20,5 +17,21 @@ public interface IssueMapper {
     void saveIssueLabelRelation(IssueCreateFormDTO issueCreateFormDTO);
 
     void saveAssignee(IssueCreateFormDTO issueCreateFormDTO);
+
+    int updateIssue(IssueUpdateFormDTO issueUpdateFormDTO);
+
+    int validIssue(int issueNumber);
+
+    int validMilestone(String milestoneName);
+
+    int validLabels(List<String> labelNames);
+
+    int insertAssigns(IssueAssignsUpdateFormDTO issueAssignsUpdateFormDTO);
+
+    void deleteAssigns(IssueAssignsUpdateFormDTO issueAssignsUpdateFormDTO);
+
+    int insertIssueLabelRelation(IssueLabelRelationUpdateFormDTO issueMilestoneUpdateFormDTO);
+
+    void deleteIssueLabelRelation(IssueLabelRelationUpdateFormDTO issueMilestoneUpdateFormDTO);
 
 }

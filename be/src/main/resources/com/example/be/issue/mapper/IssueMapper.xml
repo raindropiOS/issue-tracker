@@ -89,6 +89,58 @@
         </foreach>
     </insert>
 
+    <select id="validIssue" resultType="int" parameterType="com.example.be.issue.dto.IssueUpdateFormDTO">
+        SELECT count(*) FROM ISSUE WHERE number = #{issueNumber}
+    </select>
+
+    <select id="validMilestone" resultType="int" parameterType="com.example.be.issue.dto.IssueUpdateFormDTO">
+        SELECT count(*) FROM MILESTONE WHERE name = #{milestoneName}
+    </select>
+
+    <update id="updateIssue" parameterType="com.example.be.issue.dto.IssueUpdateFormDTO">
+        update ISSUE
+        <set>
+            <if test="state != null">state = #{state},</if>
+            <if test="title != null">title = #{title},</if>
+            <if test="contents != null">contents = #{contents},</if>
+            <if test="milestoneName != null">milestone_name = #{milestoneName},</if>
+            last_updated_date = now()
+        </set>
+        where number = #{issueNumber}
+    </update>
+
+    <insert id="insertAssigns" parameterType="com.example.be.issue.dto.IssueAssignsUpdateFormDTO">
+        insert into ASSIGNS(issue_number, user_id)
+        values
+        <foreach item="assignee" collection="assignees" separator=",">
+            (#{issueNumber}, #{assignee})
+        </foreach>
+    </insert>
+
+    <delete id="deleteAssigns" parameterType="com.example.be.issue.dto.IssueAssignsUpdateFormDTO">
+        delete from ASSIGNS where issue_number = #{issueNumber}
+    </delete>
+
+    <select id="validLabels" resultType="int" parameterType="com.example.be.issue.dto.IssueLabelRelationUpdateFormDTO">
+        SELECT count(*) FROM LABEL
+        where name in
+        <foreach item="labelName" collection="labelNames" open="(" close=")" separator=",">
+            #{labelName}
+        </foreach>
+    </select>
+
+    <insert id="insertIssueLabelRelation" parameterType="com.example.be.issue.dto.IssueLabelRelationUpdateFormDTO">
+        insert into ISSUE_LABEL_RELATION(issue_number, label_name)
+        values
+        <foreach item="labelName" collection="labelNames" separator=",">
+            (#{issueNumber}, #{labelName})
+        </foreach>
+    </insert>
+
+    <delete id="deleteIssueLabelRelation" parameterType="com.example.be.issue.dto.IssueLabelRelationUpdateFormDTO">
+        delete from ISSUE_LABEL_RELATION where issue_number = #{issueNumber}
+    </delete>
+
     <select id="findIssueSize" resultType="int"
             parameterType="com.example.be.issue.dto.IssueSearchCondition">
         select count(*)

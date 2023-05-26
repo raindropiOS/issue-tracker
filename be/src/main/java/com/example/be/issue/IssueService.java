@@ -100,4 +100,22 @@ public class IssueService {
                 .sorted((o1, o2) -> o1.getNumber() - o2.getNumber())
                 .collect(Collectors.toList());
     }
+
+    public boolean updateIssue(IssueUpdateFormDTO issueUpdateFormDTO) {
+        if (issueUpdateFormDTO.isState() == null &&
+                issueUpdateFormDTO.getTitle() == null &&
+                issueUpdateFormDTO.getContents() == null &&
+                issueUpdateFormDTO.getMilestoneName() == null) {
+            return false;
+        }
+        return issueRepository.update(issueUpdateFormDTO);
+    }
+
+    public boolean updateIssueAssigns(IssueAssignsUpdateFormDTO issueAssignsUpdateFormDTO) {
+        return issueRepository.updateAssigns(issueAssignsUpdateFormDTO);
+    }
+
+    public boolean updateIssueLabelRelation(IssueLabelRelationUpdateFormDTO issueLabelRelationUpdateFormDTO) {
+        return issueRepository.updateIssueLabelRelation(issueLabelRelationUpdateFormDTO);
+    }
 }

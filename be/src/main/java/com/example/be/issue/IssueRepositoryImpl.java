@@ -1,9 +1,7 @@
 package com.example.be.issue;
 
-import com.example.be.issue.dto.IssueCreateFormDTO;
-import com.example.be.issue.dto.IssueSearchCondition;
+import com.example.be.issue.dto.*;
 import com.example.be.issue.mapper.IssueMapper;
-import com.example.be.util.Paging;
 
 import java.util.List;
 
@@ -39,4 +37,46 @@ public class IssueRepositoryImpl implements IssueRepositoryCustom{
 
         return issueCreateFormDTO.getIssueNumber();
     }
+
+    @Override
+    public boolean update(IssueUpdateFormDTO issueUpdateFormDTO) {
+        if (issueMapper.validIssue(issueUpdateFormDTO.getIssueNumber()) != 1) {
+            return false;
+        }
+        if (issueUpdateFormDTO.getMilestoneName() != null && issueMapper.validMilestone(issueUpdateFormDTO.getMilestoneName()) != 1) {
+            return false;
+        }
+        return issueMapper.updateIssue(issueUpdateFormDTO) == 1;
+    }
+
+    @Override
+    public boolean updateAssigns(IssueAssignsUpdateFormDTO issueAssignsUpdateFormDTO) {
+        // TODO : 사용자 검증 필요
+        if (issueMapper.validIssue(issueAssignsUpdateFormDTO.getIssueNumber()) != 1) {
+            return false;
+        }
+        issueMapper.deleteAssigns(issueAssignsUpdateFormDTO);
+        if (issueAssignsUpdateFormDTO.getAssignees().size() != 0) {
+            return issueMapper.insertAssigns(issueAssignsUpdateFormDTO) == issueAssignsUpdateFormDTO.getAssignees().size();
+        }
+       return true;
+    }
+    @Override
+    public boolean updateIssueLabelRelation(IssueLabelRelationUpdateFormDTO issueLabelRelationUpdateFormDTO) {
+
+        if (issueMapper.validIssue(issueLabelRelationUpdateFormDTO.getIssueNumber()) != 1) {
+            return false;
+        }
+
+        if (issueMapper.validLabels(issueLabelRelationUpdateFormDTO.getLabelNames()) != issueLabelRelationUpdateFormDTO.getLabelNames().size()) {
+            return false;
+        }
+
+        issueMapper.deleteIssueLabelRelation(issueLabelRelationUpdateFormDTO);
+        if (issueLabelRelationUpdateFormDTO.getLabelNames().size() != 0) {
+            return issueMapper.insertIssueLabelRelation(issueLabelRelationUpdateFormDTO) == issueLabelRelationUpdateFormDTO.getLabelNames().size();
+        }
+        return true;
+    }
+
 }

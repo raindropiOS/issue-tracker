@@ -54,4 +54,28 @@ public class IssueController {
         return Map.of(fieldError.getField(), fieldError.getDefaultMessage());
     }
 
+    @PatchMapping("/api/issues")
+    public String updateIssue(@Validated @RequestBody IssueUpdateFormDTO issueUpdateFormDTO) {
+        if (issueService.updateIssue(issueUpdateFormDTO)) {
+           return "ok";
+        }
+        return "fail";
+    }
+
+    @PatchMapping("/api/issues/assigns")
+    public String updateIssueAssigns(@Validated @RequestBody IssueAssignsUpdateFormDTO issueAssignsUpdateFormDTO) {
+        if (issueService.updateIssueAssigns(issueAssignsUpdateFormDTO)) {
+            return "ok";
+        }
+        return "fail";
+    }
+
+    @PatchMapping("/api/issues/labels")
+    public String updateIssueLabelRelation(@Validated @RequestBody IssueLabelRelationUpdateFormDTO issueLabelRelationUpdateFormDTO) {
+        if (issueService.updateIssueLabelRelation(issueLabelRelationUpdateFormDTO)) {
+            return "ok";
+        }
+        return "fail";
+    }
+
 }
