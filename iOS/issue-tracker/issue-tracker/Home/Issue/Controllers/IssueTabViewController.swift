@@ -42,9 +42,13 @@ class IssueTabViewController: UIViewController, IssueCollectionViewDelegate {
             guard let cell = collectionView.cellForItem(at: indexPath) as? IssueCollectionViewCell else {
                 return
             }
+            guard let toolBar = self.toolBar else {
+                return
+            }
+            
             cell.isCheckmarked.toggle()
             let isPlus = cell.isCheckmarked
-            self.toolBar!.updateTitle(isPlus: isPlus)
+            toolBar.updateTitle(isPlus: isPlus)
             cell.subIconView.change(isCheckmarked: isPlus)
             cell.updateSubIconViewConstraints()
         }

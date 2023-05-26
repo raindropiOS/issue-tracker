@@ -30,7 +30,14 @@ class IssueSelectingToolbar: UIToolbar {
         titleItem.isEnabled = false
         leftItem = UIBarButtonItem(image: UIImage(systemName: "checkmark.circle"), style: .plain, target: nil, action: nil)
         
-        return([leftItem!, flexibleSpace, titleItem, flexibleSpace, rightItem!])
+        guard let rightItem = self.rightItem else {
+            return []
+        }
+        guard let leftItem = self.leftItem else {
+            return []
+        }
+        
+        return([leftItem, flexibleSpace, titleItem, flexibleSpace, rightItem])
     }
     
     func updateTitle(isPlus: Bool) {
@@ -54,7 +61,14 @@ class IssueSelectingToolbar: UIToolbar {
             titleItem.isEnabled = false
         }
         
-        self.setItems([leftItem!, flexibleSpace, titleItem, flexibleSpace, rightItem!], animated: true)
+        guard let rightItem = self.rightItem else {
+            return
+        }
+        guard let leftItem = self.leftItem else {
+            return
+        }
+        
+        self.setItems([leftItem, flexibleSpace, titleItem, flexibleSpace, rightItem], animated: true)
     }
     
     private func setToolBarProPerties() {
