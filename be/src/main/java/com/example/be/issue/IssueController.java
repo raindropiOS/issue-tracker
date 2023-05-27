@@ -3,9 +3,6 @@ package com.example.be.issue;
 import com.example.be.issue.dto.*;
 import com.example.be.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.validation.BindException;
-import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,13 +19,15 @@ public class IssueController {
     }
 
     @GetMapping("/api-fe/issues")
-    public FeIssueResponseDTO createFeIssueResponse(@ModelAttribute IssueSearchCondition issueSearchCondition) {
-        return issueService.makeFeIssueResponse(issueSearchCondition);
+    public FeIssueResponseDTO createFeIssueResponse(@ModelAttribute IssueSearchCondition issueSearchCondition,
+                                                    @RequestParam(required = false) Integer cntPage) {
+        return issueService.makeFeIssueResponse(issueSearchCondition, cntPage);
     }
 
     @GetMapping("/api-ios/issues")
-    public IosIssueResponseDTO createIosIssueResponse(@ModelAttribute IssueSearchCondition issueSearchCondition) {
-        return issueService.makeIosIssueResponse(issueSearchCondition);
+    public IosIssueResponseDTO createIosIssueResponse(@ModelAttribute IssueSearchCondition issueSearchCondition,
+                                                      @RequestParam(required = false) Integer cntPage) {
+        return issueService.makeIosIssueResponse(issueSearchCondition, cntPage);
     }
 
     @GetMapping("/api/issues")
@@ -44,11 +43,27 @@ public class IssueController {
         return Map.of("issueNumber", issueNumber);
     }
 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(BindException.class)
-    public Map<String, String> issueCreateFormExHandler(BindException e) {
-        FieldError fieldError = e.getBindingResult().getFieldError();
-        return Map.of(fieldError.getField(), fieldError.getDefaultMessage());
+    @PatchMapping("/api/issues")
+    public String updateIssue(@Validated @RequestBody IssueUpdateFormDTO issueUpdateFormDTO) {
+        if (issueService.updateIssue(issueUpdateFormDTO)) {
+           return "ok";
+        }
+        return "fail";
     }
 
+    @PatchMapping("/api/issues/assigns")
+    public String updateIssueAssigns(@Validated @RequestBody IssueAssignsUpdateFormDTO issueAssignsUpdateFormDTO) {
+        if (issueService.updateIssueAssigns(issueAssignsUpdateFormDTO)) {
+            return "ok";
+        }
+        return "fail";
+    }
+
+    @PatchMapping("/api/issues/labels")
+    public String updateIssueLabelRelation(@Validated @RequestBody IssueLabelRelationUpdateFormDTO issueLabelRelationUpdateFormDTO) {
+        if (issueService.updateIssueLabelRelation(issueLabelRelationUpdateFormDTO)) {
+            return "ok";
+        }
+        return "fail";
+    }
 }

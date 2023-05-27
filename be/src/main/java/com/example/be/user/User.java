@@ -1,10 +1,12 @@
 package com.example.be.user;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.domain.Persistable;
 import org.springframework.data.relational.core.mapping.Table;
 
 @Table("USER")
-public class User {
+public class User implements Persistable<String> {
 
     @Id
     private String id;
@@ -13,6 +15,19 @@ public class User {
     private String nickname;
 
     private String imgUrl;
+
+    @Transient
+    private boolean isNew = true;
+
+    @Override
+    public boolean isNew() {
+        return isNew;
+    }
+
+    public User createEntityForInsert() {
+        isNew = true;
+        return this;
+    }
 
     public User() {
     }

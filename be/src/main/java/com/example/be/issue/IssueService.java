@@ -5,14 +5,12 @@ import com.example.be.issue.dto.*;
 import com.example.be.label.LabelRepository;
 import com.example.be.milestone.MilestoneRepository;
 import com.example.be.user.UserRepository;
+import com.example.be.util.Paging;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -33,17 +31,25 @@ public class IssueService {
         this.milestoneRepository = milestoneRepository;
     }
 
-    public FeIssueResponseDTO makeFeIssueResponse(IssueSearchCondition issueSearchCondition) {
-        Collection<Issue> issues = findIssues(issueSearchCondition);
+    public FeIssueResponseDTO makeFeIssueResponse(IssueSearchCondition issueSearchCondition,
+                                                  Integer cntPage) {
+        Paging paging = new Paging(cntPage, issueRepository.findIssueSize(issueSearchCondition));
+        addPaginationCondition(issueSearchCondition, paging);
+
+        List<Issue> issues = findIssues(issueSearchCondition);
         CountDTO countDTO = issueRepository.countEntities();
         AllEntitiesDTO allEntitiesDTO = gatherAllEntities();
 
-        return new FeIssueResponseDTO(issues, countDTO, allEntitiesDTO.getAllLabels(), allEntitiesDTO.getAllMilestones(), allEntitiesDTO.getAllUsers());
+        return new FeIssueResponseDTO(issues, countDTO, allEntitiesDTO.getAllLabels(), allEntitiesDTO.getAllMilestones(), allEntitiesDTO.getAllUsers(), paging);
     }
 
-    public IosIssueResponseDTO makeIosIssueResponse(IssueSearchCondition issueSearchCondition) {
-        Collection<Issue> issues = findIssues(issueSearchCondition);
-        return new IosIssueResponseDTO(issues);
+    public IosIssueResponseDTO makeIosIssueResponse(IssueSearchCondition issueSearchCondition,
+                                                    Integer cntPage) {
+        Paging paging = new Paging(cntPage, issueRepository.findIssueSize(issueSearchCondition));
+        addPaginationCondition(issueSearchCondition, paging);
+
+        List<Issue> issues = findIssues(issueSearchCondition);
+        return new IosIssueResponseDTO(issues, paging);
     }
 
     public AllEntitiesDTO gatherAllEntities() {
@@ -51,11 +57,11 @@ public class IssueService {
     }
 
     public int createIssue(IssueCreateFormDTO issueCreateFormDTO) {
-        if (issueCreateFormDTO.getAssignees() != null) {
+        if (issueCreateFormDTO.getAssignees() != null && issueCreateFormDTO.getAssignees().size() != 0) {
             issueCreateFormDTO.setAssignees(userRepository.validateNames(issueCreateFormDTO.getAssignees()));
         }
 
-        if (issueCreateFormDTO.getLabelNames() != null) {
+        if (issueCreateFormDTO.getLabelNames() != null && issueCreateFormDTO.getLabelNames().size() != 0) {
             issueCreateFormDTO.setLabelNames(labelRepository.validateNames(issueCreateFormDTO.getLabelNames()));
         }
 
@@ -66,7 +72,25 @@ public class IssueService {
         return issueRepository.save(issueCreateFormDTO);
     }
 
-    private Collection<Issue> findIssues(IssueSearchCondition issueSearchCondition) {
+    public boolean updateIssue(IssueUpdateFormDTO issueUpdateFormDTO) {
+        if (issueUpdateFormDTO.isState() == null &&
+                issueUpdateFormDTO.getTitle() == null &&
+                issueUpdateFormDTO.getContents() == null &&
+                issueUpdateFormDTO.getMilestoneName() == null) {
+            return false;
+        }
+        return issueRepository.update(issueUpdateFormDTO);
+    }
+
+    public boolean updateIssueAssigns(IssueAssignsUpdateFormDTO issueAssignsUpdateFormDTO) {
+        return issueRepository.updateAssigns(issueAssignsUpdateFormDTO);
+    }
+
+    public boolean updateIssueLabelRelation(IssueLabelRelationUpdateFormDTO issueLabelRelationUpdateFormDTO) {
+        return issueRepository.updateIssueLabelRelation(issueLabelRelationUpdateFormDTO);
+    }
+
+    private List<Issue> findIssues(IssueSearchCondition issueSearchCondition) {
         List<Issue> issues = issueRepository.findIssuesWithoutLabelsBy(issueSearchCondition);
 
         if (issues.isEmpty()) {
@@ -85,6 +109,13 @@ public class IssueService {
         List<Assignee> assignees = issueRepository.findAssigneesBy(issueMap.keySet());
         assignees.forEach(assignee -> issueMap.get(assignee.getIssueNumber()).add(assignee));
 
-        return issueMap.values();
+        return issueMap.values().stream()
+                .sorted((o1, o2) -> o1.getNumber() - o2.getNumber())
+                .collect(Collectors.toList());
+    }
+
+    private void addPaginationCondition(IssueSearchCondition issueSearchCondition, Paging paging) {
+        issueSearchCondition.setStartIndex(paging.getStartIndex());
+        issueSearchCondition.setCntPerPage(paging.getCntPerPage());
     }
 }
