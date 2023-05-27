@@ -57,11 +57,11 @@ public class IssueService {
     }
 
     public int createIssue(IssueCreateFormDTO issueCreateFormDTO) {
-        if (issueCreateFormDTO.getAssignees() != null) {
+        if (issueCreateFormDTO.getAssignees() != null && issueCreateFormDTO.getAssignees().size() != 0) {
             issueCreateFormDTO.setAssignees(userRepository.validateNames(issueCreateFormDTO.getAssignees()));
         }
 
-        if (issueCreateFormDTO.getLabelNames() != null) {
+        if (issueCreateFormDTO.getLabelNames() != null && issueCreateFormDTO.getLabelNames().size() != 0) {
             issueCreateFormDTO.setLabelNames(labelRepository.validateNames(issueCreateFormDTO.getLabelNames()));
         }
 

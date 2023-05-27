@@ -27,11 +27,11 @@ public class IssueRepositoryImpl implements IssueRepositoryCustom{
     public int save(IssueCreateFormDTO issueCreateFormDTO) {
         issueMapper.save(issueCreateFormDTO);
 
-        if (issueCreateFormDTO.getLabelNames() != null) {
+        if (issueCreateFormDTO.getLabelNames() != null && issueCreateFormDTO.getLabelNames().size() != 0) {
             issueMapper.saveIssueLabelRelation(issueCreateFormDTO);
         }
 
-        if (issueCreateFormDTO.getAssignees() != null) {
+        if (issueCreateFormDTO.getAssignees() != null && issueCreateFormDTO.getAssignees().size() != 0) {
             issueMapper.saveAssignee(issueCreateFormDTO);
         }
 
