@@ -13,22 +13,20 @@ class IssueFilterTableViewCell: UITableViewCell {
     private var filterOption: FilterOption?
     private let checkmarkImage = UIImage(systemName: "checkmark")
     private let grayCheckmarkImage = UIImage(systemName: "checkmark")?.withTintColor(.gray, renderingMode: .alwaysOriginal)
-    private var isOptionSelected = false {
-        willSet {
-            togglableImageView.image = newValue ? checkmarkImage : grayCheckmarkImage
-        }
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
     
     func configureWith(filterOption: FilterOption) {
+        self.filterOption = filterOption
         filterOptionLabel.text = filterOption.filterLabel
-        isOptionSelected = filterOption.isSelected
+        updateCheckmark()
     }
     
     func toggleSelecting() {
-        isOptionSelected.toggle()
+        filterOption?.isSelected.toggle()
+        updateCheckmark()
+    }
+    
+    private func updateCheckmark() {
+        guard let filterOption = self.filterOption else { return }
+        togglableImageView.image = filterOption.isSelected ? checkmarkImage : grayCheckmarkImage
     }
 }

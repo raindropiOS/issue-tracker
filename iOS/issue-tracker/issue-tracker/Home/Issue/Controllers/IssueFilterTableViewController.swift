@@ -39,7 +39,6 @@ class IssueFilterTableViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         if let cell = tableView.cellForRow(at: indexPath) as? IssueFilterTableViewCell {
             cell.toggleSelecting()
-            filterOptionList?.list[indexPath.section][indexPath.row].isSelected.toggle()
         }
     }
     
