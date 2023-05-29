@@ -27,12 +27,7 @@ class IssueFilterTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 0: return filterOptionList?.list[0].count ?? 1
-        case 1: return filterOptionList?.list[1].count ?? 1
-        case 2: return filterOptionList?.list[2].count ?? 1
-        default: return 1
-        }
+        return filterOptionList?.list[section].count ?? 1
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
