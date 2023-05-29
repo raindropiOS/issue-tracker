@@ -8,26 +8,23 @@
 import UIKit
 
 class IssueFilterTableViewCell: UITableViewCell {
-
     @IBOutlet var filterOptionLabel: UILabel!
     @IBOutlet var togglableImageView: UIImageView!
-    var filterOption: FilterOption?
-    var isOptionSelected = false {
+    private var filterOption: FilterOption?
+    private let checkmarkImage = UIImage(systemName: "checkmark")
+    private let grayCheckmarkImage = UIImage(systemName: "checkmark")?.withTintColor(.gray, renderingMode: .alwaysOriginal)
+    private var isOptionSelected = false {
         willSet {
-            togglableImageView.image = newValue ? selectedImage : deselectedImage
+            togglableImageView.image = newValue ? checkmarkImage : grayCheckmarkImage
         }
     }
-    var selectedImage: UIImage?
-    var deselectedImage: UIImage?
     
     override func awakeFromNib() {
         super.awakeFromNib()
     }
     
-    func configureWith(filterOption: FilterOption, selectedImage: UIImage?, deselectedImage: UIImage?) {
+    func configureWith(filterOption: FilterOption) {
         filterOptionLabel.text = filterOption.filterLabel
-        self.selectedImage = selectedImage
-        self.deselectedImage = deselectedImage
         isOptionSelected = filterOption.isSelected
     }
     

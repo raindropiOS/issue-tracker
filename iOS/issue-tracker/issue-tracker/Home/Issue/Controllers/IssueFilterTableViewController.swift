@@ -8,8 +8,6 @@
 import UIKit
 
 class IssueFilterTableViewController: UITableViewController {
-    private let checkmarkImage = UIImage(systemName: "checkmark")
-    private let grayCheckmarkImage = UIImage(systemName: "checkmark")?.withTintColor(.gray, renderingMode: .alwaysOriginal)
     var filterOptionList: FilterOptionsLike?
     weak var delegate: IssueTabViewController?
     
@@ -33,7 +31,7 @@ class IssueFilterTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "filterOptionCell", for: indexPath) as? IssueFilterTableViewCell else { return UITableViewCell() }
         guard let filterOption = filterOptionList?.list[indexPath.section][indexPath.row] else { return UITableViewCell() }
-        cell.configureWith(filterOption: filterOption, selectedImage: checkmarkImage, deselectedImage: grayCheckmarkImage)
+        cell.configureWith(filterOption: filterOption)
         return cell
     }
     
