@@ -3,6 +3,8 @@ package com.example.be.image;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -12,11 +14,14 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class S3UploaderService {
 
     private final AmazonS3Client amazonS3Client;
+
+    private static final Logger log = LoggerFactory.getLogger(S3UploaderService.class);
 
     @Autowired
     public S3UploaderService(AmazonS3Client amazonS3Client) {
@@ -34,7 +39,8 @@ public class S3UploaderService {
     }
 
     private String upload(File uploadFile, String dirName) {
-        String fileName = dirName + "/" + uploadFile.getName();
+        String uuid = UUID.randomUUID().toString().substring(0, 8);
+        String fileName = dirName + "/" + uuid + ".jpg";
         String uploadImageUrl = putS3(uploadFile, fileName);
 
         removeNewFile(uploadFile);  // 로컬에 생성된 File 삭제 (MultipartFile -> File 전환 하며 로컬에 파일 생성됨)
@@ -52,9 +58,9 @@ public class S3UploaderService {
 
     private void removeNewFile(File targetFile) {
         if (targetFile.delete()) {
-            System.out.println("파일이 삭제되었습니다.");
+            log.info("파일이 삭제되었습니다.");
         } else {
-            System.out.println("파일이 삭제되지 못했습니다.");
+            log.info("파일이 삭제되지 못했습니다.");
         }
     }
 

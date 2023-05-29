@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Map;
 
 @RestController
 public class ImageController {
@@ -19,12 +20,12 @@ public class ImageController {
     }
 
     @PostMapping("api/image")
-    public String saveImage(@RequestParam MultipartFile imageFile) throws IOException {
+    public Map<String,String> saveImage(@RequestParam MultipartFile imageFile) throws IOException {
 
         if (!imageFile.isEmpty()) {
-            return s3UploaderService.upload(imageFile, "images");
+            return Map.of("success", s3UploaderService.upload(imageFile, "images"));
         }
 
-        return "no images";
+        return Map.of("fail", "image upload fail");
     }
 }
