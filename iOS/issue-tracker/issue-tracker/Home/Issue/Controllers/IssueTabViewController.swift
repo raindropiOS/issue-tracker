@@ -8,7 +8,7 @@
 import UIKit
 import OSLog
 
-class IssueTabViewController: UIViewController, IssueCollectionViewDelegate {
+class IssueTabViewController: UIViewController, IssueCollectionViewDelegate, IssueTabViewControllerLike {
     private var isSelectionMode: Bool = false
     private var addIssueButton: AddIssueButton?
     private var toolBar: IssueSelectingToolbar?

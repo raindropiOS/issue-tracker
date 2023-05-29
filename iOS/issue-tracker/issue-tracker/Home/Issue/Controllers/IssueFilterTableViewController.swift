@@ -9,7 +9,7 @@ import UIKit
 
 class IssueFilterTableViewController: UITableViewController {
     var filterOptionList: FilterOptionsLike?
-    weak var delegate: IssueTabViewController?
+    weak var delegate: IssueTabViewControllerLike?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,9 +69,11 @@ protocol FilterOptionsLike {
     func collectSelectedFilterOptionUrlString() -> String
 }
 
-protocol IssueTabViewControllerLike {
+protocol IssueTabViewControllerLike: AnyObject {
+    // TODO: property를 프로토콜에서 가지지 않도록 메소드를 만들거나 구조 바꾸기
+    var filterOptionList: FilterOptionsLike { get }
+    
     func setUrlString(with: String)
-    func fetchData()
 }
 
 // 취소, 저장 버튼
