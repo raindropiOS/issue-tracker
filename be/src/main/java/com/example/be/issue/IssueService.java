@@ -1,6 +1,8 @@
 package com.example.be.issue;
 
 import com.example.be.assignee.Assignee;
+import com.example.be.comment.Comment;
+import com.example.be.comment.CommentRepository;
 import com.example.be.issue.dto.*;
 import com.example.be.label.LabelRepository;
 import com.example.be.milestone.MilestoneRepository;
@@ -22,13 +24,15 @@ public class IssueService {
     private final LabelRepository labelRepository;
     private final UserRepository userRepository;
     private final MilestoneRepository milestoneRepository;
+    private final CommentRepository commentRepository;
 
     @Autowired
-    public IssueService(IssueRepository issueRepository, LabelRepository labelRepository, UserRepository userRepository, MilestoneRepository milestoneRepository) {
+    public IssueService(IssueRepository issueRepository, LabelRepository labelRepository, UserRepository userRepository, MilestoneRepository milestoneRepository, CommentRepository commentRepository) {
         this.issueRepository = issueRepository;
         this.labelRepository = labelRepository;
         this.userRepository = userRepository;
         this.milestoneRepository = milestoneRepository;
+        this.commentRepository = commentRepository;
     }
 
     public FeIssueResponseDTO makeFeIssueResponse(IssueSearchCondition issueSearchCondition,
@@ -70,6 +74,18 @@ public class IssueService {
         }
 
         return issueRepository.save(issueCreateFormDTO);
+    }
+
+    public IssueDetailedDTO findIssueDetailed(Integer issueNumber) {
+        Issue issue = issueRepository.findIssueByIssueNumber(issueNumber);
+        List<IssueNumberWithLabelDTO> issueNumberWithLabelDTOs = issueRepository.findIssueLabelMapsBy(Set.of(issueNumber));
+        List<Assignee> assignees = issueRepository.findAssigneesBy(Set.of(issueNumber));
+        List<Comment> comments = commentRepository.findCommentByIssueNumber(issueNumber);
+
+        issueNumberWithLabelDTOs.forEach(issueLabel -> issue.add(issueLabel));
+        assignees.forEach(assignee -> issue.add(assignee));
+
+        return new IssueDetailedDTO(issue, comments);
     }
 
     public boolean updateIssue(IssueUpdateFormDTO issueUpdateFormDTO) {
