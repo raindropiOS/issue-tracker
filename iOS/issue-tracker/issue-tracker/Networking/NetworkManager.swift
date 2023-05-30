@@ -6,26 +6,33 @@
 //
 
 import Foundation
+import OSLog
 
 class NetworkManager {
+    let logger = Logger()
+    let urlRequestFactory: URLRequestProducible = URLRequestFactory()
+    let issueDataDecoder: IssueDataDecodable = IssueDataDecoder()
+    
     func fetchIssueData(
-        with url: URL,
+        with urlString: String,
         completion: @escaping (Result<IssueFrameHolder, Error>) -> Void) {
-            let request = URLRequest(url: url, timeoutInterval: 3.0)
-            
-            URLSession.shared.dataTask(with: request) { (data, response, error) in
+            guard let request = urlRequestFactory.makeUrlRequest(urlString) else {
+                logger.log("Making URLRequest is failed")
+                return
+            }
+            URLSession.shared.dataTask(with: request) { (data, _, error) in
                 if let error = error {
                     completion(.failure(error))
                 }
-                
+
                 if let data = data {
                     do {
-                        let issueFrames = try JSONDecoder().decode(IssueFrameHolder.self, from: data)
+                        let issueFrames = try self.issueDataDecoder.decodeIssueData(data)
                         completion(.success(issueFrames))
                     } catch let decodeError {
                         completion(.failure(decodeError))
                     }
                 }
             }.resume()
-    }
+        }
 }
