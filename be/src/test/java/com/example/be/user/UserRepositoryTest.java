@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -34,5 +35,22 @@ class UserRepositoryTest {
 
         List<String> assignees2 = userRepository.validateNames(List.of("cir", "ghkdgus29"));
         assertThat(assignees2).containsExactlyInAnyOrder("ghkdgus29");
+    }
+
+    @Test
+    @DisplayName("특정 id의 유저를 업데이트 한다.")
+    void updateUser() {
+        // given
+        User user = new User("cire", "codesquad2", "cire", "https://issue-tracker-03.s3.ap-northeast-2.amazonaws.com/img.jpg");
+        User changeUser = new User("cire", "codesquad2", "cird", "change.jpg");
+
+        userRepository.save(user);
+
+        // when
+        User savedUser = userRepository.save(changeUser.createEntityForUpdate());
+
+        // then
+        assertThat(savedUser.getNickname()).isEqualTo(changeUser.getNickname());
+        assertThat(savedUser.getImgUrl()).isEqualTo(changeUser.getImgUrl());
     }
 }

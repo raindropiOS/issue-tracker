@@ -13,7 +13,6 @@ public class User implements Persistable<String> {
 
     private String password;
     private String nickname;
-
     private String imgUrl;
 
     @Transient
@@ -29,9 +28,19 @@ public class User implements Persistable<String> {
         return this;
     }
 
+    public User createEntityForUpdate() {
+        isNew = false;
+        return this;
+    }
+
     public User() {
     }
 
+    public User(String id, String nickname, String imgUrl) {
+        this.id = id;
+        this.nickname = nickname;
+        this.imgUrl = imgUrl;
+    }
 
     public User(String id, String password, String nickname, String imgUrl) {
         this.id = id;
