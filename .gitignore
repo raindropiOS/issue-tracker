@@ -4,3 +4,5 @@ be/bin/
 be/.gradle/
 be/build/
 .DS_Store
+be/src/main/resources/application.properties
+be/src/test/resources/application.properties
