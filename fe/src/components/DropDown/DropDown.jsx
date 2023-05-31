@@ -19,7 +19,7 @@ const DropDown = ({
       if (!DropDownRef.current?.contains(target)) setIsOpen(false);
     };
 
-    document.addEventListener('click', handleClickOutside, true);
+    document.addEventListener('click', handleClickOutside);
 
     return () => {
       document.removeEventListener('click', handleClickOutside);

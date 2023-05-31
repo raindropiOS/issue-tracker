@@ -1,18 +1,22 @@
 import { styled } from 'styled-components';
+import { useEffect, useState } from 'react';
 import DropDown from '../DropDown/DropDown';
 import { Label, UserIcon } from '../common';
 
 const SideBar = ({
-  labels,
   selectedLabels,
   onLabelClick,
-  milestones,
   selectedMilestone,
   onMilestoneClick,
-  users,
   selectedUsers,
   onUserClick,
 }) => {
+  // TODO: 여기부터
+  const [users, setUsers] = useState([]);
+  const [labels, setLabels] = useState([]);
+  const [milestones, setMilestones] = useState([]);
+  // TODO: 여기까지 sidebar로 상태 내리기
+
   const usersConfig = {
     buttonText: '담당자',
     bodyItems: users.map((user) => {
@@ -67,8 +71,23 @@ const SideBar = ({
     pos: 'center',
     marginTop: '30px',
   };
+
+  const fetchAddIssueData = async () => {
+    // TODO: url 바꾸기
+    const data = await fetch('http://3.38.73.117:8080/api-fe/issues');
+    const res = await data.json();
+
+    setLabels(res.allLabels);
+    setMilestones(res.allMilestones);
+    setUsers(res.allUsers);
+  };
+
+  useEffect(() => {
+    fetchAddIssueData();
+  }, []);
+
   return (
-    <div style={{ flexGrow: 1 }}>
+    <div>
       <SideBarBox>
         <SideBarRow>
           <SideBarDropDown config={usersConfig} />
