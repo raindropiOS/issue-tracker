@@ -38,6 +38,7 @@ class IssueFilterTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         if let cell = tableView.cellForRow(at: indexPath) as? IssueFilterTableViewCell {
+            filterOptionList?.list[indexPath.section][indexPath.row].isSelected.toggle()
             cell.toggleSelecting()
         }
     }
@@ -96,9 +97,12 @@ extension IssueFilterTableViewController {
     }
     
     @objc func saveAction() {
-        let filterUrlString = delegate?.filterOptionList.collectSelectedFilterOptionUrlString() ?? ""
-        let newUrlString = Server.base.rawValue + filterUrlString
-        delegate?.setUrlString(with: newUrlString)
+        if let savedFilterOptionList = self.filterOptionList {
+            let filterUrlString = savedFilterOptionList.collectSelectedFilterOptionUrlString()
+            let newUrlString = Server.base.rawValue + filterUrlString
+            delegate?.setUrlString(with: newUrlString)
+            delegate?.filterOptionList = savedFilterOptionList
+        }
         dismissSelf()
     }
 }

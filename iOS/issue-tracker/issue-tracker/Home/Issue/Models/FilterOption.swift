@@ -7,7 +7,7 @@
 
 import Foundation
 
-class FilterOption {
+struct FilterOption {
     let filterLabel: String
     let filterUrlStr: String?
     var isSelected: Bool
