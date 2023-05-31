@@ -30,6 +30,11 @@ public class IssueController {
         return issueService.makeIosIssueResponse(issueSearchCondition, cntPage);
     }
 
+    @GetMapping("/api/issue/{issueNumber}")
+    public IssueDetailedDTO showIssue(@PathVariable Integer issueNumber) {
+        return issueService.findIssueDetailed(issueNumber);
+    }
+
     @GetMapping("/api/issues")
     public AllEntitiesDTO showIssueWriteForm() {
         return issueService.gatherAllEntities();
