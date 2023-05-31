@@ -1,9 +1,6 @@
 import styled from 'styled-components';
 import { useContext } from 'react';
-import CheckBox from './CheckBox/CheckBox';
 import IssueItem from './IssueItem/IssueItem';
-import IssueStatusButtons from './TableToolBar/IssueStatusButtons/IssueStatusButtons';
-import TableFilterButtons from './TableToolBar/TableFilterButtons/TableFilterButtons';
 import TableToolBar from './TableToolBar/TableToolBar';
 import {
   MainPageContext,
@@ -14,23 +11,17 @@ import { Button } from '../common';
 import { OPENED, RESET } from '../../constants';
 import { ReactComponent as xSquare } from '../../assets/xSquare.svg';
 import { setFilterOption } from '../../context/MainPage/MainPageActions';
+import { CheckBoxActive, CheckBoxDisabled, CheckBoxInitial } from './CheckBox';
+import IssueListFilters from './TableToolBar/IssueListFilters';
+import IssueListModifier from './TableToolBar/IssueListModifier';
+// eslint-disable-next-line import/no-named-as-default
+import useSelectedIssues from '../../hooks/useSelectedIssues';
+import Pagination from './Pagination';
 
 const IssueTable = () => {
-  const { issues, filterOptions, loading } = useContext(MainPageContext);
+  const { issues, filterOptions } = useContext(MainPageContext);
   const dispatch = useContext(MainPageDispatchContext);
-
-  let content;
-
-  if (loading) {
-    // TODO(덴): 스피너 기능에 대한 고민 필요. 굳이 필요한가?
-    // content = <Spinner />;
-  } else if (issues.length) {
-    content = issues.map((issue) => (
-      <IssueItem key={issue.number} {...issue} />
-    ));
-  } else {
-    content = <NoticeBox>검색과 일치하는 결과가 없습니다.</NoticeBox>;
-  }
+  const { selectedIssues, addSelectedIssue, handleAllSelectedIssue } = useSelectedIssues(issues);
 
   const isFilterApplied = Object.values(filterOptions).some(
     (option) => option !== null
@@ -38,6 +29,39 @@ const IssueTable = () => {
       && option.length > 0
       && option !== OPENED,
   );
+
+  const issueItems = issues
+    && issues.length !== 0
+    && issues.map((issue) => (
+      <IssueItem
+        key={issue.number}
+        {...issue}
+        handleCheckboxChange={addSelectedIssue}
+        isChecked={selectedIssues.includes(issue.number)}
+      />
+    ));
+
+  let CheckBox;
+
+  if (selectedIssues.length === issues.length) {
+    CheckBox = (
+      <CheckBoxActive
+        handleCheckboxChange={() => handleAllSelectedIssue(false)}
+      />
+    );
+  } else if (selectedIssues.length) {
+    CheckBox = (
+      <CheckBoxDisabled
+        handleCheckboxChange={() => handleAllSelectedIssue(true)}
+      />
+    );
+  } else {
+    CheckBox = (
+      <CheckBoxInitial
+        handleCheckboxChange={() => handleAllSelectedIssue(true)}
+      />
+    );
+  }
 
   return (
     <div>
@@ -63,11 +87,22 @@ const IssueTable = () => {
         ''
       )}
       <TableToolBar>
-        <CheckBox />
-        <IssueStatusButtons />
-        <TableFilterButtons />
+        {CheckBox}
+        {selectedIssues.length ? (
+          <IssueListModifier
+            selectedIssues={selectedIssues}
+            issueListTotalCount={selectedIssues.length}
+          />
+        ) : (
+          <IssueListFilters />
+        )}
       </TableToolBar>
-      <IssueItemList>{content}</IssueItemList>
+      {issueItems ? (
+        <IssueItemList>{issueItems}</IssueItemList>
+      ) : (
+        <NoticeBox>검색과 일치하는 결과가 없습니다.</NoticeBox>
+      )}
+      <Pagination />
     </div>
   );
 };
