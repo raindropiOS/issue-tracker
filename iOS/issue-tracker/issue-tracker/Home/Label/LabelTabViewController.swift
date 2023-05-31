@@ -14,6 +14,7 @@ class LabelTabViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setAddButton()
+        setCollectionView()
     }
     
     private func setAddButton() {
@@ -25,4 +26,18 @@ class LabelTabViewController: UIViewController {
         
     }
     
+    private func setCollectionView() {
+           collectionView = LabelTabCollectionView(frame: CGRect(), collectionViewLayout: UICollectionViewFlowLayout())
+           self.view.addSubview(collectionView)
+           
+           collectionView.translatesAutoresizingMaskIntoConstraints = false
+           
+           NSLayoutConstraint.activate([
+               collectionView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+               collectionView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+               collectionView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+               collectionView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
+           ])
+       }
+
 }
