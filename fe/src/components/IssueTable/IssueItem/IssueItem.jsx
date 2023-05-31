@@ -72,7 +72,6 @@ const IssueItemBox = styled.li`
   flex-direction: row;
 
   padding: 24px;
-  background: ${({ theme }) => theme.color.neutralBackgroundStrong};
 
   > div {
     padding: 0 33px;
