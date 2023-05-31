@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import IssueItem from './IssueItem/IssueItem';
 import TableToolBar from './TableToolBar/TableToolBar';
 import {
@@ -14,14 +14,38 @@ import { setFilterOption } from '../../context/MainPage/MainPageActions';
 import { CheckBoxActive, CheckBoxDisabled, CheckBoxInitial } from './CheckBox';
 import IssueListFilters from './TableToolBar/IssueListFilters';
 import IssueListModifier from './TableToolBar/IssueListModifier';
-// eslint-disable-next-line import/no-named-as-default
-import useSelectedIssues from '../../hooks/useSelectedIssues';
 import Pagination from './Pagination';
 
 const IssueTable = () => {
   const { issues, filterOptions } = useContext(MainPageContext);
   const dispatch = useContext(MainPageDispatchContext);
-  const { selectedIssues, addSelectedIssue, handleAllSelectedIssue } = useSelectedIssues(issues);
+  const [selectedIssues, setSelectedIssues] = useState([]);
+
+  useEffect(() => {
+    setSelectedIssues([]);
+  }, [issues]);
+
+  const addSelectedIssue = (issueNumber, checked) => {
+    if (checked) {
+      setSelectedIssues((prevSelectedIssues) => [
+        ...prevSelectedIssues,
+        issueNumber,
+      ]);
+    } else {
+      setSelectedIssues((prevSelectedIssues) => {
+        return prevSelectedIssues.filter((number) => number !== issueNumber);
+      });
+    }
+  };
+
+  const handleAllSelectedIssue = (checked) => {
+    if (checked) {
+      const allIssueNumbers = issues.map((issue) => issue.number);
+      setSelectedIssues(allIssueNumbers);
+    } else {
+      setSelectedIssues([]);
+    }
+  };
 
   const isFilterApplied = Object.values(filterOptions).some(
     (option) => option !== null
