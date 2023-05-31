@@ -1,5 +1,6 @@
 package com.example.be.oauth;
 
+import com.example.be.oauth.dto.UserInfoDTO;
 import com.example.be.user.User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,12 +13,10 @@ import java.util.Map;
 public class LoginController {
 
     @GetMapping("/")
-    public Map<String, String> login(HttpSession session) throws IOException {
+    public UserInfoDTO login(HttpSession session) throws IOException {
         User sessionUser = (User) session.getAttribute("sessionUser");
 
-        return Map.of("userId", sessionUser.getId(),
-                "nickName", sessionUser.getNickname(),
-                "avatarUrl", sessionUser.getImgUrl());
+        return new UserInfoDTO(sessionUser.getId(), sessionUser.getNickname(), sessionUser.getImgUrl());
     }
 
     @GetMapping("/login")
