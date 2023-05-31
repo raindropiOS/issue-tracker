@@ -54,7 +54,7 @@ class IssueTabViewController: UIViewController, IssueCollectionViewDelegate {
         }
     }
     
-    func resetCellSelection() {
+    private func resetCellSelection() {
         for indexPath in collectionView.indexPathsForVisibleItems {
             guard let cell = collectionView.cellForItem(at: indexPath) as? IssueCollectionViewCell else {
                 continue
@@ -64,6 +64,18 @@ class IssueTabViewController: UIViewController, IssueCollectionViewDelegate {
             cell.updateSubIconViewConstraints()
         }
         self.toolBar?.resetTitle()
+    }
+    
+    private func updateTopTitle() {
+        guard let header = collectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, at: IndexPath(item: 0, section: 0)) as? IssueCollectionViewHeaderCell else {
+            return
+        }
+        
+        if isSelectionMode {
+            header.title.text = "이슈선택"
+        } else {
+            header.title.text = "이슈"
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -125,6 +137,7 @@ class IssueTabViewController: UIViewController, IssueCollectionViewDelegate {
         self.navigationItem.rightBarButtonItem = cancelButton
         self.addIssueButton?.isHidden = true
         self.isSelectionMode.toggle()
+        self.updateTopTitle()
     }
     
     @objc private func cancelButtonTouched() {
@@ -135,6 +148,7 @@ class IssueTabViewController: UIViewController, IssueCollectionViewDelegate {
         self.addIssueButton?.isHidden = false
         self.isSelectionMode.toggle()
         self.resetCellSelection()
+        self.updateTopTitle()
     }
     
     private func fetchData() {
