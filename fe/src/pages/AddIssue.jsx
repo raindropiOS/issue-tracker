@@ -10,12 +10,6 @@ import TitleInput from '../components/TitleInput/TitleInput';
 const AddIssue = () => {
   const [form, setForm] = useState({ title: '', comment: '' });
 
-  // TODO: 여기부터
-  const [users, setUsers] = useState([]);
-  const [labels, setLabels] = useState([]);
-  const [milestones, setMilestones] = useState([]);
-  // TODO: 여기까지 sidebar로 상태 내리기
-
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [selectedLabels, setSelectedLabels] = useState([]);
   const [selectedMilestone, setSelectedMilestone] = useState(null);
@@ -50,19 +44,6 @@ const AddIssue = () => {
 
   // TODO: 이름 바꾸기
   // TODO: loader로 뺄지 고민해보기?
-  const fetchAddIssueData = async () => {
-    // TODO: url 바꾸기
-    const data = await fetch('http://3.38.73.117:8080/api-fe/issues');
-    const res = await data.json();
-
-    setLabels(res.allLabels);
-    setMilestones(res.allMilestones);
-    setUsers(res.allUsers);
-  };
-
-  useEffect(() => {
-    fetchAddIssueData();
-  }, []);
 
   const createIssue = () => {
     const body = {
@@ -125,13 +106,10 @@ const AddIssue = () => {
           />
         </InputBox>
         <SideBar
-          labels={labels}
           selectedLabels={selectedLabels}
           onLabelClick={onLabelClick}
-          milestones={milestones}
           selectedMilestone={selectedMilestone}
           onMilestoneClick={onMilestoneClick}
-          users={users}
           selectedUsers={selectedUsers}
           onUserClick={onUserClick}
         />

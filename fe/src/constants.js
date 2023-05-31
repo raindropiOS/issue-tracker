@@ -8,7 +8,7 @@ export const ISSUE_STATE = 'issueState';
 export const NONE = '$none';
 export const ASSIGNEE = {
   KO: '담당자',
-  KEY: 'assignee',
+  KEY: 'assignees',
 };
 export const LABELS = {
   KO: '레이블',

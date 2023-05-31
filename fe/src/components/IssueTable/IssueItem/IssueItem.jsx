@@ -2,11 +2,11 @@
 /* eslint-disable camelcase */
 import styled from 'styled-components';
 import React from 'react';
-import CheckBox from '../CheckBox/CheckBox';
 import { ReactComponent as alertCircle } from '../../../assets/alertCircle.svg';
 import { ReactComponent as mileStone } from '../../../assets/mileStone.svg';
 import { ReactComponent as archive } from '../../../assets/archive.svg';
 import { Label, UserIcon } from '../../common';
+import { CheckBoxActive, CheckBoxInitial } from '../CheckBox';
 
 // TODO(덴): 방어로직 구현 필요
 const IssueItem = ({
@@ -18,7 +18,19 @@ const IssueItem = ({
   labels,
   milestone,
   user,
+  handleCheckboxChange,
+  isChecked,
 }) => {
+  const CheckBox = isChecked ? (
+    <CheckBoxActive
+      handleCheckboxChange={() => handleCheckboxChange(number, false)}
+    />
+  ) : (
+    <CheckBoxInitial
+      handleCheckboxChange={() => handleCheckboxChange(number, true)}
+    />
+  );
+
   const getTimeDifference = () => {
     const currentTime = new Date();
     const issueTime = new Date(lastUpdatedDate || createdDate);
@@ -36,7 +48,7 @@ const IssueItem = ({
 
   return (
     <IssueItemBox>
-      <CheckBox />
+      {CheckBox}
       <IssueItemBody>
         <IssueItemTitle>
           {state ? <AlertCircleIcon /> : <Archive />}
