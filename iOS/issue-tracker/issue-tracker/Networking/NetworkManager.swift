@@ -39,8 +39,7 @@ class NetworkManager {
     
     func queryIssueData(
         with query: [String: String],
-        completion: @escaping (Result<IssueFrameHolder, Error>) -> Void)
-    {
+        completion: @escaping (Result<IssueFrameHolder, Error>) -> Void) {
         guard var urlComponents = URLComponents(string: baseUrlString) else {
             logger.log("queryIssueData : URLComponents 생성 실패")
             return
@@ -51,8 +50,6 @@ class NetworkManager {
             logger.log("queryIssueData : URL 생성 실패")
             return
         }
-        #warning("print문 삭제")
-        print(url)
         let request = URLRequest(url: url, timeoutInterval: 30.0)
         URLSession.shared.dataTask(with: request) { (data, _, error) in
             if let error = error {
