@@ -1,18 +1,33 @@
 import { styled } from 'styled-components';
-import { useState } from 'react';
 import Comment from '../Comment/Comment';
 import CommentTextArea from '../CommentTextArea/CommentTextArea';
 
-const CommentList = ({ className }) => {
-  const [value, setValue] = useState('');
-
+const CommentList = ({
+  className,
+  issue,
+  comments,
+  textAreaValue,
+  handleTextAreaChange,
+}) => {
   return (
     <CommentListBox className={className}>
-      <Comment />
-      <Comment />
+      <Comment
+        author={issue.user}
+        createdDate={issue.createdDate}
+        contents={issue.contents}
+      />
+      {comments.map((comment) => {
+        return (
+          <Comment
+            key={comment.id}
+            createdDate={comment.createdData}
+            contents={comment.contents}
+          />
+        );
+      })}
       <CommentTextArea
-        value={value}
-        onChange={setValue}
+        value={textAreaValue}
+        onChange={handleTextAreaChange}
         placeholder="코멘트를 입력하세요"
       />
     </CommentListBox>

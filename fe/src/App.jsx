@@ -23,7 +23,7 @@ const router = createBrowserRouter([
         ),
       },
       { path: '/add-issue', element: <AddIssue /> },
-      { path: '/issue-detail', element: <IssueDetail /> },
+      { path: '/issue-detail/:issuenumber', element: <IssueDetail /> },
     ],
   },
 ]);

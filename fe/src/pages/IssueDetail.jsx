@@ -1,5 +1,6 @@
 import { styled } from 'styled-components';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import CommentList from '../components/CommentList/CommentList';
 import SideBar from '../components/SideBar/SideBar';
 import { Button } from '../components/common';
@@ -12,6 +13,24 @@ const IssueDetail = () => {
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [selectedLabels, setSelectedLabels] = useState([]);
   const [selectedMilestone, setSelectedMilestone] = useState(null);
+
+  const [issueInfo, setIssueInfo] = useState({
+    user: {},
+    title: '',
+    number: null,
+    contents: '',
+    state: null,
+    createdDate: '',
+    assignees: [],
+    labels: [],
+    milestone: null,
+  });
+  const [comments, setComments] = useState([]);
+
+  const [textAreaValue, setTextAreaValue] = useState('');
+
+  const params = useParams();
+  const issueNumber = params.issuenumber;
 
   const onChange = ({ target }) => setEditTitleValue(target.value);
   const toggleIsEditTitle = () => setIsEditTitle((prev) => !prev);
@@ -38,6 +57,84 @@ const IssueDetail = () => {
     );
   };
 
+  const onSubmitTitleClick = () => {
+    fetch('http://3.38.73.117:8080/api/issues', {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        issueNumber,
+        title: editTitleValue,
+      }),
+    })
+      .then(() => {
+        return fetch(`http://3.38.73.117:8080/api/issue/${issueNumber}`);
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        setIssueInfo(data.issue);
+        setComments(data.comments);
+        setEditTitleValue(data.issue.title);
+        setIsEditTitle(false);
+      });
+  };
+
+  const onSubmitCommentClick = () => {
+    fetch(`http://3.38.73.117:8080/api/issues/${issueNumber}/comments`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        contents: textAreaValue,
+      }),
+    })
+      .then(() => {
+        setTextAreaValue('');
+
+        return fetch(`http://3.38.73.117:8080/api/issue/${issueNumber}`);
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        setIssueInfo(data.issue);
+        setComments(data.comments);
+      });
+  };
+
+  const onToggleOpenClick = () => {
+    fetch('http://3.38.73.117:8080/api/issues', {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        issueNumber,
+        state: !issueInfo.state,
+      }),
+    })
+      .then(() => {
+        return fetch(`http://3.38.73.117:8080/api/issue/${issueNumber}`);
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        setIssueInfo(data.issue);
+        setComments(data.comments);
+      });
+  };
+
+  useEffect(() => {
+    fetch(`http://3.38.73.117:8080/api/issue/${issueNumber}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setIssueInfo(data.issue);
+        setComments(data.comments);
+        setEditTitleValue(data.issue.title);
+      });
+  }, []);
+
+  console.log(issueInfo);
+
   const headerContents = isEditTitle ? (
     <>
       <HeaderBox>
@@ -59,6 +156,7 @@ const IssueDetail = () => {
           gap="4px"
           color="accentText"
           backgroundColor="accentBorderWeak"
+          onclick={onSubmitTitleClick}
         >
           편집 완료
         </Button>
@@ -67,8 +165,11 @@ const IssueDetail = () => {
   ) : (
     <>
       <HeaderBox>
-        <IssueDetailHeader>FE 이슈트래커 디자인 시스템 구현</IssueDetailHeader>
-        <IssueNumberSpan>#2</IssueNumberSpan>
+        <IssueDetailHeader>{issueInfo.title}</IssueDetailHeader>
+        <IssueNumberSpan>
+          #
+          {issueInfo.number}
+        </IssueNumberSpan>
       </HeaderBox>
       <ButtonsBox>
         <Button
@@ -85,8 +186,9 @@ const IssueDetail = () => {
           size="S"
           gap="4px"
           color="accentBorderWeak"
+          onclick={onToggleOpenClick}
         >
-          이슈 닫기
+          {issueInfo.state ? '이슈 닫기' : '이슈 열기'}
         </Button>
       </ButtonsBox>
     </>
@@ -96,16 +198,25 @@ const IssueDetail = () => {
     <>
       <HeaderButtonsBox>{headerContents}</HeaderButtonsBox>
       <IssueInfoBox>
-        <StatusSpan>열린 이슈</StatusSpan>
+        <StatusSpan>{issueInfo.state ? '열린 이슈' : '닫힌 이슈'}</StatusSpan>
         <IssueInfoSpan>
-          이 이슈가 3분 전에 sam님에 의해 열렸습니다
+          {`이 이슈가 3분 전에 ${issueInfo.user.nickname}님에 의해 열렸습니다`}
         </IssueInfoSpan>
-        <IssueInfoSpan>코멘트 2개</IssueInfoSpan>
+        <IssueInfoSpan>{`코멘트 ${comments.length}개`}</IssueInfoSpan>
       </IssueInfoBox>
       <SectionBox>
         <IssueDetailBox>
-          <CommentList />
-          <MyButton style={{ alignSelf: 'end' }} type="button">
+          <CommentList
+            issue={issueInfo}
+            comments={comments}
+            textAreaValue={textAreaValue}
+            handleTextAreaChange={({ target }) => setTextAreaValue(target.value)}
+          />
+          <MyButton
+            style={{ alignSelf: 'end' }}
+            type="button"
+            onClick={onSubmitCommentClick}
+          >
             + 코멘트 작성
           </MyButton>
         </IssueDetailBox>
