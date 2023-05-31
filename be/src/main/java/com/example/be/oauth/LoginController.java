@@ -1,5 +1,6 @@
 package com.example.be.oauth;
 
+import com.example.be.oauth.dto.SessionConst;
 import com.example.be.oauth.dto.UserInfoDTO;
 import com.example.be.user.User;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +15,7 @@ public class LoginController {
 
     @GetMapping("/")
     public UserInfoDTO login(HttpSession session) throws IOException {
-        User sessionUser = (User) session.getAttribute("sessionUser");
+        User sessionUser = (User) session.getAttribute(SessionConst.USER);
 
         return new UserInfoDTO(sessionUser.getId(), sessionUser.getNickname(), sessionUser.getImgUrl());
     }

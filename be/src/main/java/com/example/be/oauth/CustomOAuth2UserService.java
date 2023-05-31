@@ -1,5 +1,6 @@
 package com.example.be.oauth;
 
+import com.example.be.oauth.dto.SessionConst;
 import com.example.be.user.User;
 import com.example.be.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,10 @@ import java.util.Collections;
 @Transactional
 public class CustomOAuth2UserService implements OAuth2UserService {
 
+    private static final String ID = "login";
+    private static final String NICKNAME = "name";
+    private static final String IMG_URL = "avatar_url";
+
     private final UserRepository userRepository;
     private final HttpSession session;
 
@@ -35,17 +40,17 @@ public class CustomOAuth2UserService implements OAuth2UserService {
         OAuth2User oAuth2User = service.loadUser(userRequest);
 
         User user = saveOrUpdate(oAuth2User);
-        session.setAttribute("sessionUser", user);
+        session.setAttribute(SessionConst.USER, user);
 
         return new DefaultOAuth2User(
                 Collections.singleton(new SimpleGrantedAuthority(user.getId())),
-                oAuth2User.getAttributes(), "login");
+                oAuth2User.getAttributes(), ID);
     }
 
     private User saveOrUpdate(OAuth2User oAuth2User) {
-        User user = new User(oAuth2User.getAttribute("login"),
-                oAuth2User.getAttribute("name"),
-                oAuth2User.getAttribute("avatar_url"));
+        User user = new User(oAuth2User.getAttribute(ID),
+                oAuth2User.getAttribute(NICKNAME),
+                oAuth2User.getAttribute(IMG_URL));
 
         if (userRepository.existsById(user.getId())) {
             return userRepository.save(user.createEntityForUpdate());
