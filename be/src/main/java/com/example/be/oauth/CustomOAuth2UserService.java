@@ -48,7 +48,12 @@ public class CustomOAuth2UserService implements OAuth2UserService {
                 oAuth2User.getAttribute("name"),
                 oAuth2User.getAttribute("avatar_url"));
 
-        return userRepository.save(user.createEntityForUpdate());
+        if (userRepository.existsById(user.getId())) {
+            System.out.println("ho");
+            return userRepository.save(user.createEntityForUpdate());
+        }
+
+        return userRepository.save(user.createEntityForInsert());
     }
 
 }
