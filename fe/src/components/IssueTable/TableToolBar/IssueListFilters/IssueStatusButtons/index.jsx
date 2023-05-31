@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 import { useContext } from 'react';
-import { ReactComponent as alertCircle } from '../../../../assets/alertCircle.svg';
-import { ReactComponent as archive } from '../../../../assets/archive.svg';
-import { Button } from '../../../common';
-import { CLOSED, ISSUE_STATE, OPENED } from '../../../../constants';
+import { ReactComponent as alertCircle } from '../../../../../assets/alertCircle.svg';
+import { ReactComponent as archive } from '../../../../../assets/archive.svg';
+import { Button } from '../../../../common';
+import { CLOSED, ISSUE_STATE, OPENED } from '../../../../../constants';
 import {
   MainPageContext,
   MainPageDispatchContext,
-} from '../../../../context/MainPage/MainPageContext';
-import { setFilterOption } from '../../../../context/MainPage/MainPageActions';
+} from '../../../../../context/MainPage/MainPageContext';
+import { setFilterOption } from '../../../../../context/MainPage/MainPageActions';
 
 const IssueStatusButtons = () => {
   const {
