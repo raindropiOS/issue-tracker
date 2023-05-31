@@ -5,6 +5,7 @@ import CommentList from '../components/CommentList/CommentList';
 import SideBar from '../components/SideBar/SideBar';
 import { Button } from '../components/common';
 import TitleEditInput from '../components/TitleEditInput/TitleEditInput';
+import { getElapsedTime } from '../utils/utils';
 
 const IssueDetail = () => {
   const [isEditTitle, setIsEditTitle] = useState(false);
@@ -133,8 +134,6 @@ const IssueDetail = () => {
       });
   }, []);
 
-  console.log(issueInfo);
-
   const headerContents = isEditTitle ? (
     <>
       <HeaderBox>
@@ -200,7 +199,9 @@ const IssueDetail = () => {
       <IssueInfoBox>
         <StatusSpan>{issueInfo.state ? '열린 이슈' : '닫힌 이슈'}</StatusSpan>
         <IssueInfoSpan>
-          {`이 이슈가 3분 전에 ${issueInfo.user.nickname}님에 의해 열렸습니다`}
+          {`이 이슈가 ${getElapsedTime(issueInfo.createdDate)}에 ${
+            issueInfo.user.nickname
+          }님에 의해 열렸습니다`}
         </IssueInfoSpan>
         <IssueInfoSpan>{`코멘트 ${comments.length}개`}</IssueInfoSpan>
       </IssueInfoBox>

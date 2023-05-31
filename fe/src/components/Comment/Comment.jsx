@@ -1,6 +1,7 @@
 import { styled } from 'styled-components';
 import { UserIcon } from '../common';
 import smile from '../../assets/smile.svg';
+import { getElapsedTime } from '../../utils/utils';
 
 const Comment = ({ author, createdDate, contents }) => {
   return (
@@ -9,7 +10,7 @@ const Comment = ({ author, createdDate, contents }) => {
         <UserInfoBox>
           <UserIcon imgSrc={author?.imgUrl} />
           <span>{author?.nickname}</span>
-          <span>{createdDate}</span>
+          <span>{getElapsedTime(createdDate)}</span>
         </UserInfoBox>
         <LabelBox>
           <img src={smile} alt="smile" />
