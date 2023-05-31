@@ -7,13 +7,13 @@ import {
   LABELS,
   MILESTONE,
   NONE,
-} from '../../../../constants';
-import { setFilterOption } from '../../../../context/MainPage/MainPageActions';
+} from '../../../../../constants';
+import { setFilterOption } from '../../../../../context/MainPage/MainPageActions';
 import {
   MainPageContext,
   MainPageDispatchContext,
-} from '../../../../context/MainPage/MainPageContext';
-import DropDown from '../../../DropDown/DropDown';
+} from '../../../../../context/MainPage/MainPageContext';
+import DropDown from '../../../../DropDown/DropDown';
 
 // TODO(덴): DropDown Config 변환해주는 함수 유틸로 빼보기.
 const convertOptionItems = (
