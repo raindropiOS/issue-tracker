@@ -35,8 +35,7 @@ public class CustomOAuth2UserService implements OAuth2UserService {
         OAuth2User oAuth2User = service.loadUser(userRequest);
 
         User user = saveOrUpdate(oAuth2User);
-
-        session.setAttribute("oAuthToken", userRequest.getAccessToken().getTokenValue());
+        session.setAttribute("sessionUser", user);
 
         return new DefaultOAuth2User(
                 Collections.singleton(new SimpleGrantedAuthority(user.getId())),
@@ -49,7 +48,6 @@ public class CustomOAuth2UserService implements OAuth2UserService {
                 oAuth2User.getAttribute("avatar_url"));
 
         if (userRepository.existsById(user.getId())) {
-            System.out.println("ho");
             return userRepository.save(user.createEntityForUpdate());
         }
 
