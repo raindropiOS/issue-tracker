@@ -1,5 +1,6 @@
+/* eslint-disable no-console */
 import { styled } from 'styled-components';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button, UserIcon } from '../components/common';
 import largeUserImage from '../assets/userImageLarge.svg';
@@ -105,7 +106,7 @@ const AddIssue = () => {
             placeholder="코멘트를 입력하세요"
           />
         </InputBox>
-        <SideBar
+        <AddIssueSideBar
           selectedLabels={selectedLabels}
           onLabelClick={onLabelClick}
           selectedMilestone={selectedMilestone}
@@ -185,4 +186,8 @@ const MyButton = styled.button`
   &:hover {
     opacity: ${({ disabled }) => (disabled ? '1' : '0.8')};
   }
+`;
+
+const AddIssueSideBar = styled(SideBar)`
+  flex-grow: 1;
 `;

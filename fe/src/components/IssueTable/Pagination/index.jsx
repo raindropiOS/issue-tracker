@@ -9,9 +9,7 @@ import {
 const Pagination = () => {
   const { paging } = useContext(MainPageContext);
   const dispatch = useContext(MainPageDispatchContext);
-  const {
-    startPage, nowPage, lastPage, endPage,
-  } = paging;
+  const { startPage, nowPage, lastPage } = paging;
 
   const pageList = Array.from(
     { length: lastPage - startPage + 1 },

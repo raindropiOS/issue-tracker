@@ -10,6 +10,7 @@ const SideBar = ({
   onMilestoneClick,
   selectedUsers,
   onUserClick,
+  className,
 }) => {
   // TODO: 여기부터
   const [users, setUsers] = useState([]);
@@ -87,7 +88,7 @@ const SideBar = ({
   }, []);
 
   return (
-    <div>
+    <div className={className}>
       <SideBarBox>
         <SideBarRow>
           <SideBarDropDown config={usersConfig} />
