@@ -37,7 +37,6 @@ const changeIssuesState = async (selectedIssues, state) => {
     targetState: state,
   }));
   await Promise.all(requests);
-  console.log('모든 요청 완료');
 };
 
 const IssueListModifier = ({ selectedIssues, issueListTotalCount }) => {
