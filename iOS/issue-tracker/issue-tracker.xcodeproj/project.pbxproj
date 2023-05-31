@@ -22,6 +22,8 @@
 		E4545DAF2A25C5C400C3DB5B /* LabelTabCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4545DAE2A25C5C400C3DB5B /* LabelTabCollectionView.swift */; };
 		E4545DB12A25D45300C3DB5B /* LabelTabCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4545DB02A25D45300C3DB5B /* LabelTabCollectionViewCell.swift */; };
 		E4545DB32A260DE400C3DB5B /* LabelTabCollectionViewHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4545DB22A260DE400C3DB5B /* LabelTabCollectionViewHeaderCell.swift */; };
+		E4545DB52A2718CE00C3DB5B /* LabelMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4545DB42A2718CE00C3DB5B /* LabelMock.swift */; };
+		E4545DB72A2719CE00C3DB5B /* SingleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4545DB62A2719CE00C3DB5B /* SingleLabel.swift */; };
 		E4802D9D2A11FD470077B0F4 /* BadgeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4802D9C2A11FD470077B0F4 /* BadgeLabel.swift */; };
 		E4802D9F2A131A8D0077B0F4 /* SubIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4802D9E2A131A8D0077B0F4 /* SubIconView.swift */; };
 		E48278632A09DAC800E91FA3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48278622A09DAC800E91FA3 /* AppDelegate.swift */; };
@@ -67,6 +69,8 @@
 		E4545DAE2A25C5C400C3DB5B /* LabelTabCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelTabCollectionView.swift; sourceTree = "<group>"; };
 		E4545DB02A25D45300C3DB5B /* LabelTabCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelTabCollectionViewCell.swift; sourceTree = "<group>"; };
 		E4545DB22A260DE400C3DB5B /* LabelTabCollectionViewHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelTabCollectionViewHeaderCell.swift; sourceTree = "<group>"; };
+		E4545DB42A2718CE00C3DB5B /* LabelMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelMock.swift; sourceTree = "<group>"; };
+		E4545DB62A2719CE00C3DB5B /* SingleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleLabel.swift; sourceTree = "<group>"; };
 		E4802D9C2A11FD470077B0F4 /* BadgeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeLabel.swift; sourceTree = "<group>"; };
 		E4802D9E2A131A8D0077B0F4 /* SubIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubIconView.swift; sourceTree = "<group>"; };
 		E482785F2A09DAC800E91FA3 /* issue-tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "issue-tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -132,6 +136,8 @@
 				E4545DAE2A25C5C400C3DB5B /* LabelTabCollectionView.swift */,
 				E4545DB02A25D45300C3DB5B /* LabelTabCollectionViewCell.swift */,
 				E4545DB22A260DE400C3DB5B /* LabelTabCollectionViewHeaderCell.swift */,
+				E4545DB62A2719CE00C3DB5B /* SingleLabel.swift */,
+				E4545DB42A2718CE00C3DB5B /* LabelMock.swift */,
 			);
 			path = Label;
 			sourceTree = "<group>";
@@ -405,6 +411,7 @@
 				E48B73862A1DEA1A009A441C /* AddIssueButton.swift in Sources */,
 				E4D8AD612A161679005BA9BA /* Contents.swift in Sources */,
 				E48278672A09DAC800E91FA3 /* LoginViewController.swift in Sources */,
+				E4545DB52A2718CE00C3DB5B /* LabelMock.swift in Sources */,
 				8F61EB262A1642ED0020E302 /* State.swift in Sources */,
 				8FB11D842A18D8BC00EDEE45 /* NetworkManager.swift in Sources */,
 				E4545DB32A260DE400C3DB5B /* LabelTabCollectionViewHeaderCell.swift in Sources */,
@@ -416,6 +423,7 @@
 				8FB11D862A18E72E00EDEE45 /* IssueFrameHolder.swift in Sources */,
 				E482789C2A0BAC7700E91FA3 /* IssueCollectionViewCell.swift in Sources */,
 				E48278812A09ED1E00E91FA3 /* IssueTabViewController.swift in Sources */,
+				E4545DB72A2719CE00C3DB5B /* SingleLabel.swift in Sources */,
 				8FB11D8B2A1C530E00EDEE45 /* FilterOption.swift in Sources */,
 				E48B73842A1DCE89009A441C /* IssueSelectingToolbar.swift in Sources */,
 				E48278632A09DAC800E91FA3 /* AppDelegate.swift in Sources */,

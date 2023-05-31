@@ -36,14 +36,19 @@ extension LabelTabCollectionView: UICollectionViewDelegate {
 }
 
 extension LabelTabCollectionView: UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return LabelsMock.mockList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: LabelTabCollectionViewCell.identifier, for: indexPath) as? LabelTabCollectionViewCell else {
             return UICollectionViewCell()
         }
+        let labelMock = LabelsMock.mockList[indexPath.item]
+        cell.labelData = labelMock
+        
+        
         return cell
     }
     
@@ -68,7 +73,7 @@ extension LabelTabCollectionView: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.frame.width
-        let height = width / 3
+        let height = width / 4
         return CGSize(width: width, height: height)
     }
     
