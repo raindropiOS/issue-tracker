@@ -106,7 +106,7 @@ const AddIssue = () => {
             placeholder="코멘트를 입력하세요"
           />
         </InputBox>
-        <SideBar
+        <AddIssueSideBar
           selectedLabels={selectedLabels}
           onLabelClick={onLabelClick}
           selectedMilestone={selectedMilestone}
@@ -186,4 +186,8 @@ const MyButton = styled.button`
   &:hover {
     opacity: ${({ disabled }) => (disabled ? '1' : '0.8')};
   }
+`;
+
+const AddIssueSideBar = styled(SideBar)`
+  flex-grow: 1;
 `;
