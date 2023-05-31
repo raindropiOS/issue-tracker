@@ -70,7 +70,7 @@ protocol FilterOptionsLike {
 
 protocol IssueTabViewControllerLike: AnyObject {
     // TODO: property를 프로토콜에서 가지지 않도록 메소드를 만들거나 구조 바꾸기
-    var filterOptionList: FilterOptionsLike { get }
+    var filterOptionList: FilterOptionsLike { get set }
     
     func setUrlString(with: String)
 }
