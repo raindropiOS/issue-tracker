@@ -39,7 +39,6 @@ extension IssueCollectionView: UICollectionViewDelegate {
 extension IssueCollectionView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.issueFrames.count
-        
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
