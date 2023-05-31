@@ -9,6 +9,7 @@ import UIKit
 import OSLog
 
 class IssueTabViewController: UIViewController, IssueCollectionViewDelegate, IssueTabViewControllerLike {
+    
     private var isSelectionMode: Bool = false
     private var addIssueButton: AddIssueButton?
     private var toolBar: IssueSelectingToolbar?
@@ -139,7 +140,8 @@ class IssueTabViewController: UIViewController, IssueCollectionViewDelegate, Iss
     }
     
     private func fetchData() {
-        networkManager.fetchIssueData(with: currentIssueDataUrlString) { result in
+        let queryDictionary: [String: String] = filterOptionList.getQueryDictionary()
+        networkManager.queryIssueData(with: queryDictionary) { result in
             switch result {
             case .success(let issueFrameHolder):
                 self.issueFrames = issueFrameHolder.issues

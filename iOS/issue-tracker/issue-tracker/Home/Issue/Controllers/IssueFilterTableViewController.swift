@@ -64,16 +64,9 @@ class IssueFilterTableViewController: UITableViewController {
     }
 }
 
-protocol FilterOptionsLike {
-    var list: [[FilterOption]] { get set }
-    func collectSelectedFilterOptionUrlString() -> String
-}
-
 protocol IssueTabViewControllerLike: AnyObject {
     // TODO: property를 프로토콜에서 가지지 않도록 메소드를 만들거나 구조 바꾸기
     var filterOptionList: FilterOptionsLike { get set }
-    
-    func setUrlString(with: String)
 }
 
 // 취소, 저장 버튼
@@ -98,9 +91,6 @@ extension IssueFilterTableViewController {
     
     @objc func saveAction() {
         if let savedFilterOptionList = self.filterOptionList {
-            let filterUrlString = savedFilterOptionList.collectSelectedFilterOptionUrlString()
-            let newUrlString = Server.base.rawValue + filterUrlString
-            delegate?.setUrlString(with: newUrlString)
             delegate?.filterOptionList = savedFilterOptionList
         }
         dismissSelf()
