@@ -58,8 +58,8 @@ const IssueTable = () => {
     && issues.length !== 0
     && issues
       .sort(
-        (prevIssueInfo, nextIssueInfo) => new Date(prevIssueInfo.lastUpdatedDate)
-          - new Date(nextIssueInfo.lastUpdatedDate),
+        (prevIssueInfo, nextIssueInfo) => new Date(nextIssueInfo.lastUpdatedDate)
+          - new Date(prevIssueInfo.lastUpdatedDate),
       )
       .map((issue) => (
         <IssueItem
