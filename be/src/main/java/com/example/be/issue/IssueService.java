@@ -26,7 +26,6 @@ public class IssueService {
     private final MilestoneRepository milestoneRepository;
     private final CommentRepository commentRepository;
 
-    @Autowired
     public IssueService(IssueRepository issueRepository, LabelRepository labelRepository, UserRepository userRepository, MilestoneRepository milestoneRepository, CommentRepository commentRepository) {
         this.issueRepository = issueRepository;
         this.labelRepository = labelRepository;

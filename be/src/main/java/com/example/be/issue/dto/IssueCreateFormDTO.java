@@ -17,6 +17,9 @@ public class IssueCreateFormDTO {
     private String milestoneName;
     private List<String> labelNames;
 
+    public IssueCreateFormDTO() {
+    }
+
     public IssueCreateFormDTO(String title, String contents, List<String> assignees, String milestoneName, List<String> labelNames) {
         this.title = title;
         this.contents = contents;

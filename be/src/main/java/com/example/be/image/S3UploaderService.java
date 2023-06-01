@@ -23,7 +23,6 @@ public class S3UploaderService {
 
     private static final Logger log = LoggerFactory.getLogger(S3UploaderService.class);
 
-    @Autowired
     public S3UploaderService(AmazonS3Client amazonS3Client) {
         this.amazonS3Client = amazonS3Client;
     }

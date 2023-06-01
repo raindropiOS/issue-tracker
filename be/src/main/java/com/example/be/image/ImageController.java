@@ -14,7 +14,6 @@ public class ImageController {
 
     private final S3UploaderService s3UploaderService;
 
-    @Autowired
     public ImageController(S3UploaderService s3UploaderService) {
         this.s3UploaderService = s3UploaderService;
     }

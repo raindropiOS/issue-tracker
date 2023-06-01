@@ -13,7 +13,6 @@ public class IssueController {
 
     private final IssueService issueService;
 
-    @Autowired
     public IssueController(IssueService issueService) {
         this.issueService = issueService;
     }
