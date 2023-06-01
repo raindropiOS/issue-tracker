@@ -91,4 +91,7 @@ class NetworkManager {
                 }
             }.resume()
         }
+enum NetworkingState {
+    case fetchingDataInProgress
+    case fetchingDataEnded
 }
