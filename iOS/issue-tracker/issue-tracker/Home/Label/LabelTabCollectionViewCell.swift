@@ -15,7 +15,7 @@ class LabelTabCollectionViewCell: SwipeCollectionViewCell {
     private let labelSlot = UIView()
     private var descriptionView = UILabel()
     
-    var labelData: SingleLabel? {
+    var labelData: Label? {
         didSet {
             updateCell()
         }
@@ -60,7 +60,7 @@ class LabelTabCollectionViewCell: SwipeCollectionViewCell {
         labelSlot.subviews.forEach { $0.removeFromSuperview() }
         
         if let labelData = labelData {
-            let badge = BadgeLabel(label: labelData.label)
+            let badge = BadgeLabel(label: labelData)
             
             if let description = labelData.description {
                 labelSlot.addSubview(badge)

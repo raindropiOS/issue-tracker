@@ -20,8 +20,6 @@ class IssueTabViewController: UIViewController, IssueCollectionViewDelegate, Iss
     let nothingButton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     var filterOptionList: FilterOptionsLike = FilterOptionListMock()
     
-    let fetcher = HTTPDataFetcher()
-    
     private let logger = Logger()
     private let networkManager = NetworkManager()
     private var issueFrames: [IssueFrame]?
@@ -180,10 +178,8 @@ class IssueTabViewController: UIViewController, IssueCollectionViewDelegate, Iss
     }
     
     @objc private func addButtonTouched() {
-//        let addIssueViewController = AddIssueViewController()
         let storyboard = UIStoryboard(name: "HomeStoryboard", bundle: nil)
         let addIssueViewController = storyboard.instantiateViewController(withIdentifier: "타락파워전사")
-//        show(addIssueViewController, sender: self.addIssueButton)
         show(addIssueViewController, sender: self.addIssueButton)
     }
 }
