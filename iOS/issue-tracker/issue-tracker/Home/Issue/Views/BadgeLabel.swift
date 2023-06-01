@@ -45,7 +45,6 @@ class BadgeLabel: UILabel {
 
         NSLayoutConstraint.activate([
             self.widthAnchor.constraint(equalToConstant: textWidth + superview.frame.height),
-//            self.heightAnchor.constraint(equalTo: superview.heightAnchor, multiplier: 0.8),
             self.bottomAnchor.constraint(equalTo: superview.bottomAnchor),
             self.centerYAnchor.constraint(equalTo: superview.centerYAnchor)
         ])

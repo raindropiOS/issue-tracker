@@ -43,22 +43,21 @@
             </objects>
             <point key="canvasLocation" x="2106" y="675"/>
         </scene>
-        <!--레이블-->
+        <!--Label Tab View Controller-->
         <scene sceneID="DtT-8V-1PN">
             <objects>
-                <viewController id="F8v-26-MJN" sceneMemberID="viewController">
+                <viewController id="F8v-26-MJN" customClass="LabelTabViewController" customModule="issue_tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="cPh-l8-lMB">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="LAr-xo-5xV"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="레이블" image="property=tag" id="iza-MF-cjj"/>
-                    <navigationItem key="navigationItem" id="JAN-jl-pO1"/>
+                    <navigationItem key="navigationItem" id="D3q-8R-2OJ"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wIp-9r-1pb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1850" y="-65"/>
+            <point key="canvasLocation" x="2776.3358778625952" y="-65.492957746478879"/>
         </scene>
         <!--Issue Tab View Controller-->
         <scene sceneID="uG2-ZW-Zvr">
@@ -187,7 +186,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="KwX-S8-4iJ" kind="relationship" relationship="viewControllers" id="43n-b4-60m"/>
-                        <segue destination="F8v-26-MJN" kind="relationship" relationship="viewControllers" id="4JA-HO-xiw"/>
+                        <segue destination="Fkp-2q-eDz" kind="relationship" relationship="viewControllers" id="4JA-HO-xiw"/>
                         <segue destination="E4d-6A-TPY" kind="relationship" relationship="viewControllers" id="8vh-g6-cdg"/>
                         <segue destination="U3B-Id-ukx" kind="relationship" relationship="viewControllers" id="IDO-bb-UGM"/>
                     </connections>
@@ -233,6 +232,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Hr-Sw-isf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="922.90076335877859" y="-733.09859154929586"/>
+        </scene>
+        <!--레이블-->
+        <scene sceneID="3GN-of-KbT">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Fkp-2q-eDz" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="레이블" image="property=tag" id="iza-MF-cjj"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="mTJ-9b-33k">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="F8v-26-MJN" kind="relationship" relationship="rootViewController" id="WzY-1v-gM5"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TRd-K6-BIM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1849.6183206106869" y="-65.492957746478879"/>
         </scene>
     </scenes>
     <resources>
