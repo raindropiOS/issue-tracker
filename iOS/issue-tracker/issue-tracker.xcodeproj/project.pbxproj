@@ -29,7 +29,6 @@
 		E4545DB12A25D45300C3DB5B /* LabelTabCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4545DB02A25D45300C3DB5B /* LabelTabCollectionViewCell.swift */; };
 		E4545DB32A260DE400C3DB5B /* LabelTabCollectionViewHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4545DB22A260DE400C3DB5B /* LabelTabCollectionViewHeaderCell.swift */; };
 		E4545DB52A2718CE00C3DB5B /* LabelMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4545DB42A2718CE00C3DB5B /* LabelMock.swift */; };
-		E4545DB72A2719CE00C3DB5B /* SingleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4545DB62A2719CE00C3DB5B /* SingleLabel.swift */; };
 		E4802D9D2A11FD470077B0F4 /* BadgeLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4802D9C2A11FD470077B0F4 /* BadgeLabel.swift */; };
 		E4802D9F2A131A8D0077B0F4 /* SubIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4802D9E2A131A8D0077B0F4 /* SubIconView.swift */; };
 		E48278632A09DAC800E91FA3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48278622A09DAC800E91FA3 /* AppDelegate.swift */; };
@@ -48,13 +47,14 @@
 		E48278A12A0C8AEC00E91FA3 /* IssueCollectionViewHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E482789F2A0C8AEC00E91FA3 /* IssueCollectionViewHeaderCell.xib */; };
 		E48B73842A1DCE89009A441C /* IssueSelectingToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48B73832A1DCE89009A441C /* IssueSelectingToolbar.swift */; };
 		E48B73862A1DEA1A009A441C /* AddIssueButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48B73852A1DEA1A009A441C /* AddIssueButton.swift */; };
+		E49420CA2A28A9C90073DA3C /* AddtionalInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49420C92A28A9C90073DA3C /* AddtionalInfoTableViewController.swift */; };
+		E49420CC2A28B2230073DA3C /* AdditionalInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49420CB2A28B2230073DA3C /* AdditionalInformation.swift */; };
 		E4D8AD5D2A161666005BA9BA /* Issue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D8AD5C2A161666005BA9BA /* Issue.swift */; };
 		E4D8AD5F2A16166F005BA9BA /* Title.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D8AD5E2A16166F005BA9BA /* Title.swift */; };
 		E4D8AD612A161679005BA9BA /* Contents.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D8AD602A161679005BA9BA /* Contents.swift */; };
 		E4D8AD632A161684005BA9BA /* Milestone.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D8AD622A161684005BA9BA /* Milestone.swift */; };
 		E4D8AD652A161692005BA9BA /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D8AD642A161692005BA9BA /* Label.swift */; };
 		E4D8AD672A1616AA005BA9BA /* Author.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D8AD662A1616AA005BA9BA /* Author.swift */; };
-		E4D8AD6A2A162600005BA9BA /* HTTPDataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D8AD692A162600005BA9BA /* HTTPDataFetcher.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -82,7 +82,6 @@
 		E4545DB02A25D45300C3DB5B /* LabelTabCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelTabCollectionViewCell.swift; sourceTree = "<group>"; };
 		E4545DB22A260DE400C3DB5B /* LabelTabCollectionViewHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelTabCollectionViewHeaderCell.swift; sourceTree = "<group>"; };
 		E4545DB42A2718CE00C3DB5B /* LabelMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelMock.swift; sourceTree = "<group>"; };
-		E4545DB62A2719CE00C3DB5B /* SingleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleLabel.swift; sourceTree = "<group>"; };
 		E4802D9C2A11FD470077B0F4 /* BadgeLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeLabel.swift; sourceTree = "<group>"; };
 		E4802D9E2A131A8D0077B0F4 /* SubIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubIconView.swift; sourceTree = "<group>"; };
 		E482785F2A09DAC800E91FA3 /* issue-tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "issue-tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -103,13 +102,14 @@
 		E482789F2A0C8AEC00E91FA3 /* IssueCollectionViewHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IssueCollectionViewHeaderCell.xib; sourceTree = "<group>"; };
 		E48B73832A1DCE89009A441C /* IssueSelectingToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueSelectingToolbar.swift; sourceTree = "<group>"; };
 		E48B73852A1DEA1A009A441C /* AddIssueButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddIssueButton.swift; sourceTree = "<group>"; };
+		E49420C92A28A9C90073DA3C /* AddtionalInfoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddtionalInfoTableViewController.swift; sourceTree = "<group>"; };
+		E49420CB2A28B2230073DA3C /* AdditionalInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdditionalInformation.swift; sourceTree = "<group>"; };
 		E4D8AD5C2A161666005BA9BA /* Issue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Issue.swift; sourceTree = "<group>"; };
 		E4D8AD5E2A16166F005BA9BA /* Title.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Title.swift; sourceTree = "<group>"; };
 		E4D8AD602A161679005BA9BA /* Contents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contents.swift; sourceTree = "<group>"; };
 		E4D8AD622A161684005BA9BA /* Milestone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Milestone.swift; sourceTree = "<group>"; };
 		E4D8AD642A161692005BA9BA /* Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
 		E4D8AD662A1616AA005BA9BA /* Author.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Author.swift; sourceTree = "<group>"; };
-		E4D8AD692A162600005BA9BA /* HTTPDataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPDataFetcher.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,7 +148,6 @@
 				E4545DAE2A25C5C400C3DB5B /* LabelTabCollectionView.swift */,
 				E4545DB02A25D45300C3DB5B /* LabelTabCollectionViewCell.swift */,
 				E4545DB22A260DE400C3DB5B /* LabelTabCollectionViewHeaderCell.swift */,
-				E4545DB62A2719CE00C3DB5B /* SingleLabel.swift */,
 				E4545DB42A2718CE00C3DB5B /* LabelMock.swift */,
 			);
 			path = Label;
@@ -252,6 +251,7 @@
 				E48278802A09ED1E00E91FA3 /* IssueTabViewController.swift */,
 				8F334AAA2A0B7E7C0070DDEA /* IssueFilterTableViewController.swift */,
 				8FA8A8AC2A2864E700A748B2 /* AddIssueViewController.swift */,
+				E49420C92A28A9C90073DA3C /* AddtionalInfoTableViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -270,6 +270,7 @@
 				8FB11D852A18E72E00EDEE45 /* IssueFrameHolder.swift */,
 				8FB11D8A2A1C530E00EDEE45 /* FilterOption.swift */,
 				8F5204FA2A1DDF4900B49CF0 /* FilterOptionListMock.swift */,
+				E49420CB2A28B2230073DA3C /* AdditionalInformation.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -277,7 +278,6 @@
 		E4D8AD682A1625DF005BA9BA /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				E4D8AD692A162600005BA9BA /* HTTPDataFetcher.swift */,
 				8FB11D832A18D8BC00EDEE45 /* NetworkManager.swift */,
 				8FC150FE2A20425500258108 /* Server.swift */,
 				8FA8A8A62A25941E00A748B2 /* URLRequestFactory.swift */,
@@ -428,6 +428,7 @@
 				E48278912A0B771100E91FA3 /* IssueCollectionView.swift in Sources */,
 				E4545DAA2A24DFDA00C3DB5B /* LabelTabViewController.swift in Sources */,
 				E48B73862A1DEA1A009A441C /* AddIssueButton.swift in Sources */,
+				E49420CC2A28B2230073DA3C /* AdditionalInformation.swift in Sources */,
 				E4D8AD612A161679005BA9BA /* Contents.swift in Sources */,
 				E48278672A09DAC800E91FA3 /* LoginViewController.swift in Sources */,
 				E4545DB52A2718CE00C3DB5B /* LabelMock.swift in Sources */,
@@ -445,11 +446,9 @@
 				8FB11D862A18E72E00EDEE45 /* IssueFrameHolder.swift in Sources */,
 				E482789C2A0BAC7700E91FA3 /* IssueCollectionViewCell.swift in Sources */,
 				E48278812A09ED1E00E91FA3 /* IssueTabViewController.swift in Sources */,
-				E4545DB72A2719CE00C3DB5B /* SingleLabel.swift in Sources */,
 				8FB11D8B2A1C530E00EDEE45 /* FilterOption.swift in Sources */,
 				E48B73842A1DCE89009A441C /* IssueSelectingToolbar.swift in Sources */,
 				E48278632A09DAC800E91FA3 /* AppDelegate.swift in Sources */,
-				E4D8AD6A2A162600005BA9BA /* HTTPDataFetcher.swift in Sources */,
 				E4802D9F2A131A8D0077B0F4 /* SubIconView.swift in Sources */,
 				E4D8AD632A161684005BA9BA /* Milestone.swift in Sources */,
 				8F334AAB2A0B7E7C0070DDEA /* IssueFilterTableViewController.swift in Sources */,
@@ -457,6 +456,7 @@
 				8FBE800B2A0B8D8B00D9DA1A /* IssueFilterTableViewCell.swift in Sources */,
 				E48278652A09DAC800E91FA3 /* SceneDelegate.swift in Sources */,
 				8F5204FB2A1DDF4900B49CF0 /* FilterOptionListMock.swift in Sources */,
+				E49420CA2A28A9C90073DA3C /* AddtionalInfoTableViewController.swift in Sources */,
 				E4D8AD652A161692005BA9BA /* Label.swift in Sources */,
 				E4545DAF2A25C5C400C3DB5B /* LabelTabCollectionView.swift in Sources */,
 				8FA8A8A72A25941E00A748B2 /* URLRequestFactory.swift in Sources */,
