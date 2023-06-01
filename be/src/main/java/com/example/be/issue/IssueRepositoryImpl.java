@@ -43,7 +43,7 @@ public class IssueRepositoryImpl implements IssueRepositoryCustom{
         if (issueMapper.validIssue(issueUpdateFormDTO.getIssueNumber()) != 1) {
             return false;
         }
-        if (issueUpdateFormDTO.getMilestoneName() != null && issueMapper.validMilestone(issueUpdateFormDTO.getMilestoneName()) != 1) {
+        if (issueUpdateFormDTO.getMilestoneName() != null && !issueUpdateFormDTO.getMilestoneName().equals("$none") && issueMapper.validMilestone(issueUpdateFormDTO.getMilestoneName()) != 1) {
             return false;
         }
         return issueMapper.updateIssue(issueUpdateFormDTO) == 1;
