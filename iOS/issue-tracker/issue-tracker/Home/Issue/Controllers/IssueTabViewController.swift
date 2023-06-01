@@ -35,6 +35,7 @@ class IssueTabViewController: UIViewController, IssueCollectionViewDelegate, Iss
         setCancelButton()
         setToolbar()
         setAddIssueButton()
+        configureAddButtonAction()
     }
     
     
@@ -172,6 +173,18 @@ class IssueTabViewController: UIViewController, IssueCollectionViewDelegate, Iss
     
     func setUrlString(with urlString: String) {
         currentIssueDataUrlString = urlString
+    }
+    
+    private func configureAddButtonAction() {
+        addIssueButton?.addTarget(self, action: #selector(addButtonTouched), for: .touchUpInside)
+    }
+    
+    @objc private func addButtonTouched() {
+//        let addIssueViewController = AddIssueViewController()
+        let storyboard = UIStoryboard(name: "HomeStoryboard", bundle: nil)
+        let addIssueViewController = storyboard.instantiateViewController(withIdentifier: "타락파워전사")
+//        show(addIssueViewController, sender: self.addIssueButton)
+        show(addIssueViewController, sender: self.addIssueButton)
     }
 }
 
