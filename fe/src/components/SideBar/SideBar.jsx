@@ -12,11 +12,9 @@ const SideBar = ({
   onUserClick,
   className,
 }) => {
-  // TODO: 여기부터
   const [users, setUsers] = useState([]);
   const [labels, setLabels] = useState([]);
   const [milestones, setMilestones] = useState([]);
-  // TODO: 여기까지 sidebar로 상태 내리기
 
   const usersConfig = {
     buttonText: '담당자',

@@ -6,6 +6,7 @@ import SideBar from '../components/SideBar/SideBar';
 import { Button } from '../components/common';
 import TitleEditInput from '../components/TitleEditInput/TitleEditInput';
 import { getElapsedTime } from '../utils/utils';
+import { NONE } from '../constants';
 
 const IssueDetail = () => {
   const [isEditTitle, setIsEditTitle] = useState(false);
@@ -37,25 +38,88 @@ const IssueDetail = () => {
   const toggleIsEditTitle = () => setIsEditTitle((prev) => !prev);
 
   const onUserClick = (user) => {
-    setSelectedUsers(
-      selectedUsers.some(({ id }) => id === user.id)
-        ? selectedUsers.filter(({ id }) => id !== user.id)
-        : [...selectedUsers, user],
-    );
+    const newUsers = selectedUsers.some(({ id }) => id === user.id)
+      ? selectedUsers.filter(({ id }) => id !== user.id)
+      : [...selectedUsers, user];
+
+    fetch('http://3.38.73.117:8080/api/issues/assigns', {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        issueNumber,
+        assignees: newUsers.map((el) => el.id),
+      }),
+    })
+      .then(() => {
+        return fetch(`http://3.38.73.117:8080/api/issue/${issueNumber}`);
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        setIssueInfo(data.issue);
+        setComments(data.comments);
+        setEditTitleValue(data.issue.title);
+        setSelectedLabels(data.issue.labels);
+        setSelectedUsers(data.issue.assignees);
+        setSelectedMilestone(data.issue.milestone);
+      });
   };
 
   const onLabelClick = (label) => {
-    setSelectedLabels(
-      selectedLabels.some(({ id }) => id === label.id)
-        ? selectedLabels.filter(({ id }) => id !== label.id)
-        : [...selectedLabels, label],
-    );
+    const newLabels = selectedLabels.some(({ id }) => id === label.id)
+      ? selectedLabels.filter(({ id }) => id !== label.id)
+      : [...selectedLabels, label];
+
+    fetch('http://3.38.73.117:8080/api/issues/labels', {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        issueNumber,
+        labelNames: newLabels.map((el) => el.name),
+      }),
+    })
+      .then(() => {
+        return fetch(`http://3.38.73.117:8080/api/issue/${issueNumber}`);
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        setIssueInfo(data.issue);
+        setComments(data.comments);
+        setEditTitleValue(data.issue.title);
+        setSelectedLabels(data.issue.labels);
+        setSelectedUsers(data.issue.assignees);
+        setSelectedMilestone(data.issue.milestone);
+      });
   };
 
   const onMilestoneClick = (milestone) => {
-    setSelectedMilestone(
-      selectedMilestone?.id === milestone.id ? null : milestone,
-    );
+    const newMileStone = selectedMilestone?.id === milestone.id ? null : milestone;
+
+    fetch('http://3.38.73.117:8080/api/issues123', {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        issueNumber,
+        milestoneName: newMileStone?.name || NONE,
+      }),
+    })
+      .then(() => {
+        return fetch(`http://3.38.73.117:8080/api/issue/${issueNumber}`);
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        setIssueInfo(data.issue);
+        setComments(data.comments);
+        setEditTitleValue(data.issue.title);
+        setSelectedLabels(data.issue.labels);
+        setSelectedUsers(data.issue.assignees);
+        setSelectedMilestone(data.issue.milestone);
+      });
   };
 
   const onSubmitTitleClick = () => {
@@ -77,6 +141,9 @@ const IssueDetail = () => {
         setIssueInfo(data.issue);
         setComments(data.comments);
         setEditTitleValue(data.issue.title);
+        setSelectedLabels(data.issue.labels);
+        setSelectedUsers(data.issue.assignees);
+        setSelectedMilestone(data.issue.milestone);
         setIsEditTitle(false);
       });
   };
@@ -100,6 +167,10 @@ const IssueDetail = () => {
       .then((data) => {
         setIssueInfo(data.issue);
         setComments(data.comments);
+        setEditTitleValue(data.issue.title);
+        setSelectedLabels(data.issue.labels);
+        setSelectedUsers(data.issue.assignees);
+        setSelectedMilestone(data.issue.milestone);
       });
   };
 
@@ -121,6 +192,10 @@ const IssueDetail = () => {
       .then((data) => {
         setIssueInfo(data.issue);
         setComments(data.comments);
+        setEditTitleValue(data.issue.title);
+        setSelectedLabels(data.issue.labels);
+        setSelectedUsers(data.issue.assignees);
+        setSelectedMilestone(data.issue.milestone);
       });
   };
 
@@ -131,6 +206,9 @@ const IssueDetail = () => {
         setIssueInfo(data.issue);
         setComments(data.comments);
         setEditTitleValue(data.issue.title);
+        setSelectedLabels(data.issue.labels);
+        setSelectedUsers(data.issue.assignees);
+        setSelectedMilestone(data.issue.milestone);
       });
   }, []);
 
