@@ -8,7 +8,6 @@ import com.example.be.label.LabelRepository;
 import com.example.be.milestone.MilestoneRepository;
 import com.example.be.user.UserRepository;
 import com.example.be.util.Paging;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,7 +25,6 @@ public class IssueService {
     private final MilestoneRepository milestoneRepository;
     private final CommentRepository commentRepository;
 
-    @Autowired
     public IssueService(IssueRepository issueRepository, LabelRepository labelRepository, UserRepository userRepository, MilestoneRepository milestoneRepository, CommentRepository commentRepository) {
         this.issueRepository = issueRepository;
         this.labelRepository = labelRepository;
@@ -42,9 +40,9 @@ public class IssueService {
 
         List<Issue> issues = findIssues(issueSearchCondition);
         CountDTO countDTO = issueRepository.countEntities();
-        AllEntitiesDTO allEntitiesDTO = gatherAllEntities();
+        AllLabelsAndMilestonesAndUsersDTO allLabelsAndMilestonesAndUsersDTO = gatherAllEntities();
 
-        return new FeIssueResponseDTO(issues, countDTO, allEntitiesDTO.getAllLabels(), allEntitiesDTO.getAllMilestones(), allEntitiesDTO.getAllUsers(), paging);
+        return new FeIssueResponseDTO(issues, countDTO, allLabelsAndMilestonesAndUsersDTO.getAllLabels(), allLabelsAndMilestonesAndUsersDTO.getAllMilestones(), allLabelsAndMilestonesAndUsersDTO.getAllUsers(), paging);
     }
 
     public IosIssueResponseDTO makeIosIssueResponse(IssueSearchCondition issueSearchCondition,
@@ -56,8 +54,8 @@ public class IssueService {
         return new IosIssueResponseDTO(issues, paging);
     }
 
-    public AllEntitiesDTO gatherAllEntities() {
-        return new AllEntitiesDTO(labelRepository.findAll(), milestoneRepository.findAll(), userRepository.findAll());
+    public AllLabelsAndMilestonesAndUsersDTO gatherAllEntities() {
+        return new AllLabelsAndMilestonesAndUsersDTO(labelRepository.findAll(), milestoneRepository.findAll(), userRepository.findAll());
     }
 
     public int createIssue(IssueCreateFormDTO issueCreateFormDTO) {
