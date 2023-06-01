@@ -54,6 +54,32 @@ const IssueTable = () => {
       && option !== OPENED,
   );
 
+  const filterNotice = isFilterApplied && (
+    <FilterNoticeBox>
+      <GhostButton
+        size="S"
+        gap="7px"
+        color="neutralText"
+        hoverColor="iconBackgoundBlue"
+        onclick={() => {
+          dispatch(setFilterOption(RESET, mainPageInitialState.filterOptions));
+        }}
+      >
+        <XSquare />
+        현재의 검색 필터 및 정렬 지우기
+      </GhostButton>
+    </FilterNoticeBox>
+  );
+
+  const toolbarContent = selectedIssues.length ? (
+    <IssueListModifier
+      selectedIssues={selectedIssues}
+      issueListTotalCount={selectedIssues.length}
+    />
+  ) : (
+    <IssueListFilters />
+  );
+
   const issueItems = issues
     && issues.length !== 0
     && issues
@@ -97,36 +123,10 @@ const IssueTable = () => {
 
   return (
     <div>
-      {isFilterApplied ? (
-        <FilterNoticeBox>
-          <GhostButton
-            size="S"
-            gap="7px"
-            color="neutralText"
-            hoverColor="iconBackgoundBlue"
-            onclick={() => {
-              dispatch(
-                setFilterOption(RESET, mainPageInitialState.filterOptions),
-              );
-            }}
-          >
-            <XSquare />
-            현재의 검색 필터 및 정렬 지우기
-          </GhostButton>
-        </FilterNoticeBox>
-      ) : (
-        ''
-      )}
+      {filterNotice}
       <TableToolBar>
         {CheckBox}
-        {selectedIssues.length ? (
-          <IssueListModifier
-            selectedIssues={selectedIssues}
-            issueListTotalCount={selectedIssues.length}
-          />
-        ) : (
-          <IssueListFilters />
-        )}
+        {toolbarContent}
       </TableToolBar>
       {issueItems ? (
         <>

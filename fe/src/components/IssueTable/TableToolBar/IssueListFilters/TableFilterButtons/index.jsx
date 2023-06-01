@@ -15,7 +15,6 @@ import {
 } from '../../../../../context/MainPage/MainPageContext';
 import DropDown from '../../../../DropDown';
 
-// TODO(덴): DropDown Config 변환해주는 함수 유틸로 빼보기.
 const convertOptionItems = (
   optionItems,
   filterOptionState,
