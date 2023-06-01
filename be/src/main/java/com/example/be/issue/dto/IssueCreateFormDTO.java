@@ -28,6 +28,14 @@ public class IssueCreateFormDTO {
         this.labelNames = labelNames;
     }
 
+    public boolean hasLabels() {
+        return (labelNames != null && labelNames.size() != 0);
+    }
+
+    public boolean hasAssigns() {
+        return (assignees != null && assignees.size() != 0);
+    }
+
     public int getIssueNumber() {
         return issueNumber;
     }
