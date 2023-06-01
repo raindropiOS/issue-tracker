@@ -1,7 +1,7 @@
 import { styled } from 'styled-components';
 import { UserIcon } from '../common';
 import smile from '../../assets/smile.svg';
-import { getElapsedTime } from '../../utils/utils';
+import { getElapsedTime } from '../../utils';
 
 const Comment = ({ author, createdDate, contents }) => {
   return (

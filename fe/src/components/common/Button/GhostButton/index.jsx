@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const GhostButton = ({
+const GhostButton = ({
   size = 'M',
   gap = '10px',
   color,
@@ -22,6 +22,8 @@ export const GhostButton = ({
     </GhostButtonBox>
   );
 };
+
+export default GhostButton;
 
 const GhostButtonBox = styled.button`
   display: flex;

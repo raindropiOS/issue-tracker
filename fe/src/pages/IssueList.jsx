@@ -1,11 +1,11 @@
 import { useEffect, useContext, useCallback } from 'react';
-import TabBar from '../components/TabBar/TabBar';
-import IssueTable from '../components/IssueTable/IssueTable';
+import TabBar from '../components/TabBar';
+import IssueTable from '../components/IssueTable';
 import {
   MainPageContext,
   MainPageDispatchContext,
 } from '../context/MainPage/MainPageContext';
-import { generateQueryString } from '../utils/utils';
+import { generateQueryString } from '../utils';
 import {
   fetchStart,
   fetchSuccess,

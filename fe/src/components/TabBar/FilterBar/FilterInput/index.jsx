@@ -1,7 +1,7 @@
 import { styled } from 'styled-components';
 import { useEffect, useState, useContext } from 'react';
 import { ReactComponent as Search } from '../../../../assets/search.svg';
-import { generateQueryString } from '../../../../utils/utils';
+import { generateQueryString } from '../../../../utils';
 import { MainPageContext } from '../../../../context/MainPage/MainPageContext';
 
 // TODO(덴): api 객체 형태에 맞게 상태 수정 작업 진행 했으나 리팩 필요해보임.

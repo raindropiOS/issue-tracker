@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 
-export const ContainerButton = ({ onclick, children }) => {
+const ContainerButton = ({ onclick, children }) => {
   return <ContainerButtonBox onClick={onclick}>{children}</ContainerButtonBox>;
 };
+
+export default ContainerButton;
 
 const ContainerButtonBox = styled.button`
   display: flex;

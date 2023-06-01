@@ -1,7 +1,7 @@
 import { styled } from 'styled-components';
 import { useContext } from 'react';
-import FilterInput from './FilterInput/FilterInput';
-import DropDown from '../../DropDown/DropDown';
+import FilterInput from './FilterInput';
+import DropDown from '../../DropDown';
 import {
   MainPageContext,
   MainPageDispatchContext,

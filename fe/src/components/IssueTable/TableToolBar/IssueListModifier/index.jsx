@@ -7,7 +7,7 @@ import {
   MainPageContext,
   MainPageDispatchContext,
 } from '../../../../context/MainPage/MainPageContext';
-import DropDown from '../../../DropDown/DropDown';
+import DropDown from '../../../DropDown';
 
 const sendPatchRequest = async ({ targetIssueNumber, targetState }) => {
   const url = 'http://3.38.73.117:8080/api/issues';

@@ -3,7 +3,7 @@ import { OPENED } from '../../constants';
 import {
   checkDuplicateAndReturnValue,
   updateArrayWithDuplicateCheck,
-} from '../../utils/utils';
+} from '../../utils';
 import {
   SET_ISSUE_STATE_FILTER_OPTION,
   SET_WRITTEN_BY_ME_FILTER_OPTION,

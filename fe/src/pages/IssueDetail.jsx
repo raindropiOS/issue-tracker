@@ -1,11 +1,11 @@
 import { styled } from 'styled-components';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import CommentList from '../components/CommentList/CommentList';
-import SideBar from '../components/SideBar/SideBar';
+import CommentList from '../components/CommentList';
+import SideBar from '../components/SideBar';
 import { ContainerButton, OutlineButton } from '../components/common';
-import TitleEditInput from '../components/TitleEditInput/TitleEditInput';
-import { getElapsedTime } from '../utils/utils';
+import TitleEditInput from '../components/TitleEditInput';
+import { getElapsedTime } from '../utils';
 import { NONE } from '../constants';
 
 const IssueDetail = () => {

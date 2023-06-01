@@ -4,9 +4,9 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { GhostButton, UserIcon } from '../components/common';
 import largeUserImage from '../assets/userImageLarge.svg';
-import SideBar from '../components/SideBar/SideBar';
-import CommentTextArea from '../components/CommentTextArea/CommentTextArea';
-import TitleInput from '../components/TitleInput/TitleInput';
+import SideBar from '../components/SideBar';
+import CommentTextArea from '../components/CommentTextArea';
+import TitleInput from '../components/TitleInput';
 
 const AddIssue = () => {
   const [form, setForm] = useState({ title: '', comment: '' });

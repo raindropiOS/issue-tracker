@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 
-export const OutlineButton = ({ onclick, children }) => {
+const OutlineButton = ({ onclick, children }) => {
   return <OutlineButtonBox onClick={onclick}>{children}</OutlineButtonBox>;
 };
+
+export default OutlineButton;
 
 const OutlineButtonBox = styled.button`
   display: flex;

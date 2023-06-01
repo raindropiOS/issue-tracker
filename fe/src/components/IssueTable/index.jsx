@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { useContext, useEffect, useState } from 'react';
-import IssueItem from './IssueItem/IssueItem';
-import TableToolBar from './TableToolBar/TableToolBar';
+import IssueItem from './IssueItem';
+import TableToolBar from './TableToolBar';
 import {
   MainPageContext,
   MainPageDispatchContext,

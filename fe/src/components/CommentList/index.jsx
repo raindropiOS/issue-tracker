@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
-import Comment from '../Comment/Comment';
-import CommentTextArea from '../CommentTextArea/CommentTextArea';
+import Comment from '../Comment';
+import CommentTextArea from '../CommentTextArea';
 
 const CommentList = ({
   className,
