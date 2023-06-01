@@ -1,4 +1,4 @@
-import styled, { createGlobalStyle } from 'styled-components';
+import styled from 'styled-components';
 import { useContext, useEffect, useState } from 'react';
 import IssueItem from './IssueItem/IssueItem';
 import TableToolBar from './TableToolBar/TableToolBar';
