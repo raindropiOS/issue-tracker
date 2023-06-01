@@ -11,8 +11,12 @@ class AddIssueViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var titleInputField: UITextField!
+    @IBOutlet weak var contentsInput: UITextView!
+    var issue: PostIssueFormat = PostIssueFormat()
+    
     private let networkManager = NetworkManager()
-    private var additionalInfo : AdditionalInformation?
+    private var additionalInfo: AdditionalInformation?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
@@ -21,6 +25,13 @@ class AddIssueViewController: UIViewController {
         registerCell()
         setTitleInputLabelLayout()
         fetchData()
+    }
+    
+    @IBAction func saveButtonTouched(_ sender: Any) {
+        issue.title = titleInputField.text ?? "no title input"
+        issue.contents = contentsInput.text
+        networkManager.postIssue(with: issue)
+        navigationController?.popViewController(animated: true)
     }
     
     private func fetchData() {
@@ -53,7 +64,6 @@ class AddIssueViewController: UIViewController {
     private func registerCell() {
         tableView.register(UINib(nibName: "AddIssueTableViewCell", bundle: nil), forCellReuseIdentifier: AddIssueTableViewCell.identifier)
     }
-    
 }
 
 extension AddIssueViewController: UITableViewDataSource {
@@ -85,12 +95,11 @@ extension AddIssueViewController: UITableViewDataSource {
         default: return ""
         }
     }
-    
-    
 }
 
 extension AddIssueViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
         let storyboard = UIStoryboard(name: "HomeStoryboard", bundle: nil)
         guard let additionalInfoTableViewController = storyboard.instantiateViewController(withIdentifier: "김삿갓") as? AddtionalInfoTableViewController else {
             return
@@ -98,6 +107,7 @@ extension AddIssueViewController: UITableViewDelegate {
         guard let additionalInfo = additionalInfo else {
             return
         }
+        additionalInfoTableViewController.delegate = self
         additionalInfoTableViewController.configure(with: additionalInfo[indexPath.row])
         
         show(additionalInfoTableViewController, sender: self)

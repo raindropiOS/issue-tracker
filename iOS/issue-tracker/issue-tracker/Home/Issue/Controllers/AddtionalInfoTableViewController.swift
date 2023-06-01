@@ -8,7 +8,9 @@
 import UIKit
 
 class AddtionalInfoTableViewController: UITableViewController {
-    private var additionalInfoPiece : [Codable] = []
+    private var additionalInfoPiece: [Codable] = []
+    weak var delegate: AddIssueViewController?
+    private var selectedItem: Codable?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,7 +18,7 @@ class AddtionalInfoTableViewController: UITableViewController {
         setNavigationItem()
     }
     
-    func configure(with info : [Codable]) {
+    func configure(with info: [Codable]) {
         additionalInfoPiece = info
     }
     
@@ -25,6 +27,16 @@ class AddtionalInfoTableViewController: UITableViewController {
     }
     
     @objc private func saveButtonTouched() {
+        if let selectedItem = selectedItem {
+            if let user = selectedItem as? User {
+                delegate?.issue.assignees.append(user.id)
+            } else if let label = selectedItem as? Label {
+                delegate?.issue.labelNames.append(label.name)
+            } else if let milestone = selectedItem as? Milestone {
+                delegate?.issue.mileStoneName = milestone.name
+            }
+        }
+        
         navigationController?.popViewController(animated: true)
     }
     
@@ -45,15 +57,18 @@ class AddtionalInfoTableViewController: UITableViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "filterOptionCell", for: indexPath) as? IssueFilterTableViewCell else {
             return UITableViewCell()
         }
+        
         if let unit = additionalInfoPiece[indexPath.row] as? User {
             cell.filterOptionLabel.text = unit.id
-        }
-        else if let label = additionalInfoPiece[indexPath.row] as? Label {
+        } else if let label = additionalInfoPiece[indexPath.row] as? Label {
             cell.filterOptionLabel.text = label.name
-        }
-        else if let milestone = additionalInfoPiece[indexPath.row] as? Milestone {
+        } else if let milestone = additionalInfoPiece[indexPath.row] as? Milestone {
             cell.filterOptionLabel.text = milestone.name
         }
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedItem = additionalInfoPiece[indexPath.row]
     }
 }

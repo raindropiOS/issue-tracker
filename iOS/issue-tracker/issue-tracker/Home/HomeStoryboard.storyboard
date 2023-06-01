@@ -20,7 +20,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hammer.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="hFp-yz-qTM">
-                                <rect key="frame" x="32" y="302.66666666666663" width="240" height="128"/>
+                                <rect key="frame" x="32" y="302.66666666666669" width="240" height="128"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="face.smiling.inverse" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ZFb-A1-bLs">
                                 <rect key="frame" x="111" y="379.33333333333331" width="240" height="128"/>
@@ -54,7 +54,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="signpost.right.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="0aE-Za-kfo">
-                                <rect key="frame" x="111" y="379.33333333333326" width="240" height="128"/>
+                                <rect key="frame" x="111" y="379.33333333333331" width="240" height="128"/>
                             </imageView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hammer.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="wb8-ws-yIz">
                                 <rect key="frame" x="32" y="302.66666666666669" width="240" height="128"/>
@@ -159,9 +159,14 @@
                                 <segment title="미리보기"/>
                             </segments>
                         </segmentedControl>
-                        <barButtonItem key="rightBarButtonItem" title="저장" id="EaW-XK-GYW"/>
+                        <barButtonItem key="rightBarButtonItem" title="저장" id="EaW-XK-GYW">
+                            <connections>
+                                <action selector="saveButtonTouched:" destination="UL5-9u-tT4" id="7uV-jM-zhW"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="contentsInput" destination="eZb-v5-ueH" id="o2T-9b-2gt"/>
                         <outlet property="tableView" destination="Lrz-DQ-V9t" id="1GD-Y0-FMW"/>
                         <outlet property="titleInputField" destination="cGh-Iq-72i" id="MKv-It-xxj"/>
                         <outlet property="titleLabel" destination="chM-B1-n6o" id="LHq-lv-Pnm"/>
