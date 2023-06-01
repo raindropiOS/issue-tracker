@@ -18,6 +18,7 @@ class IssueFilterTableViewController: UITableViewController {
         
         configureBackButton()
         configureSaveButton()
+        configureTitle()
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -73,17 +74,20 @@ extension IssueFilterTableViewController {
     private func configureBackButton() {
         let backbutton = UIButton(type: .custom)
         backbutton.setImage(UIImage(systemName: "chevron.left"), for: .normal)
-        backbutton.setTitle("Back", for: .normal)
+        backbutton.setTitle("취소", for: .normal)
         backbutton.setTitleColor(backbutton.tintColor, for: .normal)
         backbutton.addTarget(self, action: #selector(backAction), for: .touchUpInside)
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backbutton)
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backbutton)
     }
     
     private func configureSaveButton() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "저장  ", style: .plain, target: self, action: #selector(saveAction))
     }
     
+    private func configureTitle() {
+        navigationItem.title = "필터"
+    }
     @objc func backAction() {
         dismissSelf()
     }
