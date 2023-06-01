@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import styled, { css } from 'styled-components';
+import { PAGE } from '../../../constants';
 import { setFilterOption } from '../../../context/MainPage/MainPageActions';
 import { MainPageFilterDispatchContext } from '../../../context/MainPage/MainPageFilterContext';
 import { MainPageStateContext } from '../../../context/MainPage/MainPageStateContext';
@@ -21,7 +22,7 @@ const Pagination = () => {
         key={pageNumber}
         $isCurrentPage={isCurrentPage}
         onClick={() => {
-          dispatch(setFilterOption('page', pageNumber));
+          dispatch(setFilterOption(PAGE, pageNumber));
         }}
       >
         {pageNumber}
@@ -34,7 +35,7 @@ const Pagination = () => {
       <PaginationButton
         disabled={nowPage === startPage}
         onClick={() => {
-          dispatch(setFilterOption('page', nowPage - 1));
+          dispatch(setFilterOption(PAGE, nowPage - 1));
         }}
       >
         <div>{'<'}</div>
@@ -44,7 +45,7 @@ const Pagination = () => {
       <PaginationButton
         disabled={nowPage === lastPage}
         onClick={() => {
-          dispatch(setFilterOption('page', nowPage + 1));
+          dispatch(setFilterOption(PAGE, nowPage + 1));
         }}
       >
         <div>Next</div>

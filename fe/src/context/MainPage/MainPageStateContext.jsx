@@ -1,22 +1,28 @@
 import React, { createContext, useReducer } from 'react';
+import {
+  FETCH_ERROR,
+  FETCH_START,
+  FETCH_SUCCESS,
+  SET_MAIN_PAGE_STATE,
+} from './MainPageActionTypes';
 
 export const MainPageStateContext = createContext(null);
 export const MainPageStateDispatchContext = createContext(null);
 
 const mainPageReducer = (state, action) => {
   switch (action.type) {
-    case 'SET_MAIN_PAGE_STATE':
+    case SET_MAIN_PAGE_STATE:
       return {
         ...state,
         ...action.payload,
       };
-    case 'FETCH_START':
+    case FETCH_START:
       return {
         ...state,
         loading: true,
       };
-    case 'FETCH_SUCCESS':
-    case 'FETCH_ERROR':
+    case FETCH_SUCCESS:
+    case FETCH_ERROR:
       return {
         ...state,
         loading: false,

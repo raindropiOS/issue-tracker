@@ -4,24 +4,33 @@ import {
   checkDuplicateAndReturnValue,
   updateArrayWithDuplicateCheck,
 } from '../../utils';
+import {
+  RESET_FILTER_OPTIONS,
+  SET_ASSIGNEES_FILTER_OPTION,
+  SET_AUTHOR_FILTER_OPTION,
+  SET_ISSUE_STATE_FILTER_OPTION,
+  SET_LABELS_FILTER_OPTION,
+  SET_MILESTONE_NAME_FILTER_OPTION,
+  SET_PAGE_FILTER_OPTION,
+} from './MainPageActionTypes';
 
 export const MainPageFilterContext = createContext(null);
 export const MainPageFilterDispatchContext = createContext(null);
 
 const filterOptionsReducer = (state, action) => {
   switch (action.type) {
-    case 'RESET_FILTER_OPTIONS':
+    case RESET_FILTER_OPTIONS:
       return {
         ...state,
         ...action.payload,
       };
-    case 'SET_ISSUE_STATE_FILTER_OPTION':
+    case SET_ISSUE_STATE_FILTER_OPTION:
       return {
         ...state,
         issueState: action.payload,
         cntPage: 1,
       };
-    case 'SET_ASSIGNEES_FILTER_OPTION':
+    case SET_ASSIGNEES_FILTER_OPTION:
       return {
         ...state,
         assignees: updateArrayWithDuplicateCheck(
@@ -30,7 +39,7 @@ const filterOptionsReducer = (state, action) => {
         ),
         cntPage: 1,
       };
-    case 'SET_LABELS_FILTER_OPTION':
+    case SET_LABELS_FILTER_OPTION:
       return {
         ...state,
         labelNames: updateArrayWithDuplicateCheck(
@@ -39,7 +48,7 @@ const filterOptionsReducer = (state, action) => {
         ),
         cntPage: 1,
       };
-    case 'SET_MILESTONE_NAME_FILTER_OPTION':
+    case SET_MILESTONE_NAME_FILTER_OPTION:
       return {
         ...state,
         milestoneName: checkDuplicateAndReturnValue(
@@ -48,13 +57,13 @@ const filterOptionsReducer = (state, action) => {
         ),
         cntPage: 1,
       };
-    case 'SET_AUTHOR_FILTER_OPTION':
+    case SET_AUTHOR_FILTER_OPTION:
       return {
         ...state,
         author: checkDuplicateAndReturnValue(state.author, action.payload),
         cntPage: 1,
       };
-    case 'SET_PAGE_FILTER_OPTION':
+    case SET_PAGE_FILTER_OPTION:
       return {
         ...state,
         cntPage: action.payload,
