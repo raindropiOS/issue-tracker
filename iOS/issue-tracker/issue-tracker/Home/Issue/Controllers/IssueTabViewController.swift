@@ -8,7 +8,8 @@
 import UIKit
 import OSLog
 
-class IssueTabViewController: UIViewController, IssueCollectionViewDelegate {
+class IssueTabViewController: UIViewController, IssueCollectionViewDelegate, IssueTabViewControllerLike {
+    
     private var isSelectionMode: Bool = false
     private var addIssueButton: AddIssueButton?
     private var toolBar: IssueSelectingToolbar?
@@ -24,7 +25,7 @@ class IssueTabViewController: UIViewController, IssueCollectionViewDelegate {
     private let logger = Logger()
     private let networkManager = NetworkManager()
     private var issueFrames: [IssueFrame]?
-    private var currentIssueDataUrlString: String = "http://3.38.73.117:8080/api-ios/issues"
+    private var currentIssueDataUrlString: String = Server.base.rawValue
     
     @IBOutlet var backPlane: UIView!
     
@@ -79,6 +80,7 @@ class IssueTabViewController: UIViewController, IssueCollectionViewDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         fetchData()
     }
     
@@ -152,12 +154,8 @@ class IssueTabViewController: UIViewController, IssueCollectionViewDelegate {
     }
     
     private func fetchData() {
-        guard let url = URL(string: currentIssueDataUrlString) else {
-            self.logger.log(
-                "Invalie URL string : \(self.currentIssueDataUrlString)")
-            return
-        }
-        networkManager.fetchIssueData(with: url) { result in
+        let queryDictionary: [String: String] = filterOptionList.getQueryDictionary()
+        networkManager.queryIssueData(with: queryDictionary) { result in
             switch result {
             case .success(let issueFrameHolder):
                 self.issueFrames = issueFrameHolder.issues
