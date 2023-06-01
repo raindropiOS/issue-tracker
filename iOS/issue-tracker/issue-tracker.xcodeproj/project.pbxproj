@@ -25,6 +25,8 @@
 		8FDDF61B2A286BC400138598 /* AddIssueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FDDF6192A286BC400138598 /* AddIssueTableViewCell.swift */; };
 		8FDDF61C2A286BC400138598 /* AddIssueTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8FDDF61A2A286BC400138598 /* AddIssueTableViewCell.xib */; };
 		8FE4D3242A28F3B2008F1B57 /* FilterOptionFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE4D3232A28F3B2008F1B57 /* FilterOptionFactory.swift */; };
+		8FE4D3262A28FB93008F1B57 /* IssueDataEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE4D3252A28FB93008F1B57 /* IssueDataEncoder.swift */; };
+		8FE4D3282A291E26008F1B57 /* PostIssueFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FE4D3272A291E26008F1B57 /* PostIssueFormat.swift */; };
 		E4545DAA2A24DFDA00C3DB5B /* LabelTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4545DA92A24DFDA00C3DB5B /* LabelTabViewController.swift */; };
 		E4545DAF2A25C5C400C3DB5B /* LabelTabCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4545DAE2A25C5C400C3DB5B /* LabelTabCollectionView.swift */; };
 		E4545DB12A25D45300C3DB5B /* LabelTabCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4545DB02A25D45300C3DB5B /* LabelTabCollectionViewCell.swift */; };
@@ -78,6 +80,8 @@
 		8FDDF6192A286BC400138598 /* AddIssueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddIssueTableViewCell.swift; sourceTree = "<group>"; };
 		8FDDF61A2A286BC400138598 /* AddIssueTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddIssueTableViewCell.xib; sourceTree = "<group>"; };
 		8FE4D3232A28F3B2008F1B57 /* FilterOptionFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterOptionFactory.swift; sourceTree = "<group>"; };
+		8FE4D3252A28FB93008F1B57 /* IssueDataEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueDataEncoder.swift; sourceTree = "<group>"; };
+		8FE4D3272A291E26008F1B57 /* PostIssueFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostIssueFormat.swift; sourceTree = "<group>"; };
 		C4A228AF8694FA3F29925403 /* Pods_issue_tracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_issue_tracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4545DA92A24DFDA00C3DB5B /* LabelTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelTabViewController.swift; sourceTree = "<group>"; };
 		E4545DAE2A25C5C400C3DB5B /* LabelTabCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelTabCollectionView.swift; sourceTree = "<group>"; };
@@ -274,6 +278,7 @@
 				8F5204FA2A1DDF4900B49CF0 /* FilterOptionListMock.swift */,
 				E49420CB2A28B2230073DA3C /* AdditionalInformation.swift */,
 				8FE4D3232A28F3B2008F1B57 /* FilterOptionFactory.swift */,
+				8FE4D3272A291E26008F1B57 /* PostIssueFormat.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -285,6 +290,7 @@
 				8FC150FE2A20425500258108 /* Server.swift */,
 				8FA8A8A62A25941E00A748B2 /* URLRequestFactory.swift */,
 				8FA8A8A82A25985C00A748B2 /* IssueDataDecoder.swift */,
+				8FE4D3252A28FB93008F1B57 /* IssueDataEncoder.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -440,6 +446,7 @@
 				8FA8A8AD2A2864E700A748B2 /* AddIssueViewController.swift in Sources */,
 				8F61EB262A1642ED0020E302 /* State.swift in Sources */,
 				8FA8A8A92A25985C00A748B2 /* IssueDataDecoder.swift in Sources */,
+				8FE4D3262A28FB93008F1B57 /* IssueDataEncoder.swift in Sources */,
 				8FB11D842A18D8BC00EDEE45 /* NetworkManager.swift in Sources */,
 				E4545DB32A260DE400C3DB5B /* LabelTabCollectionViewHeaderCell.swift in Sources */,
 				E4D8AD5F2A16166F005BA9BA /* Title.swift in Sources */,
@@ -447,6 +454,7 @@
 				8F61EB282A1648B90020E302 /* IssueFrame.swift in Sources */,
 				E4545DB12A25D45300C3DB5B /* LabelTabCollectionViewCell.swift in Sources */,
 				E4D8AD5D2A161666005BA9BA /* Issue.swift in Sources */,
+				8FE4D3282A291E26008F1B57 /* PostIssueFormat.swift in Sources */,
 				8FB11D862A18E72E00EDEE45 /* IssueFrameHolder.swift in Sources */,
 				E482789C2A0BAC7700E91FA3 /* IssueCollectionViewCell.swift in Sources */,
 				E48278812A09ED1E00E91FA3 /* IssueTabViewController.swift in Sources */,
