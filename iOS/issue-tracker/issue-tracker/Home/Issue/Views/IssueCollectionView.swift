@@ -127,3 +127,19 @@ extension IssueCollectionView: SwipeCollectionViewCellDelegate {
         return options
     }
 }
+
+
+extension IssueCollectionView: UIScrollViewDelegate {
+    /// https://stackoverflow.com/questions/39015228/detect-when-uitableview-has-scrolled-to-the-bottom
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let height = scrollView.frame.size.height
+        let contentYOffset = scrollView.contentOffset.y
+        let distanceFromBottom = scrollView.contentSize.height - contentYOffset
+        
+        if distanceFromBottom < height {
+            if collectionViewDelegate?.networkManager.networkingState == .fetchingDataEnded {
+                collectionViewDelegate?.fetchData()
+            }
+        }
+    }
+}
