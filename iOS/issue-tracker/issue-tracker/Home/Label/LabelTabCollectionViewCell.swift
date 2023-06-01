@@ -60,7 +60,7 @@ class LabelTabCollectionViewCell: SwipeCollectionViewCell {
         labelSlot.subviews.forEach { $0.removeFromSuperview() }
         
         if let labelData = labelData {
-            let badge = BadgeLabel(name: labelData.name)
+            let badge = BadgeLabel(label: labelData.label)
             
             if let description = labelData.description {
                 labelSlot.addSubview(badge)

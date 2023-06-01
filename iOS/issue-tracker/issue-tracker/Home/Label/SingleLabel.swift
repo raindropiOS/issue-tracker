@@ -9,11 +9,11 @@ import Foundation
 
 
 struct SingleLabel {
-    let name: String
+    let label: Label
     let description: String?
     
-    init(name: String, description: String?) {
-        self.name = name
+    init(label: Label, description: String?) {
+        self.label = label
         self.description = description
     }
 }
