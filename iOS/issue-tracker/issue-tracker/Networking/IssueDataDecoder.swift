@@ -16,3 +16,13 @@ class IssueDataDecoder: IssueDataDecodable {
 protocol IssueDataDecodable {
     func decodeIssueData(_: Data) throws -> IssueFrameHolder
 }
+
+class AdditionalInformationDataDecoder: AdditionalInformationDataDecodable {
+    func decodeIssueData(_ data: Data) throws -> AdditionalInformation {
+        try JSONDecoder().decode(AdditionalInformation.self, from: data)
+    }
+}
+
+protocol AdditionalInformationDataDecodable {
+    func decodeIssueData(_: Data) throws -> AdditionalInformation
+}

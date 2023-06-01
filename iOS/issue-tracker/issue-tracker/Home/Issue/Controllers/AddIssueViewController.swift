@@ -11,6 +11,8 @@ class AddIssueViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var titleInputField: UITextField!
+    private let networkManager = NetworkManager()
+    private var additionalInfo : AdditionalInformation?
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
@@ -18,7 +20,18 @@ class AddIssueViewController: UIViewController {
         tableView.dataSource = self
         registerCell()
         setTitleInputLabelLayout()
-        
+        fetchData()
+    }
+    
+    private func fetchData() {
+        networkManager.fetchAdditionalInformation { result in
+            switch result {
+            case .success(let additionalInfo):
+                self.additionalInfo = additionalInfo
+            case .failure(let error):
+                self.networkManager.logger.log("network ERROR")
+            }
+        }
     }
     
     private func configureNavigationBar() {
@@ -36,16 +49,7 @@ class AddIssueViewController: UIViewController {
         titleInputField.font = UIFont.systemFont(ofSize: 18.0)
         titleInputField.textColor = .gray
     }
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
+
     private func registerCell() {
         tableView.register(UINib(nibName: "AddIssueTableViewCell", bundle: nil), forCellReuseIdentifier: AddIssueTableViewCell.identifier)
     }
@@ -64,11 +68,11 @@ extension AddIssueViewController: UITableViewDataSource {
         }
         switch indexPath.row {
         case 0:
-            cell.configure(type: "담당자", name: "sam")
+            cell.configure(type: "담당자", name: "")
         case 1:
-            cell.configure(type: "레이블", name: "feature")
+            cell.configure(type: "레이블", name: "")
         case 2:
-            cell.configure(type: "마일스톤", name: "iOS-STEP-138")
+            cell.configure(type: "마일스톤", name: "")
         default:
             return UITableViewCell()
         }
@@ -86,5 +90,16 @@ extension AddIssueViewController: UITableViewDataSource {
 }
 
 extension AddIssueViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let storyboard = UIStoryboard(name: "HomeStoryboard", bundle: nil)
+        guard let additionalInfoTableViewController = storyboard.instantiateViewController(withIdentifier: "김삿갓") as? AddtionalInfoTableViewController else {
+            return
+        }
+        guard let additionalInfo = additionalInfo else {
+            return
+        }
+        additionalInfoTableViewController.configure(with: additionalInfo[indexPath.row])
+        
+        show(additionalInfoTableViewController, sender: self)
+    }
 }
