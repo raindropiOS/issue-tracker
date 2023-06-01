@@ -8,13 +8,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-public class AllEntitiesDTO {
+public class AllLabelsAndMilestonesAndUsersDTO {
 
     private List<Label> allLabels;
     private List<Milestone> allMilestones;
     private List<User> allUsers;
 
-    public AllEntitiesDTO(Iterable<Label> labels, Iterable<Milestone> milestones, Iterable<User> users) {
+    public AllLabelsAndMilestonesAndUsersDTO(Iterable<Label> labels, Iterable<Milestone> milestones, Iterable<User> users) {
         this.allLabels = StreamSupport.stream(labels.spliterator(), false)
                 .collect(Collectors.toList());
         this.allMilestones = StreamSupport.stream(milestones.spliterator(), false)

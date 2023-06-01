@@ -34,7 +34,7 @@ public class IssueController {
     }
 
     @GetMapping("/api/issues")
-    public AllEntitiesDTO showIssueWriteForm() {
+    public AllLabelsAndMilestonesAndUsersDTO showIssueWriteForm() {
         return issueService.gatherAllEntities();
     }
 
