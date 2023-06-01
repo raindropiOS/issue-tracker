@@ -19,6 +19,7 @@ class IssueTabViewController: UIViewController, IssueCollectionViewDelegate, Iss
     var cancelButton: UIBarButtonItem?
     let nothingButton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     var filterOptionList: FilterOptionsLike = FilterOptionListMock()
+    var additionalInformation: AdditionalInformation?
     
     private let logger = Logger()
     private let networkManager = NetworkManager()
@@ -34,6 +35,7 @@ class IssueTabViewController: UIViewController, IssueCollectionViewDelegate, Iss
         setToolbar()
         setAddIssueButton()
         configureAddButtonAction()
+        fetchAdditionalInformation()
     }
     
     
@@ -128,6 +130,7 @@ class IssueTabViewController: UIViewController, IssueCollectionViewDelegate, Iss
         let filterTableViewController = IssueFilterTableViewController()
         filterTableViewController.delegate = self
         filterTableViewController.filterOptionList = filterOptionList
+        
         show(filterTableViewController, sender: sender)
     }
     
@@ -167,6 +170,35 @@ class IssueTabViewController: UIViewController, IssueCollectionViewDelegate, Iss
                 self.logger.error("error : \(error)")
             }
         }
+    }
+    
+    private func fetchAdditionalInformation() {
+        networkManager.fetchAdditionalInformation { result in
+            switch result {
+            case .success(let additionalInfo):
+                self.additionalInformation = additionalInfo
+                self.makeFilterOptionsArray()
+            case .failure(let error):
+                self.networkManager.logger.log("network ERROR : \(error)")
+            }
+        }
+    }
+    
+    private func makeFilterOptionsArray() {
+        let filterOptionFactory = FilterOptionFactory()
+        let users = additionalInformation?.allUsers
+        let labels = additionalInformation?.allLabels
+        let milestones = additionalInformation?.allMilestones
+        
+        let usersFilterOptions: [FilterOption] = users?.map { user in  filterOptionFactory.makeFilterOption(outOf: user) } ?? []
+        let labelsFilterOptions: [FilterOption] = labels?.map { label in
+            filterOptionFactory.makeFilterOption(outOf: label) } ?? []
+        let milestoneFilterOptions: [FilterOption] = milestones?.map { milestone in
+            filterOptionFactory.makeFilterOption(outOf: milestone) } ?? []
+        
+        filterOptionList.list.append(usersFilterOptions)
+        filterOptionList.list.append(labelsFilterOptions)
+        filterOptionList.list.append(milestoneFilterOptions)
     }
     
     func setUrlString(with urlString: String) {

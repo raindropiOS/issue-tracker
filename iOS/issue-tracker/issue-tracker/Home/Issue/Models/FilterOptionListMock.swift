@@ -15,15 +15,16 @@ struct FilterOptionListMock: FilterOptionsLike {
             FilterOption(filterLabel: "내가 댓글을 남긴 이슈"),
             FilterOption(filterLabel: "닫힌 이슈", filterUrlStr: ("state", "false")),
         ],
-        [
-            // 현재 assignee의 id로 필터링 가능, 중첩 사용은 안됌
-            FilterOption(filterLabel: "ghkdgus29", filterUrlStr: ("assignees", "ghkdgus29")),
-            FilterOption(filterLabel: "cire", filterUrlStr: ("assignees", "cire")),
-        ],
-        [
-            FilterOption(filterLabel: "레이블 없음", filterUrlStr: ("labelNames", "$none")),
-            FilterOption(filterLabel: "BE STEP1", filterUrlStr: ("milestoneName", "BE STEP1")),
-        ]
+        // 이하 내용 network로 추가
+//        [
+//            // 현재 assignee의 id로 필터링 가능, 중첩 사용은 안됌
+//            FilterOption(filterLabel: "ghkdgus29", filterUrlStr: ("assignees", "ghkdgus29")),
+//            FilterOption(filterLabel: "cire", filterUrlStr: ("assignees", "cire")),
+//        ],
+//        [
+//            FilterOption(filterLabel: "레이블 없음", filterUrlStr: ("labelNames", "$none")),
+//            FilterOption(filterLabel: "BE STEP1", filterUrlStr: ("milestoneName", "BE STEP1")),
+//        ]
     ]
     
     func getQueryDictionary() -> [String: String] {
