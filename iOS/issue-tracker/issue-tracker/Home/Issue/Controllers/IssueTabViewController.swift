@@ -8,7 +8,7 @@
 import UIKit
 import OSLog
 
-class IssueTabViewController: UIViewController, IssueCollectionViewDelegate, IssueTabViewControllerLike {
+class IssueTabViewController: UIViewController, IssueCollectionViewDelegate, IssueTabViewControllerLike, NetworkManagerIncluded {
     
     private var isSelectionMode: Bool = false
     private var addIssueButton: AddIssueButton?
@@ -21,8 +21,9 @@ class IssueTabViewController: UIViewController, IssueCollectionViewDelegate, Iss
     var filterOptionList: FilterOptionsLike = FilterOptionListMock()
     var additionalInformation: AdditionalInformation?
     
+    
     private let logger = Logger()
-    private let networkManager = NetworkManager()
+    internal let networkManager = NetworkManager()
     private var issueFrames: [IssueFrame]?
     private var currentIssueDataUrlString: String = Server.base.rawValue
     
@@ -155,14 +156,14 @@ class IssueTabViewController: UIViewController, IssueCollectionViewDelegate, Iss
         self.updateTopTitle()
     }
     
-    private func fetchData() {
+    internal func fetchData() {
         let queryDictionary: [String: String] = filterOptionList.getQueryDictionary()
         networkManager.queryIssueData(with: queryDictionary) { result in
             switch result {
             case .success(let issueFrameHolder):
                 self.issueFrames = issueFrameHolder.issues
                 guard let issueFrames = self.issueFrames else { return }
-                self.collectionView.issueFrames = issueFrames
+                self.collectionView.issueFrames.append(contentsOf: issueFrames)
                 DispatchQueue.main.async {
                     self.collectionView.reloadData()
                 }
@@ -216,6 +217,11 @@ class IssueTabViewController: UIViewController, IssueCollectionViewDelegate, Iss
     }
 }
 
-protocol IssueCollectionViewDelegate: AnyObject {
+protocol IssueCollectionViewDelegate: AnyObject, NetworkManagerIncluded {
     func didSelectCell(in collectionView: IssueCollectionView, at indexPath: IndexPath)
+    func fetchData()
+}
+
+protocol NetworkManagerIncluded {
+    var networkManager: NetworkManager { get }
 }
