@@ -1,14 +1,12 @@
 import { useContext } from 'react';
 import styled, { css } from 'styled-components';
 import { setFilterOption } from '../../../context/MainPage/MainPageActions';
-import {
-  MainPageContext,
-  MainPageDispatchContext,
-} from '../../../context/MainPage/MainPageContext';
+import { MainPageFilterDispatchContext } from '../../../context/MainPage/MainPageFilterContext';
+import { MainPageStateContext } from '../../../context/MainPage/MainPageStateContext';
 
 const Pagination = () => {
-  const { paging } = useContext(MainPageContext);
-  const dispatch = useContext(MainPageDispatchContext);
+  const { paging } = useContext(MainPageStateContext);
+  const dispatch = useContext(MainPageFilterDispatchContext);
   const { startPage, nowPage, lastPage } = paging;
 
   const pageList = Array.from(

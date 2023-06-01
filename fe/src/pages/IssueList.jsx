@@ -1,10 +1,6 @@
 import { useEffect, useContext, useCallback } from 'react';
 import TabBar from '../components/TabBar';
 import IssueTable from '../components/IssueTable';
-import {
-  MainPageContext,
-  MainPageDispatchContext,
-} from '../context/MainPage/MainPageContext';
 import { generateQueryString } from '../utils';
 import {
   fetchStart,
@@ -12,10 +8,12 @@ import {
   fetchError,
   setMainPageState,
 } from '../context/MainPage/MainPageActions';
+import { MainPageFilterContext } from '../context/MainPage/MainPageFilterContext';
+import { MainPageStateDispatchContext } from '../context/MainPage/MainPageStateContext';
 
 const IssueList = () => {
-  const { filterOptions } = useContext(MainPageContext);
-  const dispatch = useContext(MainPageDispatchContext);
+  const filterOptions = useContext(MainPageFilterContext);
+  const dispatch = useContext(MainPageStateDispatchContext);
 
   const queryString = generateQueryString(filterOptions);
 

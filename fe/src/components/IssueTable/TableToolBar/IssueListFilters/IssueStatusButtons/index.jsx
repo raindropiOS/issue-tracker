@@ -4,20 +4,21 @@ import { ReactComponent as alertCircle } from '../../../../../assets/alertCircle
 import { ReactComponent as archive } from '../../../../../assets/archive.svg';
 import { GhostButton } from '../../../../common';
 import { CLOSED, ISSUE_STATE, OPENED } from '../../../../../constants';
-import {
-  MainPageContext,
-  MainPageDispatchContext,
-} from '../../../../../context/MainPage/MainPageContext';
 import { setFilterOption } from '../../../../../context/MainPage/MainPageActions';
+import { MainPageStateContext } from '../../../../../context/MainPage/MainPageStateContext';
+import {
+  MainPageFilterContext,
+  MainPageFilterDispatchContext,
+} from '../../../../../context/MainPage/MainPageFilterContext';
 
 const IssueStatusButtons = () => {
   const {
     counts: { openedIssuesCount, closedIssuesCount },
-    filterOptions,
-  } = useContext(MainPageContext);
-  const dispatch = useContext(MainPageDispatchContext);
+  } = useContext(MainPageStateContext);
+  const { issueState } = useContext(MainPageFilterContext);
+  const dispatch = useContext(MainPageFilterDispatchContext);
 
-  const isOpened = filterOptions.issueState !== CLOSED;
+  const isOpened = issueState !== CLOSED;
 
   return (
     <IssueStatusButtonsBox>

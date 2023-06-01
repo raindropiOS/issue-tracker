@@ -57,7 +57,7 @@ export const filterOptions = {
     type: SET_ASSIGNEES_FILTER_OPTION,
     payload: value,
   }),
-  labels: (value) => ({
+  labelNames: (value) => ({
     type: SET_LABELS_FILTER_OPTION,
     payload: value,
   }),

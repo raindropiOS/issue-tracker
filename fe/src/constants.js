@@ -12,7 +12,7 @@ export const ASSIGNEE = {
 };
 export const LABELS = {
   KO: '레이블',
-  KEY: 'labels',
+  KEY: 'labelNames',
 };
 export const MILESTONE = {
   KO: '마일스톤',

@@ -10,9 +10,10 @@ import {
 } from '../../../../../constants';
 import { setFilterOption } from '../../../../../context/MainPage/MainPageActions';
 import {
-  MainPageContext,
-  MainPageDispatchContext,
-} from '../../../../../context/MainPage/MainPageContext';
+  MainPageFilterContext,
+  MainPageFilterDispatchContext,
+} from '../../../../../context/MainPage/MainPageFilterContext';
+import { MainPageStateContext } from '../../../../../context/MainPage/MainPageStateContext';
 import DropDown from '../../../../DropDown';
 
 const convertOptionItems = (
@@ -44,18 +45,18 @@ const convertOptionItems = (
 };
 
 const TableFilterButtons = () => {
-  const {
-    allUsers, allLabels, allMilestones, filterOptions,
-  } = useContext(MainPageContext);
-  const dispatch = useContext(MainPageDispatchContext);
+  const { allUsers, allLabels, allMilestones } = useContext(MainPageStateContext);
+  const filterOptions = useContext(MainPageFilterContext);
+  const dispatch = useContext(MainPageFilterDispatchContext);
 
+  const targetFilterOptions = { ...filterOptions };
   const filterDropDownConfigList = ISSUE_TABLE_FILTER_OPTIONS.map(
     (filterOption) => {
-      const targetFilterOption = filterOptions[filterOption.KEY];
+      const targetFilterOption = targetFilterOptions[filterOption.KEY];
 
       const isChecked = targetFilterOption === null
         ? false
-        : filterOptions[filterOption.KEY].includes(NONE);
+        : targetFilterOptions[filterOption.KEY].includes(NONE);
 
       let bodyItems = filterOption.KO !== AUTHOR.KO
         ? [

@@ -2,11 +2,6 @@ import styled from 'styled-components';
 import { useContext, useEffect, useState } from 'react';
 import IssueItem from './IssueItem';
 import TableToolBar from './TableToolBar';
-import {
-  MainPageContext,
-  MainPageDispatchContext,
-  mainPageInitialState,
-} from '../../context/MainPage/MainPageContext';
 import { GhostButton } from '../common';
 import { OPENED, RESET } from '../../constants';
 import { ReactComponent as xSquare } from '../../assets/xSquare.svg';
@@ -15,10 +10,17 @@ import { CheckBoxActive, CheckBoxDisabled, CheckBoxInitial } from './CheckBox';
 import IssueListFilters from './TableToolBar/IssueListFilters';
 import IssueListModifier from './TableToolBar/IssueListModifier';
 import Pagination from './Pagination';
+import { MainPageStateContext } from '../../context/MainPage/MainPageStateContext';
+import {
+  MainPageFilterContext,
+  MainPageFilterDispatchContext,
+  MainPageInitialFilterOptions,
+} from '../../context/MainPage/MainPageFilterContext';
 
 const IssueTable = () => {
-  const { issues, filterOptions } = useContext(MainPageContext);
-  const dispatch = useContext(MainPageDispatchContext);
+  const { issues } = useContext(MainPageStateContext);
+  const filterOptions = useContext(MainPageFilterContext);
+  const dispatch = useContext(MainPageFilterDispatchContext);
   const [selectedIssues, setSelectedIssues] = useState([]);
 
   useEffect(() => {
@@ -62,7 +64,7 @@ const IssueTable = () => {
         color="neutralText"
         hoverColor="iconBackgoundBlue"
         onclick={() => {
-          dispatch(setFilterOption(RESET, mainPageInitialState.filterOptions));
+          dispatch(setFilterOption(RESET, MainPageInitialFilterOptions));
         }}
       >
         <XSquare />

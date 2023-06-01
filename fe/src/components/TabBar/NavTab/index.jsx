@@ -5,10 +5,10 @@ import { ContainerButton, GhostButton } from '../../common';
 import { ReactComponent as label } from '../../../assets/label.svg';
 import { ReactComponent as mileStone } from '../../../assets/mileStone.svg';
 import { ReactComponent as plus } from '../../../assets/plus.svg';
-import { MainPageContext } from '../../../context/MainPage/MainPageContext';
+import { MainPageStateContext } from '../../../context/MainPage/MainPageStateContext';
 
 const NabTab = () => {
-  const { allLabels, allMilestones } = useContext(MainPageContext);
+  const { allLabels, allMilestones } = useContext(MainPageStateContext);
 
   const totalLabel = allLabels?.length > 0 ? allLabels.length : 0;
   const totalMileStone = allMilestones?.length > 0 ? allMilestones.length : 0;
