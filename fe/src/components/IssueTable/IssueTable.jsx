@@ -1,6 +1,5 @@
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import IssueItem from './IssueItem/IssueItem';
 import TableToolBar from './TableToolBar/TableToolBar';
 import {
@@ -63,14 +62,12 @@ const IssueTable = () => {
           - new Date(nextIssueInfo.lastUpdatedDate),
       )
       .map((issue) => (
-        <IssueItemLink to={`/issue-detail/${issue.number}`}>
-          <IssueItem
-            key={issue.number}
-            {...issue}
-            handleCheckBoxClick={addSelectedIssue}
-            isChecked={selectedIssues.includes(issue.number)}
-          />
-        </IssueItemLink>
+        <IssueItem
+          key={issue.number}
+          {...issue}
+          handleCheckBoxClick={addSelectedIssue}
+          isChecked={selectedIssues.includes(issue.number)}
+        />
       ));
 
   const isAllSelected = selectedIssues.length === issues.length && selectedIssues.length;
@@ -154,13 +151,6 @@ const XSquare = styled(xSquare)`
   stroke: ${({ theme }) => theme.color.neutralText};
 `;
 
-const IssueItemLink = styled(Link)`
-  border-right: 1px solid ${({ theme }) => theme.color.neutralBorder};
-  border-left: 1px solid ${({ theme }) => theme.color.neutralBorder};
-  border-bottom: 1px solid ${({ theme }) => theme.color.neutralBorder};
-  background: ${({ theme }) => theme.color.neutralBackgroundStrong};
-`;
-
 const IssueItemList = styled.ul`
   display: flex;
   flex-direction: column;
@@ -175,7 +165,7 @@ const IssueItemList = styled.ul`
     border-bottom: 1px solid ${({ theme }) => theme.color.neutralBorder};
   }
 
-  ${IssueItemLink}:last-child {
+  > li:last-child {
     border-radius: 0px 0px 16px 16px;
   }
 `;

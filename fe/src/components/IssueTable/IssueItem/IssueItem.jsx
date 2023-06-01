@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { ReactComponent as alertCircle } from '../../../assets/alertCircle.svg';
 import { ReactComponent as mileStone } from '../../../assets/mileStone.svg';
 import { ReactComponent as archive } from '../../../assets/archive.svg';
@@ -34,7 +35,9 @@ const IssueItem = ({
       <IssueItemBody>
         <IssueItemTitle>
           {state ? <AlertCircleIcon /> : <Archive />}
-          <p>{title}</p>
+          <IssueItemLink to={`/issue-detail/${number}`}>
+            <p>{title}</p>
+          </IssueItemLink>
           {labels.map((labelInfo) => (
             <Label key={labelInfo.name} {...labelInfo} />
           ))}
@@ -72,6 +75,14 @@ const IssueItemBox = styled.li`
   flex-direction: row;
 
   padding: 24px;
+  border-right: 1px solid ${({ theme }) => theme.color.neutralBorder};
+  border-left: 1px solid ${({ theme }) => theme.color.neutralBorder};
+  border-bottom: 1px solid ${({ theme }) => theme.color.neutralBorder};
+  background-color: ${({ theme }) => theme.color.neutralBackgroundStrong};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.color.neutralBackground};
+  }
 
   > div {
     padding: 0 33px;
@@ -95,6 +106,12 @@ const IssueItemTitle = styled.div`
   color: ${({ theme }) => theme.color.neutralTextStrong};
   gap: 10px;
   flex-direction: row;
+`;
+
+const IssueItemLink = styled(Link)`
+  &:hover {
+    color: ${({ theme }) => theme.color.iconBackgoundBlue};
+  }
 `;
 
 const IssueItemAttributes = styled.div`
