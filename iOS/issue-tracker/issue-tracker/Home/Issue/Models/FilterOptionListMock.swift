@@ -22,7 +22,7 @@ struct FilterOptionListMock: FilterOptionsLike {
         ],
         [
             FilterOption(filterLabel: "레이블 없음", filterUrlStr: ("labelNames", "$none")),
-            FilterOption(filterLabel: "BE STEP1", filterUrlStr: ("milestoneNames", "BESTEP1")),
+            FilterOption(filterLabel: "BE STEP1", filterUrlStr: ("milestoneName", "BE STEP1")),
         ]
     ]
     
