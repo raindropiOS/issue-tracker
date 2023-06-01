@@ -6,8 +6,7 @@ import {
   ISSUE_TABLE_FILTER_OPTIONS,
   LABELS,
   MILESTONE,
-  NONE,
-} from '../../../../../constants';
+} from './constant';
 import { setFilterOption } from '../../../../../context/MainPage/MainPageActions';
 import {
   MainPageFilterContext,
@@ -15,6 +14,7 @@ import {
 } from '../../../../../context/MainPage/MainPageFilterContext';
 import { MainPageStateContext } from '../../../../../context/MainPage/MainPageStateContext';
 import DropDown from '../../../../DropDown';
+import { NONE } from '../../../../../constants';
 
 const convertOptionItems = (
   optionItems,
