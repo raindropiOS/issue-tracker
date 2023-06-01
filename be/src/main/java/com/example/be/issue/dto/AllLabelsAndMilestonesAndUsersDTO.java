@@ -5,8 +5,6 @@ import com.example.be.milestone.Milestone;
 import com.example.be.user.User;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 public class AllLabelsAndMilestonesAndUsersDTO {
 
@@ -15,12 +13,9 @@ public class AllLabelsAndMilestonesAndUsersDTO {
     private List<User> allUsers;
 
     public AllLabelsAndMilestonesAndUsersDTO(Iterable<Label> labels, Iterable<Milestone> milestones, Iterable<User> users) {
-        this.allLabels = StreamSupport.stream(labels.spliterator(), false)
-                .collect(Collectors.toList());
-        this.allMilestones = StreamSupport.stream(milestones.spliterator(), false)
-                .collect(Collectors.toList());
-        this.allUsers = StreamSupport.stream(users.spliterator(), false)
-                .collect(Collectors.toList());
+        this.allLabels = (List<Label>) labels;
+        this.allMilestones = (List<Milestone>) milestones;
+        this.allUsers = (List<User>) users;
     }
 
     public List<Label> getAllLabels() {
