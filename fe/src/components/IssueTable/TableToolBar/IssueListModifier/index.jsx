@@ -37,7 +37,6 @@ const changeIssuesState = async (selectedIssues, state) => {
     targetState: state,
   }));
   await Promise.all(requests);
-  console.log('모든 요청 완료');
 };
 
 const IssueListModifier = ({ selectedIssues, issueListTotalCount }) => {
@@ -49,6 +48,7 @@ const IssueListModifier = ({ selectedIssues, issueListTotalCount }) => {
     headerText: '상태 변경',
     bodyItems: [
       {
+        key: '선택한 이슈 열기',
         text: '선택한 이슈 열기',
         handleItemClick: async () => {
           await changeIssuesState(selectedIssues, true);
@@ -56,6 +56,7 @@ const IssueListModifier = ({ selectedIssues, issueListTotalCount }) => {
         },
       },
       {
+        key: '선택한 이슈 닫기',
         text: '선택한 이슈 닫기',
         handleItemClick: async () => {
           await changeIssuesState(selectedIssues, false);

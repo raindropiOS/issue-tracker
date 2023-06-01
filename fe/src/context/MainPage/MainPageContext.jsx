@@ -11,7 +11,7 @@ import {
   SET_COMMENTED_BY_ME_FILTER_OPTION,
   SET_ASSIGNEES_FILTER_OPTION,
   SET_LABELS_FILTER_OPTION,
-  SET_MILESTONE_FILTER_OPTION,
+  SET_MILESTONE_NAME_FILTER_OPTION,
   SET_AUTHOR_FILTER_OPTION,
   SET_PAGE_FILTER_OPTION,
   SET_MAIN_PAGE_STATE,
@@ -97,7 +97,7 @@ const mainPageReducer = (state, action) => {
         filterOptions: {
           ...state.filterOptions,
           cntPage: 1,
-          assignees: checkDuplicateAndReturnValue(
+          assignees: updateArrayWithDuplicateCheck(
             state.filterOptions.assignees,
             action.payload,
           ),
@@ -115,14 +115,14 @@ const mainPageReducer = (state, action) => {
           ),
         },
       };
-    case SET_MILESTONE_FILTER_OPTION:
+    case SET_MILESTONE_NAME_FILTER_OPTION:
       return {
         ...state,
         filterOptions: {
           ...state.filterOptions,
           cntPage: 1,
-          milestone: checkDuplicateAndReturnValue(
-            state.filterOptions.milestone,
+          milestoneName: checkDuplicateAndReturnValue(
+            state.filterOptions.milestoneName,
             action.payload,
           ),
         },
@@ -132,6 +132,7 @@ const mainPageReducer = (state, action) => {
         ...state,
         filterOptions: {
           ...state.filterOptions,
+          cntPage: 1,
           author: checkDuplicateAndReturnValue(
             state.filterOptions.author,
             action.payload,
@@ -164,9 +165,9 @@ export const mainPageInitialState = {
     writtenByMe: false,
     assignedToMe: false,
     commentedByMe: false,
-    assignees: null,
+    assignees: [],
     labels: [],
-    milestone: null,
+    milestoneName: null,
     author: null,
     cntPage: 1,
   },

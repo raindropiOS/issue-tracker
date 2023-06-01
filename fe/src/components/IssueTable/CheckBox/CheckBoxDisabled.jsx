@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { ReactComponent as CheckBoxDisabledIcon } from '../../../assets/checkBoxDisabled.svg';
 
-export const CheckBoxDisabled = ({ handleCheckboxChange }) => {
+export const CheckBoxDisabled = ({ handleCheckBoxClick }) => {
   return (
-    <CheckBoxDisabledBox onClick={handleCheckboxChange}>
+    <CheckBoxDisabledBox onClick={handleCheckBoxClick}>
       <CheckBoxDisabledIcon />
     </CheckBoxDisabledBox>
   );

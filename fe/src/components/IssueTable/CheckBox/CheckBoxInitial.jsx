@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import { ReactComponent as CheckBoxInitialIcon } from '../../../assets/checkBoxInitial.svg';
 
-export const CheckBoxInitial = ({ handleCheckboxChange }) => {
+export const CheckBoxInitial = ({ handleCheckBoxClick }) => {
   return (
-    <CheckBoxInitialBox onClick={handleCheckboxChange}>
+    <CheckBoxInitialBox onClick={handleCheckBoxClick}>
       <CheckBoxInitialIcon />
     </CheckBoxInitialBox>
   );

@@ -16,7 +16,7 @@ export const LABELS = {
 };
 export const MILESTONE = {
   KO: '마일스톤',
-  KEY: 'milestone',
+  KEY: 'milestoneName',
 };
 export const AUTHOR = {
   KO: '작성자',

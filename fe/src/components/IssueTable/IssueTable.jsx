@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import { useContext, useEffect, useState } from 'react';
 import IssueItem from './IssueItem/IssueItem';
 import TableToolBar from './TableToolBar/TableToolBar';
@@ -56,33 +56,41 @@ const IssueTable = () => {
 
   const issueItems = issues
     && issues.length !== 0
-    && issues.map((issue) => (
-      <IssueItem
-        key={issue.number}
-        {...issue}
-        handleCheckboxChange={addSelectedIssue}
-        isChecked={selectedIssues.includes(issue.number)}
-      />
-    ));
+    && issues
+      .sort(
+        (prevIssueInfo, nextIssueInfo) => new Date(nextIssueInfo.lastUpdatedDate)
+          - new Date(prevIssueInfo.lastUpdatedDate),
+      )
+      .map((issue) => (
+        <IssueItem
+          key={issue.number}
+          {...issue}
+          handleCheckBoxClick={addSelectedIssue}
+          isChecked={selectedIssues.includes(issue.number)}
+        />
+      ));
+
+  const isAllSelected = selectedIssues.length === issues.length && selectedIssues.length;
+  const isAnySelected = selectedIssues.length > 0;
 
   let CheckBox;
 
-  if (selectedIssues.length === issues.length) {
+  if (isAllSelected) {
     CheckBox = (
       <CheckBoxActive
-        handleCheckboxChange={() => handleAllSelectedIssue(false)}
+        handleCheckBoxClick={() => handleAllSelectedIssue(false)}
       />
     );
-  } else if (selectedIssues.length) {
+  } else if (isAnySelected) {
     CheckBox = (
       <CheckBoxDisabled
-        handleCheckboxChange={() => handleAllSelectedIssue(true)}
+        handleCheckBoxClick={() => handleAllSelectedIssue(true)}
       />
     );
   } else {
     CheckBox = (
       <CheckBoxInitial
-        handleCheckboxChange={() => handleAllSelectedIssue(true)}
+        handleCheckBoxClick={() => handleAllSelectedIssue(true)}
       />
     );
   }
@@ -122,11 +130,13 @@ const IssueTable = () => {
         )}
       </TableToolBar>
       {issueItems ? (
-        <IssueItemList>{issueItems}</IssueItemList>
+        <>
+          <IssueItemList>{issueItems}</IssueItemList>
+          <Pagination />
+        </>
       ) : (
         <NoticeBox>검색과 일치하는 결과가 없습니다.</NoticeBox>
       )}
-      <Pagination />
     </div>
   );
 };
@@ -155,12 +165,6 @@ const IssueItemList = styled.ul`
     border-bottom: 1px solid ${({ theme }) => theme.color.neutralBorder};
   }
 
-  > li {
-    border-right: 1px solid ${({ theme }) => theme.color.neutralBorder};
-    border-left: 1px solid ${({ theme }) => theme.color.neutralBorder};
-    border-bottom: 1px solid ${({ theme }) => theme.color.neutralBorder};
-  }
-
   > li:last-child {
     border-radius: 0px 0px 16px 16px;
   }
@@ -176,5 +180,8 @@ const NoticeBox = styled.div`
   font-size: ${({ theme }) => theme.fontSize.M.size};
   color: ${({ theme }) => theme.color.neutralTextWeak};
   background-color: ${({ theme }) => theme.color.neutralBackgroundStrong};
+  border-right: 1px solid ${({ theme }) => theme.color.neutralBorder};
+  border-left: 1px solid ${({ theme }) => theme.color.neutralBorder};
+  border-bottom: 1px solid ${({ theme }) => theme.color.neutralBorder};
   border-radius: 0px 0px 16px 16px;
 `;

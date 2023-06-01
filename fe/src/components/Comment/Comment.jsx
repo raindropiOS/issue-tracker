@@ -1,22 +1,22 @@
 import { styled } from 'styled-components';
 import { UserIcon } from '../common';
-import temp from '../../assets/userImageSmall.svg';
 import smile from '../../assets/smile.svg';
+import { getElapsedTime } from '../../utils/utils';
 
-const Comment = () => {
+const Comment = ({ author, createdDate, contents }) => {
   return (
     <CommentBox>
       <CommentHeader>
         <UserInfoBox>
-          <UserIcon imgSrc={temp} />
-          <span>chloe</span>
-          <span>3분전</span>
+          <UserIcon imgSrc={author?.imgUrl} />
+          <span>{author?.nickname}</span>
+          <span>{getElapsedTime(createdDate)}</span>
         </UserInfoBox>
         <LabelBox>
           <img src={smile} alt="smile" />
         </LabelBox>
       </CommentHeader>
-      <CommentBody>dddd</CommentBody>
+      <CommentBody>{contents}</CommentBody>
     </CommentBox>
   );
 };
