@@ -97,7 +97,7 @@ const mainPageReducer = (state, action) => {
         filterOptions: {
           ...state.filterOptions,
           cntPage: 1,
-          assignees: checkDuplicateAndReturnValue(
+          assignees: updateArrayWithDuplicateCheck(
             state.filterOptions.assignees,
             action.payload,
           ),
@@ -165,7 +165,7 @@ export const mainPageInitialState = {
     writtenByMe: false,
     assignedToMe: false,
     commentedByMe: false,
-    assignees: null,
+    assignees: [],
     labels: [],
     milestoneName: null,
     author: null,
