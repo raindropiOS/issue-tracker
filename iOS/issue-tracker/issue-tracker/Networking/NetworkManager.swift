@@ -13,6 +13,8 @@ class NetworkManager {
     let urlRequestFactory: URLRequestProducible = URLRequestFactory()
     let issueDataDecoder: IssueDataDecodable = IssueDataDecoder()
     let baseUrlString: String = Server.base.rawValue
+    let additionalInfoUrlString : String = Server.additionalInfo.rawValue
+    let additionalInformationDecoder : AdditionalInformationDataDecodable = AdditionalInformationDataDecoder()
     
     func fetchIssueData(
         with urlString: String,
@@ -66,4 +68,27 @@ class NetworkManager {
             }
         }.resume()
     }
+    
+    func fetchAdditionalInformation(
+        completion: @escaping (Result<AdditionalInformation, Error>) -> Void) {
+            guard let request = urlRequestFactory.makeUrlRequest(additionalInfoUrlString) else {
+                logger.log("Making URLRequest is failed")
+                return
+            }
+            URLSession.shared.dataTask(with: request) { (data, _, error) in
+                if let error = error {
+                    completion(.failure(error))
+                }
+                
+                if let data = data {
+                    do {
+                        let additionalInfo = try self.additionalInformationDecoder.decodeIssueData(data)
+                        print(additionalInfo)
+                        completion(.success(additionalInfo))
+                    } catch let decodeError {
+                        completion(.failure(decodeError))
+                    }
+                }
+            }.resume()
+        }
 }
