@@ -44,7 +44,6 @@ const AddIssue = () => {
   };
 
   // TODO: 이름 바꾸기
-  // TODO: loader로 뺄지 고민해보기?
 
   const createIssue = () => {
     const body = {
@@ -55,7 +54,6 @@ const AddIssue = () => {
       labelNames: selectedLabels.map(({ id }) => id),
     };
 
-    // TODO: 서버에 물어보고 서버 문제면 지우기 (빈 배열일 경우 cors 오류 뜸)
     if (body.assignees.length === 0) {
       delete body.assignees;
     }
