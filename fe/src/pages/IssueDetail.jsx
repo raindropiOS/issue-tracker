@@ -98,7 +98,7 @@ const IssueDetail = () => {
   const onMilestoneClick = (milestone) => {
     const newMileStone = selectedMilestone?.id === milestone.id ? null : milestone;
 
-    fetch('http://3.38.73.117:8080/api/issues123', {
+    fetch('http://3.38.73.117:8080/api/issues', {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
