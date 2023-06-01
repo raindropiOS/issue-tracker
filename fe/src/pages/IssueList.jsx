@@ -30,8 +30,6 @@ const IssueList = () => {
       dispatch(setMainPageState(mainPageData));
       dispatch(fetchSuccess());
     } catch (error) {
-      // TODO(덴): 에러발생시 진행할 로직 구현 고민하기.(PR질문) ex. 개발자향, 사용자향 UI?
-      // ? navigate 개념 이용 ?
       dispatch(fetchError(error));
     }
   }, [dispatch, filterOptions]);

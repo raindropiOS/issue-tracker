@@ -2,7 +2,7 @@
 import { styled } from 'styled-components';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Button, UserIcon } from '../components/common';
+import { GhostButton, UserIcon } from '../components/common';
 import largeUserImage from '../assets/userImageLarge.svg';
 import SideBar from '../components/SideBar/SideBar';
 import CommentTextArea from '../components/CommentTextArea/CommentTextArea';
@@ -115,9 +115,7 @@ const AddIssue = () => {
       </SectionBox>
       <ButtonBox>
         <Link to="/">
-          <Button type="ghostButton" size="M">
-            x 작성 취소
-          </Button>
+          <GhostButton>x 작성 취소</GhostButton>
         </Link>
         <MyButton disabled={form.title.length <= 0} onClick={createIssue}>
           완료

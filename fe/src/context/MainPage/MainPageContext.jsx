@@ -25,7 +25,6 @@ export const MainPageContext = createContext(null);
 export const MainPageDispatchContext = createContext(null);
 
 const mainPageReducer = (state, action) => {
-  // ? reduce 내부에서 util 함수를 호출해도 되는걸까? 순수성?
   switch (action.type) {
     case SET_MAIN_PAGE_STATE:
       return {

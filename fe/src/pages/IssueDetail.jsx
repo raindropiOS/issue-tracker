@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import CommentList from '../components/CommentList/CommentList';
 import SideBar from '../components/SideBar/SideBar';
-import { Button } from '../components/common';
+import { ContainerButton, OutlineButton } from '../components/common';
 import TitleEditInput from '../components/TitleEditInput/TitleEditInput';
 import { getElapsedTime } from '../utils/utils';
 import { NONE } from '../constants';
@@ -218,25 +218,10 @@ const IssueDetail = () => {
         <TitleEditInput value={editTitleValue} onChange={onChange} />
       </HeaderBox>
       <ButtonsBox>
-        <Button
-          type="outlineButton"
-          size="S"
-          gap="4px"
-          color="accentBorderWeak"
-          onclick={toggleIsEditTitle}
-        >
-          편집 취소
-        </Button>
-        <Button
-          type="containerButton"
-          size="S"
-          gap="4px"
-          color="accentText"
-          backgroundColor="accentBorderWeak"
-          onclick={onSubmitTitleClick}
-        >
+        <OutlineButton onclick={toggleIsEditTitle}>편집 취소</OutlineButton>
+        <ContainerButton onclick={onSubmitTitleClick}>
           편집 완료
-        </Button>
+        </ContainerButton>
       </ButtonsBox>
     </>
   ) : (
@@ -249,24 +234,10 @@ const IssueDetail = () => {
         </IssueNumberSpan>
       </HeaderBox>
       <ButtonsBox>
-        <Button
-          type="outlineButton"
-          size="S"
-          gap="4px"
-          color="accentBorderWeak"
-          onclick={toggleIsEditTitle}
-        >
-          제목 편집
-        </Button>
-        <Button
-          type="outlineButton"
-          size="S"
-          gap="4px"
-          color="accentBorderWeak"
-          onclick={onToggleOpenClick}
-        >
+        <OutlineButton onclick={toggleIsEditTitle}>제목 편집</OutlineButton>
+        <OutlineButton onclick={onToggleOpenClick}>
           {issueInfo.state ? '이슈 닫기' : '이슈 열기'}
-        </Button>
+        </OutlineButton>
       </ButtonsBox>
     </>
   );

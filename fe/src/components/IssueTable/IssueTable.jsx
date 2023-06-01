@@ -7,7 +7,7 @@ import {
   MainPageDispatchContext,
   mainPageInitialState,
 } from '../../context/MainPage/MainPageContext';
-import { Button } from '../common';
+import { GhostButton } from '../common';
 import { OPENED, RESET } from '../../constants';
 import { ReactComponent as xSquare } from '../../assets/xSquare.svg';
 import { setFilterOption } from '../../context/MainPage/MainPageActions';
@@ -99,8 +99,7 @@ const IssueTable = () => {
     <div>
       {isFilterApplied ? (
         <FilterNoticeBox>
-          <Button
-            type="ghostButton"
+          <GhostButton
             size="S"
             gap="7px"
             color="neutralText"
@@ -113,7 +112,7 @@ const IssueTable = () => {
           >
             <XSquare />
             현재의 검색 필터 및 정렬 지우기
-          </Button>
+          </GhostButton>
         </FilterNoticeBox>
       ) : (
         ''
