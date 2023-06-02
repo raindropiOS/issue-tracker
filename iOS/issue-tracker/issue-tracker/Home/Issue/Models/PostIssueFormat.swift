@@ -14,5 +14,5 @@ struct PostIssueFormat: Encodable {
     var assignees: [String] = []
     var labelNames: [String] = []
     #warning("milestone만 안올라가는 중..")
-    var mileStoneName: String?
+    var milestoneName: String?
 }

@@ -33,7 +33,7 @@ class AddtionalInfoTableViewController: UITableViewController {
             } else if let label = selectedItem as? Label {
                 delegate?.issue.labelNames.append(label.name)
             } else if let milestone = selectedItem as? Milestone {
-                delegate?.issue.mileStoneName = milestone.name
+                delegate?.issue.milestoneName = milestone.name
             }
         }
         
