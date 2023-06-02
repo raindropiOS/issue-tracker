@@ -11,11 +11,13 @@ const CommentList = ({
 }) => {
   return (
     <CommentListBox className={className}>
-      <Comment
-        author={issue.user}
-        createdDate={issue.createdDate}
-        contents={issue.contents}
-      />
+      {issue.contents && (
+        <Comment
+          author={issue.user}
+          createdDate={issue.createdDate}
+          contents={issue.contents}
+        />
+      )}
       {comments.map((comment) => {
         return (
           <Comment
