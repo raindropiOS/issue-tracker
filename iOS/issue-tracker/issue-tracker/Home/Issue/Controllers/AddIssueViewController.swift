@@ -16,6 +16,11 @@ class AddIssueViewController: UIViewController {
     
     private let networkManager = NetworkManager()
     private var additionalInfo: AdditionalInformation?
+    var additionalInfocellLabels : [(String,String)] = [
+        ("담당자", ""),
+        ("레이블", ""),
+        ("마일스톤", "")
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +30,10 @@ class AddIssueViewController: UIViewController {
         registerCell()
         setTitleInputLabelLayout()
         fetchData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        tableView.reloadData()
     }
     
     @IBAction func saveButtonTouched(_ sender: Any) {
@@ -76,13 +85,17 @@ extension AddIssueViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: AddIssueTableViewCell.identifier, for: indexPath) as? AddIssueTableViewCell else {
             return UITableViewCell()
         }
+        
+        let type = additionalInfocellLabels[indexPath.row].0
+        let name = additionalInfocellLabels[indexPath.row].1
+        
         switch indexPath.row {
         case 0:
-            cell.configure(type: "담당자", name: "")
+            cell.configure(type: type, name: name)
         case 1:
-            cell.configure(type: "레이블", name: "")
+            cell.configure(type: type, name: name)
         case 2:
-            cell.configure(type: "마일스톤", name: "")
+            cell.configure(type: type, name: name)
         default:
             return UITableViewCell()
         }
@@ -98,6 +111,7 @@ extension AddIssueViewController: UITableViewDataSource {
 }
 
 extension AddIssueViewController: UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let storyboard = UIStoryboard(name: "HomeStoryboard", bundle: nil)
@@ -113,3 +127,4 @@ extension AddIssueViewController: UITableViewDelegate {
         show(additionalInfoTableViewController, sender: self)
     }
 }
+

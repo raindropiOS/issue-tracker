@@ -30,10 +30,13 @@ class AddtionalInfoTableViewController: UITableViewController {
         if let selectedItem = selectedItem {
             if let user = selectedItem as? User {
                 delegate?.issue.assignees.append(user.id)
+                delegate?.additionalInfocellLabels[0].1 = user.id
             } else if let label = selectedItem as? Label {
                 delegate?.issue.labelNames.append(label.name)
+                delegate?.additionalInfocellLabels[1].1 = label.name
             } else if let milestone = selectedItem as? Milestone {
                 delegate?.issue.milestoneName = milestone.name
+                delegate?.additionalInfocellLabels[2].1 = milestone.name
             }
         }
         
