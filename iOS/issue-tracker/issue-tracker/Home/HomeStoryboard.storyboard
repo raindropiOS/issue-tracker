@@ -126,7 +126,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="제목을 입력하세요" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cGh-Iq-72i">
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="제목을 입력하세요" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cGh-Iq-72i">
                                         <rect key="frame" x="332.66666666666669" y="0.0" width="28.333333333333314" height="34"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <textInputTraits key="textInputTraits"/>
