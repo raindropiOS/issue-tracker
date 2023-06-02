@@ -8,10 +8,12 @@ import { MainPageStateContext } from '../../../context/MainPage/MainPageStateCon
 const Pagination = () => {
   const { paging } = useContext(MainPageStateContext);
   const dispatch = useContext(MainPageFilterDispatchContext);
-  const { startPage, nowPage, lastPage } = paging;
+  const {
+    startPage, nowPage, lastPage, endPage,
+  } = paging;
 
   const pageList = Array.from(
-    { length: lastPage - startPage + 1 },
+    { length: endPage - startPage + 1 },
     (_, index) => index + startPage,
   );
 
