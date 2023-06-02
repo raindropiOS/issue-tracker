@@ -23,8 +23,8 @@ class IssueTabViewController: UIViewController, IssueCollectionViewDelegate, Iss
     
     
     private let logger = Logger()
-    internal let networkManager = NetworkManager()
-    private var issueFrames: [IssueFrame]?
+    let networkManager = NetworkManager()
+    var issueFrames: [IssueFrame]?
     private var currentIssueDataUrlString: String = Server.base.rawValue
     
     @IBOutlet var backPlane: UIView!
@@ -83,6 +83,9 @@ class IssueTabViewController: UIViewController, IssueCollectionViewDelegate, Iss
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        collectionView.issueFrames = []
+        networkManager.cntPage = 1
+        collectionView.reloadData()
         fetchData()
     }
     
@@ -168,7 +171,8 @@ class IssueTabViewController: UIViewController, IssueCollectionViewDelegate, Iss
                     self.collectionView.reloadData()
                 }
             case .failure(let error):
-                self.logger.error("error : \(error)")
+//                self.logger.error("error : \(error)")
+                print("error: \(error)")
             }
         }
     }

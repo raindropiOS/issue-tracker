@@ -114,7 +114,6 @@ class NetworkManager {
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         guard let data = issueDataEncoder.encodeIssueDatum(with: issue) else { return }
-        print(String(data: data, encoding: .utf8))
         let jsonData = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as? Data ?? nil
         
         request.httpBody = data

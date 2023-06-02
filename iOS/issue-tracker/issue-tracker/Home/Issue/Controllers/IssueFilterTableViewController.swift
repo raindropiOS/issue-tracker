@@ -9,7 +9,8 @@ import UIKit
 
 class IssueFilterTableViewController: UITableViewController {
     var filterOptionList: FilterOptionsLike?
-    weak var delegate: IssueTabViewControllerLike?
+//    weak var delegate: IssueTabViewControllerLike?
+    weak var delegate: IssueTabViewController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +51,7 @@ class IssueFilterTableViewController: UITableViewController {
         case 0: return "상태"
         case 1: return "담당자"
         case 2: return "레이블"
+        case 3: return "마일스톤"
         default: return "Header \(section)"
         }
     }
@@ -65,8 +67,9 @@ class IssueFilterTableViewController: UITableViewController {
     }
 }
 
-protocol IssueTabViewControllerLike: AnyObject {
+protocol IssueTabViewControllerLike: AnyObject, NetworkManagerIncluded {
     var filterOptionList: FilterOptionsLike { get set }
+    var issueFrames: [IssueFrame]? { get set }
 }
 
 // 취소, 저장 버튼
@@ -95,6 +98,7 @@ extension IssueFilterTableViewController {
     @objc func saveAction() {
         if let savedFilterOptionList = self.filterOptionList {
             delegate?.filterOptionList = savedFilterOptionList
+            delegate?.issueFrames = []
         }
         dismissSelf()
     }
