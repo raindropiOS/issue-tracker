@@ -4,10 +4,10 @@ import styled from 'styled-components';
 import { RESET } from '../../../../constants';
 import { setFilterOption } from '../../../../context/MainPage/MainPageActions';
 import {
-  MainPageContext,
-  MainPageDispatchContext,
-} from '../../../../context/MainPage/MainPageContext';
-import DropDown from '../../../DropDown/DropDown';
+  MainPageFilterContext,
+  MainPageFilterDispatchContext,
+} from '../../../../context/MainPage/MainPageFilterContext';
+import DropDown from '../../../DropDown';
 
 const sendPatchRequest = async ({ targetIssueNumber, targetState }) => {
   const url = 'http://3.38.73.117:8080/api/issues';
@@ -40,8 +40,8 @@ const changeIssuesState = async (selectedIssues, state) => {
 };
 
 const IssueListModifier = ({ selectedIssues, issueListTotalCount }) => {
-  const { filterOptions } = useContext(MainPageContext);
-  const dispatch = useContext(MainPageDispatchContext);
+  const filterOptions = useContext(MainPageFilterContext);
+  const dispatch = useContext(MainPageFilterDispatchContext);
 
   const dropDownConfig = {
     buttonText: '상태 수정',

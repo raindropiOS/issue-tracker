@@ -1,6 +1,6 @@
 import { styled } from 'styled-components';
 import { useEffect, useState } from 'react';
-import DropDown from '../DropDown/DropDown';
+import DropDown from '../DropDown';
 import { Label, UserIcon } from '../common';
 
 const SideBar = ({

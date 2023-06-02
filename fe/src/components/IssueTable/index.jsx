@@ -1,13 +1,8 @@
 import styled from 'styled-components';
 import { useContext, useEffect, useState } from 'react';
-import IssueItem from './IssueItem/IssueItem';
-import TableToolBar from './TableToolBar/TableToolBar';
-import {
-  MainPageContext,
-  MainPageDispatchContext,
-  mainPageInitialState,
-} from '../../context/MainPage/MainPageContext';
-import { Button } from '../common';
+import IssueItem from './IssueItem';
+import TableToolBar from './TableToolBar';
+import { GhostButton } from '../common';
 import { OPENED, RESET } from '../../constants';
 import { ReactComponent as xSquare } from '../../assets/xSquare.svg';
 import { setFilterOption } from '../../context/MainPage/MainPageActions';
@@ -15,10 +10,17 @@ import { CheckBoxActive, CheckBoxDisabled, CheckBoxInitial } from './CheckBox';
 import IssueListFilters from './TableToolBar/IssueListFilters';
 import IssueListModifier from './TableToolBar/IssueListModifier';
 import Pagination from './Pagination';
+import { MainPageStateContext } from '../../context/MainPage/MainPageStateContext';
+import {
+  MainPageFilterContext,
+  MainPageFilterDispatchContext,
+  MainPageInitialFilterOptions,
+} from '../../context/MainPage/MainPageFilterContext';
 
 const IssueTable = () => {
-  const { issues, filterOptions } = useContext(MainPageContext);
-  const dispatch = useContext(MainPageDispatchContext);
+  const { issues } = useContext(MainPageStateContext);
+  const filterOptions = useContext(MainPageFilterContext);
+  const dispatch = useContext(MainPageFilterDispatchContext);
   const [selectedIssues, setSelectedIssues] = useState([]);
 
   useEffect(() => {
@@ -52,6 +54,32 @@ const IssueTable = () => {
       && option !== false
       && option.length > 0
       && option !== OPENED,
+  );
+
+  const filterNotice = isFilterApplied && (
+    <FilterNoticeBox>
+      <GhostButton
+        size="S"
+        gap="7px"
+        color="neutralText"
+        hoverColor="iconBackgoundBlue"
+        onclick={() => {
+          dispatch(setFilterOption(RESET, MainPageInitialFilterOptions));
+        }}
+      >
+        <XSquare />
+        현재의 검색 필터 및 정렬 지우기
+      </GhostButton>
+    </FilterNoticeBox>
+  );
+
+  const toolbarContent = selectedIssues.length ? (
+    <IssueListModifier
+      selectedIssues={selectedIssues}
+      issueListTotalCount={selectedIssues.length}
+    />
+  ) : (
+    <IssueListFilters />
   );
 
   const issueItems = issues
@@ -97,37 +125,10 @@ const IssueTable = () => {
 
   return (
     <div>
-      {isFilterApplied ? (
-        <FilterNoticeBox>
-          <Button
-            type="ghostButton"
-            size="S"
-            gap="7px"
-            color="neutralText"
-            hoverColor="iconBackgoundBlue"
-            onclick={() => {
-              dispatch(
-                setFilterOption(RESET, mainPageInitialState.filterOptions),
-              );
-            }}
-          >
-            <XSquare />
-            현재의 검색 필터 및 정렬 지우기
-          </Button>
-        </FilterNoticeBox>
-      ) : (
-        ''
-      )}
+      {filterNotice}
       <TableToolBar>
         {CheckBox}
-        {selectedIssues.length ? (
-          <IssueListModifier
-            selectedIssues={selectedIssues}
-            issueListTotalCount={selectedIssues.length}
-          />
-        ) : (
-          <IssueListFilters />
-        )}
+        {toolbarContent}
       </TableToolBar>
       {issueItems ? (
         <>

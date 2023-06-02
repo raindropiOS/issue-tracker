@@ -6,7 +6,7 @@ import { ReactComponent as mileStone } from '../../../assets/mileStone.svg';
 import { ReactComponent as archive } from '../../../assets/archive.svg';
 import { Label, UserIcon } from '../../common';
 import { CheckBoxActive, CheckBoxInitial } from '../CheckBox';
-import { getElapsedTime } from '../../../utils/utils';
+import { getElapsedTime } from '../../../utils';
 
 const IssueItem = ({
   state,
