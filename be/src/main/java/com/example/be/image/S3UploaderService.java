@@ -19,16 +19,16 @@ import java.util.UUID;
 @Service
 public class S3UploaderService {
 
+    private static final Logger log = LoggerFactory.getLogger(S3UploaderService.class);
+
     private final AmazonS3Client amazonS3Client;
 
-    private static final Logger log = LoggerFactory.getLogger(S3UploaderService.class);
+    @Value("${cloud.aws.s3.bucket}")
+    private String bucket;
 
     public S3UploaderService(AmazonS3Client amazonS3Client) {
         this.amazonS3Client = amazonS3Client;
     }
-
-    @Value("${cloud.aws.s3.bucket}")
-    private String bucket;
 
     // MultipartFile을 전달받아 File로 전환한 후 S3에 업로드
     public String upload(MultipartFile multipartFile, String dirName) throws IOException {
